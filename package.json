@@ -1,0 +1,46 @@
+{
+  "name": "@fnando/i18n",
+  "version": "0.0.0",
+  "description": "A small library to provide the I18n translations on the JavaScript.",
+  "main": "./module/index.js",
+  "browser": "./browser/index.js",
+  "node": "./node/index.js",
+  "types": "./module/index.d.ts",
+  "repository": "https://github.com/fnando/i18n",
+  "author": "Nando Vieira <me@fnando.com>",
+  "license": "MIT",
+  "scripts": {
+    "docs": "typedoc src",
+    "test": "jest --watch",
+    "test:ci": "jest",
+    "clean": "rm -rf ./{module,browser,node}",
+    "webpack:build": "webpack --output ./${DIST_DIR}/index.js --mode production --entry ./module/index.js --output-library-target $OUTPUT_LIBRARY_TARGET --devtool sourcemaps",
+    "webpack:browser": "OUTPUT_LIBRARY_TARGET=var DIST_DIR=browser yarn webpack:build",
+    "webpack:node": "OUTPUT_LIBRARY_TARGET=commonjs DIST_DIR=node yarn webpack:build",
+    "build": "yarn clean && tsc && yarn webpack:browser && yarn webpack:node",
+    "lint:typescript": "tsc --noEmit",
+    "lint:eslint": "eslint --config .eslintrc.js --max-warnings 0 'src/**/*'",
+    "lint": "yarn lint:typescript && yarn lint:eslint"
+  },
+  "devDependencies": {
+    "@fnando/codestyle": "^0.0.7",
+    "@fnando/eslint-config-codestyle": "^0.0.5",
+    "@types/jest": "^24.0.23",
+    "@types/lodash": "^4.14.149",
+    "@typescript-eslint/eslint-plugin": "^2.10.0",
+    "@typescript-eslint/parser": "^2.10.0",
+    "eslint": "^6.7.2",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "jest": "^24.9.0",
+    "prettier": "^1.19.1",
+    "ts-jest": "^24.2.0",
+    "typedoc": "^0.15.4",
+    "typescript": "^3.7.3",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15"
+  }
+}

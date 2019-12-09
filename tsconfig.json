@@ -1,0 +1,15 @@
+{
+  "extends": "@fnando/codestyle",
+  "include": ["src"],
+  "compilerOptions": {
+    "baseUrl": "src",
+    "noEmit": false,
+    "target": "es2015",
+    "lib": ["esnext", "dom"],
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "outDir": "./module/",
+    "declaration": true,
+    "declarationDir": "./module/"
+  }
+}
