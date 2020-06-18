@@ -1,4 +1,4 @@
-const config = require("@fnando/codestyle/typescript/jest");
+const config = require("@fnando/codestyle/jest");
 
 module.exports = {
   ...config,

@@ -2,16 +2,6 @@ import { AnyObject, ArrayType, ObjectType } from "../../index.d";
 
 export type KeyModifier = (key: string) => string;
 
-function traverse(object: AnyObject, keyModifier: KeyModifier): AnyObject {
-  if (object instanceof Array) {
-    return traverseArray(object as ArrayType, keyModifier);
-  } else if (object instanceof Object) {
-    return traverseObject(object as ObjectType, keyModifier);
-  }
-
-  return object;
-}
-
 function traverseArray(list: ArrayType, keyModifier: KeyModifier): ArrayType {
   return list.map((item: AnyObject) => traverse(item, keyModifier));
 }
@@ -27,6 +17,16 @@ function traverseObject(
     }),
     {},
   );
+}
+
+function traverse(object: AnyObject, keyModifier: KeyModifier): AnyObject {
+  if (object instanceof Array) {
+    return traverseArray(object as ArrayType, keyModifier);
+  } else if (object instanceof Object) {
+    return traverseObject(object as ObjectType, keyModifier);
+  }
+
+  return object;
 }
 
 function underscore(text: string): string {

@@ -149,20 +149,10 @@ export function strftime(
   format = format.replace("%-S", secs.toString());
   format = format.replace("%w", weekDay.toString());
 
-  format = format.replace(
-    "%y",
-    year
-      .toString()
-      .padStart(2, "0")
-      .substr(-2),
-  );
+  format = format.replace("%y", year.toString().padStart(2, "0").substr(-2));
   format = format.replace(
     "%-y",
-    year
-      .toString()
-      .padStart(2, "0")
-      .substr(-2)
-      .replace(/^0+/, ""),
+    year.toString().padStart(2, "0").substr(-2).replace(/^0+/, ""),
   );
   format = format.replace("%Y", year.toString());
   format = format.replace(/%z/i, timezoneoffset);

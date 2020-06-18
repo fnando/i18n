@@ -11,7 +11,7 @@ import { I18n } from "./I18n";
  * @param {Scope} scope The translation scope.
  * @returns {string} The missing translation string.
  */
-const guessStrategy: MissingTranslationStrategy = function(i18n, scope) {
+const guessStrategy: MissingTranslationStrategy = function (i18n, scope) {
   if (scope instanceof Array) {
     scope = scope.join(i18n.defaultSeparator);
   }

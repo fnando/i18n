@@ -47,7 +47,7 @@ const defaultLocaleResolver: LocaleResolver = (
   locales
     .filter(Boolean)
     .map((entry) => entry.toString())
-    .forEach(function(currentLocale: string) {
+    .forEach(function (currentLocale: string) {
       if (!list.includes(currentLocale)) {
         list.push(currentLocale);
       }

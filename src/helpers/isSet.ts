@@ -2,9 +2,9 @@
  * Check if value is different than undefined and null.
  *
  * @private
- * @param {any} value The inspecting value.
+ * @param {unknown} value The inspecting value.
  * @returns {boolean} Whether the value is set or not.
  */
-export function isSet(value: any): boolean {
+export function isSet(value: unknown): boolean {
   return value !== undefined && value !== null;
 }
