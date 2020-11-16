@@ -1,7 +1,16 @@
 ---
 name: tests
 
-on: [push]
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+  schedule:
+    - cron: "0 10 * * *"
 
 jobs:
   build:
@@ -25,8 +34,4 @@ jobs:
         run: |
           export PATH="node_modules/.bin:$PATH"
           yarn test:ci
-
-      - name: Run lint
-        run: |
-          export PATH="node_modules/.bin:$PATH"
           yarn lint

@@ -333,7 +333,7 @@ export class I18n {
    *                                   a `message`. The translation returned
    *                                   will be either the first scope
    *                                   recognized, or the first message defined.
-   * @return {string}               The translated string.
+   * @return {string}                  The translated string.
    */
   public translate(scope: Scope, options?: TranslateOptions): string {
     options = { ...options };

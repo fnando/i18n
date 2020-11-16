@@ -1,8 +1,17 @@
-# @fnando/i18n
+<p align="center">
+  <strong style="font-size: 36px;">@fnando/i18n</strong>
+</p>
 
-[![](https://github.com/fnando/i18n/workflows/tests/badge.svg)](https://github.com/fnando/i18n/actions?query=workflow%3Atests)
+<p align="center">
+  A small library to provide the I18n translations on the JavaScript.
+</p>
 
-A small library to provide the I18n translations on the JavaScript.
+<p align="center">
+  <a href="https://github.com/fnando/i18n/actions?query=workflow%3Atests"><img src="https://github.com/fnando/i18n/workflows/tests/badge.svg" alt="Tests"></a>
+  <a href="https://www.npmjs.com/package/i18n"><img src="https://img.shields.io/npm/v/@fnando%2Fi18n.svg" alt="npm version"></a>
+  <a href="https://www.npmjs.com/package/i18n"><img src="https://img.shields.io/npm/dt/@fnando%2Fi18n.svg" alt="npm downloads"></a>
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
+</p>
 
 ## Installation
 
@@ -444,7 +453,7 @@ The accepted formats for `i18n.strftime` are:
 ```
 
 Check out
-[\_\_tests\_\_/strftime.test.ts](https://github.com/fnando/i18n/blob/master/__tests__/strftime.test.ts)
+[\_\_tests\_\_/strftime.test.ts](https://github.com/fnando/i18n/blob/main/__tests__/strftime.test.ts)
 file for more examples!
 
 Finally, you can also diplay relative time strings using `I18n#timeAgoInWords`.
