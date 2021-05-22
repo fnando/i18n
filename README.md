@@ -53,7 +53,7 @@ const i18n = new I18n({
 Each root key is a different locale that may or may not have the script code.
 This library also supports locales with region code, like `zh-Hant-TW`.
 
-Once every is set up, you can then define the locale. `en` is both the current
+Once everything is set up, you can then define the locale. `en` is both the current
 and default locale. To override either values, you have to use
 `I18n#defaultLocale` and `I18n#locale`.
 
