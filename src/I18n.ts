@@ -525,18 +525,26 @@ export class I18n {
    * during the `callback`'s execution, switching back to the previous value
    * once it finishes (with or without errors).
    *
+   * This is an asynchronous call, which means you must use `await` or you may
+   * end up with a race condition.
+   *
+   * @example
+   * await i18n.withLocale("pt", () => {
+   *   console.log(i18n.t("hello"));
+   * });
+   *
    * @param {string} locale     The temporary locale that will be set during the
    *                            function's execution.
    * @param {Function} callback The function that will be executed with a
    *                            temporary locale set.
    * @returns {void}
    */
-  public withLocale(locale: string, callback: () => void): void {
+  public async withLocale(locale: string, callback: () => void): Promise<void> {
     const originalLocale = this.locale;
 
     try {
       this.locale = locale;
-      callback();
+      await callback();
     } finally {
       this.locale = originalLocale;
     }
