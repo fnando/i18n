@@ -81,8 +81,10 @@ export class MissingTranslation {
    * i18n.missingBehavior = "oops";
    * ```
    *
-   * @param {string}                     name     [description]
-   * @param {MissingTranslationStrategy} strategy [description]
+   * @param {string}                     name     The strategy name.
+   * @param {MissingTranslationStrategy} strategy A function that returns a
+   *                                              string the result of a missing
+   *                                              translation scope.
    * @returns {void}
    */
   public register(name: string, strategy: MissingTranslationStrategy): void {

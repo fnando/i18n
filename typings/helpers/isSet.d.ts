@@ -1,1 +1,1 @@
-export declare function isSet(value: any): boolean;
+export declare function isSet(value: unknown): boolean;

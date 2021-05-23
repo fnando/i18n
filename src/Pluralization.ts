@@ -91,7 +91,8 @@ export class Pluralization {
    * The Russian pluralizer, for instance, returns `one`, `few`, `many`, `other`
    * as possible pluralization keys.
    *
-   * You can view a complete list of pluralization rules at [unicode.org](http://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html).
+   * You can view a complete list of pluralization rules at
+   * [unicode.org](http://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html).
    *
    * @param {string}     locale     The locale.
    * @param {Pluralizer} pluralizer The pluralizer function.

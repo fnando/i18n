@@ -183,7 +183,7 @@ By default a missing translation will be displayed as
 setting `i18n.missingBehavior` to `"guess"`.
 
 ```js
-I18n.missingBehaviour = "guess";
+i18n.missingBehaviour = "guess";
 ```
 
 The "guess" behavior will take the last section of the scope and apply some

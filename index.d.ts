@@ -1,6 +1,6 @@
 import { I18n } from "./src/I18n";
 
-export interface Dict<T = {}> {
+export interface Dict {
   [key: string]: any;
 }
 
@@ -45,25 +45,12 @@ export interface I18nOptions {
   defaultSeparator: string;
   enableFallback: boolean;
   locale: string;
-  missingBehavior: "guess" | "message";
+  missingBehavior: MissingBehavior;
   missingPlaceholder: MissingPlaceholderHandler;
   nullPlaceholder: NullPlaceholderHandler;
   missingTranslationPrefix: string;
   translations: Dict;
   placeholder: RegExp;
-}
-
-export interface PartialI18nOptions {
-  defaultLocale?: string;
-  defaultSeparator?: string;
-  fallbacks?: boolean;
-  locale?: string;
-  missingBehavior?: "guess" | "message";
-  missingPlaceholder?: MissingPlaceholderHandler;
-  nullPlaceholder?: NullPlaceholderHandler;
-  missingTranslationPrefix?: string;
-  translations?: Dict;
-  placeholder?: RegExp;
 }
 
 // The translation scope.

@@ -8,7 +8,6 @@ import {
   I18nOptions,
   MissingPlaceholderHandler,
   NullPlaceholderHandler,
-  PartialI18nOptions,
   Scope,
   TimeAgoInWordsOptions,
   ToNumberOptions,
@@ -58,7 +57,7 @@ const DEFAULT_I18N_OPTIONS: I18nOptions = {
   translations: {},
 
   // Set missing translation behavior. 'message' will display a message
-  // that the translation is missing, 'guess' will try to guess the string
+  // that the translation is missing, 'guess' will try to guess the string.
   missingBehavior: "message",
 
   // if you use missingBehavior with 'message', but want to know that the
@@ -130,12 +129,34 @@ const WORD_CONNECTORS = {
 export class I18n {
   private _locale: string;
 
+  /**
+   * Set the default locale. This locale will be used as a fallback locale, in
+   * case `I18n#locale` is set to a language that have no translations.
+   */
   public defaultLocale: string;
+
+  /**
+   * Set the default string separator. By default, `.` is used, as in
+   * `scope.translation`.
+   */
   public defaultSeparator: string;
+
+  /**
+   * By default missing translations will first be looked for in less specific
+   * versions of the requested locale and if that fails by taking them from your
+   * `I18n#defaultLocale`.
+   */
   public enableFallback: boolean;
+
   public locales: Locales;
+
+  /**
+   * [pluralization description]
+   * @type {Pluralization}
+   */
   public pluralization: Pluralization;
-  public missingBehavior: "guess" | "message";
+
+  public missingBehavior: string;
   public missingTranslation: MissingTranslation;
   public missingTranslationPrefix: string;
   public placeholder: RegExp;
@@ -143,7 +164,7 @@ export class I18n {
   public missingPlaceholder: MissingPlaceholderHandler;
   public nullPlaceholder: NullPlaceholderHandler;
 
-  constructor(translations: Dict, options?: PartialI18nOptions) {
+  constructor(translations: Dict, options?: Partial<I18nOptions>) {
     const {
       locale,
       enableFallback,
@@ -256,10 +277,7 @@ export class I18n {
    *                          and `number.format`.
    * @return {string}         The formatted number.
    */
-  public toCurrency(
-    amount: number,
-    options: Dict<ToNumberOptions> = {},
-  ): string {
+  public toCurrency(amount: number, options: ToNumberOptions = {}): string {
     options = {
       ...CURRENCY_FORMAT,
       ...this.get("number.format"),
@@ -373,7 +391,7 @@ export class I18n {
     ) {
       translation = this.pluralize(
         options.count || 0,
-        (translation as unknown) as string,
+        translation as unknown as string,
         options,
       );
     }

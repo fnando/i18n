@@ -1,1 +1,1 @@
-export declare function inferType(instance: any): string;
+export declare function inferType(instance: unknown): string;

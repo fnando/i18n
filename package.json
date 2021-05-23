@@ -2,13 +2,16 @@
   "name": "@fnando/i18n",
   "version": "0.0.0",
   "description": "A small library to provide I18n on JavaScript.",
+  "main": "./dist/import/index.js",
+  "browser": "./dist/browser/index.js",
   "exports": {
-    "browser": "./dist/browser/index.js",
-    "node": {
-      "import": "./dist/import/index.js",
-      "require": "./dist/require/index.js"
-    }
+    "import": "./dist/import/index.js",
+    "require": "./dist/require/index.js"
   },
+  "files": [
+    "dist/**/*",
+    "typings/**/*"
+  ],
   "typings": "./typings",
   "repository": "https://github.com/fnando/i18n",
   "author": "Nando Vieira <me@fnando.com>",

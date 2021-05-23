@@ -1,6 +1,6 @@
-import { translations } from "./fixtures/translations";
 import { I18n } from "../src/I18n";
 import { Dict, Scope } from "../index.d";
+import { translations } from "./fixtures/translations";
 
 let i18n: I18n;
 

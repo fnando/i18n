@@ -15,11 +15,7 @@ import { isSet, getFullScope } from ".";
  * @param {Dict|undefined} options The lookup options.
  * @returns {string} The resolved translation.
  */
-export function lookup<T>(
-  i18n: I18n,
-  scope: Scope,
-  options: Dict<T> = {},
-): any {
+export function lookup(i18n: I18n, scope: Scope, options: Dict = {}): any {
   options = { ...options };
 
   const locales = i18n.locales.get(options.locale || i18n.locale).slice();

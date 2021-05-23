@@ -38,5 +38,5 @@ export function createTranslationOptions(
     delete options.defaultValue;
   }
 
-  return (translationOptions as unknown) as TranslateOptions[];
+  return translationOptions as unknown as TranslateOptions[];
 }

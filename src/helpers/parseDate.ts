@@ -35,7 +35,7 @@ export function parseDate(input: DateTime): Date {
   if (typeof input === "number") {
     // UNIX timestamp
     const date = new Date();
-    date.setTime((input as unknown) as number);
+    date.setTime(input as unknown as number);
     return date;
   }
 
