@@ -1,22 +1,22 @@
 <p align="center">
-  <strong style="font-size: 36px;">@fnando/i18n</strong>
+  <strong style="font-size: 36px;">i18n-js</strong>
 </p>
 
 <p align="center">
-  A small library to provide the I18n translations on the JavaScript.
+  A small library to provide the <a href="https://rubygems.org/gems/i18n">i18n</a> translations on the JavaScript.
 </p>
 
 <p align="center">
   <a href="https://github.com/fnando/i18n/actions?query=workflow%3Atests"><img src="https://github.com/fnando/i18n/workflows/tests/badge.svg" alt="Tests"></a>
-  <a href="https://www.npmjs.com/package/i18n"><img src="https://img.shields.io/npm/v/@fnando%2Fi18n.svg" alt="npm version"></a>
-  <a href="https://www.npmjs.com/package/i18n"><img src="https://img.shields.io/npm/dt/@fnando%2Fi18n.svg" alt="npm downloads"></a>
+  <a href="https://www.npmjs.com/package/i18n"><img src="https://img.shields.io/npm/v/i18n-js.svg" alt="npm version"></a>
+  <a href="https://www.npmjs.com/package/i18n"><img src="https://img.shields.io/npm/dt/i18n-js.svg" alt="npm downloads"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
 </p>
 
 ## Installation
 
-- Yarn: `yarn add @fnando/i18n`
-- NPM: `npm install @fnando/i18n`
+- Yarn: `yarn add i18n-js@next`
+- NPM: `npm install i18n-js@next`
 
 ## Usage
 
@@ -26,7 +26,7 @@ First, you need to instantiate `I18n` with the translations' object, the main
 class of this library.
 
 ```js
-import { I18n } from "@fnando/i18n";
+import { I18n } from "i18n";
 import translations from "./translations.json";
 
 const i18n = new I18n(translations);
@@ -34,10 +34,11 @@ const i18n = new I18n(translations);
 
 The `translations` object is a direct export of translations defined by
 [Ruby on Rails](https://guides.rubyonrails.org/i18n.html). To export the
-translations, you can use [i18n-json](https://github.com/fnando/i18n-json), a
-Ruby gem that's completely disconnected from Rails and that can be used for the
-solely purpose of exporting the translations. If all you care about is some
-basic translation mechanism, then you can set the object like this:
+translations, you can use [i18n-js](https://github.com/fnando/i18n-js), a Ruby
+gem that's completely disconnected from Rails and that can be used for the
+solely purpose of exporting the translations, even if your project is written in
+a different language. If all you care about is some basic translation mechanism,
+then you can set the object like this:
 
 ```js
 const i18n = new I18n({
@@ -53,8 +54,8 @@ const i18n = new I18n({
 Each root key is a different locale that may or may not have the script code.
 This library also supports locales with region code, like `zh-Hant-TW`.
 
-Once everything is set up, you can then define the locale. `en` is both the current
-and default locale. To override either values, you have to use
+Once everything is set up, you can then define the locale. `en` is both the
+current and default locale. To override either values, you have to use
 `I18n#defaultLocale` and `I18n#locale`.
 
 ```js
@@ -72,9 +73,9 @@ other things.
 To load the base translations, use something like the following:
 
 ```js
-import { I18n } from "@fnando/i18n";
-import ptBR from "@fnando/i18n/json/pt-BR.json";
-import en from "@fnando/i18n/json/en.json";
+import { I18n } from "i18n-js";
+import ptBR from "i18n-js/json/pt-BR.json";
+import en from "i18n-js/json/en.json";
 
 const i18n = new I18n({
   ...ptBR,

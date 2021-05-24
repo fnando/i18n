@@ -1,6 +1,6 @@
 {
-  "name": "@fnando/i18n",
-  "version": "0.0.0",
+  "name": "i18n-js",
+  "version": "4.0.0-alpha.1",
   "description": "A small library to provide I18n on JavaScript.",
   "main": "./dist/import/index.js",
   "browser": "./dist/browser/index.js",
