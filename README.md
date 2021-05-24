@@ -9,7 +9,7 @@
 <p align="center">
   <a href="https://github.com/fnando/i18n/actions?query=workflow%3Atests"><img src="https://github.com/fnando/i18n/workflows/tests/badge.svg" alt="Tests"></a>
   <a href="https://www.npmjs.com/package/i18n"><img src="https://img.shields.io/npm/v/i18n-js.svg" alt="npm version"></a>
-  <a href="https://www.npmjs.com/package/i18n"><img src="https://img.shields.io/npm/dt/i18n-js.svg" alt="npm downloads"></a>
+  <a href="https://www.npmjs.com/package/i18n-js"><img src="https://img.shields.io/npm/dt/i18n-js.svg" alt="npm downloads"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
 </p>
 
