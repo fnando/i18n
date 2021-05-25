@@ -16,7 +16,8 @@ export declare class I18n {
     translations: Dict;
     missingPlaceholder: MissingPlaceholderHandler;
     nullPlaceholder: NullPlaceholderHandler;
-    constructor(translations: Dict, options?: Partial<I18nOptions>);
+    constructor(translations?: Dict, options?: Partial<I18nOptions>);
+    store(translations: Dict): void;
     get locale(): string;
     set locale(newLocale: string);
     toNumber(numeric: number, options?: ToNumberOptions): string;

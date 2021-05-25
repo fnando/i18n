@@ -1,4 +1,5 @@
 export { createTranslationOptions } from "./createTranslationOptions";
+export { flatMap } from "./flatMap";
 export { getFullScope } from "./getFullScope";
 export { inferType } from "./inferType";
 export { interpolate } from "./interpolate";
