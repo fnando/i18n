@@ -618,14 +618,14 @@ export class I18n {
    *
    * @example
    * ```js
-   * i18n.mergeTranslations("en.number.format", {unit: "%n %u"});
+   * i18n.update("en.number.format", {unit: "%n %u"});
    * ```
    *
    * @param {string} path     [description]
    * @param {Dict}   override [description]
    * @returns {void}
    */
-  public mergeTranslations(path: string, override: Dict): void {
+  public update(path: string, override: Dict): void {
     const currentNode = get(this.translations, path, {});
     const newNode = { ...currentNode, ...override };
 

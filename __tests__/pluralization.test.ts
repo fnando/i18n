@@ -24,7 +24,7 @@ test("pluralizes using the 'other' scope", () => {
 
 test("pluralizes using the 'zero' scope", () => {
   const i18n = new I18n(translations());
-  i18n.mergeTranslations("en.inbox", { zero: "No messages (zero)" });
+  i18n.update("en.inbox", { zero: "No messages (zero)" });
 
   expect(i18n.p(0, "inbox")).toEqual("No messages (zero)");
 });
@@ -56,7 +56,7 @@ test("pluralizes using multiple placeholders", () => {
 
 test("allows empty strings", () => {
   const i18n = new I18n(translations());
-  i18n.mergeTranslations("en.inbox", { zero: "" });
+  i18n.update("en.inbox", { zero: "" });
 
   expect(i18n.p(0, "inbox")).toEqual("");
 });
@@ -77,7 +77,7 @@ test("pluralizes using custom rules", () => {
     return ["other"];
   });
 
-  i18n.mergeTranslations("custom.things", {
+  i18n.update("custom.things", {
     zero: "No things",
     few: "A few things",
     other: "%{count} things",

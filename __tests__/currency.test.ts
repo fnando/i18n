@@ -16,7 +16,7 @@ test("formats currency with default settings", () => {
 test("formats currency with custom settings", () => {
   const i18n = new I18n(translations());
 
-  i18n.mergeTranslations("en.number.currency.format", {
+  i18n.update("en.number.currency.format", {
     format: "%n %u",
     unit: "USD",
     delimiter: ".",
@@ -33,7 +33,7 @@ test("formats currency with custom settings", () => {
 test("formats currency with custom settings and partial overriding", () => {
   const i18n = new I18n(translations());
 
-  i18n.mergeTranslations("en.number.currency.format", {
+  i18n.update("en.number.currency.format", {
     format: "%n %u",
     delimiter: ".",
     separator: ",",
