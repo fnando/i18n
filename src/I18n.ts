@@ -19,6 +19,7 @@ import { Pluralization } from "./Pluralization";
 import { MissingTranslation } from "./MissingTranslation";
 import {
   createTranslationOptions,
+  flatMap,
   inferType,
   interpolate,
   isSet,
@@ -164,7 +165,7 @@ export class I18n {
   public missingPlaceholder: MissingPlaceholderHandler;
   public nullPlaceholder: NullPlaceholderHandler;
 
-  constructor(translations: Dict, options?: Partial<I18nOptions>) {
+  constructor(translations: Dict = {}, options?: Partial<I18nOptions>) {
     const {
       locale,
       enableFallback,
@@ -196,6 +197,22 @@ export class I18n {
     this.pluralization = new Pluralization(this);
     this.locales = new Locales(this);
     this.missingTranslation = new MissingTranslation(this);
+  }
+
+  /**
+   * Update translations by merging them. Newest translations will override
+   * existing ones.
+   *
+   * @param {Dict} translations An object containing the translations that will
+   *                            be merged into existing translations.
+   * @return {void}
+   */
+  public store(translations: Dict): void {
+    const map = flatMap(translations);
+
+    map.forEach((path) =>
+      set(this.translations, path, get(translations, path)),
+    );
   }
 
   /**

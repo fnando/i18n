@@ -1,5 +1,5 @@
-import { translations } from "./fixtures/translations";
 import { I18n } from "../src/I18n";
+import { translations } from "./fixtures/translations";
 
 test("performs single interpolation", () => {
   const i18n = new I18n(translations());

@@ -83,6 +83,47 @@ const i18n = new I18n({
 });
 ```
 
+### Updating translation store
+
+Updating the translation store is trivial. All you have to do is calling
+`I18n#store` with the translations that need to be merged. Let's assume you've
+exported all your app's translations using
+[i18n-js](https://github.com/fnando/i18n-js) CLI, using a separate file for each
+language, like this:
+
+- `translations/en.json`
+- `translations/pt-BR.json`
+
+This is how you could update the store:
+
+```js
+import { I18n } from "i18n-js";
+import ptBR from "translations/pt-BR.json";
+import en from "translations/en.json";
+
+const i18n = new I18n();
+
+i18n.store(en);
+i18n.store(ptBR);
+```
+
+This method will allow you to lazy load translations and them updating the store
+as needed.
+
+```js
+import { I18n } from "i18n-js";
+
+async function loadTranslations(i18n, locale) {
+  const response = await fetch(`/translations/${locale}.json`);
+  const translations = await response.json();
+
+  i18n.store(translations);
+}
+
+const i18n = new I18n();
+loadTranslations(i18n, "es");
+```
+
 ### Translating messages
 
 To translate messages, you have to use the `I18n#translate`, or its `I18n#t`

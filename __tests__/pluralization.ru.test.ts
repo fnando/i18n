@@ -1,6 +1,6 @@
-import { translations } from "./fixtures/translations";
 import { I18n } from "../src/I18n";
 import { ru } from "../src/pluralize/ru";
+import { translations } from "./fixtures/translations";
 
 const i18n = new I18n(translations());
 i18n.pluralization.register("ru", ru);

@@ -1,5 +1,5 @@
-import { translations } from "./fixtures/translations";
 import { I18n } from "../src/I18n";
+import { translations } from "./fixtures/translations";
 
 test("sets alias", () => {
   const i18n = new I18n(translations());
@@ -69,7 +69,7 @@ test("localizes percentage", () => {
   expect(i18n.l("percentage", 123.45)).toEqual("123,45%");
 });
 
-test("handles invalid values when localizing time", function() {
+test("handles invalid values when localizing time", function () {
   const i18n = new I18n(translations());
 
   expect(i18n.l("time", "")).toEqual("Invalid Date");
