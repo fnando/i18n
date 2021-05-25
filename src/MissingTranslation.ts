@@ -57,8 +57,8 @@ const messageStrategy: MissingTranslationStrategy = (i18n, scope, options) => {
 };
 
 /**
- * Throw an erro whenever a translation cannot be found. The message will
- * includes the full
+ * Throw an error whenever a translation cannot be found. The message will
+ * includes the full scope.
  * To use it, you have to set `i18n.missingBehavior` to `"error"`.
  *
  * @type {MissingTranslationStrategy}
