@@ -49,7 +49,7 @@
     "webpack-cli": "*"
   },
   "dependencies": {
-    "bignumber.js": "^9.0.1",
+    "bignumber.js": "*",
     "lodash": "*"
   }
 }
