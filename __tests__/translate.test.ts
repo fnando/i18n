@@ -23,6 +23,14 @@ test("returns missing message translation for invalid scope", () => {
   expect(actual).toEqual(expected);
 });
 
+test("throws an error if missingBehavior is set to error", () => {
+  i18n.missingBehavior = "error";
+
+  expect(() => i18n.t("missing.translation")).toThrowError(
+    "Missing translation: en.missing.translation",
+  );
+});
+
 test("returns guessed translation if missingBehavior is set to guess", () => {
   i18n.missingBehavior = "guess";
   const actual = i18n.t("invalid.thisIsAutomaticallyGeneratedTranslation");

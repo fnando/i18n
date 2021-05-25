@@ -225,7 +225,7 @@ By default a missing translation will be displayed as
 setting `i18n.missingBehavior` to `"guess"`.
 
 ```js
-i18n.missingBehaviour = "guess";
+i18n.missingBehavior = "guess";
 ```
 
 The "guess" behavior will take the last section of the scope and apply some
@@ -233,6 +233,14 @@ replace rules; camel case becomes lower case and underscores are replaced with
 space. In practice, it means that a scope like
 `questionnaire.whatIsYourFavorite_ChristmasPresent` becomes
 `what is your favorite Christmas present`.
+
+There's also a strategy called `error`, which will throw an exception every time
+you fetch a missing translation. This is great for development. It'll even end
+up on your error tracking!
+
+```js
+i18n.missingBehavior = "error";
+```
 
 To detect missing translations, you can also set
 `i18n.missingTranslationPrefix`.

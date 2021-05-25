@@ -52,6 +52,26 @@ const messageStrategy: MissingTranslationStrategy = (i18n, scope, options) => {
   return `[missing "${fullScopeWithLocale}" translation]`;
 };
 
+/**
+ * Throw an erro whenever a translation cannot be found. The message will
+ * includes the full
+ * To use it, you have to set `i18n.missingBehavior` to `"error"`.
+ *
+ * @type {MissingTranslationStrategy}
+ * @param {I18n} i18n The I18n instance.
+ * @param {Scope} scope The translation scope.
+ * @param {Dict} options The translations' options.
+ * @returns {void}
+ */
+const errorStrategy: MissingTranslationStrategy = (i18n, scope, options) => {
+  const fullScope = getFullScope(i18n, scope, options);
+  const fullScopeWithLocale = [i18n.locale, fullScope].join(
+    i18n.defaultSeparator,
+  );
+
+  throw new Error(`Missing translation: ${fullScopeWithLocale}`);
+};
+
 export class MissingTranslation {
   private i18n: I18n;
   private registry: Dict;
@@ -62,6 +82,7 @@ export class MissingTranslation {
 
     this.register("guess", guessStrategy);
     this.register("message", messageStrategy);
+    this.register("error", errorStrategy);
   }
 
   /**
