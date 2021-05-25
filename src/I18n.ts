@@ -161,7 +161,7 @@ export class I18n {
   public missingTranslation: MissingTranslation;
   public missingTranslationPrefix: string;
   public placeholder: RegExp;
-  public translations: Dict;
+  public translations: Dict = {};
   public missingPlaceholder: MissingPlaceholderHandler;
   public nullPlaceholder: NullPlaceholderHandler;
 
@@ -193,10 +193,11 @@ export class I18n {
     this.missingPlaceholder = missingPlaceholder;
     this.nullPlaceholder = nullPlaceholder;
     this.placeholder = placeholder;
-    this.translations = translations;
     this.pluralization = new Pluralization(this);
     this.locales = new Locales(this);
     this.missingTranslation = new MissingTranslation(this);
+
+    this.store(translations);
   }
 
   /**
