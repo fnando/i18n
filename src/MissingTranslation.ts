@@ -1,5 +1,5 @@
 import { Dict, MissingTranslationStrategy, Scope } from "../index.d";
-import { getFullScope } from "./helpers";
+import { getFullScope, inferType } from "./helpers";
 import { I18n } from "./I18n";
 
 /**
@@ -45,9 +45,13 @@ const guessStrategy: MissingTranslationStrategy = function (i18n, scope) {
  */
 const messageStrategy: MissingTranslationStrategy = (i18n, scope, options) => {
   const fullScope = getFullScope(i18n, scope, options);
-  const fullScopeWithLocale = [i18n.locale, fullScope].join(
-    i18n.defaultSeparator,
-  );
+  const locale = "locale" in options ? options.locale : i18n.locale;
+  const localeType = inferType(locale);
+
+  const fullScopeWithLocale = [
+    localeType == "string" ? locale : localeType,
+    fullScope,
+  ].join(i18n.defaultSeparator);
 
   return `[missing "${fullScopeWithLocale}" translation]`;
 };

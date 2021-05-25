@@ -2,7 +2,7 @@ import { get } from "lodash";
 
 import { Dict, Scope } from "../../index.d";
 import { I18n } from "../I18n";
-import { isSet, getFullScope } from ".";
+import { isSet, getFullScope, inferType } from ".";
 
 /**
  * Find and process the translation using the provided scope and options.
@@ -18,7 +18,12 @@ import { isSet, getFullScope } from ".";
 export function lookup(i18n: I18n, scope: Scope, options: Dict = {}): any {
   options = { ...options };
 
-  const locales = i18n.locales.get(options.locale || i18n.locale).slice();
+  const locale = "locale" in options ? options.locale : i18n.locale;
+  const localeType = inferType(locale);
+
+  const locales = i18n.locales
+    .get(localeType === "string" ? locale : typeof locale)
+    .slice();
 
   scope = getFullScope(i18n, scope, options)
     .split(i18n.defaultSeparator)

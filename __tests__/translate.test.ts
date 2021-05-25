@@ -229,3 +229,19 @@ test("uses default value with lazy evaluation", () => {
   expect(actualArgs[1]).toEqual("foo");
   expect(actualArgs[2]).toEqual({ defaults: [{ scope: "bar" }] });
 });
+
+test("displays correct missing translation when using locale option", () => {
+  i18n.locale = "en";
+
+  expect(i18n.t("hello", { locale: "zz" })).toEqual(
+    '[missing "zz.hello" translation]',
+  );
+});
+
+test("displays correct missing translation when using locale option as null", () => {
+  i18n.locale = "en";
+
+  expect(i18n.t("hello", { locale: null })).toEqual(
+    '[missing "null.hello" translation]',
+  );
+});

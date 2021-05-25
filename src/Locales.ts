@@ -114,8 +114,8 @@ export class Locales {
 
   /**
    * Return a list of all locales that must be tried before returning the
-   * missing translation message. By default, this will consider the inline option,
-   * current locale and fallback locale.
+   * missing translation message. By default, this will consider the inline
+   * option, current locale and fallback locale.
    *
    * ```js
    * i18n.locales.get("de-DE");

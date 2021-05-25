@@ -6,6 +6,10 @@
  * @returns {string} The object's type.
  */
 export function inferType(instance: unknown): string {
+  if (instance === null) {
+    return "null";
+  }
+
   const type = typeof instance;
 
   if (type !== "object") {

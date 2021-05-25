@@ -128,13 +128,8 @@ const WORD_CONNECTORS = {
 };
 
 export class I18n {
-  private _locale: string;
-
-  /**
-   * Set the default locale. This locale will be used as a fallback locale, in
-   * case `I18n#locale` is set to a language that have no translations.
-   */
-  public defaultLocale: string;
+  private _locale: string = DEFAULT_I18N_OPTIONS.locale;
+  private _defaultLocale: string = DEFAULT_I18N_OPTIONS.defaultLocale;
 
   /**
    * Set the default string separator. By default, `.` is used, as in
@@ -181,9 +176,7 @@ export class I18n {
       ...options,
     };
 
-    // eslint-disable-next-line no-underscore-dangle
-    this._locale = "en";
-
+    this.locale = locale;
     this.defaultLocale = defaultLocale;
     this.defaultSeparator = defaultSeparator;
     this.enableFallback = enableFallback;
@@ -242,6 +235,34 @@ export class I18n {
 
     // eslint-disable-next-line no-underscore-dangle
     this._locale = newLocale;
+  }
+
+  /**
+   * Return the default locale, using a explicit locale set using
+   * `i18n.defaultLocale = locale`, the default locale set using
+   * `i18n.defaultLocale` or the fallback, which is `en`.
+   *
+   * @return {string} The current locale.
+   */
+  public get defaultLocale(): string {
+    // eslint-disable-next-line no-underscore-dangle
+    return this._defaultLocale || "en";
+  }
+
+  /**
+   * Set the default locale explicitly.
+   *
+   * @param {string} newLocale The new locale.
+   */
+  public set defaultLocale(newLocale: string) {
+    if (typeof newLocale !== "string") {
+      throw new Error(
+        `Expected newLocale to be a string; got ${inferType(newLocale)}`,
+      );
+    }
+
+    // eslint-disable-next-line no-underscore-dangle
+    this._defaultLocale = newLocale;
   }
 
   /**
