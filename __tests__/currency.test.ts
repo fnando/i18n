@@ -1,5 +1,7 @@
-import { translations } from "./fixtures/translations";
 import { I18n } from "../src/I18n";
+import { translations } from "./fixtures/translations";
+
+const BIG_NUMBER = 300000000000020000;
 
 test("formats currency with default settings", () => {
   const i18n = new I18n(translations());
@@ -7,6 +9,8 @@ test("formats currency with default settings", () => {
   expect(i18n.toCurrency(100.99)).toEqual("$100.99");
   expect(i18n.toCurrency(1000.99)).toEqual("$1,000.99");
   expect(i18n.toCurrency(-1000)).toEqual("-$1,000.00");
+  expect(i18n.toCurrency(BIG_NUMBER)).toEqual("$300,000,000,000,020,000.00");
+  expect(i18n.toCurrency(-BIG_NUMBER)).toEqual("-$300,000,000,000,020,000.00");
 });
 
 test("formats currency with custom settings", () => {

@@ -1,6 +1,8 @@
-import { translations } from "./fixtures/translations";
 import { I18n } from "../src/I18n";
 import { ToNumberOptions } from "../index.d";
+import { translations } from "./fixtures/translations";
+
+const BIG_NUMBER = 300000000000020000;
 
 test("formats number with default settings", () => {
   const i18n = new I18n(translations());
@@ -14,6 +16,7 @@ test("formats number with default settings", () => {
   expect(i18n.toNumber(1234567)).toEqual("1,234,567.000");
   expect(i18n.toNumber(12345678)).toEqual("12,345,678.000");
   expect(i18n.toNumber(123456789)).toEqual("123,456,789.000");
+  expect(i18n.toNumber(BIG_NUMBER)).toEqual("300,000,000,000,020,000.000");
 });
 
 test("formats negative numbers with default settings", () => {
@@ -28,6 +31,7 @@ test("formats negative numbers with default settings", () => {
   expect(i18n.toNumber(-1234567)).toEqual("-1,234,567.000");
   expect(i18n.toNumber(-12345678)).toEqual("-12,345,678.000");
   expect(i18n.toNumber(-123456789)).toEqual("-123,456,789.000");
+  expect(i18n.toNumber(-BIG_NUMBER)).toEqual("-300,000,000,000,020,000.000");
 });
 
 test("formats number with partial translation and default options", () => {
@@ -80,6 +84,9 @@ test("formats number considering options", () => {
   expect(i18n.toNumber(123456, options)).toEqual("123.456,00");
   expect(i18n.toNumber(1234567, options)).toEqual("1.234.567,00");
   expect(i18n.toNumber(12345678, options)).toEqual("12.345.678,00");
+  expect(i18n.toNumber(BIG_NUMBER, options)).toEqual(
+    "300.000.000.000.020.000,00",
+  );
 });
 
 test("formats numbers with different precisions", () => {
