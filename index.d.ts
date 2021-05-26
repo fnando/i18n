@@ -16,18 +16,18 @@ export interface TimeAgoInWordsOptions {
 export interface ToNumberOptions {
   unit?: string;
   format?: string;
-  sign_first?: boolean;
+  signFirst?: boolean;
   precision?: number;
   separator?: string;
   delimiter?: string;
-  strip_insignificant_zeros?: boolean;
+  stripInsignificantZeros?: boolean;
 }
 
 // I18n#toSentence() options.
 export interface ToSentenceOptions {
-  words_connector?: string;
-  two_words_connector?: string;
-  last_word_connector?: string;
+  wordsConnector?: string;
+  twoWordsConnector?: string;
+  lastWordConnector?: string;
 }
 
 // Default primitive types.
@@ -51,6 +51,7 @@ export interface I18nOptions {
   missingTranslationPrefix: string;
   translations: Dict;
   placeholder: RegExp;
+  transformKey: (key: string) => string;
 }
 
 // The translation scope.
@@ -114,8 +115,8 @@ export interface StrftimeOptions {
     pm: string;
   };
 
-  day_names: DayNames;
-  abbr_day_names: DayNames;
-  month_names: MonthNames;
-  abbr_month_names: MonthNames;
+  dayNames: DayNames;
+  abbrDayNames: DayNames;
+  monthNames: MonthNames;
+  abbrMonthNames: MonthNames;
 }

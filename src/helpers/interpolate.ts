@@ -17,7 +17,10 @@ export function interpolate(
   message: string,
   options: TranslateOptions,
 ): string {
-  options = { ...options };
+  options = Object.keys(options).reduce((buffer, key) => {
+    buffer[i18n.transformKey(key)] = options[key];
+    return buffer;
+  }, {} as TranslateOptions);
   const matches = message.match(i18n.placeholder);
 
   if (!matches) {

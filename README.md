@@ -379,7 +379,7 @@ options:
 - `precision`: defaults to `3`
 - `separator`: defaults to `.`
 - `delimiter`: defaults to `,`
-- `strip_insignificant_zeros`: defaults to `false`
+- `stripInsignificantZeros`: defaults to `false`
 
 See some number formatting examples:
 
@@ -396,8 +396,8 @@ The `I18n#toCurrency` function accepts the following options:
 - `delimiter`: sets the thousands delimiter
 - `format`: sets the format of the output string
 - `unit`: sets the denomination of the currency
-- `strip_insignificant_zeros`: defaults to `false`
-- `sign_first`: defaults to `true`
+- `stripInsignificantZeros`: defaults to `false`
+- `signFirst`: defaults to `true`
 
 You can provide only the options you want to override:
 
@@ -410,7 +410,7 @@ The `I18n#toHumanSize` function accepts the following options:
 - `precision`: defaults to `1`
 - `separator`: defaults to `.`
 - `delimiter`: defaults to `""`
-- `strip_insignificant_zeros`: defaults to `false`
+- `stripInsignificantZeros`: defaults to `false`
 - `format`: defaults to `%n%u`
 
 ```js
@@ -452,12 +452,12 @@ You can also add placeholders to the date format:
 const i18n = new I18n({
   date: {
     formats: {
-      ordinal_day: "%B %{day}",
+      ordinalDay: "%B %{day}",
     },
   },
 });
 
-i18n.l("date.formats.ordinal_day", "2009-09-18", { day: "18th" }); // Sep 18th
+i18n.l("date.formats.ordinalDay", "2009-09-18", { day: "18th" }); // Sep 18th
 ```
 
 If you prefer, you can use the `I18n#toTime` and `I18n#strftime` functions

@@ -9,6 +9,7 @@ import {
   MissingPlaceholderHandler,
   NullPlaceholderHandler,
   Scope,
+  StrftimeOptions,
   TimeAgoInWordsOptions,
   ToNumberOptions,
   ToSentenceOptions,
@@ -18,6 +19,7 @@ import { Locales } from "./Locales";
 import { Pluralization } from "./Pluralization";
 import { MissingTranslation } from "./MissingTranslation";
 import {
+  camelCaseKeys,
   createTranslationOptions,
   flatMap,
   inferType,
@@ -78,6 +80,12 @@ const DEFAULT_I18N_OPTIONS: I18nOptions = {
     message: string,
     options: Dict,
   ): string => i18n.missingPlaceholder(i18n, placeholder, message, options),
+
+  // Transform keys.
+  // By default, it returns the key as it is, but allows for overriding.
+  // For instance, you can set a function to receive the camelcase key, and
+  // convert it to snake case.
+  transformKey: (key: string): string => key,
 };
 
 /**
@@ -87,7 +95,7 @@ const NUMBER_FORMAT = {
   precision: 3,
   separator: ".",
   delimiter: ",",
-  strip_insignificant_zeros: false,
+  stripInsignificantZeros: false,
 };
 
 /**
@@ -97,7 +105,7 @@ const CURRENCY_FORMAT = {
   unit: "$",
   precision: 2,
   format: "%u%n",
-  sign_first: true,
+  signFirst: true,
   delimiter: ",",
   separator: ".",
 };
@@ -122,9 +130,9 @@ const PERCENTAGE_FORMAT = {
  * Set the default word connectors.
  */
 const WORD_CONNECTORS = {
-  words_connector: ", ",
-  two_words_connector: " and ",
-  last_word_connector: ", and ",
+  wordsConnector: ", ",
+  twoWordsConnector: " and ",
+  lastWordConnector: ", and ",
 };
 
 export class I18n {
@@ -159,6 +167,7 @@ export class I18n {
   public translations: Dict = {};
   public missingPlaceholder: MissingPlaceholderHandler;
   public nullPlaceholder: NullPlaceholderHandler;
+  public transformKey: (key: string) => string;
 
   constructor(translations: Dict = {}, options?: Partial<I18nOptions>) {
     const {
@@ -171,6 +180,7 @@ export class I18n {
       defaultLocale,
       defaultSeparator,
       placeholder,
+      transformKey,
     }: I18nOptions = {
       ...DEFAULT_I18N_OPTIONS,
       ...options,
@@ -189,6 +199,7 @@ export class I18n {
     this.pluralization = new Pluralization(this);
     this.locales = new Locales(this);
     this.missingTranslation = new MissingTranslation(this);
+    this.transformKey = transformKey;
 
     this.store(translations);
   }
@@ -274,7 +285,7 @@ export class I18n {
    * - `precision`: `3`
    * - `separator`: `"."`
    * - `delimiter`: `","`
-   * - `strip_insignificant_zeros`: `false`
+   * - `stripInsignificantZeros`: `false`
    *
    * You can also override these options by providing the `options` argument.
    *
@@ -527,7 +538,7 @@ export class I18n {
    */
   public toTime(scope: Scope, input: DateTime): string {
     const date = parseDate(input);
-    const format = lookup(this, scope);
+    const format: string = lookup(this, scope);
 
     if (date.toString().match(/invalid/i)) {
       return date.toString();
@@ -601,8 +612,8 @@ export class I18n {
    * @return {string}        The formatted date.
    */
   public strftime(date: Date, format: string): string {
-    const options = {
-      ...lookup(this, "date"),
+    const options: StrftimeOptions = {
+      ...camelCaseKeys(lookup(this, "date")),
       meridian: {
         am: lookup(this, "time.am") || "AM",
         pm: lookup(this, "time.pm") || "PM",
@@ -638,13 +649,13 @@ export class I18n {
    *
    * @param {any[]} items The list of items that will be joined.
    * @param {ToSentenceOptions} options The options.
-   * @param {string} options.words_connector The sign or word used to join the
+   * @param {string} options.wordsConnector The sign or word used to join the
    *                                         elements in arrays with two or more
    *                                         elements (default: ", ").
-   * @param {string} options.two_words_connector The sign or word used to join
+   * @param {string} options.twoWordsConnector The sign or word used to join
    *                                             the elements in arrays with two
    *                                             elements (default: " and ").
-   * @param {string} options.last_word_connector The sign or word used to join
+   * @param {string} options.lastWordConnector The sign or word used to join
    *                                             the last element in arrays with
    *                                             three or more elements
    *                                             (default: ", and ").
@@ -653,7 +664,7 @@ export class I18n {
   public toSentence(items: any[], options?: ToSentenceOptions): string {
     options = {
       ...WORD_CONNECTORS,
-      ...lookup(this, "support.array"),
+      ...camelCaseKeys(lookup(this, "support.array")),
       ...options,
     } as ToSentenceOptions;
 
@@ -667,12 +678,12 @@ export class I18n {
         return `${items[0]}`;
 
       case 2:
-        return items.join(options.two_words_connector);
+        return items.join(options.twoWordsConnector);
 
       default:
         return [
-          items.slice(0, size - 1).join(options.words_connector),
-          options.last_word_connector,
+          items.slice(0, size - 1).join(options.wordsConnector),
+          options.lastWordConnector,
           items[size - 1],
         ].join("");
     }

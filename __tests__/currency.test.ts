@@ -52,5 +52,5 @@ test("formats currency with some custom options that should be merged with defau
   expect(i18n.toCurrency(1234, { separator: "-" })).toEqual("$1,234-00");
   expect(i18n.toCurrency(1234, { delimiter: "-" })).toEqual("$1-234.00");
   expect(i18n.toCurrency(1234, { format: "%u %n" })).toEqual("$ 1,234.00");
-  expect(i18n.toCurrency(-123, { sign_first: false })).toEqual("$-123.00");
+  expect(i18n.toCurrency(-123, { signFirst: false })).toEqual("$-123.00");
 });

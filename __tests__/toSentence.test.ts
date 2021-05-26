@@ -13,9 +13,9 @@ test("uses default connecting words", () => {
 test("uses provided connecting words", () => {
   const i18n = new I18n({});
   const options = {
-    words_connector: ". ",
-    two_words_connector: " AND ",
-    last_word_connector: ". AND ",
+    wordsConnector: ". ",
+    twoWordsConnector: " AND ",
+    lastWordConnector: ". AND ",
   };
 
   expect(i18n.toSentence([], options)).toEqual("");

@@ -1,3 +1,5 @@
+import { snakeCase } from "lodash";
+
 import { I18n } from "../src/I18n";
 import { Dict, Scope } from "../index.d";
 import { translations } from "./fixtures/translations";
@@ -244,4 +246,19 @@ test("displays correct missing translation when using locale option as null", ()
   expect(i18n.t("hello", { locale: null })).toEqual(
     '[missing "null.hello" translation]',
   );
+});
+
+test("uses key transformer to fetch translation", () => {
+  i18n.locale = "en";
+  i18n.transformKey = (key: string) => snakeCase(key);
+
+  expect(i18n.t("transformKey.niceOne")).toEqual("Nice one!");
+
+  expect(
+    i18n.t("transformKey.niceOneWithName", { fullName: "John Doe" }),
+  ).toEqual("Nice one, John Doe!");
+
+  expect(
+    i18n.t("transformKey.nice_one_with_name", { full_name: "John Doe" }),
+  ).toEqual("Nice one, John Doe!");
 });

@@ -27,6 +27,7 @@ export function lookup(i18n: I18n, scope: Scope, options: Dict = {}): any {
 
   scope = getFullScope(i18n, scope, options)
     .split(i18n.defaultSeparator)
+    .map((component) => i18n.transformKey(component))
     .join(".");
 
   const entries = locales.map((locale) =>

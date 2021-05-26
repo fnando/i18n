@@ -144,7 +144,7 @@ test("formats numbers with strip insignificant zero", () => {
   const options: ToNumberOptions = {
     separator: ".",
     delimiter: ",",
-    strip_insignificant_zeros: true,
+    stripInsignificantZeros: true,
   };
 
   options["precision"] = 2;
@@ -161,7 +161,7 @@ test("keeps significant zeros [issue#103]", () => {
   const i18n = new I18n(translations());
 
   const actual = i18n.toNumber(30, {
-    strip_insignificant_zeros: true,
+    stripInsignificantZeros: true,
     precision: 0,
   });
 

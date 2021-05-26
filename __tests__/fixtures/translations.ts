@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 export function translations(): { [key: string]: any } {
   const Translations: { [key: string]: any } = {};
 
@@ -27,6 +26,12 @@ export function translations(): { [key: string]: any } {
       other: "You have {{count}} new messages ({{unread}} unread)",
       zero: "You have no new messages ({{unread}} unread)",
     },
+
+    transform_key: {
+      nice_one: "Nice one!",
+      nice_one_with_name: "Nice one, {{full_name}}!",
+    },
+
     number: {
       human: {
         storage_units: {

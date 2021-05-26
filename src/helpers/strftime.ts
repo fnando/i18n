@@ -2,7 +2,7 @@ import { StrftimeOptions } from "../../index.d";
 
 const DEFAULT_OPTIONS: StrftimeOptions = {
   meridian: { am: "AM", pm: "PM" },
-  day_names: [
+  dayNames: [
     "Sunday",
     "Monday",
     "Tuesday",
@@ -11,8 +11,8 @@ const DEFAULT_OPTIONS: StrftimeOptions = {
     "Friday",
     "Saturday",
   ],
-  abbr_day_names: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-  month_names: [
+  abbrDayNames: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+  monthNames: [
     null,
     "January",
     "February",
@@ -27,7 +27,7 @@ const DEFAULT_OPTIONS: StrftimeOptions = {
     "November",
     "December",
   ],
-  abbr_month_names: [
+  abbrMonthNames: [
     null,
     "Jan",
     "Feb",
@@ -126,10 +126,10 @@ export function strftime(
     hour12 = 12;
   }
 
-  format = format.replace("%a", options.abbr_day_names[weekDay]);
-  format = format.replace("%A", options.day_names[weekDay]);
-  format = format.replace("%b", options.abbr_month_names[month] as string);
-  format = format.replace("%B", options.month_names[month] as string);
+  format = format.replace("%a", options.abbrDayNames[weekDay]);
+  format = format.replace("%A", options.dayNames[weekDay]);
+  format = format.replace("%b", options.abbrMonthNames[month] as string);
+  format = format.replace("%B", options.monthNames[month] as string);
   format = format.replace("%d", day.toString().padStart(2, "0"));
   format = format.replace("%e", day.toString());
   format = format.replace("%-d", day.toString());
@@ -148,7 +148,6 @@ export function strftime(
   format = format.replace("%S", secs.toString().padStart(2, "0"));
   format = format.replace("%-S", secs.toString());
   format = format.replace("%w", weekDay.toString());
-
   format = format.replace("%y", year.toString().padStart(2, "0").substr(-2));
   format = format.replace(
     "%-y",

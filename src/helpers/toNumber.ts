@@ -19,7 +19,7 @@ export function toNumber(numeric: number, options: ToNumberOptions): string {
 
   formattedNumber = buffer.join(options.delimiter);
 
-  if (options.strip_insignificant_zeros && precision) {
+  if (options.stripInsignificantZeros && precision) {
     precision = precision.replace(/0+$/, "");
   }
 
@@ -27,7 +27,7 @@ export function toNumber(numeric: number, options: ToNumberOptions): string {
     formattedNumber += options.separator + precision;
   }
 
-  if (options.sign_first) {
+  if (options.signFirst) {
     format = "%s" + format;
   } else {
     format = format.replace("%n", "%s%n");
