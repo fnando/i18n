@@ -4,7 +4,7 @@ import { Pluralization } from "./Pluralization";
 import { MissingTranslation } from "./MissingTranslation";
 export declare class I18n {
     private _locale;
-    defaultLocale: string;
+    private _defaultLocale;
     defaultSeparator: string;
     enableFallback: boolean;
     locales: Locales;
@@ -20,6 +20,8 @@ export declare class I18n {
     store(translations: Dict): void;
     get locale(): string;
     set locale(newLocale: string);
+    get defaultLocale(): string;
+    set defaultLocale(newLocale: string);
     toNumber(numeric: number, options?: ToNumberOptions): string;
     toCurrency(amount: number, options?: ToNumberOptions): string;
     toHumanSize(numeric: number, options?: ToNumberOptions): string;
@@ -33,7 +35,7 @@ export declare class I18n {
     toPercentage(numeric: number, options?: ToNumberOptions): string;
     withLocale(locale: string, callback: () => void): Promise<void>;
     strftime(date: Date, format: string): string;
-    mergeTranslations(path: string, override: Dict): void;
+    update(path: string, override: Dict): void;
     toSentence(items: any[], options?: ToSentenceOptions): string;
     timeAgoInWords(fromTime: DateTime, toTime: DateTime, options?: TimeAgoInWordsOptions): string;
     distanceOfTimeInWords: (fromTime: DateTime, toTime: DateTime, options?: TimeAgoInWordsOptions) => string;
