@@ -21,7 +21,7 @@ import { MissingTranslation } from "./MissingTranslation";
 import {
   camelCaseKeys,
   createTranslationOptions,
-  flatMap,
+  propertyFlatList,
   inferType,
   interpolate,
   isSet,
@@ -213,7 +213,7 @@ export class I18n {
    * @return {void}
    */
   public store(translations: Dict): void {
-    const map = flatMap(translations);
+    const map = propertyFlatList(translations);
 
     map.forEach((path) =>
       set(this.translations, path, get(translations, path)),
@@ -487,10 +487,10 @@ export class I18n {
    * If value is either `null` or `undefined` then an empty string will be
    * returned, regardless of that localization type has been used.
    *
-   * @param  {string}      type   The localization type.
-   * @param  {string|number|Date} value   The value that must be localized.
-   * @param  {object}      options The localization options.
-   * @return {string}              The localized string.
+   * @param  {string}              type    The localization type.
+   * @param  {string|number|Date}  value   The value that must be localized.
+   * @param  {object}              options The localization options.
+   * @return {string}                      The localized string.
    */
   public localize(
     type: string,
@@ -531,10 +531,10 @@ export class I18n {
 
   /**
    * Convert the given dateString into a formatted date.
-   * @param  {scope} scope           The formatting scope.
+   * @param  {scope}              scope The formatting scope.
    * @param  {string|number|Date} input The string that must be parsed into a Date
-   *                                 object.
-   * @return {string}                The formatted date.
+   *                                    object.
+   * @return {string}                   The formatted date.
    */
   public toTime(scope: Scope, input: DateTime): string {
     const date = parseDate(input);
@@ -553,11 +553,11 @@ export class I18n {
 
   /**
    * Convert a number into a formatted percentage value.
-   * @param  {number} numeric   The number to be formatted.
-   * @param  {options} options The formatting options. When defined, supersedes
-   *                           the default options stored at
-   *                           `number.percentage.*`.
-   * @return {string}          The formatted number.
+   * @param  {number}    numeric  The number to be formatted.
+   * @param  {options}   options  The formatting options. When defined, supersedes
+   *                              the default options stored at
+   *                              `number.percentage.*`.
+   * @return {string}             The formatted number.
    */
   public toPercentage(numeric: number, options?: ToNumberOptions): string {
     options = {
@@ -583,7 +583,7 @@ export class I18n {
    *   console.log(i18n.t("hello"));
    * });
    *
-   * @param {string} locale     The temporary locale that will be set during the
+   * @param {string}   locale   The temporary locale that will be set during the
    *                            function's execution.
    * @param {Function} callback The function that will be executed with a
    *                            temporary locale set.
@@ -627,13 +627,17 @@ export class I18n {
    * You may want to update a part of your translations. This is a public
    * interface for doing it so.
    *
+   * If the provided path exists, it'll be replaced. Otherwise, a new node will
+   * be created.
+   *
    * @example
    * ```js
    * i18n.update("en.number.format", {unit: "%n %u"});
    * ```
    *
-   * @param {string} path     [description]
-   * @param {Dict}   override [description]
+   * @param {string} path     The path that's going to be updated. It must
+   *                          include the language, as in `en.messages`.
+   * @param {Dict}   override The new translation node.
    * @returns {void}
    */
   public update(path: string, override: Dict): void {
@@ -649,17 +653,17 @@ export class I18n {
    *
    * @param {any[]} items The list of items that will be joined.
    * @param {ToSentenceOptions} options The options.
-   * @param {string} options.wordsConnector The sign or word used to join the
-   *                                         elements in arrays with two or more
-   *                                         elements (default: ", ").
+   * @param {string} options.wordsConnector    The sign or word used to join
+   *                                           the elements in arrays with two
+   *                                           or more elements (default: ", ").
    * @param {string} options.twoWordsConnector The sign or word used to join
-   *                                             the elements in arrays with two
-   *                                             elements (default: " and ").
+   *                                           the elements in arrays with two
+   *                                           elements (default: " and ").
    * @param {string} options.lastWordConnector The sign or word used to join
-   *                                             the last element in arrays with
-   *                                             three or more elements
-   *                                             (default: ", and ").
-   * @returns {string} The joined string.
+   *                                           the last element in arrays with
+   *                                           three or more elements
+   *                                           (default: ", and ").
+   * @returns {string}                         The joined string.
    */
   public toSentence(items: any[], options?: ToSentenceOptions): string {
     options = {
@@ -692,16 +696,19 @@ export class I18n {
   /**
    * Reports the approximate distance in time between two time representations.
    *
-   * @param {DateTime} fromTime The initial time.
-   * @param {DateTime} toTime The ending time. Defaults to `Date.now()`.
-   * @param {TimeAgoInWordsOptions} options The options.
+   * @param {DateTime}              fromTime The initial time.
+   * @param {DateTime}              toTime   The ending time. Defaults to
+   *                                         `Date.now()`.
+   * @param {TimeAgoInWordsOptions} options  The options.
    * @param {boolean} options.includeSeconds Pass `{includeSeconds: true}` if
    *                                         you want more detailed
    *                                         approximations when
    *                                         distance < 1 min, 29 secs.
-   * @param {Scope} options.scope With the scope option, you can define a custom
-   *                              scope to look up the translation.
-   * @returns {string} The distance in time representation.
+   * @param {Scope} options.scope            With the scope option, you can
+   *                                         define a custom scope to look up
+   *                                         the translation.
+   * @returns {string}                       The distance in time
+   *                                         representation.
    */
   public timeAgoInWords(
     fromTime: DateTime,

@@ -1,8 +1,8 @@
-import { flatMap } from "../src/helpers/flatMap";
+import { propertyFlatList } from "../src/helpers/propertyFlatList";
 
-describe("flatMap", () => {
-  it("generates map", () => {
-    const map = flatMap({
+describe("propertyFlatList", () => {
+  it("generates list", () => {
+    const map = propertyFlatList({
       user: {
         email: "EMAIL",
         addresses: [

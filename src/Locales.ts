@@ -17,9 +17,9 @@ import { I18n } from "./I18n";
  * The default in case nothing is defined is `["en"]`.
  *
  * @type {LocaleResolver}
- * @param {I18n} i18n The I18n instance.
- * @param {string} locale The locale that being analysed.
- * @returns {string[]} The resolved locales.
+ * @param {I18n}       i18n    The I18n instance.
+ * @param {string}     locale  The locale that being analysed.
+ * @returns {string[]}         The resolved locales.
  */
 const defaultLocaleResolver: LocaleResolver = (
   i18n: I18n,
@@ -95,7 +95,7 @@ export class Locales {
    * });
    * ```
    *
-   * @param {string} locale The locale's name.
+   * @param {string}                         locale         The locale's name.
    * @param {LocaleResolver|string|string[]} localeResolver The locale resolver
    *                                                        strategy.
    * @returns {void}
@@ -122,8 +122,8 @@ export class Locales {
    * // ["de-DE", "de", "en"]
    * ```
    *
-   * @param {string} locale The locale query.
-   * @returns {string[]} The list of locales.
+   * @param {string}     locale The locale query.
+   * @returns {string[]}        The list of locales.
    */
   public get(locale: string): string[] {
     let locales =

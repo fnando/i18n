@@ -8,10 +8,10 @@ import { isSet } from ".";
  * the translationOptions array.
  *
  * @private
- * @param  {I18n} i18n The I18n instance.
- * @param  {string|array} scope The translation scope.
- * @param  {object}       options The translation options.
- * @returns {array} Translation options
+ * @param  {I18n}            i18n  The I18n instance.
+ * @param  {string|array}   scope  The translation scope.
+ * @param  {object}       options  The translation options.
+ * @returns {array}                Translation options
  */
 export function createTranslationOptions(
   i18n: I18n,

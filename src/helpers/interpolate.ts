@@ -6,11 +6,11 @@ import { isSet } from ".";
  * This function interpolates the all variables in the given message.
  *
  * @private
- * @param {I18n} i18n The I18n instance.
+ * @param {I18n}      i18n The I18n instance.
  * @param {string} message The string containing the placeholders.
  * @param {object} options The source object that will be used as the
  *                         placeholders' source.
- * @returns {string} The interpolated string.
+ * @returns {string}       The interpolated string.
  */
 export function interpolate(
   i18n: I18n,

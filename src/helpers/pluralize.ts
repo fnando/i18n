@@ -9,11 +9,11 @@ import { interpolate, isSet, lookup } from ".";
  * which will be retrieved from `options`.
  *
  * @private
- * @param  {I18n} i18n   The I18n instance.
- * @param  {number} count   The counting number.
- * @param  {Scope} scope    The translation scope.
+ * @param  {I18n}      i18n The I18n instance.
+ * @param  {number}   count The counting number.
+ * @param  {Scope}    scope The translation scope.
  * @param  {object} options The translation options.
- * @returns {string}         The translated string.
+ * @returns {string}        The translated string.
  */
 export function pluralize(
   i18n: I18n,

@@ -13,9 +13,9 @@ import { I18n } from "./I18n";
  * - when greater than `1`, then the key is `other`.
  *
  * @type {Pluralizer}
- * @param {I18n} _i18n The I18n's instance.
- * @param {number} count The number that's being analyzed.
- * @returns {string[]} The list of possible translation scopes.
+ * @param {I18n}       _i18n The I18n's instance.
+ * @param {number}     count The number that's being analyzed.
+ * @returns {string[]}       The list of possible translation scopes.
  */
 const defaultPluralizer: Pluralizer = (
   _i18n: I18n,
@@ -94,7 +94,7 @@ export class Pluralization {
    * You can view a complete list of pluralization rules at
    * [unicode.org](http://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html).
    *
-   * @param {string}     locale     The locale.
+   * @param {string}         locale The locale.
    * @param {Pluralizer} pluralizer The pluralizer function.
    * @returns {void}
    */

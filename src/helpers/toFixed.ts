@@ -5,9 +5,9 @@ import BigNumber from "bignumber.js";
  * [bignumber.js](https://npmjs.com/package/bignumber.js).
  *
  * @private
- * @param {number} numeric The number that will be rounded.
- * @param {number} precision The rounding decimal places.
- * @returns {string} The rounded number.
+ * @param {number}     numeric The number that will be rounded.
+ * @param {number}   precision The rounding decimal places.
+ * @returns {string}           The rounded number.
  */
 export function toFixed(numeric: number, precision: number): string {
   return new BigNumber(numeric).toFixed(precision);

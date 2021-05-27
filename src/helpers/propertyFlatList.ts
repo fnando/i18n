@@ -5,7 +5,7 @@ interface Indexable {
   [key: string]: unknown;
 }
 
-class FlatMap {
+class PropertyFlatList {
   public target: Dict;
 
   constructor(target: Dict) {
@@ -35,6 +35,35 @@ class FlatMap {
   }
 }
 
-export function flatMap(target: Dict): string[] {
-  return new FlatMap(target).call();
+/**
+ * Generates a flat list with all properties from target object.
+ *
+ * @example
+ * Given the following object:
+ *
+ * ```js
+ * const target = {
+ *   en: {
+ *     messages: {
+ *       hello: "Hi",
+ *       bye: "Bye"
+ *     }
+ *   }
+ * };
+ * ```
+ *
+ * A flat property list would be:
+ *
+ * ```
+ * const flatProps = [
+ *   "en.messages.bye",
+ *   "en.messages.hello"
+ * ];
+ * ```
+ *
+ * @param  {Dict}     target The object that will be mapped.
+ * @return {string[]}        The list of paths.
+ */
+export function propertyFlatList(target: Dict): string[] {
+  return new PropertyFlatList(target).call();
 }
