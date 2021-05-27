@@ -16,5 +16,5 @@ export function inferType(instance: unknown): string {
     return type;
   }
 
-  return type.constructor.name.toLowerCase();
+  return (instance as any).constructor.name.toLowerCase() || "object";
 }

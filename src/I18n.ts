@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 
-import { get, set, range } from "lodash";
+import { get, has, set, range } from "lodash";
 
 import {
   DateTime,
@@ -628,21 +628,48 @@ export class I18n {
    * interface for doing it so.
    *
    * If the provided path exists, it'll be replaced. Otherwise, a new node will
-   * be created.
+   * be created. When running in strict mode, paths that doesn't already exist
+   * will raise an exception.
+   *
+   * Strict mode will also raise an exception if the override type differs from
+   * previous node type.
    *
    * @example
    * ```js
    * i18n.update("en.number.format", {unit: "%n %u"});
+   * i18n.update("en.number.format", {unit: "%n %u"}, true);
    * ```
    *
-   * @param {string} path     The path that's going to be updated. It must
+   * @param {string}     path The path that's going to be updated. It must
    *                          include the language, as in `en.messages`.
    * @param {Dict}   override The new translation node.
+   * @param {boolean}  strict Raise an exception if path doesn't already exist,
+   *                          or if previous node's type differs from new node's
+   *                          type.
    * @returns {void}
    */
-  public update(path: string, override: Dict): void {
-    const currentNode = get(this.translations, path, {});
-    const newNode = { ...currentNode, ...override };
+  public update(path: string, override: unknown, strict = false): void {
+    if (strict && !has(this.translations, path)) {
+      throw new Error(`The path "${path}" is not currently defined`);
+    }
+
+    const currentNode = get(this.translations, path);
+    const currentType = inferType(currentNode);
+    const overrideType = inferType(override);
+
+    if (strict && currentType !== overrideType) {
+      throw new Error(
+        `The current type for "${path}" is "${currentType}", but you're trying to override it with "${overrideType}"`,
+      );
+    }
+
+    let newNode: unknown;
+
+    if (overrideType === "object") {
+      newNode = { ...currentNode, ...(override as Dict) };
+    } else {
+      newNode = override;
+    }
 
     set(this.translations, path, newNode);
   }
