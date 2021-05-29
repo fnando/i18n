@@ -1,4 +1,4 @@
-/* eslint-disable class-methods-use-this */
+/* eslint-disable class-methods-use-this, no-underscore-dangle */
 
 import { get, has, set, range } from "lodash";
 
@@ -8,6 +8,7 @@ import {
   I18nOptions,
   MissingPlaceholderHandler,
   NullPlaceholderHandler,
+  OnChangeHandler,
   Scope,
   StrftimeOptions,
   TimeAgoInWordsOptions,
@@ -140,6 +141,12 @@ export class I18n {
   private _defaultLocale: string = DEFAULT_I18N_OPTIONS.defaultLocale;
 
   /**
+   * List of all onChange handlers.
+   * @type {OnChangeHandler[]}
+   */
+  public onChangeHandlers: OnChangeHandler[] = [];
+
+  /**
    * Set the default string separator. By default, `.` is used, as in
    * `scope.translation`.
    */
@@ -210,7 +217,7 @@ export class I18n {
    *
    * @param {Dict} translations An object containing the translations that will
    *                            be merged into existing translations.
-   * @return {void}
+   * @returns {void}
    */
   public store(translations: Dict): void {
     const map = propertyFlatList(translations);
@@ -218,6 +225,8 @@ export class I18n {
     map.forEach((path) =>
       set(this.translations, path, get(translations, path)),
     );
+
+    this.runCallbacks();
   }
 
   /**
@@ -225,10 +234,9 @@ export class I18n {
    * `i18n.locale = newLocale`, the default locale set using
    * `i18n.defaultLocale` or the fallback, which is `en`.
    *
-   * @return {string} The current locale.
+   * @returns {string} The current locale.
    */
   public get locale(): string {
-    // eslint-disable-next-line no-underscore-dangle
     return this._locale || this.defaultLocale || "en";
   }
 
@@ -244,8 +252,13 @@ export class I18n {
       );
     }
 
-    // eslint-disable-next-line no-underscore-dangle
+    const changed = this._locale !== newLocale;
+
     this._locale = newLocale;
+
+    if (changed) {
+      this.runCallbacks();
+    }
   }
 
   /**
@@ -253,10 +266,9 @@ export class I18n {
    * `i18n.defaultLocale = locale`, the default locale set using
    * `i18n.defaultLocale` or the fallback, which is `en`.
    *
-   * @return {string} The current locale.
+   * @returns {string} The current locale.
    */
   public get defaultLocale(): string {
-    // eslint-disable-next-line no-underscore-dangle
     return this._defaultLocale || "en";
   }
 
@@ -272,8 +284,13 @@ export class I18n {
       );
     }
 
-    // eslint-disable-next-line no-underscore-dangle
+    const changed = this._defaultLocale !== newLocale;
+
     this._defaultLocale = newLocale;
+
+    if (changed) {
+      this.runCallbacks();
+    }
   }
 
   /**
@@ -292,7 +309,7 @@ export class I18n {
    * @param {number} numeric The number to be formatted.
    * @param {object} options The formatting options. When defined, supersedes
    *                         the default options defined by `number.format`.
-   * @return {string}        The formatted number.
+   * @returns {string}        The formatted number.
    */
   public toNumber(numeric: number, options?: ToNumberOptions): string {
     options = {
@@ -325,7 +342,7 @@ export class I18n {
    * @param  {object} options The formatting options. When defined, supersedes
    *                          the default options defined by `number.currency.*`
    *                          and `number.format`.
-   * @return {string}         The formatted number.
+   * @returns {string}         The formatted number.
    */
   public toCurrency(amount: number, options: ToNumberOptions = {}): string {
     options = {
@@ -344,7 +361,7 @@ export class I18n {
    * @param  {object} options The formatting options. When defined, supersedes
    *                          the default options stored at
    *                          `number.human.storage_units.*`.
-   * @return {string}         The formatted number.
+   * @returns {string}         The formatted number.
    */
   public toHumanSize(numeric: number, options?: ToNumberOptions): string {
     const kb = 1024;
@@ -401,7 +418,7 @@ export class I18n {
    *                                   a `message`. The translation returned
    *                                   will be either the first scope
    *                                   recognized, or the first message defined.
-   * @return {string}                  The translated string.
+   * @returns {string}                  The translated string.
    */
   public translate(scope: Scope, options?: TranslateOptions): string {
     options = { ...options };
@@ -462,7 +479,7 @@ export class I18n {
    * @param  {number} count   The counting number.
    * @param  {Scope} scope    The translation scope.
    * @param  {object} options The translation options.
-   * @return {string}         The translated string.
+   * @returns {string}         The translated string.
    */
   public pluralize(
     count: number,
@@ -490,7 +507,7 @@ export class I18n {
    * @param  {string}              type    The localization type.
    * @param  {string|number|Date}  value   The value that must be localized.
    * @param  {object}              options The localization options.
-   * @return {string}                      The localized string.
+   * @returns {string}                      The localized string.
    */
   public localize(
     type: string,
@@ -534,7 +551,7 @@ export class I18n {
    * @param  {scope}              scope The formatting scope.
    * @param  {string|number|Date} input The string that must be parsed into a Date
    *                                    object.
-   * @return {string}                   The formatted date.
+   * @returns {string}                   The formatted date.
    */
   public toTime(scope: Scope, input: DateTime): string {
     const date = parseDate(input);
@@ -557,7 +574,7 @@ export class I18n {
    * @param  {options}   options  The formatting options. When defined, supersedes
    *                              the default options stored at
    *                              `number.percentage.*`.
-   * @return {string}             The formatted number.
+   * @returns {string}             The formatted number.
    */
   public toPercentage(numeric: number, options?: ToNumberOptions): string {
     options = {
@@ -609,7 +626,7 @@ export class I18n {
    *
    * @param  {Date}   date   The date that will be formatted.
    * @param  {string} format The formatting string.
-   * @return {string}        The formatted date.
+   * @returns {string}        The formatted date.
    */
   public strftime(date: Date, format: string): string {
     const options: StrftimeOptions = {
@@ -672,6 +689,7 @@ export class I18n {
     }
 
     set(this.translations, path, newNode);
+    this.runCallbacks();
   }
 
   /**
@@ -871,11 +889,30 @@ export class I18n {
   public distanceOfTimeInWords = this.timeAgoInWords;
 
   /**
+   * Add a callback that will be executed whenever locale/defaultLocale changes,
+   * or I18n#store / I18n#update is called.
+   *
+   * @param {OnChangeHandler} callback The callback that will be executed.
+   * @returns {void}
+   */
+  public onChange(callback: OnChangeHandler): void {
+    this.onChangeHandlers.push(callback);
+  }
+
+  /**
    * @private
-   * @param  {string} path The scope lookup path.
-   * @return {any}         The found scope.
+   * @param   {string} path The scope lookup path.
+   * @returns {any}         The found scope.
    */
   private get(path: string): any {
     return lookup(this, path);
+  }
+
+  /**
+   * @private
+   * @returns {void}
+   */
+  private runCallbacks(): void {
+    this.onChangeHandlers.forEach((callback) => callback(this));
   }
 }

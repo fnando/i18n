@@ -7,7 +7,7 @@ import { Dict } from "../../index.d";
  * camel case.
  *
  * @param  {object} target The object that will be transformed.
- * @return {object}        A new transformed object.
+ * @returns {object}        A new transformed object.
  */
 export function camelCaseKeys<T = Dict>(target: unknown): T {
   if (!target) {

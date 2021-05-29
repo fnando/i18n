@@ -24,7 +24,7 @@ import { DateTime } from "../../index.d";
  * @param {DateTime} input The date string or number timestamp that must be
  *                         parsed into a Date object. If a Date object is
  *                         provided, then that's what it'll be returned.
- * @return {date}          The parsed date.
+ * @returns {date}          The parsed date.
  */
 export function parseDate(input: DateTime): Date {
   // we have a date, so just return it.

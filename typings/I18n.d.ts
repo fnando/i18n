@@ -1,10 +1,11 @@
-import { DateTime, Dict, I18nOptions, MissingPlaceholderHandler, NullPlaceholderHandler, Scope, TimeAgoInWordsOptions, ToNumberOptions, ToSentenceOptions, TranslateOptions } from "../index.d";
+import { DateTime, Dict, I18nOptions, MissingPlaceholderHandler, NullPlaceholderHandler, OnChangeHandler, Scope, TimeAgoInWordsOptions, ToNumberOptions, ToSentenceOptions, TranslateOptions } from "../index.d";
 import { Locales } from "./Locales";
 import { Pluralization } from "./Pluralization";
 import { MissingTranslation } from "./MissingTranslation";
 export declare class I18n {
     private _locale;
     private _defaultLocale;
+    onChangeHandlers: OnChangeHandler[];
     defaultSeparator: string;
     enableFallback: boolean;
     locales: Locales;
@@ -40,5 +41,7 @@ export declare class I18n {
     toSentence(items: any[], options?: ToSentenceOptions): string;
     timeAgoInWords(fromTime: DateTime, toTime: DateTime, options?: TimeAgoInWordsOptions): string;
     distanceOfTimeInWords: (fromTime: DateTime, toTime: DateTime, options?: TimeAgoInWordsOptions) => string;
+    onChange(callback: OnChangeHandler): void;
     private get;
+    private runCallbacks;
 }

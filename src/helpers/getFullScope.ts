@@ -8,7 +8,7 @@ import { I18n } from "../I18n";
  * @param {I18n}       i18n  The I18n instance.
  * @param {Scope}     scope  The scope object.
  * @param {object}  options  Options containing the base scope to be prepended.
- * @return {string}          The full scope joined by the default separator.
+ * @returns {string}          The full scope joined by the default separator.
  */
 export function getFullScope(i18n: I18n, scope: Scope, options: Dict): string {
   let result = "";

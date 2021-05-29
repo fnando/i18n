@@ -85,7 +85,7 @@ const DEFAULT_OPTIONS: StrftimeOptions = {
  * @param {string}           format The formatting string.
  * @param {StrftimeOptions} options The options that will be used to generate a
  *                                  formatted date string.
- * @return {string}                 The formatted date string.
+ * @returns {string}                 The formatted date string.
  */
 export function strftime(
   date: Date,

@@ -109,7 +109,7 @@ export class Pluralization {
    * `defaultPluralizer`.
    *
    * @param  {string}     locale The locale.
-   * @return {Pluralizer}        The pluralizer function.
+   * @returns {Pluralizer}        The pluralizer function.
    */
   public get(locale: string): Pluralizer {
     return (

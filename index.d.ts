@@ -120,3 +120,5 @@ export interface StrftimeOptions {
   monthNames: MonthNames;
   abbrMonthNames: MonthNames;
 }
+
+export type OnChangeHandler = (i18n: I18n) => void;
