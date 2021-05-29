@@ -21,7 +21,7 @@
     "test:ci": "jest",
     "clean": "rm -rf ./dist",
     "build:browser": "webpack --output-path ./dist/browser/ --output-filename index.js --mode production --entry ./dist/import/index.js --output-library-type var --output-library-name I18n --devtool source-map",
-    "build:require": "tsc --outDir ./dist/commonjs --module commonjs",
+    "build:require": "tsc --outDir ./dist/require --module commonjs",
     "build:import": "tsc --outDir ./dist/import --module ESNext",
     "build": "yarn clean && yarn build:import && yarn build:browser && yarn build:require && yarn docs",
     "lint:typescript": "tsc --noEmit",

@@ -36,7 +36,7 @@ export declare class I18n {
     toPercentage(numeric: number, options?: ToNumberOptions): string;
     withLocale(locale: string, callback: () => void): Promise<void>;
     strftime(date: Date, format: string): string;
-    update(path: string, override: Dict): void;
+    update(path: string, override: unknown, strict?: boolean): void;
     toSentence(items: any[], options?: ToSentenceOptions): string;
     timeAgoInWords(fromTime: DateTime, toTime: DateTime, options?: TimeAgoInWordsOptions): string;
     distanceOfTimeInWords: (fromTime: DateTime, toTime: DateTime, options?: TimeAgoInWordsOptions) => string;
