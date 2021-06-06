@@ -83,5 +83,30 @@ test("updates change version", () => {
   i18n.store({ en: { hello: "hi" } });
   expect(i18n.version).toEqual(4);
 
-  expect(versions).toEqual(["1-2", "2-2", "1-3", "2-3", "1-4", "2-4"]);
+  i18n.locale = "pt-BR";
+  expect(i18n.version).toEqual(5);
+
+  // No changes, no need version bump.
+  i18n.locale = "pt-BR";
+  expect(i18n.version).toEqual(5);
+
+  i18n.defaultLocale = "pt-BR";
+  expect(i18n.version).toEqual(6);
+
+  // No changes, no need version bump.
+  i18n.defaultLocale = "pt-BR";
+  expect(i18n.version).toEqual(6);
+
+  expect(versions).toEqual([
+    "1-2",
+    "2-2",
+    "1-3",
+    "2-3",
+    "1-4",
+    "2-4",
+    "1-5",
+    "2-5",
+    "1-6",
+    "2-6",
+  ]);
 });

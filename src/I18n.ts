@@ -262,7 +262,7 @@ export class I18n {
     this._locale = newLocale;
 
     if (changed) {
-      this.runCallbacks();
+      this.hasChanged();
     }
   }
 
@@ -294,7 +294,7 @@ export class I18n {
     this._defaultLocale = newLocale;
 
     if (changed) {
-      this.runCallbacks();
+      this.hasChanged();
     }
   }
 
