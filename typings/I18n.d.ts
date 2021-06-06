@@ -1,4 +1,4 @@
-import { DateTime, Dict, I18nOptions, MissingPlaceholderHandler, NullPlaceholderHandler, OnChangeHandler, Scope, TimeAgoInWordsOptions, NumberToCurrencyOptions, NumberToRoundedOptions, NumberToPercentageOptions, NumberToDelimitedOptions, NumberToHumanOptions, NumberToHumanSizeOptions, ToSentenceOptions, TranslateOptions } from "../index.d";
+import { DateTime, Dict, I18nOptions, MissingPlaceholderHandler, NullPlaceholderHandler, Numeric, OnChangeHandler, Scope, TimeAgoInWordsOptions, NumberToCurrencyOptions, NumberToRoundedOptions, NumberToPercentageOptions, NumberToDelimitedOptions, NumberToHumanOptions, NumberToHumanSizeOptions, ToSentenceOptions, TranslateOptions } from "../index.d";
 import { Locales } from "./Locales";
 import { Pluralization } from "./Pluralization";
 import { MissingTranslation } from "./MissingTranslation";
@@ -25,7 +25,7 @@ export declare class I18n {
     set locale(newLocale: string);
     get defaultLocale(): string;
     set defaultLocale(newLocale: string);
-    numberToCurrency(amount: string | number, options?: NumberToCurrencyOptions): string;
+    numberToCurrency(amount: Numeric, options?: NumberToCurrencyOptions): string;
     translate(scope: Scope, options?: TranslateOptions): string;
     t: (scope: Scope, options?: TranslateOptions | undefined) => string;
     pluralize(count: number, scope: Scope, options?: TranslateOptions): string;
@@ -33,14 +33,14 @@ export declare class I18n {
     localize(type: string, value: string | number | Date | null | undefined, options?: Dict): string;
     l: (type: string, value: string | number | Date | null | undefined, options?: Dict | undefined) => string;
     toTime(scope: Scope, input: DateTime): string;
-    numberToPercentage(input: number | string, options?: NumberToPercentageOptions): string;
-    numberToHumanSize(numeric: number, options?: NumberToHumanSizeOptions): string;
-    numberToHuman(input: number | string, options?: NumberToHumanOptions): string;
-    numberToRounded(input: number | string, options?: NumberToRoundedOptions): string;
-    numberToDelimited(input: number | string, options?: Partial<NumberToDelimitedOptions>): string;
+    numberToPercentage(input: Numeric, options?: NumberToPercentageOptions): string;
+    numberToHumanSize(numeric: Numeric, options?: NumberToHumanSizeOptions): string;
+    numberToHuman(input: Numeric, options?: NumberToHumanOptions): string;
+    numberToRounded(input: Numeric, options?: NumberToRoundedOptions): string;
+    numberToDelimited(input: Numeric, options?: Partial<NumberToDelimitedOptions>): string;
     withLocale(locale: string, callback: () => void): Promise<void>;
     strftime(date: Date, format: string): string;
-    update(path: string, override: unknown, options?: {
+    update(path: string, override: any, options?: {
         strict: boolean;
     }): void;
     toSentence(items: any[], options?: ToSentenceOptions): string;

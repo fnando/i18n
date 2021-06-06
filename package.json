@@ -1,6 +1,6 @@
 {
   "name": "i18n-js",
-  "version": "4.0.0-alpha.8",
+  "version": "4.0.0-alpha.9",
   "description": "A small library to provide I18n on JavaScript.",
   "main": "./dist/import/index.js",
   "exports": {
@@ -23,7 +23,7 @@
     "build:browser": "webpack --output-path ./dist/browser/ --output-filename index.js --mode production --entry ./dist/import/index.js --output-library-type var --output-library-name I18n --devtool source-map",
     "build:require": "tsc --outDir ./dist/require --module commonjs",
     "build:import": "tsc --outDir ./dist/import --module ESNext",
-    "build": "yarn clean && yarn build:import && yarn build:browser && yarn build:require && yarn docs",
+    "build": "yarn clean && yarn build:import && yarn build:browser && yarn build:require",
     "lint:typescript": "tsc --noEmit",
     "lint:eslint": "eslint --config .eslintrc.js --max-warnings 0 'src/**/*'",
     "lint": "yarn lint:typescript && yarn lint:eslint"
