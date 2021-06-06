@@ -1,6 +1,7 @@
 /* eslint-disable class-methods-use-this, no-underscore-dangle */
 
-import { get, has, set, range } from "lodash";
+import BigNumber from "bignumber.js";
+import { get, has, set, range, zipObject, sortBy } from "lodash";
 
 import {
   DateTime,
@@ -12,7 +13,14 @@ import {
   Scope,
   StrftimeOptions,
   TimeAgoInWordsOptions,
-  ToNumberOptions,
+  NumberToCurrencyOptions,
+  NumberToRoundedOptions,
+  NumberToPercentageOptions,
+  NumberToHumanUnits,
+  NumberToDelimitedOptions,
+  NumberToHumanOptions,
+  NumberToHumanSizeOptions,
+  FormatNumberOptions,
   ToSentenceOptions,
   TranslateOptions,
 } from "../index.d";
@@ -22,15 +30,17 @@ import { MissingTranslation } from "./MissingTranslation";
 import {
   camelCaseKeys,
   createTranslationOptions,
-  propertyFlatList,
+  expandRoundMode,
+  formatNumber,
   inferType,
   interpolate,
   isSet,
   lookup,
   parseDate,
   pluralize,
+  propertyFlatList,
+  roundNumber,
   strftime,
-  toNumber,
 } from "./helpers";
 
 const within = (start: number, end: number, actual: number): boolean =>
@@ -90,42 +100,9 @@ const DEFAULT_I18N_OPTIONS: I18nOptions = {
 };
 
 /**
- * Set default number format.
- */
-const NUMBER_FORMAT = {
-  precision: 3,
-  separator: ".",
-  delimiter: ",",
-  stripInsignificantZeros: false,
-};
-
-/**
- * Set default currency format.
- */
-const CURRENCY_FORMAT = {
-  unit: "$",
-  precision: 2,
-  format: "%u%n",
-  signFirst: true,
-  delimiter: ",",
-  separator: ".",
-};
-
-/**
  * Set default size units.
  */
-const SIZE_UNITS = [null, "kb", "mb", "gb", "tb"];
-
-/**
- * Set default percentage format.
- */
-const PERCENTAGE_FORMAT = {
-  unit: "%",
-  precision: 3,
-  format: "%n%u",
-  separator: ".",
-  delimiter: "",
-};
+const STORAGE_UNITS = ["byte", "kb", "mb", "gb", "tb", "pb", "eb"];
 
 /**
  * Set the default word connectors.
@@ -136,12 +113,40 @@ const WORD_CONNECTORS = {
   lastWordConnector: ", and ",
 };
 
+/**
+ * Set decimal units used to calculate number to human formatting.
+ */
+const DECIMAL_UNITS = {
+  "0": "unit",
+  "1": "ten",
+  "2": "hundred",
+  "3": "thousand",
+  "6": "million",
+  "9": "billion",
+  "12": "trillion",
+  "15": "quadrillion",
+  "-1": "deci",
+  "-2": "centi",
+  "-3": "mili",
+  "-6": "micro",
+  "-9": "nano",
+  "-12": "pico",
+  "-15": "femto",
+};
+
+const INVERTED_DECIMAL_UNITS = zipObject(
+  Object.values(DECIMAL_UNITS),
+  Object.keys(DECIMAL_UNITS).map((key) => parseInt(key, 10)),
+);
+
 export class I18n {
   private _locale: string = DEFAULT_I18N_OPTIONS.locale;
   private _defaultLocale: string = DEFAULT_I18N_OPTIONS.defaultLocale;
+  private _version = 0;
 
   /**
    * List of all onChange handlers.
+   *
    * @type {OnChangeHandler[]}
    */
   public onChangeHandlers: OnChangeHandler[] = [];
@@ -226,7 +231,7 @@ export class I18n {
       set(this.translations, path, get(translations, path)),
     );
 
-    this.runCallbacks();
+    this.hasChanged();
   }
 
   /**
@@ -294,34 +299,6 @@ export class I18n {
   }
 
   /**
-   * Format number using localization rules.
-   * The options will be retrieved from the `number.format` scope.
-   *
-   * If this isn't present, then the following options will be used:
-   *
-   * - `precision`: `3`
-   * - `separator`: `"."`
-   * - `delimiter`: `","`
-   * - `stripInsignificantZeros`: `false`
-   *
-   * You can also override these options by providing the `options` argument.
-   *
-   * @param {number} numeric The number to be formatted.
-   * @param {object} options The formatting options. When defined, supersedes
-   *                         the default options defined by `number.format`.
-   * @returns {string}        The formatted number.
-   */
-  public toNumber(numeric: number, options?: ToNumberOptions): string {
-    options = {
-      ...NUMBER_FORMAT,
-      ...this.get("number.format"),
-      ...options,
-    } as ToNumberOptions;
-
-    return toNumber(numeric, options);
-  }
-
-  /**
    * Format currency with localization rules.
    *
    * The options will be retrieved from the `number.currency.format` and
@@ -338,87 +315,56 @@ export class I18n {
    *
    * You can also override these options by providing the `options` argument.
    *
-   * @param  {number} amount  The number to be formatted.
-   * @param  {object} options The formatting options. When defined, supersedes
-   *                          the default options defined by `number.currency.*`
-   *                          and `number.format`.
-   * @returns {string}         The formatted number.
+   * @param {number} amount  The number to be formatted.
+   *
+   * @param {object} options The formatting options. When defined, supersedes
+   *  the default options defined by `number.currency.*` and `number.format`.
+   *
+   * @returns {string} The formatted number.
    */
-  public toCurrency(amount: number, options: ToNumberOptions = {}): string {
+  public numberToCurrency(
+    amount: string | number,
+    options: NumberToCurrencyOptions = {},
+  ): string {
     options = {
-      ...CURRENCY_FORMAT,
+      unit: "$",
+      precision: 2,
+      format: "%u%n",
+      delimiter: ",",
+      separator: ".",
       ...this.get("number.format"),
       ...this.get("number.currency.format"),
       ...options,
     };
 
-    return this.toNumber(amount, options);
-  }
+    options.negativeFormat = options.negativeFormat || `-${options.format}`;
 
-  /**
-   * Convert a number into a readable size representation.
-   * @param  {number} numeric  The number that will be formatted.
-   * @param  {object} options The formatting options. When defined, supersedes
-   *                          the default options stored at
-   *                          `number.human.storage_units.*`.
-   * @returns {string}         The formatted number.
-   */
-  public toHumanSize(numeric: number, options?: ToNumberOptions): string {
-    const kb = 1024;
-    let size = numeric;
-    let iterations = 0;
-    let unit;
-    let precision;
-
-    while (size >= kb && iterations < 4) {
-      size = size / kb;
-      iterations += 1;
-    }
-
-    if (iterations === 0) {
-      unit = this.t("number.human.storage_units.units.byte", { count: size });
-      precision = 0;
-    } else {
-      unit = this.t(
-        "number.human.storage_units.units." + SIZE_UNITS[iterations],
-      );
-      precision = size - Math.floor(size) === 0 ? 0 : 1;
-    }
-
-    options = {
-      unit,
-      precision,
-      format: "%n%u",
-      delimiter: "",
-      ...options,
-    };
-
-    return this.toNumber(size, options);
+    return formatNumber(amount, options as FormatNumberOptions);
   }
 
   /**
    * Translate the given scope with the provided options.
    *
-   * @param  {string|array} scope      The scope that will be used.
-   * @param  {object} options          The options that will be used on the
-   *                                   translation. Can include some special
-   *                                   options like `defaultValue`, `count`, and
-   *                                   `scope`. Everything else will be treated
-   *                                   as replacement values.
-   * @param {number} options.count     Enable pluralization. The returned
-   *                                   translation will depend on the detected
-   *                                   pluralizer.
+   * @param {string|array} scope The scope that will be used.
+   *
+   * @param {object} options The options that will be used on the translation.
+   * Can include some special options like `defaultValue`, `count`, and `scope`.
+   * Everything else will be treated as replacement values.
+   *
+   * @param {number} options.count Enable pluralization. The returned
+   * translation will depend on the detected pluralizer.
+   *
    * @param {any} options.defaultValue The default value that will used in case
-   *                                   the translation defined by `scope` cannot
-   *                                   be found. Can be a function that returns
-   *                                   a string; the signature is
-   *                                   `(i18n:I18n, options: TranslateOptions): string`.
+   * the translation defined by `scope` cannot be found. Can be a function that
+   * returns a string; the signature is
+   * `(i18n:I18n, options: TranslateOptions): string`.
+   *
    * @param {Dict[]} options.defaults  An array of hashs where the key is the
-   *                                   type of translation desired, a `scope` or
-   *                                   a `message`. The translation returned
-   *                                   will be either the first scope
-   *                                   recognized, or the first message defined.
-   * @returns {string}                  The translated string.
+   * type of translation desired, a `scope` or a `message`. The translation
+   * returned will be either the first scope recognized, or the first message
+   * defined.
+   *
+   * @returns {string} The translated string.
    */
   public translate(scope: Scope, options?: TranslateOptions): string {
     options = { ...options };
@@ -476,10 +422,13 @@ export class I18n {
    * The pluralized translation may have other placeholders,
    * which will be retrieved from `options`.
    *
-   * @param  {number} count   The counting number.
-   * @param  {Scope} scope    The translation scope.
-   * @param  {object} options The translation options.
-   * @returns {string}         The translated string.
+   * @param {number} count The counting number.
+   *
+   * @param {Scope} scope The translation scope.
+   *
+   * @param {object} options The translation options.
+   *
+   * @returns {string} The translated string.
    */
   public pluralize(
     count: number,
@@ -496,18 +445,22 @@ export class I18n {
 
   /**
    * Localize several values.
-   * You can provide the following scopes: `currency`, `number`, or `percentage`.
-   * If you provide a scope that matches the `/^(date|time)/` regular expression
-   * then the `value` will be converted by using the `I18n.toTime` function.
-   * It will default to the value's `toString` function.
+   *
+   * You can provide the following scopes: `currency`, `number`, or
+   * `percentage`. If you provide a scope that matches the `/^(date|time)/`
+   * regular expression then the `value` will be converted by using the
+   * `I18n.toTime` function. It will default to the value's `toString` function.
    *
    * If value is either `null` or `undefined` then an empty string will be
    * returned, regardless of that localization type has been used.
    *
-   * @param  {string}              type    The localization type.
-   * @param  {string|number|Date}  value   The value that must be localized.
-   * @param  {object}              options The localization options.
-   * @returns {string}                      The localized string.
+   * @param {string} type The localization type.
+   *
+   * @param {string|number|Date} value The value that must be localized.
+   *
+   * @param {object} options The localization options.
+   *
+   * @returns {string} The localized string.
    */
   public localize(
     type: string,
@@ -522,11 +475,18 @@ export class I18n {
 
     switch (type) {
       case "currency":
-        return this.toCurrency(value as number);
+        return this.numberToCurrency(value as number);
       case "number":
-        return this.toNumber(value as number, lookup(this, "number.format"));
+        return formatNumber(value as number, {
+          delimiter: ",",
+          precision: 3,
+          separator: ".",
+          significant: false,
+          stripInsignificantZeros: false,
+          ...lookup(this, "number.format"),
+        });
       case "percentage":
-        return this.toPercentage(value as number);
+        return this.numberToPercentage(value as number);
       default: {
         let localizedValue: string;
 
@@ -548,10 +508,13 @@ export class I18n {
 
   /**
    * Convert the given dateString into a formatted date.
-   * @param  {scope}              scope The formatting scope.
-   * @param  {string|number|Date} input The string that must be parsed into a Date
-   *                                    object.
-   * @returns {string}                   The formatted date.
+   *
+   * @param {scope} scope The formatting scope.
+   *
+   * @param {string|number|Date} input The string that must be parsed into a
+   * Date object.
+   *
+   * @returns {string} The formatted date.
    */
   public toTime(scope: Scope, input: DateTime): string {
     const date = parseDate(input);
@@ -570,21 +533,337 @@ export class I18n {
 
   /**
    * Convert a number into a formatted percentage value.
-   * @param  {number}    numeric  The number to be formatted.
-   * @param  {options}   options  The formatting options. When defined, supersedes
-   *                              the default options stored at
-   *                              `number.percentage.*`.
-   * @returns {string}             The formatted number.
+   *
+   * @param {number|string} input The number to be formatted.
+   *
+   * @param {options} options The formatting options. When defined, supersedes
+   * the default options stored at `number.percentage.*`.
+   *
+   * @returns {string} The formatted number.
    */
-  public toPercentage(numeric: number, options?: ToNumberOptions): string {
+  public numberToPercentage(
+    input: number | string,
+    options: NumberToPercentageOptions = {},
+  ): string {
     options = {
-      ...PERCENTAGE_FORMAT,
-      ...lookup(this, "number.format"),
-      ...lookup(this, "number.percentage.format"),
+      unit: "%",
+      precision: 3,
+      separator: ".",
+      delimiter: "",
+      format: "%n%",
+      ...camelCaseKeys(lookup(this, "number.percentage.format")),
       ...options,
     };
 
-    return this.toNumber(numeric, options);
+    return formatNumber(input, options as FormatNumberOptions);
+  }
+
+  /**
+   * Convert a number into a readable size representation.
+   *
+   * @param {number} numeric The number that will be formatted.
+   *
+   * @param {object} options The formatting options. When defined, supersedes
+   * the default options stored at `number.human.storage_units.*`.
+   *
+   * @returns {string} The formatted number.
+   */
+  public numberToHumanSize(
+    numeric: number,
+    options: NumberToHumanSizeOptions = {},
+  ): string {
+    options = {
+      roundMode: "default",
+      delimiter: "",
+      precision: 3,
+      significant: true,
+      stripInsignificantZeros: true,
+      ...camelCaseKeys(this.get("number.human.format")),
+      ...options,
+    };
+
+    const roundMode = expandRoundMode(options.roundMode || "default");
+    const base = 1024;
+    const num = new BigNumber(numeric).abs();
+    const smallerThanBase = num.lt(base);
+    let numberToBeFormatted;
+    const stripInsignificantZeros = options.stripInsignificantZeros ?? true;
+    const units = STORAGE_UNITS;
+
+    const computeExponent = (numeric: BigNumber, units: string[]) => {
+      const max = units.length - 1;
+      const exp = new BigNumber(Math.log(numeric.toNumber()))
+        .div(Math.log(base))
+        .integerValue(BigNumber.ROUND_DOWN)
+        .toNumber();
+
+      return Math.min(max, exp);
+    };
+
+    const storageUnitKey = () => {
+      const keyEnd = smallerThanBase ? "byte" : units[exponent];
+      return `number.human.storage_units.units.${keyEnd}`;
+    };
+
+    const exponent = computeExponent(num, units);
+
+    if (smallerThanBase) {
+      numberToBeFormatted = num.integerValue();
+    } else {
+      numberToBeFormatted = new BigNumber(
+        roundNumber(num.div(base ** exponent), {
+          significant: options.significant ?? true,
+          precision: options.precision ?? 3,
+          roundMode: options.roundMode ?? "default",
+        }),
+      );
+    }
+
+    let precision: number;
+
+    if (inferType(options.precision) === "number") {
+      precision = options.precision as number;
+    } else {
+      const significand = numberToBeFormatted.minus(
+        numberToBeFormatted.integerValue(),
+      );
+
+      if (significand.gte(0.06)) {
+        precision = 2;
+      } else if (significand.gt(0)) {
+        precision = 1;
+      } else {
+        precision = 0;
+      }
+    }
+
+    const format = this.translate("number.human.storage_units.format", {
+      defaultValue: "%n %u",
+    });
+
+    const unit = this.translate(storageUnitKey(), {
+      count: num.integerValue().toNumber(),
+    });
+
+    let formattedNumber = numberToBeFormatted.toFixed(precision, roundMode);
+
+    if (stripInsignificantZeros) {
+      formattedNumber = formattedNumber
+        .replace(/(\..*?)0+$/, "$1")
+        .replace(/\.$/, "");
+    }
+
+    return format.replace("%n", formattedNumber).replace("%u", unit);
+  }
+
+  /**
+   * Convert a number into a readable representation.
+   *
+   * @param  {number|string} input The number that will be formatted.
+   *
+   * @param  {object} options The formatting options. When defined, supersedes
+   * the default options stored at `number.human.storage_units.*`.
+   *
+   * @returns {string} The formatted number.
+   */
+  public numberToHuman(
+    input: number | string,
+    options: NumberToHumanOptions = {},
+  ): string {
+    options = {
+      delimiter: "",
+      precision: 3,
+      significant: true,
+      stripInsignificantZeros: true,
+      format: "%n %u",
+      units: this.get("number.human.decimal_units")?.units,
+      ...camelCaseKeys(this.get("number.human.format")),
+      ...options,
+    };
+
+    const roundMode = options.roundMode ?? "default";
+    const precision = options.precision ?? 3;
+    const significant = options.significant ?? true;
+    const format = options.format ?? "%n %u";
+    const separator = options.separator ?? ".";
+
+    let units: NumberToHumanUnits;
+
+    if (inferType(options.units) === "string") {
+      units = this.get(options.units as string);
+    } else {
+      units = options.units as NumberToHumanUnits;
+    }
+
+    let formattedNumber = roundNumber(new BigNumber(input), {
+      roundMode,
+      precision,
+      significant,
+    });
+
+    const unitExponents = (units: NumberToHumanUnits) =>
+      sortBy(
+        Object.keys(units).map((name) => INVERTED_DECIMAL_UNITS[name]),
+        (numeric) => numeric * -1,
+      );
+
+    const calculateExponent = (num: BigNumber, units: NumberToHumanUnits) => {
+      const exponent = num.isZero()
+        ? 0
+        : Math.floor(Math.log10(num.abs().toNumber()));
+
+      return unitExponents(units).find((exp) => exponent >= exp) || 0;
+    };
+
+    const determineUnit = (units: NumberToHumanUnits, exponent: number) => {
+      // @ts-ignore
+      const expName = DECIMAL_UNITS[exponent.toString()];
+
+      return units[expName] || "";
+    };
+
+    const exponent = calculateExponent(new BigNumber(formattedNumber), units);
+    const unit = determineUnit(units, exponent);
+
+    formattedNumber = roundNumber(
+      new BigNumber(formattedNumber).div(10 ** exponent),
+      {
+        roundMode,
+        precision,
+        significant,
+      },
+    );
+
+    if (options.stripInsignificantZeros) {
+      // eslint-disable-next-line prefer-const
+      let [whole, significand] = formattedNumber.split(".");
+      significand = (significand || "").replace(/0+$/, "");
+
+      formattedNumber = whole;
+
+      if (significand) {
+        formattedNumber += `${separator}${significand}`;
+      }
+    }
+
+    return format
+      .replace("%n", formattedNumber || "0")
+      .replace("%u", unit)
+      .trim();
+  }
+
+  /**
+   * Convert number to a formatted rounded value.
+   *
+   * @param {number|string} input The number to be formatted.
+   *
+   * @param {NumberToRoundedOptions} options The formatting options.
+   *
+   * @param {number} options.precision  Sets the precision of the number
+   * (defaults to 3).
+   *
+   * @param {string}        options.separator  Sets the separator between the
+   * fractional and integer digits (defaults to ".").
+   *
+   * @param {RoundingMode} options.roundMode  Determine how rounding is
+   * performed.
+   *
+   * @param {boolean}     options.significant  If `true`, precision will be the
+   * number of significant_digits. If `false`, the number of fractional digits
+   * (defaults to `false`).
+   *
+   * @param {boolean}  options.stripInsignificantZeros If `true` removes
+   * insignificant zeros after the decimal separator (defaults to `false`).
+   *
+   * @returns {string} The formatted number.
+   */
+  public numberToRounded(
+    input: number | string,
+    options?: NumberToRoundedOptions,
+  ): string {
+    options = {
+      unit: "",
+      precision: 3,
+      significant: false,
+      separator: ".",
+      delimiter: "",
+      stripInsignificantZeros: false,
+      ...options,
+    };
+
+    return formatNumber(input, options as FormatNumberOptions);
+  }
+
+  /**
+   * Formats a +number+ with grouped thousands using `delimiter` (e.g., 12,324).
+   * You can customize the format in the `options` parameter.
+   *
+   * @example
+   * ```js
+   * i18n.numberToDelimited(12345678)                      // => "12,345,678"
+   * i18n.numberToDelimited('123456')                      // => "123,456"
+   * i18n.numberToDelimited(12345678.05)                   // => "12,345,678.05"
+   * i18n.numberToDelimited(12345678, {delimiter: "."})    // => "12.345.678"
+   * i18n.numberToDelimited(12345678, {delimiter: ","})    // => "12,345,678"
+   * i18n.numberToDelimited(12345678.05, {separator: " "}) // => "12,345,678 05"
+   * i18n.numberToDelimited('112a')                        // => "112a"
+   * i18n.numberToDelimited(98765432.98, delimiter: " ", separator: ",")
+   *                                                       // => "98 765 432,98"
+   * i18n.numberToDelimited(
+   *   "123456.78",
+   *   {delimiterPattern: /(\d+?)(?=(\d\d)+(\d)(?!\d))/g}
+   * )                                                     // => "1,23,456.78"
+   * ```
+   *
+   * @param {number | string} input The numeric value that will be formatted.
+   *
+   * @param {NumberToDelimitedOptions} options The formatting options.
+   *
+   * @param {string} options.delimiter Sets the thousands delimiter (defaults to
+   * ",").
+   *
+   * @param {string} options.separator Sets the separator between the fractional
+   * and integer digits (defaults to ".").
+   *
+   * @param {RegExp} options.delimiterPattern Sets a custom regular expression
+   * used for deriving the placement of delimiter. Helpful when using currency
+   * formats like INR.
+   *
+   * @return {string} The formatted number.
+   */
+  public numberToDelimited(
+    input: number | string,
+    options: Partial<NumberToDelimitedOptions> = {},
+  ): string {
+    options = {
+      delimiterPattern: /(\d)(?=(\d\d\d)+(?!\d))/g,
+      delimiter: ",",
+      separator: ".",
+      ...options,
+    };
+
+    const numeric = new BigNumber(input);
+
+    if (!numeric.isFinite()) {
+      return input.toString();
+    }
+
+    const newOptions = options as NumberToDelimitedOptions;
+
+    if (!newOptions.delimiterPattern.global) {
+      throw new Error(
+        `options.delimiterPattern must be a global regular expression; received ${newOptions.delimiterPattern}`,
+      );
+    }
+
+    let [left, right] = numeric.toString().split(".");
+
+    left = left.replace(
+      newOptions.delimiterPattern,
+      (digitToDelimiter) => `${digitToDelimiter}${newOptions.delimiter}`,
+    );
+
+    return [left, right].filter(Boolean).join(newOptions.separator);
   }
 
   /**
@@ -600,10 +879,12 @@ export class I18n {
    *   console.log(i18n.t("hello"));
    * });
    *
-   * @param {string}   locale   The temporary locale that will be set during the
-   *                            function's execution.
+   * @param {string} locale The temporary locale that will be set during the
+   * function's execution.
+   *
    * @param {Function} callback The function that will be executed with a
-   *                            temporary locale set.
+   * temporary locale set.
+   *
    * @returns {void}
    */
   public async withLocale(locale: string, callback: () => void): Promise<void> {
@@ -658,15 +939,23 @@ export class I18n {
    * ```
    *
    * @param {string}     path The path that's going to be updated. It must
-   *                          include the language, as in `en.messages`.
+   * include the language, as in `en.messages`.
+   *
    * @param {Dict}   override The new translation node.
-   * @param {boolean}  strict Raise an exception if path doesn't already exist,
-   *                          or if previous node's type differs from new node's
-   *                          type.
+   *
+   * @param {boolean} options Set options.
+   *
+   * @param {boolean} options.strict Raise an exception if path doesn't already
+   * exist, or if previous node's type differs from new node's type.
+   *
    * @returns {void}
    */
-  public update(path: string, override: unknown, strict = false): void {
-    if (strict && !has(this.translations, path)) {
+  public update(
+    path: string,
+    override: unknown,
+    options: { strict: boolean } = { strict: false },
+  ): void {
+    if (options.strict && !has(this.translations, path)) {
       throw new Error(`The path "${path}" is not currently defined`);
     }
 
@@ -674,7 +963,7 @@ export class I18n {
     const currentType = inferType(currentNode);
     const overrideType = inferType(override);
 
-    if (strict && currentType !== overrideType) {
+    if (options.strict && currentType !== overrideType) {
       throw new Error(
         `The current type for "${path}" is "${currentType}", but you're trying to override it with "${overrideType}"`,
       );
@@ -689,7 +978,7 @@ export class I18n {
     }
 
     set(this.translations, path, newNode);
-    this.runCallbacks();
+    this.hasChanged();
   }
 
   /**
@@ -697,18 +986,19 @@ export class I18n {
    * joined by the connector word.
    *
    * @param {any[]} items The list of items that will be joined.
+   *
    * @param {ToSentenceOptions} options The options.
-   * @param {string} options.wordsConnector    The sign or word used to join
-   *                                           the elements in arrays with two
-   *                                           or more elements (default: ", ").
-   * @param {string} options.twoWordsConnector The sign or word used to join
-   *                                           the elements in arrays with two
-   *                                           elements (default: " and ").
-   * @param {string} options.lastWordConnector The sign or word used to join
-   *                                           the last element in arrays with
-   *                                           three or more elements
-   *                                           (default: ", and ").
-   * @returns {string}                         The joined string.
+   *
+   * @param {string} options.wordsConnector The sign or word used to join the
+   * elements in arrays with two or more elements (default: ", ").
+   *
+   * @param {string} options.twoWordsConnector The sign or word used to join the
+   * elements in arrays with two elements (default: " and ").
+   *
+   * @param {string} options.lastWordConnector The sign or word used to join the
+   * last element in arrays with three or more elements (default: ", and ").
+   *
+   * @returns {string} The joined string.
    */
   public toSentence(items: any[], options?: ToSentenceOptions): string {
     options = {
@@ -741,19 +1031,19 @@ export class I18n {
   /**
    * Reports the approximate distance in time between two time representations.
    *
-   * @param {DateTime}              fromTime The initial time.
-   * @param {DateTime}              toTime   The ending time. Defaults to
-   *                                         `Date.now()`.
+   * @param {DateTime} fromTime The initial time.
+   *
+   * @param {DateTime} toTime The ending time. Defaults to `Date.now()`.
+   *
    * @param {TimeAgoInWordsOptions} options  The options.
+   *
    * @param {boolean} options.includeSeconds Pass `{includeSeconds: true}` if
-   *                                         you want more detailed
-   *                                         approximations when
-   *                                         distance < 1 min, 29 secs.
-   * @param {Scope} options.scope            With the scope option, you can
-   *                                         define a custom scope to look up
-   *                                         the translation.
-   * @returns {string}                       The distance in time
-   *                                         representation.
+   * you want more detailed approximations when distance < 1 min, 29 secs.
+   *
+   * @param {Scope} options.scope With the scope option, you can define a custom
+   * scope to look up the translation.
+   *
+   * @returns {string} The distance in time representation.
    */
   public timeAgoInWords(
     fromTime: DateTime,
@@ -890,9 +1180,10 @@ export class I18n {
 
   /**
    * Add a callback that will be executed whenever locale/defaultLocale changes,
-   * or I18n#store / I18n#update is called.
+   * or `I18n#store` / `I18n#update` is called.
    *
    * @param {OnChangeHandler} callback The callback that will be executed.
+   *
    * @returns {void}
    */
   public onChange(callback: OnChangeHandler): void {
@@ -900,9 +1191,19 @@ export class I18n {
   }
 
   /**
+   * Return the change version. This value is incremented whenever `I18n#store`
+   * or `I18n#update` is called.
+   */
+  public get version(): number {
+    return this._version;
+  }
+
+  /**
    * @private
-   * @param   {string} path The scope lookup path.
-   * @returns {any}         The found scope.
+   *
+   * @param {string} path The scope lookup path.
+   *
+   * @returns {any} The found scope.
    */
   private get(path: string): any {
     return lookup(this, path);
@@ -914,5 +1215,15 @@ export class I18n {
    */
   private runCallbacks(): void {
     this.onChangeHandlers.forEach((callback) => callback(this));
+  }
+
+  /**
+   * @private
+   * @returns {void}
+   */
+  private hasChanged(): void {
+    this._version += 1;
+
+    this.runCallbacks();
   }
 }

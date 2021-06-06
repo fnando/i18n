@@ -29,7 +29,7 @@ test("sets translation path (partial object override)", () => {
 test("raises error when path doesn't exist in strict mode", () => {
   const i18n = new I18n();
 
-  expect(() => i18n.update("en.hi", "Hi", true)).toThrowError(
+  expect(() => i18n.update("en.hi", "Hi", { strict: true })).toThrowError(
     'The path "en.hi" is not currently defined',
   );
 });
@@ -37,7 +37,7 @@ test("raises error when path doesn't exist in strict mode", () => {
 test("raises error when type differs in strict mode", () => {
   const i18n = new I18n({ en: { hi: "Hi" } });
 
-  expect(() => i18n.update("en.hi", null, true)).toThrowError(
+  expect(() => i18n.update("en.hi", null, { strict: true })).toThrowError(
     'The current type for "en.hi" is "string", but you\'re trying to override it with "null"',
   );
 });

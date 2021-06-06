@@ -1,4 +1,10 @@
+import BigNumber from "bignumber.js";
+
 import { I18n } from "./src/I18n";
+
+export namespace BigNumber {
+  export type RoundingMode = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+}
 
 export interface Dict {
   [key: string]: any;
@@ -12,16 +18,83 @@ export interface TimeAgoInWordsOptions {
   scope?: Scope;
 }
 
-// I18n#toNumber() options.
-export interface ToNumberOptions {
-  unit?: string;
-  format?: string;
-  signFirst?: boolean;
-  precision?: number;
-  separator?: string;
-  delimiter?: string;
-  stripInsignificantZeros?: boolean;
+/**
+ * Controls handling of arithmetic exceptions and rounding.
+ *
+ * - "up": round away from zero
+ * - "down" or "truncate": round towards zero (truncate)
+ * - "halfUp" or "default": round towards the nearest neighbor, unless both
+ *   neighbors are equidistant, in which case round away from zero.
+ * - "halfDown": round towards the nearest neighbor, unless both neighbors are
+ *   equidistant, in which case round towards zero.
+ * - "halfEven" or "banker": round towards the nearest neighbor, unless both
+ *   neighbors are equidistant, in which case round towards the even neighbor
+ *   (Banker’s rounding)
+ * - "ceiling" or "ceil": round towards positive infinity
+ * - "floor": round towards negative infinity
+ *
+ * @type {string}
+ */
+export type RoundingMode =
+  | "up"
+  | "down"
+  | "truncate"
+  | "halfUp"
+  | "default"
+  | "halfDown"
+  | "halfEven"
+  | "banker"
+  | "ceiling"
+  | "ceil"
+  | "floor";
+
+// toNumber options.
+export interface FormatNumberOptions {
+  format: string;
+  negativeFormat: string;
+  precision: number | null;
+  roundMode: RoundingMode;
+  significant: boolean;
+  separator: string;
+  delimiter: string;
+  stripInsignificantZeros: boolean;
+  raise: boolean;
+  unit: string;
 }
+
+// I18n#numberToHumanSize options.
+export type NumberToHumanSizeOptions = Partial<
+  Omit<FormatNumberOptions, "format" | "negativeFormat">
+>;
+
+export type NumberToHumanUnits = {
+  [key: string]: string;
+};
+
+export type NumberToHumanOptions = Partial<
+  Omit<FormatNumberOptions, "negativeFormat" | "unit"> & {
+    units: NumberToHumanUnits | string;
+  }
+>;
+
+export type NumberToDelimitedOptions = {
+  delimiterPattern: RegExp;
+  delimiter: string;
+  separator: string;
+};
+
+// I18n#numberToPercentage options.
+export type NumberToPercentageOptions = Partial<
+  Omit<FormatNumberOptions, "raise">
+>;
+
+// I18n#numberToRounded options.
+export type NumberToRoundedOptions = Partial<
+  Omit<FormatNumberOptions, "format" | "negativeFormat"> & { precision: number }
+>;
+
+// I18n#numberToCurrency options.
+export type NumberToCurrencyOptions = Partial<FormatNumberOptions>;
 
 // I18n#toSentence() options.
 export interface ToSentenceOptions {

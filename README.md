@@ -364,58 +364,462 @@ i18n.l("percentage", 123.45);
 // 123.450%
 ```
 
-To have more control over number formatting, you can use the `I18n#toNumber`,
-`I18n#toPercentage`, `I18n#toCurrency` and `I18n#toHumanSize` functions.
+To have more control over number formatting, you can use the
+`I18n#numberToHuman`, `I18n#numberToPercentage`, `I18n#numberToCurrency`,
+`I18n#numberToHumanSize`, `I18n#numberToDelimited` and `I18n#numberToRounded`
+functions.
+
+#### `I18n#numberToCurrency`
+
+Formats a `number` into a currency string (e.g., $13.65). You can customize the
+format in the using an `options` object.
+
+The currency unit and number formatting of the current locale will be used
+unless otherwise specified in the provided options. No currency conversion is
+performed. If the user is given a way to change their locale, they will also be
+able to change the relative value of the currency displayed with this helper.
+
+##### Options
+
+- `precision` - Sets the level of precision (defaults to 2).
+- `roundMode` - Determine how rounding is performed (defaults to `default`.)
+- `unit` - Sets the denomination of the currency (defaults to "$").
+- `separator` - Sets the separator between the units (defaults to ".").
+- `delimiter` - Sets the thousands delimiter (defaults to ",").
+- `format` - Sets the format for non-negative numbers (defaults to "%u%n").
+  Fields are `%u` for the currency, and `%n` for the number.
+- `negativeFormat` - Sets the format for negative numbers (defaults to
+  prepending a hyphen to the formatted number given by `format`). Accepts the
+  same fields than `format`, except `%n` is here the absolute value of the
+  number.
+- `stripInsignificantZeros` - If `true` removes insignificant zeros after the
+  decimal separator (defaults to `false`).
+- `raise` - If `true`, raises exception for non-numeric values like NaN and
+  Infinite values.
+
+##### Examples
 
 ```js
-i18n.toNumber(1000); // 1,000.000
-i18n.toCurrency(1000); // $1,000.00
-i18n.toPercentage(100); // 100.000%
+i18n.numberToCurrency(1234567890.5);
+// => "$1,234,567,890.50"
+
+i18n.numberToCurrency(1234567890.506);
+// => "$1,234,567,890.51"
+
+i18n.numberToCurrency(1234567890.506, { precision: 3 });
+// => "$1,234,567,890.506"
+
+i18n.numberToCurrency("123a456");
+// => "$123a456"
+
+i18n.numberToCurrency("123a456", { raise: true });
+// => raises exception ("123a456" is not a valid numeric value)
+
+i18n.numberToCurrency(-0.456789, { precision: 0 });
+// => "$0"
+
+i18n.numberToCurrency(-1234567890.5, { negativeFormat: "(%u%n)" });
+// => "($1,234,567,890.50)"
+
+i18n.numberToCurrency(1234567890.5, {
+  unit: "&pound;",
+  separator: ",",
+  delimiter: "",
+});
+// => "&pound;1234567890,50"
+
+i18n.numberToCurrency(1234567890.5, {
+  unit: "&pound;",
+  separator: ",",
+  delimiter: "",
+  format: "%n %u",
+});
+// => "1234567890,50 &pound;"
+
+i18n.numberToCurrency(1234567890.5, { stripInsignificantZeros: true });
+// => "$1,234,567,890.5"
+
+i18n.numberToCurrency(1234567890.5, { precision: 0, roundMode: "up" });
+// => "$1,234,567,891"
 ```
 
-The `I18n#toNumber` and `I18n#toPercentage` functions accept the following
-options:
+#### `I18n#numberToPercentage`
 
-- `precision`: defaults to `3`
-- `separator`: defaults to `.`
-- `delimiter`: defaults to `,`
-- `stripInsignificantZeros`: defaults to `false`
+Formats a `number` as a percentage string (e.g., 65%). You can customize the
+format in the `options` hash.
 
-See some number formatting examples:
+##### Options
+
+- `precision` - Sets the level of precision (defaults to 3).
+- `roundMode` - Determine how rounding is performed (defaults to `default`.)
+- `unit` - Sets the denomination of the currency (defaults to "$").
+- `separator` - Sets the separator between the units (defaults to ".").
+- `delimiter` - Sets the thousands delimiter (defaults to "").
+- `format` - Sets the format for non-negative numbers (defaults to "%n%"). The
+  number field is represented by `%n`.
+- `negativeFormat` - Sets the format for negative numbers (defaults to
+  prepending a hyphen to the formatted number given by `format`). Accepts the
+  same fields than `format`, except `%n` is here the absolute value of the
+  number.
+- `stripInsignificantZeros` - If `true` removes insignificant zeros after the
+  decimal separator (defaults to `false`).
+
+##### Examples
 
 ```js
-i18n.toNumber(1000, { precision: 0 }); // 1,000
-i18n.toNumber(1000, { delimiter: ".", separator: "," }); // 1.000,000
-i18n.toNumber(1000, { delimiter: ".", precision: 0 }); // 1.000
+i18n.numberToPercentage(100);
+// => "100.000%"
+
+i18n.numberToPercentage("98");
+// => "98.000%"
+
+i18n.numberToPercentage(100, { precision: 0 });
+// => "100%"
+
+i18n.numberToPercentage(1000, { delimiter: ".", separator: "," });
+// => "1.000,000%"
+
+i18n.numberToPercentage(302.24398923423, { precision: 5 });
+// => "302.24399%"
+
+i18n.numberToPercentage(1000, { precision: null });
+// => "1000%"
+
+i18n.numberToPercentage("98a");
+// => "98a%"
+
+i18n.numberToPercentage(100, { format: "%n  %" });
+// => "100.000  %"
+
+i18n.numberToPercentage(302.24398923423, { precision: 5, roundMode: "down" });
+// => "302.24398%"
 ```
 
-The `I18n#toCurrency` function accepts the following options:
+#### `I18n#numberToDelimited`
 
-- `precision`: sets the level of precision
-- `separator`: sets the separator between the units
-- `delimiter`: sets the thousands delimiter
-- `format`: sets the format of the output string
-- `unit`: sets the denomination of the currency
-- `stripInsignificantZeros`: defaults to `false`
-- `signFirst`: defaults to `true`
+Formats a `number` with grouped thousands using `delimiter` (e.g., 12,324). You
+can customize the format in the `options` object.
 
-You can provide only the options you want to override:
+##### Options
+
+- `delimiter` - Sets the thousands delimiter (defaults to ",").
+- `separator` - Sets the separator between the fractional and integer digits
+  (defaults to ".").
+- `delimiterPattern` - Sets a custom regular expression used for deriving the
+  placement of delimiter. Helpful when using currency formats like INR. The
+  regular expression must be global (i.e. it has the `g` flag).
+
+##### Examples
 
 ```js
-i18n.toCurrency(1000, { precision: 0 }); // $1,000
+i18n.numberToDelimited(12345678);
+// => "12,345,678"
+
+i18n.numberToDelimited("123456");
+// => "123,456"
+
+i18n.numberToDelimited(12345678.05);
+// => "12,345,678.05"
+
+i18n.numberToDelimited(12345678, { delimiter: "." });
+// => "12.345.678"
+
+i18n.numberToDelimited(12345678, { delimiter: "," });
+// => "12,345,678"
+
+i18n.numberToDelimited(12345678.05, { separator: " " });
+// => "12,345,678 05"
+
+i18n.numberToDelimited("112a");
+// => "112a"
+
+i18n.numberToDelimited(98765432.98, { delimiter: " ", separator: "," });
+// => "98 765 432,98"
+
+i18n.numberToDelimited("123456.78", {
+  delimiterPattern: /(\d+?)(?=(\d\d)+(\d)(?!\d))/g,
+});
+// => "1,23,456.78"
 ```
 
-The `I18n#toHumanSize` function accepts the following options:
+#### `I18n#numberToRounded`
 
-- `precision`: defaults to `1`
-- `separator`: defaults to `.`
-- `delimiter`: defaults to `""`
-- `stripInsignificantZeros`: defaults to `false`
-- `format`: defaults to `%n%u`
+Formats a `number` with the specified level of `precision` (e.g., 112.32 has a
+precision of 2 if `significant` is `false`, and 5 if `significant` is `true`).
+You can customize the format in the `options` object.
+
+##### Options
+
+- `locale` - Sets the locale to be used for formatting (defaults to current
+  locale).
+- `precision` - Sets the precision of the number (defaults to 3). Keeps the
+  number's precision if `null`.
+- `RoundMode` - Determine how rounding is performed (defaults to :default).
+- `significant` - If `true`, precision will be the number of significant_digits.
+  If `false`, the number of fractional digits (defaults to `false`).
+- `separator` - Sets the separator between the fractional and integer digits
+  (defaults to ".").
+- `delimiter` - Sets the thousands delimiter (defaults to "").
+- `stripInsignificantZeros` - If `true` removes insignificant zeros after the
+  decimal separator (defaults to `false`).
+
+##### Examples
 
 ```js
-i18n.toHumanSize(1234); // 1KB
-i18n.toHumanSize(1234 * 1024); // 1MB
+i18n.numberToRounded(111.2345);
+// => "111.235"
+
+i18n.numberToRounded(111.2345, { precision: 2 });
+// => "111.23"
+
+i18n.numberToRounded(13, { precision: 5 });
+// => "13.00000"
+
+i18n.numberToRounded(389.32314, { precision: 0 });
+// => "389"
+
+i18n.numberToRounded(111.2345, { significant: true });
+// => "111"
+
+i18n.numberToRounded(111.2345, { precision: 1, significant: true });
+// => "100"
+
+i18n.numberToRounded(13, { precision: 5, significant: true });
+// => "13.000"
+
+i18n.numberToRounded(13, { precision: null });
+// => "13"
+
+i18n.numberToRounded(389.32314, { precision: 0, roundMode: "up" });
+// => "390"
+
+i18n.numberToRounded(13, {
+  precision: 5,
+  significant: true,
+  stripInsignificantZeros: true,
+});
+// => "13"
+
+i18n.numberToRounded(389.32314, { precision: 4, significant: true });
+// => "389.3"
+
+i18n.numberToRounded(1111.2345, {
+  precision: 2,
+  separator: ",",
+  delimiter: ".",
+});
+// => "1.111,23"
+```
+
+#### `I18n#numberToHumanSize`
+
+Formats the bytes in `number` into a more understandable representation (e.g.,
+giving it 1500 yields 1.46 KB). This method is useful for reporting file sizes
+to users. You can customize the format in the `options` object.
+
+See `I18n#numberToHuman` if you want to pretty-print a generic number.
+
+##### Options
+
+- `precision` - Sets the precision of the number (defaults to 3).
+- `roundMode` - Determine how rounding is performed (defaults to `default`)
+- `significant` - If `true`, precision will be the number of significant_digits.
+  If `false`, the number of fractional digits (defaults to `true`)
+- `separator` - Sets the separator between the fractional and integer digits
+  (defaults to ".").
+- `delimiter` - Sets the thousands delimiter (defaults to "").
+- `stripInsignificantZeros` - If `true` removes insignificant zeros after the
+  decimal separator (defaults to `true`)
+
+##### Examples
+
+```js
+i18n.numberToHumanSize(123)
+// => "123 Bytes"
+
+i18n.numberToHumanSize(1234)
+// => "1.21 KB"
+
+i18n.numberToHumanSize(12345)
+// => "12.1 KB"
+
+i18n.numberToHumanSize(1234567)
+// => "1.18 MB"
+
+i18n.numberToHumanSize(1234567890)
+// => "1.15 GB"
+
+i18n.numberToHumanSize(1234567890123)
+// => "1.12 TB"
+
+i18n.numberToHumanSize(1234567890123456)
+// => "1.1 PB"
+
+i18n.numberToHumanSize(1234567890123456789)
+// => "1.07 EB"
+
+i18n.numberToHumanSize(1234567, {precision: 2})
+// => "1.2 MB"
+
+i18n.numberToHumanSize(483989, precision: 2)
+// => "470 KB"
+
+i18n.numberToHumanSize(483989, {precision: 2, roundMode: "up"})
+// => "480 KB"
+
+i18n.numberToHumanSize(1234567, {precision: 2, separator: ","})
+// => "1,2 MB"
+
+i18n.numberToHumanSize(1234567890123, {precision: 5})
+// => "1.1228 TB"
+
+i18n.numberToHumanSize(524288000, {precision: 5})
+// => "500 MB"
+```
+
+#### `I18n#numberToHuman`
+
+Pretty prints (formats and approximates) a number in a way it is more readable
+by humans (e.g.: 1200000000 becomes "1.2 Billion"). This is useful for numbers
+that can get very large (and too hard to read).
+
+See `I18n#numberToHumanSize` if you want to print a file size.
+
+You can also define your own unit-quantifier names if you want to use other
+decimal units (e.g.: 1500 becomes "1.5 kilometers", 0.150 becomes "150
+milliliters", etc). You may define a wide range of unit quantifiers, even
+fractional ones (centi, deci, mili, etc).
+
+##### Options
+
+- `precision` - Sets the precision of the number (defaults to 3).
+- `roundMode` - Determine how rounding is performed (defaults to `default`).
+- `significant` - If `true`, precision will be the number of significant_digits.
+  If `false`, the number of fractional digits (defaults to `true`)
+- `separator` - Sets the separator between the fractional and integer digits
+  (defaults to ".").
+- `delimiter` - Sets the thousands delimiter (defaults to "").
+- `stripInsignificantZeros` - If `true` removes insignificant zeros after the
+  decimal separator (defaults to `true`)
+- `units` - A Hash of unit quantifier names. Or a string containing an i18n
+  scope where to find this hash. It might have the following keys:
+  - _integers_: `unit`, `ten`, `hundred`, `thousand`, `million`, `billion`,
+    `trillion`, `quadrillion`
+  - _fractionals_: `deci`, `centi`, `mili`, `micro`, `nano`, `pico`, `femto`
+- `format` - Sets the format of the output string (defaults to "%n %u"). The
+  field types are:
+  - %u - The quantifier (ex.: 'thousand')
+  - %n - The number
+
+##### Examples
+
+```js
+i18n.numberToHuman(123);
+// => "123"
+
+i18n.numberToHuman(1234);
+// => "1.23 Thousand"
+
+i18n.numberToHuman(12345);
+// => "12.3 Thousand"
+
+i18n.numberToHuman(1234567);
+// => "1.23 Million"
+
+i18n.numberToHuman(1234567890);
+// => "1.23 Billion"
+
+i18n.numberToHuman(1234567890123);
+// => "1.23 Trillion"
+
+i18n.numberToHuman(1234567890123456);
+// => "1.23 Quadrillion"
+
+i18n.numberToHuman(1234567890123456789);
+// => "1230 Quadrillion"
+
+i18n.numberToHuman(489939, { precision: 2 });
+// => "490 Thousand"
+
+i18n.numberToHuman(489939, { precision: 4 });
+// => "489.9 Thousand"
+
+i18n.numberToHuman(489939, { precision: 2, roundMode: "down" });
+// => "480 Thousand"
+
+i18n.numberToHuman(1234567, { precision: 4, significant: false });
+// => "1.2346 Million"
+
+i18n.numberToHuman(1234567, {
+  precision: 1,
+  separator: ",",
+  significant: false,
+});
+// => "1,2 Million"
+
+i18n.numberToHuman(500000000, { precision: 5 });
+// => "500 Million"
+
+i18n.numberToHuman(12345012345, { significant: false });
+// => "12.345 Billion"
+```
+
+Non-significant zeros after the decimal separator are stripped out by default
+(set `stripInsignificantZeros` to `false` to change that):
+
+```js
+i18n.numberToHuman(12.00001);
+// => "12"
+
+i18n.numberToHuman(12.00001, { stripInsignificantZeros: false });
+// => "12.0"
+```
+
+You can also use your own custom unit quantifiers:
+
+```js
+i18n.numberToHuman(500000, units: { unit: "ml", thousand: "lt" })
+// => "500 lt"
+```
+
+If in your I18n locale you have:
+
+```yaml
+---
+en:
+  distance:
+    centi:
+      one: "centimeter"
+      other: "centimeters"
+    unit:
+      one: "meter"
+      other: "meters"
+    thousand:
+      one: "kilometer"
+      other: "kilometers"
+    billion: "gazillion-distance"
+```
+
+Then you could do:
+
+```js
+i18n.numberToHuman(543934, { units: "distance" });
+// => "544 kilometers"
+
+i18n.numberToHuman(54393498, { units: "distance" });
+// => "54400 kilometers"
+
+i18n.numberToHuman(54393498000, { units: "distance" });
+// => "54.4 gazillion-distance"
+
+i18n.numberToHuman(343, { units: "distance", precision: 1 });
+// => "300 meters"
+
+i18n.numberToHuman(1, { units: "distance" });
+// => "1 meter"
+
+i18n.numberToHuman(0.34, { units: "distance" });
+// => "34 centimeters"
 ```
 
 ### Date Formatting

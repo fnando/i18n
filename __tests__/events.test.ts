@@ -58,3 +58,30 @@ test("notifies multiple callbacks", () => {
   expect(callback).toHaveBeenCalledTimes(1);
   expect(anotherCallback).toHaveBeenCalledTimes(1);
 });
+
+test("updates change version", () => {
+  const versions: string[] = [];
+
+  const callback = (i18n: I18n) => versions.push(`1-${i18n.version}`);
+  const anotherCallback = (i18n: I18n) => versions.push(`2-${i18n.version}`);
+
+  const i18n = new I18n({});
+
+  // The constructor calls I18n#store, so the actual initialized version will
+  // always be 1.
+  expect(i18n.version).toEqual(1);
+
+  i18n.onChange(callback);
+  i18n.onChange(anotherCallback);
+
+  i18n.update("en.hello", "hello");
+  expect(i18n.version).toEqual(2);
+
+  i18n.update("en.hello", "hello");
+  expect(i18n.version).toEqual(3);
+
+  i18n.store({ en: { hello: "hi" } });
+  expect(i18n.version).toEqual(4);
+
+  expect(versions).toEqual(["1-2", "2-2", "1-3", "2-3", "1-4", "2-4"]);
+});
