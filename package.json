@@ -42,7 +42,7 @@
     "jest-filename-transform": "*",
     "prettier": "*",
     "ts-jest": "*",
-    "typedoc": "*",
+    "typedoc": "beta",
     "typescript": "*",
     "webpack": "*",
     "webpack-cli": "*"
