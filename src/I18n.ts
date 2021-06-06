@@ -716,6 +716,7 @@ export class I18n {
     };
 
     const determineUnit = (units: NumberToHumanUnits, exponent: number) => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       const expName = DECIMAL_UNITS[exponent.toString()];
 
@@ -856,6 +857,7 @@ export class I18n {
       );
     }
 
+    // eslint-disable-next-line prefer-const
     let [left, right] = numeric.toString().split(".");
 
     left = left.replace(
