@@ -9,6 +9,7 @@ import {
   I18nOptions,
   MissingPlaceholderHandler,
   NullPlaceholderHandler,
+  Numeric,
   OnChangeHandler,
   Scope,
   StrftimeOptions,
@@ -323,7 +324,7 @@ export class I18n {
    * @returns {string} The formatted number.
    */
   public numberToCurrency(
-    amount: string | number,
+    amount: Numeric,
     options: NumberToCurrencyOptions = {},
   ): string {
     options = {
@@ -542,7 +543,7 @@ export class I18n {
    * @returns {string} The formatted number.
    */
   public numberToPercentage(
-    input: number | string,
+    input: Numeric,
     options: NumberToPercentageOptions = {},
   ): string {
     options = {
@@ -569,7 +570,7 @@ export class I18n {
    * @returns {string} The formatted number.
    */
   public numberToHumanSize(
-    numeric: number,
+    numeric: Numeric,
     options: NumberToHumanSizeOptions = {},
   ): string {
     options = {
@@ -659,7 +660,7 @@ export class I18n {
   /**
    * Convert a number into a readable representation.
    *
-   * @param  {number|string} input The number that will be formatted.
+   * @param  {Numeric} input The number that will be formatted.
    *
    * @param  {object} options The formatting options. When defined, supersedes
    * the default options stored at `number.human.storage_units.*`.
@@ -667,7 +668,7 @@ export class I18n {
    * @returns {string} The formatted number.
    */
   public numberToHuman(
-    input: number | string,
+    input: Numeric,
     options: NumberToHumanOptions = {},
   ): string {
     options = {
@@ -756,7 +757,7 @@ export class I18n {
   /**
    * Convert number to a formatted rounded value.
    *
-   * @param {number|string} input The number to be formatted.
+   * @param {Numeric} input The number to be formatted.
    *
    * @param {NumberToRoundedOptions} options The formatting options.
    *
@@ -779,7 +780,7 @@ export class I18n {
    * @returns {string} The formatted number.
    */
   public numberToRounded(
-    input: number | string,
+    input: Numeric,
     options?: NumberToRoundedOptions,
   ): string {
     options = {
@@ -816,7 +817,7 @@ export class I18n {
    * )                                                     // => "1,23,456.78"
    * ```
    *
-   * @param {number | string} input The numeric value that will be formatted.
+   * @param {Numeric} input The numeric value that will be formatted.
    *
    * @param {NumberToDelimitedOptions} options The formatting options.
    *
@@ -833,7 +834,7 @@ export class I18n {
    * @return {string} The formatted number.
    */
   public numberToDelimited(
-    input: number | string,
+    input: Numeric,
     options: Partial<NumberToDelimitedOptions> = {},
   ): string {
     options = {
@@ -954,7 +955,8 @@ export class I18n {
    */
   public update(
     path: string,
-    override: unknown,
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+    override: any,
     options: { strict: boolean } = { strict: false },
   ): void {
     if (options.strict && !has(this.translations, path)) {
@@ -971,10 +973,10 @@ export class I18n {
       );
     }
 
-    let newNode: unknown;
+    let newNode: any;
 
     if (overrideType === "object") {
-      newNode = { ...currentNode, ...(override as Dict) };
+      newNode = { ...currentNode, ...override };
     } else {
       newNode = override;
     }

@@ -18,6 +18,8 @@ export interface TimeAgoInWordsOptions {
   scope?: Scope;
 }
 
+export type Numeric = BigDecimal | string | number;
+
 /**
  * Controls handling of arithmetic exceptions and rounding.
  *
