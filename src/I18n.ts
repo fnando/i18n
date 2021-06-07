@@ -1,27 +1,26 @@
 /* eslint-disable class-methods-use-this, no-underscore-dangle */
 
-import BigNumber from "bignumber.js";
-import { get, has, set, zipObject, sortBy } from "lodash";
+import { get, has, set } from "lodash";
 
 import {
   DateTime,
   Dict,
+  FormatNumberOptions,
   I18nOptions,
   MissingPlaceholderHandler,
   NullPlaceholderHandler,
-  OnChangeHandler,
-  Scope,
-  StrftimeOptions,
-  TimeAgoInWordsOptions,
   NumberToCurrencyOptions,
-  NumberToRoundedOptions,
-  NumberToPercentageOptions,
-  NumberToHumanUnits,
   NumberToDelimitedOptions,
   NumberToHumanOptions,
   NumberToHumanSizeOptions,
+  NumberToPercentageOptions,
+  NumberToRoundedOptions,
   Numeric,
-  FormatNumberOptions,
+  OnChangeHandler,
+  RoundingMode,
+  Scope,
+  StrftimeOptions,
+  TimeAgoInWordsOptions,
   ToSentenceOptions,
   TranslateOptions,
 } from "../index.d";
@@ -31,16 +30,17 @@ import { MissingTranslation } from "./MissingTranslation";
 import {
   camelCaseKeys,
   createTranslationOptions,
-  expandRoundMode,
   formatNumber,
   inferType,
   interpolate,
   isSet,
   lookup,
+  numberToDelimited,
+  numberToHuman,
+  numberToHumanSize,
   parseDate,
   pluralize,
   propertyFlatList,
-  roundNumber,
   strftime,
   timeAgoInWords,
 } from "./helpers";
@@ -99,11 +99,6 @@ const DEFAULT_I18N_OPTIONS: I18nOptions = {
 };
 
 /**
- * Set default size units.
- */
-const STORAGE_UNITS = ["byte", "kb", "mb", "gb", "tb", "pb", "eb"];
-
-/**
  * Set the default word connectors.
  */
 const WORD_CONNECTORS = {
@@ -111,32 +106,6 @@ const WORD_CONNECTORS = {
   twoWordsConnector: " and ",
   lastWordConnector: ", and ",
 };
-
-/**
- * Set decimal units used to calculate number to human formatting.
- */
-const DECIMAL_UNITS = {
-  "0": "unit",
-  "1": "ten",
-  "2": "hundred",
-  "3": "thousand",
-  "6": "million",
-  "9": "billion",
-  "12": "trillion",
-  "15": "quadrillion",
-  "-1": "deci",
-  "-2": "centi",
-  "-3": "mili",
-  "-6": "micro",
-  "-9": "nano",
-  "-12": "pico",
-  "-15": "femto",
-};
-
-const INVERTED_DECIMAL_UNITS = zipObject(
-  Object.values(DECIMAL_UNITS),
-  Object.keys(DECIMAL_UNITS).map((key) => parseInt(key, 10)),
-);
 
 export class I18n {
   private _locale: string = DEFAULT_I18N_OPTIONS.locale;
@@ -512,9 +481,9 @@ export class I18n {
    */
   public numberToCurrency(
     input: Numeric,
-    options: NumberToCurrencyOptions = {},
+    options: Partial<NumberToCurrencyOptions> = {},
   ): string {
-    options = {
+    return formatNumber(input, {
       unit: "$",
       precision: 2,
       format: "%u%n",
@@ -523,11 +492,7 @@ export class I18n {
       ...this.get("number.format"),
       ...this.get("number.currency.format"),
       ...options,
-    };
-
-    options.negativeFormat = options.negativeFormat || `-${options.format}`;
-
-    return formatNumber(input, options as FormatNumberOptions);
+    } as FormatNumberOptions);
   }
 
   /**
@@ -542,19 +507,19 @@ export class I18n {
    */
   public numberToPercentage(
     input: Numeric,
-    options: NumberToPercentageOptions = {},
+    options: Partial<NumberToPercentageOptions> = {},
   ): string {
-    options = {
+    return formatNumber(input, {
       unit: "%",
       precision: 3,
       separator: ".",
       delimiter: "",
       format: "%n%",
-      ...camelCaseKeys(lookup(this, "number.percentage.format")),
+      ...camelCaseKeys<Partial<NumberToPercentageOptions>>(
+        lookup(this, "number.percentage.format"),
+      ),
       ...options,
-    };
-
-    return formatNumber(input, options as FormatNumberOptions);
+    } as FormatNumberOptions);
   }
 
   /**
@@ -569,90 +534,27 @@ export class I18n {
    */
   public numberToHumanSize(
     input: Numeric,
-    options: NumberToHumanSizeOptions = {},
+    options: Partial<NumberToHumanSizeOptions> = {},
   ): string {
-    options = {
-      roundMode: "default",
+    return numberToHumanSize(this, input, {
+      roundMode: "default" as RoundingMode,
       delimiter: "",
       precision: 3,
       significant: true,
       stripInsignificantZeros: true,
-      ...camelCaseKeys(this.get("number.human.format")),
+      units: {
+        billion: "Billion",
+        million: "Million",
+        quadrillion: "Quadrillion",
+        thousand: "Thousand",
+        trillion: "Trillion",
+        unit: "",
+      },
+      ...camelCaseKeys<Partial<NumberToHumanSizeOptions>>(
+        this.get("number.human.format"),
+      ),
       ...options,
-    };
-
-    const roundMode = expandRoundMode(options.roundMode || "default");
-    const base = 1024;
-    const num = new BigNumber(input).abs();
-    const smallerThanBase = num.lt(base);
-    let numberToBeFormatted;
-    const stripInsignificantZeros = options.stripInsignificantZeros ?? true;
-    const units = STORAGE_UNITS;
-
-    const computeExponent = (numeric: BigNumber, units: string[]) => {
-      const max = units.length - 1;
-      const exp = new BigNumber(Math.log(numeric.toNumber()))
-        .div(Math.log(base))
-        .integerValue(BigNumber.ROUND_DOWN)
-        .toNumber();
-
-      return Math.min(max, exp);
-    };
-
-    const storageUnitKey = () => {
-      const keyEnd = smallerThanBase ? "byte" : units[exponent];
-      return `number.human.storage_units.units.${keyEnd}`;
-    };
-
-    const exponent = computeExponent(num, units);
-
-    if (smallerThanBase) {
-      numberToBeFormatted = num.integerValue();
-    } else {
-      numberToBeFormatted = new BigNumber(
-        roundNumber(num.div(base ** exponent), {
-          significant: options.significant ?? true,
-          precision: options.precision ?? 3,
-          roundMode: options.roundMode ?? "default",
-        }),
-      );
-    }
-
-    let precision: number;
-
-    if (inferType(options.precision) === "number") {
-      precision = options.precision as number;
-    } else {
-      const significand = numberToBeFormatted.minus(
-        numberToBeFormatted.integerValue(),
-      );
-
-      if (significand.gte(0.06)) {
-        precision = 2;
-      } else if (significand.gt(0)) {
-        precision = 1;
-      } else {
-        precision = 0;
-      }
-    }
-
-    const format = this.translate("number.human.storage_units.format", {
-      defaultValue: "%n %u",
-    });
-
-    const unit = this.translate(storageUnitKey(), {
-      count: num.integerValue().toNumber(),
-    });
-
-    let formattedNumber = numberToBeFormatted.toFixed(precision, roundMode);
-
-    if (stripInsignificantZeros) {
-      formattedNumber = formattedNumber
-        .replace(/(\..*?)0+$/, "$1")
-        .replace(/\.$/, "");
-    }
-
-    return format.replace("%n", formattedNumber).replace("%u", unit);
+    } as NumberToHumanSizeOptions);
   }
 
   /**
@@ -667,89 +569,22 @@ export class I18n {
    */
   public numberToHuman(
     input: Numeric,
-    options: NumberToHumanOptions = {},
+    options: Partial<NumberToHumanOptions> = {},
   ): string {
-    options = {
+    return numberToHuman(this, input, {
       delimiter: "",
+      separator: ".",
       precision: 3,
       significant: true,
       stripInsignificantZeros: true,
       format: "%n %u",
+      roundMode: "default",
       units: this.get("number.human.decimal_units")?.units,
-      ...camelCaseKeys(this.get("number.human.format")),
+      ...camelCaseKeys<Partial<NumberToHumanOptions>>(
+        this.get("number.human.format"),
+      ),
       ...options,
-    };
-
-    const roundMode = options.roundMode ?? "default";
-    const precision = options.precision ?? 3;
-    const significant = options.significant ?? true;
-    const format = options.format ?? "%n %u";
-    const separator = options.separator ?? ".";
-
-    let units: NumberToHumanUnits;
-
-    if (inferType(options.units) === "string") {
-      units = this.get(options.units as string);
-    } else {
-      units = options.units as NumberToHumanUnits;
-    }
-
-    let formattedNumber = roundNumber(new BigNumber(input), {
-      roundMode,
-      precision,
-      significant,
-    });
-
-    const unitExponents = (units: NumberToHumanUnits) =>
-      sortBy(
-        Object.keys(units).map((name) => INVERTED_DECIMAL_UNITS[name]),
-        (numeric) => numeric * -1,
-      );
-
-    const calculateExponent = (num: BigNumber, units: NumberToHumanUnits) => {
-      const exponent = num.isZero()
-        ? 0
-        : Math.floor(Math.log10(num.abs().toNumber()));
-
-      return unitExponents(units).find((exp) => exponent >= exp) || 0;
-    };
-
-    const determineUnit = (units: NumberToHumanUnits, exponent: number) => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      const expName = DECIMAL_UNITS[exponent.toString()];
-
-      return units[expName] || "";
-    };
-
-    const exponent = calculateExponent(new BigNumber(formattedNumber), units);
-    const unit = determineUnit(units, exponent);
-
-    formattedNumber = roundNumber(
-      new BigNumber(formattedNumber).div(10 ** exponent),
-      {
-        roundMode,
-        precision,
-        significant,
-      },
-    );
-
-    if (options.stripInsignificantZeros) {
-      // eslint-disable-next-line prefer-const
-      let [whole, significand] = formattedNumber.split(".");
-      significand = (significand || "").replace(/0+$/, "");
-
-      formattedNumber = whole;
-
-      if (significand) {
-        formattedNumber += `${separator}${significand}`;
-      }
-    }
-
-    return format
-      .replace("%n", formattedNumber || "0")
-      .replace("%u", unit)
-      .trim();
+    } as NumberToHumanOptions);
   }
 
   /**
@@ -779,9 +614,9 @@ export class I18n {
    */
   public numberToRounded(
     input: Numeric,
-    options?: NumberToRoundedOptions,
+    options?: Partial<NumberToRoundedOptions>,
   ): string {
-    options = {
+    return formatNumber(input, {
       unit: "",
       precision: 3,
       significant: false,
@@ -789,9 +624,7 @@ export class I18n {
       delimiter: "",
       stripInsignificantZeros: false,
       ...options,
-    };
-
-    return formatNumber(input, options as FormatNumberOptions);
+    } as FormatNumberOptions);
   }
 
   /**
@@ -835,36 +668,12 @@ export class I18n {
     input: Numeric,
     options: Partial<NumberToDelimitedOptions> = {},
   ): string {
-    options = {
+    return numberToDelimited(this, input, {
       delimiterPattern: /(\d)(?=(\d\d\d)+(?!\d))/g,
       delimiter: ",",
       separator: ".",
       ...options,
-    };
-
-    const numeric = new BigNumber(input);
-
-    if (!numeric.isFinite()) {
-      return input.toString();
-    }
-
-    const newOptions = options as NumberToDelimitedOptions;
-
-    if (!newOptions.delimiterPattern.global) {
-      throw new Error(
-        `options.delimiterPattern must be a global regular expression; received ${newOptions.delimiterPattern}`,
-      );
-    }
-
-    // eslint-disable-next-line prefer-const
-    let [left, right] = numeric.toString().split(".");
-
-    left = left.replace(
-      newOptions.delimiterPattern,
-      (digitToDelimiter) => `${digitToDelimiter}${newOptions.delimiter}`,
-    );
-
-    return [left, right].filter(Boolean).join(newOptions.separator);
+    } as NumberToDelimitedOptions);
   }
 
   /**

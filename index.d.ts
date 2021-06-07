@@ -64,19 +64,21 @@ export interface FormatNumberOptions {
 }
 
 // I18n#numberToHumanSize options.
-export type NumberToHumanSizeOptions = Partial<
-  Omit<FormatNumberOptions, "format" | "negativeFormat">
+export type NumberToHumanSizeOptions = Omit<
+  FormatNumberOptions,
+  "format" | "negativeFormat"
 >;
 
 export type NumberToHumanUnits = {
   [key: string]: string;
 };
 
-export type NumberToHumanOptions = Partial<
-  Omit<FormatNumberOptions, "negativeFormat" | "unit"> & {
-    units: NumberToHumanUnits | string;
-  }
->;
+export type NumberToHumanOptions = Omit<
+  FormatNumberOptions,
+  "negativeFormat" | "unit"
+> & {
+  units: NumberToHumanUnits | string;
+};
 
 export type NumberToDelimitedOptions = {
   delimiterPattern: RegExp;
@@ -85,14 +87,13 @@ export type NumberToDelimitedOptions = {
 };
 
 // I18n#numberToPercentage options.
-export type NumberToPercentageOptions = Partial<
-  Omit<FormatNumberOptions, "raise">
->;
+export type NumberToPercentageOptions = Omit<FormatNumberOptions, "raise">;
 
 // I18n#numberToRounded options.
-export type NumberToRoundedOptions = Partial<
-  Omit<FormatNumberOptions, "format" | "negativeFormat"> & { precision: number }
->;
+export type NumberToRoundedOptions = Omit<
+  FormatNumberOptions,
+  "format" | "negativeFormat"
+> & { precision: number };
 
 // I18n#numberToCurrency options.
 export type NumberToCurrencyOptions = Partial<FormatNumberOptions>;
