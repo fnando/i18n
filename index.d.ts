@@ -12,13 +12,12 @@ export interface Dict {
 
 export type DateTime = string | number | Date;
 
-// I18n#timeAgoInWords() options.
 export interface TimeAgoInWordsOptions {
   includeSeconds?: boolean;
   scope?: Scope;
 }
 
-export type Numeric = BigDecimal | string | number;
+export type Numeric = BigNumber | string | number;
 
 /**
  * Controls handling of arithmetic exceptions and rounding.

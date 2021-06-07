@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this, no-underscore-dangle */
 
 import BigNumber from "bignumber.js";
-import { get, has, set, range, zipObject, sortBy } from "lodash";
+import { get, has, set, zipObject, sortBy } from "lodash";
 
 import {
   DateTime,
@@ -9,7 +9,6 @@ import {
   I18nOptions,
   MissingPlaceholderHandler,
   NullPlaceholderHandler,
-  Numeric,
   OnChangeHandler,
   Scope,
   StrftimeOptions,
@@ -21,6 +20,7 @@ import {
   NumberToDelimitedOptions,
   NumberToHumanOptions,
   NumberToHumanSizeOptions,
+  Numeric,
   FormatNumberOptions,
   ToSentenceOptions,
   TranslateOptions,
@@ -42,10 +42,8 @@ import {
   propertyFlatList,
   roundNumber,
   strftime,
+  timeAgoInWords,
 } from "./helpers";
-
-const within = (start: number, end: number, actual: number): boolean =>
-  actual >= start && actual <= end;
 
 /**
  * Other default options.
@@ -300,50 +298,6 @@ export class I18n {
   }
 
   /**
-   * Format currency with localization rules.
-   *
-   * The options will be retrieved from the `number.currency.format` and
-   * `number.format` scopes, in that order.
-   *
-   * Any missing option will be retrieved from the `I18n.toNumber` defaults and
-   * the following options:
-   *
-   * - `unit`: `"$"`
-   * - `precision`: `2`
-   * - `format`: `"%u%n"`
-   * - `delimiter`: `","`
-   * - `separator`: `"."`
-   *
-   * You can also override these options by providing the `options` argument.
-   *
-   * @param {number} amount  The number to be formatted.
-   *
-   * @param {object} options The formatting options. When defined, supersedes
-   *  the default options defined by `number.currency.*` and `number.format`.
-   *
-   * @returns {string} The formatted number.
-   */
-  public numberToCurrency(
-    amount: Numeric,
-    options: NumberToCurrencyOptions = {},
-  ): string {
-    options = {
-      unit: "$",
-      precision: 2,
-      format: "%u%n",
-      delimiter: ",",
-      separator: ".",
-      ...this.get("number.format"),
-      ...this.get("number.currency.format"),
-      ...options,
-    };
-
-    options.negativeFormat = options.negativeFormat || `-${options.format}`;
-
-    return formatNumber(amount, options as FormatNumberOptions);
-  }
-
-  /**
    * Translate the given scope with the provided options.
    *
    * @param {string|array} scope The scope that will be used.
@@ -533,9 +487,53 @@ export class I18n {
   }
 
   /**
+   * Format currency with localization rules.
+   *
+   * The options will be retrieved from the `number.currency.format` and
+   * `number.format` scopes, in that order.
+   *
+   * Any missing option will be retrieved from the `I18n.toNumber` defaults and
+   * the following options:
+   *
+   * - `unit`: `"$"`
+   * - `precision`: `2`
+   * - `format`: `"%u%n"`
+   * - `delimiter`: `","`
+   * - `separator`: `"."`
+   *
+   * You can also override these options by providing the `options` argument.
+   *
+   * @param {Numeric} input  The number to be formatted.
+   *
+   * @param {object} options The formatting options. When defined, supersedes
+   *  the default options defined by `number.currency.*` and `number.format`.
+   *
+   * @returns {string} The formatted number.
+   */
+  public numberToCurrency(
+    input: Numeric,
+    options: NumberToCurrencyOptions = {},
+  ): string {
+    options = {
+      unit: "$",
+      precision: 2,
+      format: "%u%n",
+      delimiter: ",",
+      separator: ".",
+      ...this.get("number.format"),
+      ...this.get("number.currency.format"),
+      ...options,
+    };
+
+    options.negativeFormat = options.negativeFormat || `-${options.format}`;
+
+    return formatNumber(input, options as FormatNumberOptions);
+  }
+
+  /**
    * Convert a number into a formatted percentage value.
    *
-   * @param {number|string} input The number to be formatted.
+   * @param {Numeric} input The number to be formatted.
    *
    * @param {options} options The formatting options. When defined, supersedes
    * the default options stored at `number.percentage.*`.
@@ -562,7 +560,7 @@ export class I18n {
   /**
    * Convert a number into a readable size representation.
    *
-   * @param {number} numeric The number that will be formatted.
+   * @param {Numeric} input The number that will be formatted.
    *
    * @param {object} options The formatting options. When defined, supersedes
    * the default options stored at `number.human.storage_units.*`.
@@ -570,7 +568,7 @@ export class I18n {
    * @returns {string} The formatted number.
    */
   public numberToHumanSize(
-    numeric: Numeric,
+    input: Numeric,
     options: NumberToHumanSizeOptions = {},
   ): string {
     options = {
@@ -585,7 +583,7 @@ export class I18n {
 
     const roundMode = expandRoundMode(options.roundMode || "default");
     const base = 1024;
-    const num = new BigNumber(numeric).abs();
+    const num = new BigNumber(input).abs();
     const smallerThanBase = num.lt(base);
     let numberToBeFormatted;
     const stripInsignificantZeros = options.stripInsignificantZeros ?? true;
@@ -764,17 +762,17 @@ export class I18n {
    * @param {number} options.precision  Sets the precision of the number
    * (defaults to 3).
    *
-   * @param {string}        options.separator  Sets the separator between the
+   * @param {string} options.separator  Sets the separator between the
    * fractional and integer digits (defaults to ".").
    *
    * @param {RoundingMode} options.roundMode  Determine how rounding is
    * performed.
    *
-   * @param {boolean}     options.significant  If `true`, precision will be the
+   * @param {boolean} options.significant  If `true`, precision will be the
    * number of significant_digits. If `false`, the number of fractional digits
    * (defaults to `false`).
    *
-   * @param {boolean}  options.stripInsignificantZeros If `true` removes
+   * @param {boolean} options.stripInsignificantZeros If `true` removes
    * insignificant zeros after the decimal separator (defaults to `false`).
    *
    * @returns {string} The formatted number.
@@ -1054,127 +1052,7 @@ export class I18n {
     toTime: DateTime,
     options: TimeAgoInWordsOptions = {},
   ): string {
-    const scope = options.scope || "datetime.distance_in_words";
-    const t = (name: string, count = 0): string =>
-      this.t(name, { count, scope });
-
-    fromTime = parseDate(fromTime);
-    toTime = parseDate(toTime);
-
-    let fromInSeconds = fromTime.getTime() / 1000;
-    let toInSeconds = toTime.getTime() / 1000;
-
-    if (fromInSeconds > toInSeconds) {
-      [fromTime, toTime, fromInSeconds, toInSeconds] = [
-        toTime,
-        fromTime,
-        toInSeconds,
-        fromInSeconds,
-      ];
-    }
-
-    const distanceInSeconds = Math.round(toInSeconds - fromInSeconds);
-    const distanceInMinutes = Math.round((toInSeconds - fromInSeconds) / 60);
-    const distanceInHours = distanceInMinutes / 60;
-    const distanceInDays = distanceInHours / 24;
-
-    const distanceInHoursRounded = Math.round(distanceInMinutes / 60);
-    const distanceInDaysRounded = Math.round(distanceInDays);
-    const distanceInMonthsRounded = Math.round(distanceInDaysRounded / 30);
-
-    if (within(0, 1, distanceInMinutes)) {
-      if (!options.includeSeconds) {
-        return distanceInMinutes === 0
-          ? t("less_than_x_minutes", 1)
-          : t("x_minutes", distanceInMinutes);
-      }
-
-      if (within(0, 4, distanceInSeconds)) {
-        return t("less_than_x_seconds", 5);
-      }
-
-      if (within(5, 9, distanceInSeconds)) {
-        return t("less_than_x_seconds", 10);
-      }
-
-      if (within(10, 19, distanceInSeconds)) {
-        return t("less_than_x_seconds", 20);
-      }
-
-      if (within(20, 39, distanceInSeconds)) {
-        return t("half_a_minute");
-      }
-
-      if (within(40, 59, distanceInSeconds)) {
-        return t("less_than_x_minutes", 1);
-      }
-
-      return t("x_minutes", 1);
-    }
-
-    if (within(2, 44, distanceInMinutes)) {
-      return t("x_minutes", distanceInMinutes);
-    }
-
-    if (within(45, 89, distanceInMinutes)) {
-      return t("about_x_hours", 1);
-    }
-
-    if (within(90, 1439, distanceInMinutes)) {
-      return t("about_x_hours", distanceInHoursRounded);
-    }
-
-    if (within(1440, 2519, distanceInMinutes)) {
-      return t("x_days", 1);
-    }
-
-    if (within(2520, 43_199, distanceInMinutes)) {
-      return t("x_days", distanceInDaysRounded);
-    }
-
-    if (within(43_200, 86_399, distanceInMinutes)) {
-      return t("about_x_months", Math.round(distanceInMinutes / 43200));
-    }
-
-    if (within(86_400, 525_599, distanceInMinutes)) {
-      return t("x_months", distanceInMonthsRounded);
-    }
-
-    let fromYear = fromTime.getFullYear();
-    if (fromTime.getMonth() + 1 >= 3) {
-      fromYear += 1;
-    }
-
-    let toYear = toTime.getFullYear();
-    if (toTime.getMonth() + 1 < 3) {
-      toYear -= 1;
-    }
-
-    const leapYears =
-      fromYear > toYear
-        ? 0
-        : range(fromYear, toYear).filter(
-            (year) => new Date(year, 1, 29).getMonth() == 1,
-          ).length;
-
-    const minutesInYear = 525_600;
-    const minuteOffsetForLeapYear = leapYears * 1440;
-    const minutesWithOffset = distanceInMinutes - minuteOffsetForLeapYear;
-    const distanceInYears = Math.trunc(minutesWithOffset / minutesInYear);
-
-    const diff = parseFloat(
-      (minutesWithOffset / minutesInYear - distanceInYears).toPrecision(3),
-    );
-
-    if (diff < 0.25) {
-      return t("about_x_years", distanceInYears);
-    }
-
-    if (diff < 0.75) {
-      return t("over_x_years", distanceInYears);
-    }
-
-    return t("almost_x_years", distanceInYears + 1);
+    return timeAgoInWords(this, fromTime, toTime, options);
   }
 
   /**

@@ -12,3 +12,4 @@ export { pluralize } from "./pluralize";
 export { propertyFlatList } from "./propertyFlatList";
 export { roundNumber } from "./roundNumber";
 export { strftime } from "./strftime";
+export { timeAgoInWords } from "./timeAgoInWords";

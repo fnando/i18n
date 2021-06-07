@@ -1,7 +1,7 @@
 import BigNumber from "bignumber.js";
 import { repeat } from "lodash";
 
-import { FormatNumberOptions } from "../../index.d";
+import { FormatNumberOptions, Numeric } from "../../index.d";
 import { roundNumber } from ".";
 
 function replaceInFormat(
@@ -37,7 +37,7 @@ function computeSignificand({
 }
 
 export function formatNumber(
-  input: number | string,
+  input: Numeric,
   options: FormatNumberOptions,
 ): string {
   const originalNumber = new BigNumber(input);
