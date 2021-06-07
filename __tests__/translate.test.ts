@@ -41,6 +41,14 @@ test("returns guessed translation if missingBehavior is set to guess", () => {
   expect(actual).toEqual(expected);
 });
 
+test("returns guessed translation with scope as array", () => {
+  i18n.missingBehavior = "guess";
+  const actual = i18n.t(["invalid", "thisIsAutomaticallyGeneratedTranslation"]);
+  const expected = "this is automatically generated translation";
+
+  expect(actual).toEqual(expected);
+});
+
 test("returns guessed translation with prefix if missingBehavior is set to guess and prefix is also provided", () => {
   i18n.missingBehavior = "guess";
   i18n.missingTranslationPrefix = "EE: ";
@@ -56,6 +64,20 @@ test("returns missing message translation for valid scope with scope", () => {
   const expected = '[missing "en.greetings.monster" translation]';
 
   expect(actual).toEqual(expected);
+});
+
+test("raises error for invalid locale type", () => {
+  expect(() => {
+    // eslint-disable-next-line
+    // @ts-ignore
+    i18n.locale = null;
+  }).toThrow("Expected newLocale to be a string; got null");
+
+  expect(() => {
+    // eslint-disable-next-line
+    // @ts-ignore
+    i18n.defaultLocale = null;
+  }).toThrow("Expected newLocale to be a string; got null");
 });
 
 test("returns translation for single scope on a custom locale", () => {

@@ -99,11 +99,13 @@ export function timeAgoInWords(
   }
 
   let fromYear = fromTime.getFullYear();
+
   if (fromTime.getMonth() + 1 >= 3) {
     fromYear += 1;
   }
 
   let toYear = toTime.getFullYear();
+
   if (toTime.getMonth() + 1 < 3) {
     toYear -= 1;
   }

@@ -214,3 +214,13 @@ test("fails to format invalid date", () => {
 
   expect(() => i18n.strftime(date, "%a")).toThrowError(expected);
 });
+
+test("formats date with partial custom options", () => {
+  const date = new Date(Date.parse("06 Jun 2021 14:14:32"));
+
+  expect(
+    i18n.strftime(date, "%p", {
+      meridian: { am: "before noon", pm: "after noon" },
+    }),
+  ).toEqual("after noon");
+});

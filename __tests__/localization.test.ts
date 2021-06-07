@@ -76,3 +76,9 @@ test("handles invalid values when localizing time", function () {
   expect(i18n.l("time", null)).toEqual("");
   expect(i18n.l("time", undefined)).toEqual("");
 });
+
+test("localizes unrecognized type", function () {
+  const i18n = new I18n(translations());
+
+  expect(i18n.l("foo", 1234)).toEqual("1234");
+});

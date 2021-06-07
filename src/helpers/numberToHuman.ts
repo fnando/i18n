@@ -7,7 +7,7 @@ import {
   NumberToHumanOptions,
   NumberToHumanUnits,
 } from "../../index.d";
-import { lookup, roundNumber, inferType } from ".";
+import { getFullScope, lookup, roundNumber, inferType } from ".";
 
 /**
  * Set decimal units used to calculate number to human formatting.
@@ -49,7 +49,18 @@ export function numberToHuman(
   let units: NumberToHumanUnits;
 
   if (inferType(options.units) === "string") {
-    units = lookup(i18n, options.units as string);
+    const scope = options.units as string;
+    units = lookup(i18n, scope);
+
+    if (!units) {
+      throw new Error(
+        `The scope "${i18n.locale}${i18n.defaultSeparator}${getFullScope(
+          i18n,
+          scope,
+          {},
+        )}" couldn't be found`,
+      );
+    }
   } else {
     units = options.units as NumberToHumanUnits;
   }

@@ -90,9 +90,15 @@ const DEFAULT_OPTIONS: StrftimeOptions = {
 export function strftime(
   date: Date,
   format: string,
-  options: StrftimeOptions = DEFAULT_OPTIONS,
+  options: Partial<StrftimeOptions> = {},
 ): string {
-  options = { ...DEFAULT_OPTIONS, ...options };
+  const {
+    abbrDayNames,
+    dayNames,
+    abbrMonthNames,
+    monthNames,
+    meridian: AM_PM,
+  } = { ...DEFAULT_OPTIONS, ...options };
 
   if (isNaN(date.getTime())) {
     throw new Error(
@@ -127,10 +133,10 @@ export function strftime(
     hour12 = 12;
   }
 
-  format = format.replace("%a", options.abbrDayNames[weekDay]);
-  format = format.replace("%A", options.dayNames[weekDay]);
-  format = format.replace("%b", options.abbrMonthNames[month] as string);
-  format = format.replace("%B", options.monthNames[month] as string);
+  format = format.replace("%a", abbrDayNames[weekDay]);
+  format = format.replace("%A", dayNames[weekDay]);
+  format = format.replace("%b", abbrMonthNames[month] as string);
+  format = format.replace("%B", monthNames[month] as string);
   format = format.replace("%d", day.toString().padStart(2, "0"));
   format = format.replace("%e", day.toString());
   format = format.replace("%-d", day.toString());
@@ -144,8 +150,8 @@ export function strftime(
   format = format.replace("%-m", month.toString());
   format = format.replace("%M", mins.toString().padStart(2, "0"));
   format = format.replace("%-M", mins.toString());
-  format = format.replace("%p", options.meridian[meridian]);
-  format = format.replace("%P", options.meridian[meridian].toLowerCase());
+  format = format.replace("%p", AM_PM[meridian]);
+  format = format.replace("%P", AM_PM[meridian].toLowerCase());
   format = format.replace("%S", secs.toString().padStart(2, "0"));
   format = format.replace("%-S", secs.toString());
   format = format.replace("%w", weekDay.toString());

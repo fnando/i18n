@@ -11,6 +11,9 @@ const exabytes = (numeric: number) => petabytes(numeric) * 1024;
 
 test("returns number as human size", () => {
   expect(i18n.numberToHumanSize(0)).toEqual("0 Bytes");
+  expect(i18n.numberToHumanSize(0, { stripInsignificantZeros: false })).toEqual(
+    "0.000 Bytes",
+  );
   expect(i18n.numberToHumanSize(1)).toEqual("1 Byte");
   expect(i18n.numberToHumanSize(3.14159265)).toEqual("3 Bytes");
   expect(i18n.numberToHumanSize(123.0)).toEqual("123 Bytes");

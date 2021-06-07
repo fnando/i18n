@@ -391,6 +391,7 @@ export class I18n {
     switch (type) {
       case "currency":
         return this.numberToCurrency(value as number);
+
       case "number":
         return formatNumber(value as number, {
           delimiter: ",",
@@ -400,8 +401,10 @@ export class I18n {
           stripInsignificantZeros: false,
           ...lookup(this, "number.format"),
         });
+
       case "percentage":
         return this.numberToPercentage(value as number);
+
       default: {
         let localizedValue: string;
 
@@ -426,8 +429,7 @@ export class I18n {
    *
    * @param {scope} scope The formatting scope.
    *
-   * @param {string|number|Date} input The string that must be parsed into a
-   * Date object.
+   * @param {DateTime} input The string that must be parsed into a Date object.
    *
    * @returns {string} The formatted date.
    */
@@ -706,20 +708,27 @@ export class I18n {
    *
    * @see strftime
    *
-   * @param  {Date}   date   The date that will be formatted.
-   * @param  {string} format The formatting string.
+   * @param {Date} date The date that will be formatted.
+   *
+   * @param {string} format The formatting string.
+   *
+   * @param {StrftimeOptions} options The formatting options.
+   *
    * @returns {string}        The formatted date.
    */
-  public strftime(date: Date, format: string): string {
-    const options: StrftimeOptions = {
+  public strftime(
+    date: Date,
+    format: string,
+    options: Partial<StrftimeOptions> = {},
+  ): string {
+    return strftime(date, format, {
       ...camelCaseKeys(lookup(this, "date")),
       meridian: {
         am: lookup(this, "time.am") || "AM",
         pm: lookup(this, "time.pm") || "PM",
       },
-    };
-
-    return strftime(date, format, options);
+      ...options,
+    });
   }
 
   /**

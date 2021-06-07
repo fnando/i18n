@@ -137,3 +137,17 @@ test("formats number to human with custom format", () => {
     i18n.numberToHuman(123_456, { units: volume, format: "%n.%u" }),
   ).toEqual("123.lt");
 });
+
+test("formats number using scope", () => {
+  i18n.store({ en: { volume: { unit: "ml", thousand: "lt", million: "m3" } } });
+
+  expect(i18n.numberToHuman(123_456, { units: "volume" })).toEqual("123 lt");
+  expect(i18n.numberToHuman(12, { units: "volume" })).toEqual("12 ml");
+  expect(i18n.numberToHuman(1_234_567, { units: "volume" })).toEqual("1.23 m3");
+});
+
+test("raises error when scope doesn't exist", () => {
+  expect(() => i18n.numberToHuman(123_456, { units: "missing" })).toThrow(
+    `The scope "en.missing" couldn't be found`,
+  );
+});

@@ -2,7 +2,7 @@ import BigNumber from "bignumber.js";
 
 import { I18n } from "../I18n";
 import { Numeric, NumberToHumanSizeOptions } from "../../index.d";
-import { roundNumber, expandRoundMode, inferType } from ".";
+import { roundNumber, expandRoundMode } from ".";
 
 /**
  * Set default size units.
@@ -49,24 +49,6 @@ export function numberToHumanSize(
     );
   }
 
-  let precision: number;
-
-  if (inferType(options.precision) === "number") {
-    precision = options.precision as number;
-  } else {
-    const significand = numberToBeFormatted.minus(
-      numberToBeFormatted.integerValue(),
-    );
-
-    if (significand.gte(0.06)) {
-      precision = 2;
-    } else if (significand.gt(0)) {
-      precision = 1;
-    } else {
-      precision = 0;
-    }
-  }
-
   const format = i18n.translate("number.human.storage_units.format", {
     defaultValue: "%n %u",
   });
@@ -75,7 +57,10 @@ export function numberToHumanSize(
     count: num.integerValue().toNumber(),
   });
 
-  let formattedNumber = numberToBeFormatted.toFixed(precision, roundMode);
+  let formattedNumber = numberToBeFormatted.toFixed(
+    options.precision as number,
+    roundMode,
+  );
 
   if (options.stripInsignificantZeros) {
     formattedNumber = formattedNumber

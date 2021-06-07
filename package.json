@@ -17,7 +17,7 @@
   "license": "MIT",
   "scripts": {
     "docs": "typedoc src",
-    "test": "jest --watch",
+    "test": "jest --watch --coverage",
     "test:ci": "jest",
     "clean": "rm -rf ./dist",
     "build:browser": "webpack --output-path ./dist/browser/ --output-filename index.js --mode production --entry ./dist/import/index.js --output-library-type var --output-library-name I18n --devtool source-map",

@@ -326,6 +326,7 @@ const assertDistanceOfTimeInWords = (
   ).toEqual("less than a minute");
 };
 
+// eslint-disable-next-line jest/expect-expect
 test("time ago in words", () => {
   const from = new Date(Date.UTC(2004, 5, 6, 21, 45, 0));
   assertDistanceOfTimeInWords(from);
