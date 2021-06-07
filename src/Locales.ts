@@ -65,11 +65,6 @@ const defaultLocaleResolver: LocaleResolver = (
       list.push(codes[0]);
     });
 
-  // No locales set? English it is.
-  if (list.length === 0) {
-    list.push("en");
-  }
-
   return uniq(list);
 };
 

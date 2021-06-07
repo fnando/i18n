@@ -572,7 +572,14 @@ export class I18n {
       stripInsignificantZeros: true,
       format: "%n %u",
       roundMode: "default",
-      units: this.get("number.human.decimal_units")?.units,
+      units: this.get("number.human.decimal_units")?.units || {
+        billion: "Billion",
+        million: "Million",
+        quadrillion: "Quadrillion",
+        thousand: "Thousand",
+        trillion: "Trillion",
+        unit: "",
+      },
       ...camelCaseKeys<Partial<NumberToHumanOptions>>(
         this.get("number.human.format"),
       ),

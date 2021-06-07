@@ -13,7 +13,7 @@ test("infers type", () => {
   expect(inferType(() => true)).toEqual("function");
   expect(inferType(new Custom())).toEqual("custom");
   expect(inferType({})).toEqual("object");
-
-  const object = { constructor: { name: null } };
-  expect(inferType(object)).toEqual("object");
+  expect(inferType({ constructor: null })).toEqual("object");
+  expect(inferType({ constructor: { name: null } })).toEqual("object");
+  expect(inferType({ constructor: { name: "CUSTOM" } })).toEqual("custom");
 });

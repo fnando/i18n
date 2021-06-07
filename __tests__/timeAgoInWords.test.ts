@@ -100,6 +100,10 @@ const assertDistanceOfTimeInWords = (
   ).toEqual("less than a minute");
 
   expect(
+    i18n.timeAgoInWords(from, to + 29 * seconds, { includeSeconds: false }),
+  ).toEqual("less than a minute");
+
+  expect(
     i18n.timeAgoInWords(from, to + 39 * seconds, { includeSeconds: false }),
   ).toEqual("1 minute");
 

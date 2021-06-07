@@ -1,7 +1,7 @@
 import { DateTime } from "../../index.d";
 
 /**
- * Parse a given `date` string into a JavaScript Date object.
+ * Parse a given `input` string into a JavaScript Date object.
  * This function is time zone aware.
  *
  * The following string formats are recognized:
@@ -16,15 +16,19 @@ import { DateTime } from "../../index.d";
  * yyyy-mm-dd[ T]hh:mm::ss.123Z
  * ```
  *
+ * If any other pattern is provided, then it'll be parsed by `Date.parse`, which
+ * may or may not bring the expected result.
+ *
  * @example
  * ```js
- * i18n.parseDate("2019-12-09");
+ * parseDate("2019-12-09");
  * ```
  *
  * @param {DateTime} input The date string or number timestamp that must be
- *                         parsed into a Date object. If a Date object is
- *                         provided, then that's what it'll be returned.
- * @returns {date}          The parsed date.
+ * parsed into a Date object. If a Date object is provided, then that's what
+ * it'll be returned.
+ *
+ * @returns {Date} The parsed date.
  */
 export function parseDate(input: DateTime): Date {
   // we have a date, so just return it.
@@ -76,11 +80,6 @@ export function parseDate(input: DateTime): Date {
         ),
       ),
     );
-  } else if (input.match(/\d+ \d+:\d+:\d+ [+-]\d+ \d+/)) {
-    // a valid javascript format with timezone info
-    const date = new Date();
-    date.setTime(Date.parse(input));
-    return date;
   }
 
   // an arbitrary javascript string

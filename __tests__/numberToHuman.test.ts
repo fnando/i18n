@@ -151,3 +151,14 @@ test("raises error when scope doesn't exist", () => {
     `The scope "en.missing" couldn't be found`,
   );
 });
+
+test("using default units", () => {
+  const i18n = new I18n();
+
+  expect(i18n.numberToHuman(123)).toEqual("123");
+  expect(i18n.numberToHuman(1_234)).toEqual("1.23 Thousand");
+  expect(i18n.numberToHuman(1_234_567)).toEqual("1.23 Million");
+  expect(i18n.numberToHuman(1_234_567_890)).toEqual("1.23 Billion");
+  expect(i18n.numberToHuman(1_234_567_890_123)).toEqual("1.23 Trillion");
+  expect(i18n.numberToHuman(1_234_567_890_123_456)).toEqual("1.23 Quadrillion");
+});
