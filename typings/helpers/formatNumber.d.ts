@@ -1,2 +1,2 @@
-import { FormatNumberOptions } from "../../index.d";
-export declare function formatNumber(input: number | string, options: FormatNumberOptions): string;
+import { FormatNumberOptions, Numeric } from "../../index.d";
+export declare function formatNumber(input: Numeric, options: FormatNumberOptions): string;
