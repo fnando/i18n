@@ -98,15 +98,6 @@ const DEFAULT_I18N_OPTIONS: I18nOptions = {
   transformKey: (key: string): string => key,
 };
 
-/**
- * Set the default word connectors.
- */
-const WORD_CONNECTORS = {
-  wordsConnector: ", ",
-  twoWordsConnector: " and ",
-  lastWordConnector: ", and ",
-};
-
 export class I18n {
   private _locale: string = DEFAULT_I18N_OPTIONS.locale;
   private _defaultLocale: string = DEFAULT_I18N_OPTIONS.defaultLocale;
@@ -811,10 +802,17 @@ export class I18n {
    *
    * @returns {string} The joined string.
    */
-  public toSentence(items: any[], options?: ToSentenceOptions): string {
-    options = {
-      ...WORD_CONNECTORS,
-      ...camelCaseKeys(lookup(this, "support.array")),
+  public toSentence(
+    items: any[],
+    options: Partial<ToSentenceOptions> = {},
+  ): string {
+    const { wordsConnector, twoWordsConnector, lastWordConnector } = {
+      wordsConnector: ", ",
+      twoWordsConnector: " and ",
+      lastWordConnector: ", and ",
+      ...camelCaseKeys<Partial<ToSentenceOptions>>(
+        lookup(this, "support.array"),
+      ),
       ...options,
     } as ToSentenceOptions;
 
@@ -828,12 +826,12 @@ export class I18n {
         return `${items[0]}`;
 
       case 2:
-        return items.join(options.twoWordsConnector);
+        return items.join(twoWordsConnector);
 
       default:
         return [
-          items.slice(0, size - 1).join(options.wordsConnector),
-          options.lastWordConnector,
+          items.slice(0, size - 1).join(wordsConnector),
+          lastWordConnector,
           items[size - 1],
         ].join("");
     }

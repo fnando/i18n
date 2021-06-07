@@ -96,13 +96,13 @@ export type NumberToRoundedOptions = Omit<
 > & { precision: number };
 
 // I18n#numberToCurrency options.
-export type NumberToCurrencyOptions = Partial<FormatNumberOptions>;
+export type NumberToCurrencyOptions = FormatNumberOptions;
 
 // I18n#toSentence() options.
 export interface ToSentenceOptions {
-  wordsConnector?: string;
-  twoWordsConnector?: string;
-  lastWordConnector?: string;
+  wordsConnector: string;
+  twoWordsConnector: string;
+  lastWordConnector: string;
 }
 
 // Default primitive types.
