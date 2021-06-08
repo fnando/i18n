@@ -5,4 +5,7 @@ module.exports = {
   excludePrivate: true,
   excludeProtected: true,
   excludeInternal: true,
+  gitRemote: "origin",
+  gitRevision: `v${pkg.version}`,
+  name: `i18n-js v${pkg.version}`,
 };

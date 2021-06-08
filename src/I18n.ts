@@ -1258,6 +1258,12 @@ export class I18n {
    * Converts the array to a comma-separated sentence where the last element is
    * joined by the connector word.
    *
+   * @example
+   * ```js
+   * i18n.toSentence(["apple", "banana", "pineapple"]);
+   * //=> apple, banana, and pineapple.
+   * ```
+   *
    * @param {any[]} items The list of items that will be joined.
    *
    * @param {ToSentenceOptions} options The options.

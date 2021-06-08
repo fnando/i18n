@@ -16,7 +16,8 @@
   "author": "Nando Vieira <me@fnando.com>",
   "license": "MIT",
   "scripts": {
-    "docs": "typedoc src",
+    "docs": "typedoc src && yarn docs:ext",
+    "docs:ext": "cat ext/typedoc.css | tee -a docs/v$(cat package.json | jq -r '.version')/assets/css/main.css &> /dev/null && ruby ext/typedoc.rb",
     "test": "jest --watch --coverage",
     "test:ci": "jest --coverage --verbose",
     "clean": "rm -rf ./dist",
