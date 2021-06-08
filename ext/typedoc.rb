@@ -66,8 +66,11 @@ def build_index
       <html lang="en">
         <head>
           <meta charset="utf-8">
-          <meta http-equiv="refresh" content="0;url=#{latest_url}" />
-          <link rel="canonical" href="#{latest_url}" />
+          <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+          <meta http-equiv="expires" content="0">
+          <meta http-equiv="pragma" content="no-cache">
+          <meta http-equiv="refresh" content="0;url=#{latest_url}">
+          <link rel="canonical" href="#{latest_url}">
         </head>
         <body>
           <h1>
