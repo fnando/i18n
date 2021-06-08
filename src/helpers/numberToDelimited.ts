@@ -1,10 +1,19 @@
 import BigNumber from "bignumber.js";
 
-import { I18n } from "../I18n";
 import { Numeric, NumberToDelimitedOptions } from "../../index.d";
 
+/**
+ * Formats a number with grouped thousands using delimiter (e.g., 12,324).
+ *
+ * @private
+ *
+ * @param {Numeric} input The number that will be formatted.
+ *
+ * @param {NumberToDelimitedOptions} options The formatting options.
+ *
+ * @return {string} The formatted number.
+ */
 export function numberToDelimited(
-  _i18n: I18n,
   input: Numeric,
   options: NumberToDelimitedOptions,
 ): string {

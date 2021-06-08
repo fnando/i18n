@@ -17,11 +17,14 @@ import { I18n } from "./I18n";
  * The default in case nothing is defined is `["en"]`.
  *
  * @type {LocaleResolver}
- * @param {I18n}       i18n    The I18n instance.
- * @param {string}     locale  The locale that being analysed.
- * @returns {string[]}         The resolved locales.
+ *
+ * @param {I18n} i18n The I18n instance.
+ *
+ * @param {string} locale The locale that being analysed.
+ *
+ * @returns {string[]} The resolved locales.
  */
-const defaultLocaleResolver: LocaleResolver = (
+export const defaultLocaleResolver: LocaleResolver = (
   i18n: I18n,
   locale: string,
 ): string[] => {
@@ -33,10 +36,14 @@ const defaultLocaleResolver: LocaleResolver = (
   locales.push(locale);
 
   // Add the current locale to the list.
-  locales.push(!locale && i18n.locale);
+  if (!locale) {
+    locales.push(i18n.locale);
+  }
 
   // Add the default locale if fallback strategy is enabled.
-  locales.push(i18n.enableFallback && i18n.defaultLocale);
+  if (i18n.enableFallback) {
+    locales.push(i18n.defaultLocale);
+  }
 
   // Compute each locale with its country code.
   // So this will return an array containing both
@@ -90,9 +97,11 @@ export class Locales {
    * });
    * ```
    *
-   * @param {string}                         locale         The locale's name.
+   * @param {string} locale The locale's name.
+   *
    * @param {LocaleResolver|string|string[]} localeResolver The locale resolver
-   *                                                        strategy.
+   * strategy.
+   *
    * @returns {void}
    */
   public register(
@@ -117,8 +126,9 @@ export class Locales {
    * // ["de-DE", "de", "en"]
    * ```
    *
-   * @param {string}     locale The locale query.
-   * @returns {string[]}        The list of locales.
+   * @param {string} locale The locale query.
+   *
+   * @returns {string[]} The list of locales.
    */
   public get(locale: string): string[] {
     let locales =

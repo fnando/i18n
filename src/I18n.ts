@@ -17,7 +17,6 @@ import {
   NumberToRoundedOptions,
   Numeric,
   OnChangeHandler,
-  RoundingMode,
   Scope,
   StrftimeOptions,
   TimeAgoInWordsOptions,
@@ -45,45 +44,18 @@ import {
   timeAgoInWords,
 } from "./helpers";
 
-/**
- * Other default options.
- */
 const DEFAULT_I18N_OPTIONS: I18nOptions = {
-  // Set default locale. This locale will be used when fallback is enabled and
-  // the translation doesn't exist in a particular locale.
   defaultLocale: "en",
-
-  // Set the current locale to `en`.
   locale: "en",
-
-  // Set the translation key separator.
   defaultSeparator: ".",
-
-  // Set the placeholder format. Accepts `{{placeholder}}` and `%{placeholder}`.
   placeholder: /(?:\{\{|%\{)(.*?)(?:\}\}?)/gm,
-
-  // Set if engine should fallback to the default locale when a translation
-  // is missing.
   enableFallback: false,
-
-  // Set the default translation object.
-  translations: {},
-
-  // Set missing translation behavior. 'message' will display a message
-  // that the translation is missing, 'guess' will try to guess the string.
   missingBehavior: "message",
-
-  // if you use missingBehavior with 'message', but want to know that the
-  // string is actually missing for testing purposes, you can prefix the
-  // guessed string by setting the value here. By default, no prefix!
   missingTranslationPrefix: "",
 
-  // Return a missing placeholder message for given parameters
   missingPlaceholder: (_i18n: I18n, placeholder: string): string =>
     `[missing "${placeholder}" value]`,
 
-  // Return a placeholder message for null values.
-  // It defaults to the same behavior as `I18n.missingPlaceholder`.
   nullPlaceholder: (
     i18n: I18n,
     placeholder,
@@ -91,10 +63,6 @@ const DEFAULT_I18N_OPTIONS: I18nOptions = {
     options: Dict,
   ): string => i18n.missingPlaceholder(i18n, placeholder, message, options),
 
-  // Transform keys.
-  // By default, it returns the key as it is, but allows for overriding.
-  // For instance, you can set a function to receive the camelcase key, and
-  // convert it to snake case.
   transformKey: (key: string): string => key,
 };
 
@@ -111,36 +79,119 @@ export class I18n {
   public onChangeHandlers: OnChangeHandler[] = [];
 
   /**
-   * Set the default string separator. By default, `.` is used, as in
+   * Set the default string separator. Defaults to `.`, as in
    * `scope.translation`.
+   *
+   * @type {string}
    */
   public defaultSeparator: string;
 
   /**
-   * By default missing translations will first be looked for in less specific
-   * versions of the requested locale and if that fails by taking them from your
-   * `I18n#defaultLocale`.
+   * Set if engine should fallback to the default locale when a translation is
+   * missing. Defaults to `false`.
+   *
+   * When enabled, missing translations will first be looked for in less
+   * specific versions of the requested locale and if that fails by taking them
+   * from your `I18n#defaultLocale`.
+   *
+   * @type {boolean}
    */
   public enableFallback: boolean;
 
+  /**
+   * The locale resolver registry.
+   *
+   * @see {@link Locales}
+   *
+   * @type {Locales}
+   */
   public locales: Locales;
 
   /**
-   * [pluralization description]
+   * The pluralization behavior registry.
+   *
+   * @see {@link Pluralization}
+   *
    * @type {Pluralization}
    */
   public pluralization: Pluralization;
 
+  /**
+   * Set missing translation behavior.
+   *
+   * - `message` will display a message that the translation is missing.
+   * - `guess` will try to guess the string.
+   * - `error` will raise an exception whenever a translation is not defined.
+   *
+   * See {@link MissingTranslation.register} for instructions on how to define
+   * your own behavior.
+   *
+   * @type {MissingBehavior}
+   */
   public missingBehavior: string;
-  public missingTranslation: MissingTranslation;
-  public missingTranslationPrefix: string;
-  public placeholder: RegExp;
-  public translations: Dict = {};
+
+  /**
+   * Return a missing placeholder message for given parameters.
+   *
+   * @type {MissingPlaceholderHandler}
+   */
   public missingPlaceholder: MissingPlaceholderHandler;
+
+  /**
+   * If you use missingBehavior with 'message', but want to know that the string
+   * is actually missing for testing purposes, you can prefix the guessed string
+   * by setting the value here. By default, no prefix is used.
+   *
+   * @type {string}
+   */
+  public missingTranslationPrefix: string;
+
+  /**
+   * Return a placeholder message for null values. Defaults to the same behavior
+   * as `I18n.missingPlaceholder`.
+   *
+   * @type {NullPlaceholderHandler}
+   */
   public nullPlaceholder: NullPlaceholderHandler;
+
+  /**
+   * The missing translation behavior registry.
+   *
+   * @see {@link MissingTranslation}
+   *
+   * @type {MissingTranslation}
+   */
+  public missingTranslation: MissingTranslation;
+
+  /**
+   * Set the placeholder format. Accepts `{{placeholder}}` and `%{placeholder}`.
+   *
+   * @type {RegExp}
+   */
+  public placeholder: RegExp;
+
+  /**
+   * Set the registered translations. The root key must always be the locale
+   * (and its variations with region).
+   *
+   * Remember that no events will be triggered if you change this object
+   * directly. To trigger `onchange` events, you must perform updates either
+   * using `I18n#store` or `I18n#update`.
+   *
+   * @type {Dict}
+   */
+  public translations: Dict = {};
+
+  /**
+   * Transform keys. By default, it returns the key as it is, but allows for
+   * overriding. For instance, you can set a function to receive the camelcase
+   * key, and convert it to snake case.
+   *
+   * @type {(key: string) => string}
+   */
   public transformKey: (key: string) => string;
 
-  constructor(translations: Dict = {}, options?: Partial<I18nOptions>) {
+  constructor(translations: Dict = {}, options: Partial<I18nOptions> = {}) {
     const {
       locale,
       enableFallback,
@@ -180,7 +231,8 @@ export class I18n {
    * existing ones.
    *
    * @param {Dict} translations An object containing the translations that will
-   *                            be merged into existing translations.
+   * be merged into existing translations.
+   *
    * @returns {void}
    */
   public store(translations: Dict): void {
@@ -262,9 +314,9 @@ export class I18n {
    *
    * @param {string|array} scope The scope that will be used.
    *
-   * @param {object} options The options that will be used on the translation.
-   * Can include some special options like `defaultValue`, `count`, and `scope`.
-   * Everything else will be treated as replacement values.
+   * @param {TranslateOptions} options The options that will be used on the
+   * translation. Can include some special options like `defaultValue`, `count`,
+   * and `scope`. Everything else will be treated as replacement values.
    *
    * @param {number} options.count Enable pluralization. The returned
    * translation will depend on the detected pluralizer.
@@ -328,20 +380,20 @@ export class I18n {
   }
 
   /**
-   * @alias translate
+   * @alias {@link translate}
    */
   public t = this.translate;
 
   /**
-   * Pluralize the given scope using the `count` value.
-   * The pluralized translation may have other placeholders,
-   * which will be retrieved from `options`.
+   * Pluralize the given scope using the `count` value. The pluralized
+   * translation may have other placeholders, which will be retrieved from
+   * `options`.
    *
    * @param {number} count The counting number.
    *
    * @param {Scope} scope The translation scope.
    *
-   * @param {object} options The translation options.
+   * @param {TranslateOptions} options The translation options.
    *
    * @returns {string} The translated string.
    */
@@ -354,7 +406,7 @@ export class I18n {
   }
 
   /**
-   * @alias pluralize
+   * @alias {@link pluralize}
    */
   public p = this.pluralize;
 
@@ -373,7 +425,7 @@ export class I18n {
    *
    * @param {string|number|Date} value The value that must be localized.
    *
-   * @param {object} options The localization options.
+   * @param {Dict} options The localization options.
    *
    * @returns {string} The localized string.
    */
@@ -420,7 +472,7 @@ export class I18n {
   }
 
   /**
-   * @alias localize
+   * @alias {@link localize}
    */
   public l = this.localize;
 
@@ -449,26 +501,95 @@ export class I18n {
   }
 
   /**
-   * Format currency with localization rules.
+   * Formats a `number` into a currency string (e.g., $13.65). You can customize
+   * the format in the using an `options` object.
    *
-   * The options will be retrieved from the `number.currency.format` and
-   * `number.format` scopes, in that order.
+   * The currency unit and number formatting of the current locale will be used
+   * unless otherwise specified in the provided options. No currency conversion
+   * is performed. If the user is given a way to change their locale, they will
+   * also be able to change the relative value of the currency displayed with
+   * this helper.
    *
-   * Any missing option will be retrieved from the `I18n.toNumber` defaults and
-   * the following options:
+   * @example
+   * ```js
+   * i18n.numberToCurrency(1234567890.5);
+   * // => "$1,234,567,890.50"
    *
-   * - `unit`: `"$"`
-   * - `precision`: `2`
-   * - `format`: `"%u%n"`
-   * - `delimiter`: `","`
-   * - `separator`: `"."`
+   * i18n.numberToCurrency(1234567890.506);
+   * // => "$1,234,567,890.51"
    *
-   * You can also override these options by providing the `options` argument.
+   * i18n.numberToCurrency(1234567890.506, { precision: 3 });
+   * // => "$1,234,567,890.506"
+   *
+   * i18n.numberToCurrency("123a456");
+   * // => "$123a456"
+   *
+   * i18n.numberToCurrency("123a456", { raise: true });
+   * // => raises exception ("123a456" is not a valid numeric value)
+   *
+   * i18n.numberToCurrency(-0.456789, { precision: 0 });
+   * // => "$0"
+   *
+   * i18n.numberToCurrency(-1234567890.5, { negativeFormat: "(%u%n)" });
+   * // => "($1,234,567,890.50)"
+   *
+   * i18n.numberToCurrency(1234567890.5, {
+   *   unit: "&pound;",
+   *   separator: ",",
+   *   delimiter: "",
+   * });
+   * // => "&pound;1234567890,50"
+   *
+   * i18n.numberToCurrency(1234567890.5, {
+   *   unit: "&pound;",
+   *   separator: ",",
+   *   delimiter: "",
+   *   format: "%n %u",
+   * });
+   * // => "1234567890,50 &pound;"
+   *
+   * i18n.numberToCurrency(1234567890.5, { stripInsignificantZeros: true });
+   * // => "$1,234,567,890.5"
+   *
+   * i18n.numberToCurrency(1234567890.5, { precision: 0, roundMode: "up" });
+   * // => "$1,234,567,891"
+   * ```
    *
    * @param {Numeric} input  The number to be formatted.
    *
-   * @param {object} options The formatting options. When defined, supersedes
-   *  the default options defined by `number.currency.*` and `number.format`.
+   * @param {NumberToCurrencyOptions} options The formatting options. When
+   * defined, supersedes the default options defined by `number.format` and
+   * `number.currency.*`.
+   *
+   * @param {number} options.precision Sets the level of precision (defaults to
+   * 2).
+   *
+   * @param {RoundingMode} options.roundMode Determine how rounding is performed
+   * (defaults to `default`.)
+   *
+   * @param {string} options.unit Sets the denomination of the currency
+   * (defaults to "$").
+   *
+   * @param {string} options.separator Sets the separator between the units
+   * (defaults to ".").
+   *
+   * @param {string} options.delimiter Sets the thousands delimiter
+   * (defaults to ",").
+   *
+   * @param {string} options.format Sets the format for non-negative numbers
+   * (defaults to "%u%n"). Fields are `%u` for the currency, and `%n` for the
+   * number.
+   *
+   * @param {string} options.negativeFormat Sets the format for negative numbers
+   * (defaults to prepending a hyphen to the formatted number given by
+   * `format`). Accepts the same fields than `format`, except `%n` is here the
+   * absolute value of the number.
+   *
+   * @param {boolean} options.stripInsignificantZeros If `true` removes
+   * insignificant zeros after the decimal separator (defaults to `false`).
+   *
+   * @param {boolean} options.raise If `true`, raises exception for non-numeric
+   * values like `NaN` and infinite values.
    *
    * @returns {string} The formatted number.
    */
@@ -477,13 +598,17 @@ export class I18n {
     options: Partial<NumberToCurrencyOptions> = {},
   ): string {
     return formatNumber(input, {
-      unit: "$",
-      precision: 2,
-      format: "%u%n",
       delimiter: ",",
+      format: "%u%n",
+      precision: 2,
       separator: ".",
-      ...this.get("number.format"),
-      ...this.get("number.currency.format"),
+      significant: false,
+      stripInsignificantZeros: false,
+      unit: "$",
+      ...camelCaseKeys<Partial<FormatNumberOptions>>(this.get("number.format")),
+      ...camelCaseKeys<Partial<NumberToCurrencyOptions>>(
+        this.get("number.currency.format"),
+      ),
       ...options,
     } as FormatNumberOptions);
   }
@@ -491,10 +616,64 @@ export class I18n {
   /**
    * Convert a number into a formatted percentage value.
    *
+   * @example
+   * ```js
+   * i18n.numberToPercentage(100);
+   * // => "100.000%"
+   *
+   * i18n.numberToPercentage("98");
+   * // => "98.000%"
+   *
+   * i18n.numberToPercentage(100, { precision: 0 });
+   * // => "100%"
+   *
+   * i18n.numberToPercentage(1000, { delimiter: ".", separator: "," });
+   * // => "1.000,000%"
+   *
+   * i18n.numberToPercentage(302.24398923423, { precision: 5 });
+   * // => "302.24399%"
+   *
+   * i18n.numberToPercentage(1000, { precision: null });
+   * // => "1000%"
+   *
+   * i18n.numberToPercentage("98a");
+   * // => "98a%"
+   *
+   * i18n.numberToPercentage(100, { format: "%n  %" });
+   * // => "100.000  %"
+   *
+   * i18n.numberToPercentage(302.24398923423, { precision: 5, roundMode: "down" });
+   * // => "302.24398%"
+   * ```
+   *
    * @param {Numeric} input The number to be formatted.
    *
-   * @param {options} options The formatting options. When defined, supersedes
-   * the default options stored at `number.percentage.*`.
+   * @param {NumberToPercentageOptions} options The formatting options. When
+   * defined, supersedes the default options stored at `number.format` and
+   * `number.percentage.*`.
+   *
+   * @param {number} options.precision Sets the level of precision (defaults to
+   * 3).
+   *
+   * @param {RoundingMode} options.roundMode Determine how rounding is performed
+   * (defaults to `default`.)
+   *
+   * @param {string} options.separator Sets the separator between the units
+   * (defaults to ".").
+   *
+   * @param {string} options.delimiter Sets the thousands delimiter (defaults to
+   * "").
+   *
+   * @param {string} options.format Sets the format for non-negative numbers
+   * (defaults to "%n%"). The number field is represented by `%n`.
+   *
+   * @param {string} options.negativeFormat Sets the format for negative numbers
+   * (defaults to prepending a hyphen to the formatted number given by
+   * `format`). Accepts the same fields than `format`, except `%n` is here the
+   * absolute value of the number.
+   *
+   * @param {boolean} options.stripInsignificantZeros If `true` removes
+   * insignificant zeros after the decimal separator (defaults to `false`).
    *
    * @returns {string} The formatted number.
    */
@@ -503,13 +682,11 @@ export class I18n {
     options: Partial<NumberToPercentageOptions> = {},
   ): string {
     return formatNumber(input, {
-      unit: "%",
-      precision: 3,
-      separator: ".",
       delimiter: "",
       format: "%n%",
+      ...camelCaseKeys<Partial<FormatNumberOptions>>(this.get("number.format")),
       ...camelCaseKeys<Partial<NumberToPercentageOptions>>(
-        lookup(this, "number.percentage.format"),
+        this.get("number.percentage.format"),
       ),
       ...options,
     } as FormatNumberOptions);
@@ -518,10 +695,75 @@ export class I18n {
   /**
    * Convert a number into a readable size representation.
    *
+   * @example
+   * ```js
+   * i18n.numberToHumanSize(123)
+   * // => "123 Bytes"
+   *
+   * i18n.numberToHumanSize(1234)
+   * // => "1.21 KB"
+   *
+   * i18n.numberToHumanSize(12345)
+   * // => "12.1 KB"
+   *
+   * i18n.numberToHumanSize(1234567)
+   * // => "1.18 MB"
+   *
+   * i18n.numberToHumanSize(1234567890)
+   * // => "1.15 GB"
+   *
+   * i18n.numberToHumanSize(1234567890123)
+   * // => "1.12 TB"
+   *
+   * i18n.numberToHumanSize(1234567890123456)
+   * // => "1.1 PB"
+   *
+   * i18n.numberToHumanSize(1234567890123456789)
+   * // => "1.07 EB"
+   *
+   * i18n.numberToHumanSize(1234567, {precision: 2})
+   * // => "1.2 MB"
+   *
+   * i18n.numberToHumanSize(483989, precision: 2)
+   * // => "470 KB"
+   *
+   * i18n.numberToHumanSize(483989, {precision: 2, roundMode: "up"})
+   * // => "480 KB"
+   *
+   * i18n.numberToHumanSize(1234567, {precision: 2, separator: ","})
+   * // => "1,2 MB"
+   *
+   * i18n.numberToHumanSize(1234567890123, {precision: 5})
+   * // => "1.1228 TB"
+   *
+   * i18n.numberToHumanSize(524288000, {precision: 5})
+   * // => "500 MB"
+   * ```
+   *
    * @param {Numeric} input The number that will be formatted.
    *
-   * @param {object} options The formatting options. When defined, supersedes
-   * the default options stored at `number.human.storage_units.*`.
+   * @param {NumberToHumanSizeOptions} options The formatting options. When
+   * defined, supersedes the default options stored at
+   * `number.human.storage_units.*` and `number.human.format`.
+   *
+   * @param {number} options.precision Sets the precision of the number
+   * (defaults to 3).
+   *
+   * @param {RoundingMode} options.roundMode Determine how rounding is performed
+   * (defaults to `default`)
+   *
+   * @param {boolean} options.significant If `true`, precision will be the
+   * number of significant digits. If `false`, the number of fractional digits
+   * (defaults to `true`).
+   *
+   * @param {string} options.separator Sets the separator between the fractional
+   * and integer digits (defaults to ".").
+   *
+   * @param {string} options.delimiter Sets the thousands delimiter (defaults
+   * to "").
+   *
+   * @param {boolean} options.stripInsignificantZeros If `true` removes
+   * insignificant zeros after the decimal separator (defaults to `true`).
    *
    * @returns {string} The formatted number.
    */
@@ -530,7 +772,6 @@ export class I18n {
     options: Partial<NumberToHumanSizeOptions> = {},
   ): string {
     return numberToHumanSize(this, input, {
-      roundMode: "default" as RoundingMode,
       delimiter: "",
       precision: 3,
       significant: true,
@@ -546,6 +787,9 @@ export class I18n {
       ...camelCaseKeys<Partial<NumberToHumanSizeOptions>>(
         this.get("number.human.format"),
       ),
+      ...camelCaseKeys<Partial<NumberToHumanSizeOptions>>(
+        this.get("number.human.storage_units"),
+      ),
       ...options,
     } as NumberToHumanSizeOptions);
   }
@@ -553,10 +797,154 @@ export class I18n {
   /**
    * Convert a number into a readable representation.
    *
+   * @example
+   * ```js
+   * i18n.numberToHuman(123);
+   * // => "123"
+   *
+   * i18n.numberToHuman(1234);
+   * // => "1.23 Thousand"
+   *
+   * i18n.numberToHuman(12345);
+   * // => "12.3 Thousand"
+   *
+   * i18n.numberToHuman(1234567);
+   * // => "1.23 Million"
+   *
+   * i18n.numberToHuman(1234567890);
+   * // => "1.23 Billion"
+   *
+   * i18n.numberToHuman(1234567890123);
+   * // => "1.23 Trillion"
+   *
+   * i18n.numberToHuman(1234567890123456);
+   * // => "1.23 Quadrillion"
+   *
+   * i18n.numberToHuman(1234567890123456789);
+   * // => "1230 Quadrillion"
+   *
+   * i18n.numberToHuman(489939, { precision: 2 });
+   * // => "490 Thousand"
+   *
+   * i18n.numberToHuman(489939, { precision: 4 });
+   * // => "489.9 Thousand"
+   *
+   * i18n.numberToHuman(489939, { precision: 2, roundMode: "down" });
+   * // => "480 Thousand"
+   *
+   * i18n.numberToHuman(1234567, { precision: 4, significant: false });
+   * // => "1.2346 Million"
+   *
+   * i18n.numberToHuman(1234567, {
+   *   precision: 1,
+   *   separator: ",",
+   *   significant: false,
+   * });
+   * // => "1,2 Million"
+   *
+   * i18n.numberToHuman(500000000, { precision: 5 });
+   * // => "500 Million"
+   *
+   * i18n.numberToHuman(12345012345, { significant: false });
+   * // => "12.345 Billion"
+   * ```
+   *
+   * Non-significant zeros after the decimal separator are stripped out by default
+   * (set `stripInsignificantZeros` to `false` to change that):
+   *
+   * ```js
+   * i18n.numberToHuman(12.00001);
+   * // => "12"
+   *
+   * i18n.numberToHuman(12.00001, { stripInsignificantZeros: false });
+   * // => "12.0"
+   * ```
+   *
+   * You can also use your own custom unit quantifiers:
+   *
+   * ```js
+   * i18n.numberToHuman(500000, units: { unit: "ml", thousand: "lt" });
+   * // => "500 lt"
+   * ```
+   *
+   * If in your I18n locale you have:
+   *
+   * ```yaml
+   * ---
+   * en:
+   *   distance:
+   *     centi:
+   *       one: "centimeter"
+   *       other: "centimeters"
+   *     unit:
+   *       one: "meter"
+   *       other: "meters"
+   *     thousand:
+   *       one: "kilometer"
+   *       other: "kilometers"
+   *     billion: "gazillion-distance"
+   * ```
+   *
+   * Then you could do:
+   *
+   * ```js
+   * i18n.numberToHuman(543934, { units: "distance" });
+   * // => "544 kilometers"
+   *
+   * i18n.numberToHuman(54393498, { units: "distance" });
+   * // => "54400 kilometers"
+   *
+   * i18n.numberToHuman(54393498000, { units: "distance" });
+   * // => "54.4 gazillion-distance"
+   *
+   * i18n.numberToHuman(343, { units: "distance", precision: 1 });
+   * // => "300 meters"
+   *
+   * i18n.numberToHuman(1, { units: "distance" });
+   * // => "1 meter"
+   *
+   * i18n.numberToHuman(0.34, { units: "distance" });
+   * // => "34 centimeters"
+   * ```
+   *
    * @param  {Numeric} input The number that will be formatted.
    *
-   * @param  {object} options The formatting options. When defined, supersedes
-   * the default options stored at `number.human.storage_units.*`.
+   * @param  {NumberToHumanOptions} options The formatting options. When
+   * defined, supersedes the default options stored at `number.human.format.*`
+   * and `number.human.storage_units.*`.
+   *
+   * @param {number} options.precision Sets the precision of the number
+   * (defaults to 3).
+   *
+   * @param {RoundingMode} options.roundMode Determine how rounding is performed
+   * (defaults to `default`).
+   *
+   * @param {boolean} options.significant If `true`, precision will be the
+   * number of significant_digits. If `false`, the number of fractional digits
+   * (defaults to `true`)
+   *
+   * @param {string} options.separator Sets the separator between the fractional
+   * and integer digits (defaults to ".").
+   *
+   * @param {string} options.delimiter Sets the thousands delimiter
+   * (defaults to "").
+   *
+   * @param {boolean} options.stripInsignificantZeros If `true` removes
+   * insignificant zeros after the decimal separator (defaults to `true`).
+   *
+   * @param {Dict} options.units A Hash of unit quantifier names. Or a string
+   * containing an I18n scope where to find this object. It might have the
+   * following keys:
+   *
+   * - _integers_: `unit`, `ten`, `hundred`, `thousand`, `million`, `billion`,
+   *   `trillion`, `quadrillion`
+   * - _fractionals_: `deci`, `centi`, `mili`, `micro`, `nano`, `pico`, `femto`
+   *
+   * @param {string} options.format Sets the format of the output string
+   * (defaults to "%n %u"). The field types are:
+   *
+   * - `%u` - The quantifier (ex.: 'thousand')
+   * - `%n` - The number
    *
    * @returns {string} The formatted number.
    */
@@ -572,7 +960,7 @@ export class I18n {
       stripInsignificantZeros: true,
       format: "%n %u",
       roundMode: "default",
-      units: this.get("number.human.decimal_units")?.units || {
+      units: {
         billion: "Billion",
         million: "Million",
         quadrillion: "Quadrillion",
@@ -583,12 +971,62 @@ export class I18n {
       ...camelCaseKeys<Partial<NumberToHumanOptions>>(
         this.get("number.human.format"),
       ),
+      ...camelCaseKeys<Partial<NumberToHumanOptions>>(
+        this.get("number.human.decimal_units"),
+      ),
       ...options,
     } as NumberToHumanOptions);
   }
 
   /**
    * Convert number to a formatted rounded value.
+   *
+   * @example
+   * ```js
+   * i18n.numberToRounded(111.2345);
+   * // => "111.235"
+   *
+   * i18n.numberToRounded(111.2345, { precision: 2 });
+   * // => "111.23"
+   *
+   * i18n.numberToRounded(13, { precision: 5 });
+   * // => "13.00000"
+   *
+   * i18n.numberToRounded(389.32314, { precision: 0 });
+   * // => "389"
+   *
+   * i18n.numberToRounded(111.2345, { significant: true });
+   * // => "111"
+   *
+   * i18n.numberToRounded(111.2345, { precision: 1, significant: true });
+   * // => "100"
+   *
+   * i18n.numberToRounded(13, { precision: 5, significant: true });
+   * // => "13.000"
+   *
+   * i18n.numberToRounded(13, { precision: null });
+   * // => "13"
+   *
+   * i18n.numberToRounded(389.32314, { precision: 0, roundMode: "up" });
+   * // => "390"
+   *
+   * i18n.numberToRounded(13, {
+   *   precision: 5,
+   *   significant: true,
+   *   stripInsignificantZeros: true,
+   * });
+   * // => "13"
+   *
+   * i18n.numberToRounded(389.32314, { precision: 4, significant: true });
+   * // => "389.3"
+   *
+   * i18n.numberToRounded(1111.2345, {
+   *   precision: 2,
+   *   separator: ",",
+   *   delimiter: ".",
+   * });
+   * // => "1.111,23"
+   * ```
    *
    * @param {Numeric} input The number to be formatted.
    *
@@ -633,19 +1071,34 @@ export class I18n {
    *
    * @example
    * ```js
-   * i18n.numberToDelimited(12345678)                      // => "12,345,678"
-   * i18n.numberToDelimited('123456')                      // => "123,456"
-   * i18n.numberToDelimited(12345678.05)                   // => "12,345,678.05"
-   * i18n.numberToDelimited(12345678, {delimiter: "."})    // => "12.345.678"
-   * i18n.numberToDelimited(12345678, {delimiter: ","})    // => "12,345,678"
-   * i18n.numberToDelimited(12345678.05, {separator: " "}) // => "12,345,678 05"
-   * i18n.numberToDelimited('112a')                        // => "112a"
-   * i18n.numberToDelimited(98765432.98, delimiter: " ", separator: ",")
-   *                                                       // => "98 765 432,98"
-   * i18n.numberToDelimited(
-   *   "123456.78",
-   *   {delimiterPattern: /(\d+?)(?=(\d\d)+(\d)(?!\d))/g}
-   * )                                                     // => "1,23,456.78"
+   * i18n.numberToDelimited(12345678);
+   * // => "12,345,678"
+   *
+   * i18n.numberToDelimited("123456");
+   * // => "123,456"
+   *
+   * i18n.numberToDelimited(12345678.05);
+   * // => "12,345,678.05"
+   *
+   * i18n.numberToDelimited(12345678, { delimiter: "." });
+   * // => "12.345.678"
+   *
+   * i18n.numberToDelimited(12345678, { delimiter: "," });
+   * // => "12,345,678"
+   *
+   * i18n.numberToDelimited(12345678.05, { separator: " " });
+   * // => "12,345,678 05"
+   *
+   * i18n.numberToDelimited("112a");
+   * // => "112a"
+   *
+   * i18n.numberToDelimited(98765432.98, { delimiter: " ", separator: "," });
+   * // => "98 765 432,98"
+   *
+   * i18n.numberToDelimited("123456.78", {
+   *   delimiterPattern: /(\d+?)(?=(\d\d)+(\d)(?!\d))/g,
+   * });
+   * // => "1,23,456.78"
    * ```
    *
    * @param {Numeric} input The numeric value that will be formatted.
@@ -668,7 +1121,7 @@ export class I18n {
     input: Numeric,
     options: Partial<NumberToDelimitedOptions> = {},
   ): string {
-    return numberToDelimited(this, input, {
+    return numberToDelimited(input, {
       delimiterPattern: /(\d)(?=(\d\d\d)+(?!\d))/g,
       delimiter: ",",
       separator: ".",
@@ -685,9 +1138,11 @@ export class I18n {
    * end up with a race condition.
    *
    * @example
+   * ```js
    * await i18n.withLocale("pt", () => {
    *   console.log(i18n.t("hello"));
    * });
+   * ```
    *
    * @param {string} locale The temporary locale that will be set during the
    * function's execution.
@@ -755,10 +1210,10 @@ export class I18n {
    * i18n.update("en.number.format", {unit: "%n %u"}, true);
    * ```
    *
-   * @param {string}     path The path that's going to be updated. It must
+   * @param {string} path The path that's going to be updated. It must
    * include the language, as in `en.messages`.
    *
-   * @param {Dict}   override The new translation node.
+   * @param {Dict} override The new translation node.
    *
    * @param {boolean} options Set options.
    *
@@ -860,7 +1315,7 @@ export class I18n {
    *
    * @param {DateTime} toTime The ending time. Defaults to `Date.now()`.
    *
-   * @param {TimeAgoInWordsOptions} options  The options.
+   * @param {TimeAgoInWordsOptions} options The options.
    *
    * @param {boolean} options.includeSeconds Pass `{includeSeconds: true}` if
    * you want more detailed approximations when distance < 1 min, 29 secs.
@@ -879,7 +1334,7 @@ export class I18n {
   }
 
   /**
-   * @alias timeAgoInWords
+   * @alias {@link timeAgoInWords}
    */
   public distanceOfTimeInWords = this.timeAgoInWords;
 
@@ -897,7 +1352,8 @@ export class I18n {
 
   /**
    * Return the change version. This value is incremented whenever `I18n#store`
-   * or `I18n#update` is called.
+   * or `I18n#update` is called, or when `I18n#locale`/`I18n#defaultLocale` is
+   * set.
    */
   public get version(): number {
     return this._version;
@@ -916,6 +1372,7 @@ export class I18n {
 
   /**
    * @private
+   *
    * @returns {void}
    */
   private runCallbacks(): void {
@@ -924,6 +1381,7 @@ export class I18n {
 
   /**
    * @private
+   *
    * @returns {void}
    */
   private hasChanged(): void {

@@ -28,6 +28,17 @@ function getAbsolutePrecision(
   return precision;
 }
 
+/**
+ * Round a number.
+ *
+ * @private
+ *
+ * @param {BigNumber} numeric The number that will be rounded.
+ *
+ * @param {RoundingOptions} options The rounding options.
+ *
+ * @return {string} The rounded number.
+ */
 export function roundNumber(
   numeric: BigNumber,
   options: RoundingOptions,

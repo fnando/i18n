@@ -35,6 +35,20 @@ const INVERTED_DECIMAL_UNITS = zipObject(
   Object.keys(DECIMAL_UNITS).map((key) => parseInt(key, 10)),
 );
 
+/**
+ * Pretty prints (formats and approximates) a number in a way it is more
+ * readable by humans.
+ *
+ * @private
+ *
+ * @param {I18n} i18n The `I18n` instance.
+ *
+ * @param {Numeric} input The numeric value that will be represented.
+ *
+ * @param {NumberToHumanOptions} options The formatting options.
+ *
+ * @return {string} The formatted number.
+ */
 export function numberToHuman(
   i18n: I18n,
   input: Numeric,

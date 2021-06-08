@@ -452,7 +452,6 @@ format in the `options` hash.
 
 - `precision` - Sets the level of precision (defaults to 3).
 - `roundMode` - Determine how rounding is performed (defaults to `default`.)
-- `unit` - Sets the denomination of the currency (defaults to "$").
 - `separator` - Sets the separator between the units (defaults to ".").
 - `delimiter` - Sets the thousands delimiter (defaults to "").
 - `format` - Sets the format for non-negative numbers (defaults to "%n%"). The

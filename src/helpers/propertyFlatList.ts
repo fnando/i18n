@@ -61,8 +61,11 @@ class PropertyFlatList {
  * ];
  * ```
  *
- * @param  {Dict}     target The object that will be mapped.
- * @returns {string[]}        The list of paths.
+ * @private
+ *
+ * @param {Dict} target The object that will be mapped.
+ *
+ * @returns {string[]} The list of paths.
  */
 export function propertyFlatList(target: Dict): string[] {
   return new PropertyFlatList(target).call();

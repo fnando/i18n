@@ -1,5 +1,8 @@
 import { Dict, MissingTranslationStrategy, Scope } from "../index.d";
 import { I18n } from "./I18n";
+export declare const guessStrategy: MissingTranslationStrategy;
+export declare const messageStrategy: MissingTranslationStrategy;
+export declare const errorStrategy: MissingTranslationStrategy;
 export declare class MissingTranslation {
     private i18n;
     private registry;

@@ -9,6 +9,17 @@ import { roundNumber, expandRoundMode } from ".";
  */
 const STORAGE_UNITS = ["byte", "kb", "mb", "gb", "tb", "pb", "eb"];
 
+/**
+ * Formats the bytes in number into a more understandable representation.
+ *
+ * @param {I18n} i18n The `I18n` instance.
+ *
+ * @param {Numeric} input The number that will be represented.
+
+ * @param {NumberToHumanSizeOptions} options The formatting options.
+
+ * @return {string} The formatted number.
+ */
 export function numberToHumanSize(
   i18n: I18n,
   input: Numeric,

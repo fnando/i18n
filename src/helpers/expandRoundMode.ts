@@ -15,6 +15,13 @@ enum RoundingModeMap {
   "floor" = BigNumber.ROUND_FLOOR,
 }
 
+/**
+ * @internal
+ *
+ * @param {RoundingMode} roundMode BigNumber's rounding mode shortcut.
+ *
+ * @return {BigNumber.RoundingMode} The related BigNumber rounding mode.
+ */
 export function expandRoundMode(
   roundMode: RoundingMode,
 ): BigNumber.RoundingMode {

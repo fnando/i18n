@@ -1,5 +1,6 @@
 import { LocaleResolver } from "../index.d";
 import { I18n } from "./I18n";
+export declare const defaultLocaleResolver: LocaleResolver;
 export declare class Locales {
     private i18n;
     private registry;

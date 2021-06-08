@@ -7,11 +7,17 @@ import { I18n } from "./I18n";
  * To use it, you have to set `i18n.missingBehavior` to `"guess"`.
  *
  * @type {MissingTranslationStrategy}
- * @param {I18n}     i18n  The I18n instance.
- * @param {Scope}   scope  The translation scope.
- * @returns {string}       The missing translation string.
+ *
+ * @param {I18n} i18n The I18n instance.
+ *
+ * @param {Scope} scope The translation scope.
+ *
+ * @returns {string} The missing translation string.
  */
-const guessStrategy: MissingTranslationStrategy = function (i18n, scope) {
+export const guessStrategy: MissingTranslationStrategy = function (
+  i18n,
+  scope,
+) {
   if (scope instanceof Array) {
     scope = scope.join(i18n.defaultSeparator);
   }
@@ -38,12 +44,20 @@ const guessStrategy: MissingTranslationStrategy = function (i18n, scope) {
  * This is the default behavior.
  *
  * @type {MissingTranslationStrategy}
- * @param {I18n}       i18n The I18n instance.
- * @param {Scope}     scope The translation scope.
- * @param {Dict}    options The translations' options.
- * @returns {string}        The missing translation string.
+ *
+ * @param {I18n} i18n The I18n instance.
+ *
+ * @param {Scope} scope The translation scope.
+ *
+ * @param {Dict} options The translations' options.
+ *
+ * @returns {string} The missing translation string.
  */
-const messageStrategy: MissingTranslationStrategy = (i18n, scope, options) => {
+export const messageStrategy: MissingTranslationStrategy = (
+  i18n,
+  scope,
+  options,
+) => {
   const fullScope = getFullScope(i18n, scope, options);
   const locale = "locale" in options ? options.locale : i18n.locale;
   const localeType = inferType(locale);
@@ -62,12 +76,20 @@ const messageStrategy: MissingTranslationStrategy = (i18n, scope, options) => {
  * To use it, you have to set `i18n.missingBehavior` to `"error"`.
  *
  * @type {MissingTranslationStrategy}
- * @param {I18n}     i18n The I18n instance.
- * @param {Scope}   scope The translation scope.
- * @param {Dict}  options The translations' options.
+ *
+ * @param {I18n} i18n The I18n instance.
+ *
+ * @param {Scope} scope The translation scope.
+ *
+ * @param {Dict} options The translations' options.
+ *
  * @returns {void}
  */
-const errorStrategy: MissingTranslationStrategy = (i18n, scope, options) => {
+export const errorStrategy: MissingTranslationStrategy = (
+  i18n,
+  scope,
+  options,
+) => {
   const fullScope = getFullScope(i18n, scope, options);
   const fullScopeWithLocale = [i18n.locale, fullScope].join(
     i18n.defaultSeparator,
@@ -106,10 +128,11 @@ export class MissingTranslation {
    * i18n.missingBehavior = "oops";
    * ```
    *
-   * @param {string}                         name The strategy name.
+   * @param {string} name The strategy name.
+   *
    * @param {MissingTranslationStrategy} strategy A function that returns a
-   *                                              string the result of a missing
-   *                                              translation scope.
+   * string the result of a missing translation scope.
+   *
    * @returns {void}
    */
   public register(name: string, strategy: MissingTranslationStrategy): void {
@@ -119,9 +142,11 @@ export class MissingTranslation {
   /**
    * Return a missing translation message for the given parameters.
    *
-   * @param {Scope}       scope The translations' scope.
-   * @param {Dict}      options The translations' options.
-   * @returns {string}          The missing translation.
+   * @param {Scope} scope The translations' scope.
+   *
+   * @param {Dict} options The translations' options.
+   *
+   * @returns {string} The missing translation.
    */
   public get(scope: Scope, options: Dict): string {
     return this.registry[this.i18n.missingBehavior](this.i18n, scope, options);

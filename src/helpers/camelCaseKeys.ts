@@ -6,8 +6,11 @@ import { Dict } from "../../index.d";
  * Shallow transform an object's keys from snake case (that's assumption) to
  * camel case.
  *
+ * @private
+ *
  * @param  {object} target The object that will be transformed.
- * @returns {object}        A new transformed object.
+ *
+ * @returns {object} A new transformed object.
  */
 export function camelCaseKeys<T = Dict>(target: unknown): T {
   if (!target) {

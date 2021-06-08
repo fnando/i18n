@@ -19,6 +19,8 @@ import { DateTime } from "../../index.d";
  * If any other pattern is provided, then it'll be parsed by `Date.parse`, which
  * may or may not bring the expected result.
  *
+ * @private
+ *
  * @example
  * ```js
  * parseDate("2019-12-09");

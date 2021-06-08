@@ -6,16 +6,9 @@ import { roundNumber } from ".";
 
 function replaceInFormat(
   format: string,
-  {
-    formattedNumber,
-    unit,
-    sign,
-  }: { formattedNumber: string; unit: string; sign: string },
+  { formattedNumber, unit }: { formattedNumber: string; unit: string },
 ): string {
-  return format
-    .replace("%u", unit)
-    .replace("%n", formattedNumber)
-    .replace("%s", sign);
+  return format.replace("%n", formattedNumber).replace("%u", unit);
 }
 
 function computeSignificand({
@@ -36,6 +29,17 @@ function computeSignificand({
   return (significand ?? "").substr(0, limit);
 }
 
+/**
+ * Formats a number.
+ *
+ * @internal
+ *
+ * @param {Numeric} input The numeric value that will be formatted.
+ *
+ * @param {FormatNumberOptions} options The formatting options.
+ *
+ * @return {string}                      [description]
+ */
 export function formatNumber(
   input: Numeric,
   options: FormatNumberOptions,
@@ -50,7 +54,6 @@ export function formatNumber(
   const numeric = new BigNumber(roundedNumber);
   const isNegative = numeric.lt(0);
   const isZero = numeric.isZero();
-  let sign = isNegative ? "-" : "";
   let [whole, significand] = roundedNumber.split(".");
   const buffer: string[] = [];
   let formattedNumber: string;
@@ -90,12 +93,7 @@ export function formatNumber(
     formattedNumber += (options.separator || ".") + significand;
   }
 
-  if (isZero || (options.precision === 0 && !whole)) {
-    sign = "";
-  }
-
   return replaceInFormat(format, {
-    sign,
     formattedNumber,
     unit: options.unit,
   });

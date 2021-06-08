@@ -7,6 +7,21 @@ import { parseDate } from ".";
 const within = (start: number, end: number, actual: number): boolean =>
   actual >= start && actual <= end;
 
+/**
+ * Reports the approximate distance in time between two dates.
+ *
+ * @private
+ *
+ * @param {I18n} i18n The `I18n` instance.
+ *
+ * @param {DateTime} fromTime The initial date.
+ *
+ * @param {DateTime} toTime The end date.
+
+ * @param {TimeAgoInWordsOptions} options Options.
+
+ * @return {string} The approximate distance between the dates.
+ */
 export function timeAgoInWords(
   i18n: I18n,
   fromTime: DateTime,

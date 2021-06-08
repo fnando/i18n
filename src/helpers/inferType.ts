@@ -2,8 +2,10 @@
  * Return object type.
  *
  * @private
- * @param {unknown}  instance The object that will be inspected.
- * @returns {string}          The object's type.
+ *
+ * @param {unknown} instance The object that will be inspected.
+ *
+ * @returns {string} The object's type.
  */
 export function inferType(instance: unknown): string {
   if (instance === null) {

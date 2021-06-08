@@ -10,10 +10,14 @@ import { isSet, getFullScope, inferType } from ".";
  * public API.
  *
  * @private
- * @param {I18n}              i18n The I18n instance.
- * @param {Scope}            scope The translation scope.
+ *
+ * @param {I18n} i18n The I18n instance.
+ *
+ * @param {Scope} scope The translation scope.
+ *
  * @param {Dict|undefined} options The lookup options.
- * @returns {string}               The resolved translation.
+ *
+ * @returns {string} The resolved translation.
  */
 export function lookup(i18n: I18n, scope: Scope, options: Dict = {}): any {
   options = { ...options };

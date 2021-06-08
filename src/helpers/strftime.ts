@@ -81,11 +81,16 @@ const DEFAULT_OPTIONS: StrftimeOptions = {
  * %Z  - Timezone offset (+0545)
  * ```
  *
- * @param {date}              date  The date that must be formatted.
- * @param {string}           format The formatting string.
+ * @private
+ *
+ * @param {date} date  The date that must be formatted.
+ *
+ * @param {string} format The formatting string.
+ *
  * @param {StrftimeOptions} options The options that will be used to generate a
- *                                  formatted date string.
- * @returns {string}                 The formatted date string.
+ * formatted date string.
+ *
+ * @returns {string} The formatted date string.
  */
 export function strftime(
   date: Date,

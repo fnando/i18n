@@ -1,4 +1,4 @@
-import { DateTime, Dict, I18nOptions, MissingPlaceholderHandler, NullPlaceholderHandler, NumberToCurrencyOptions, NumberToDelimitedOptions, NumberToHumanOptions, NumberToHumanSizeOptions, NumberToPercentageOptions, NumberToRoundedOptions, Numeric, OnChangeHandler, Scope, TimeAgoInWordsOptions, ToSentenceOptions, TranslateOptions } from "../index.d";
+import { DateTime, Dict, I18nOptions, MissingPlaceholderHandler, NullPlaceholderHandler, NumberToCurrencyOptions, NumberToDelimitedOptions, NumberToHumanOptions, NumberToHumanSizeOptions, NumberToPercentageOptions, NumberToRoundedOptions, Numeric, OnChangeHandler, Scope, StrftimeOptions, TimeAgoInWordsOptions, ToSentenceOptions, TranslateOptions } from "../index.d";
 import { Locales } from "./Locales";
 import { Pluralization } from "./Pluralization";
 import { MissingTranslation } from "./MissingTranslation";
@@ -12,12 +12,12 @@ export declare class I18n {
     locales: Locales;
     pluralization: Pluralization;
     missingBehavior: string;
-    missingTranslation: MissingTranslation;
+    missingPlaceholder: MissingPlaceholderHandler;
     missingTranslationPrefix: string;
+    nullPlaceholder: NullPlaceholderHandler;
+    missingTranslation: MissingTranslation;
     placeholder: RegExp;
     translations: Dict;
-    missingPlaceholder: MissingPlaceholderHandler;
-    nullPlaceholder: NullPlaceholderHandler;
     transformKey: (key: string) => string;
     constructor(translations?: Dict, options?: Partial<I18nOptions>);
     store(translations: Dict): void;
@@ -39,7 +39,7 @@ export declare class I18n {
     numberToRounded(input: Numeric, options?: Partial<NumberToRoundedOptions>): string;
     numberToDelimited(input: Numeric, options?: Partial<NumberToDelimitedOptions>): string;
     withLocale(locale: string, callback: () => void): Promise<void>;
-    strftime(date: Date, format: string): string;
+    strftime(date: Date, format: string, options?: Partial<StrftimeOptions>): string;
     update(path: string, override: any, options?: {
         strict: boolean;
     }): void;

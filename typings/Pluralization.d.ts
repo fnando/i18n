@@ -1,5 +1,6 @@
 import { Pluralizer } from "../index.d";
 import { I18n } from "./I18n";
+export declare const defaultPluralizer: Pluralizer;
 export declare class Pluralization {
     private i18n;
     private registry;
