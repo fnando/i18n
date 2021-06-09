@@ -953,6 +953,59 @@ i18n.toSentence(["apple", "banana", "pineapple"]);
 //=> apple, banana, and pineapple.
 ```
 
+## Troubleshooting
+
+### I'm getting an error like `SyntaxError: Unexpected end of JSON input` or `Uncaught SyntaxError: Unexpected token ;`
+
+You may get such error if you're trying to load empty JSON files with
+`import data from "file.json"`. This has nothing to do with I18n and is related
+to how your JSON file is loaded. **JSON files must contain valid JSON data.**
+
+Similarly, make sure you're writing valid JSON, and not JavaScript. For
+instance, if you write something like `{};`, you'll get an error like
+`Uncaught SyntaxError: Unexpected token ;`.
+
+### My JSON contains a flat structure. How can I load and use it with I18n.js?
+
+I18n.js expects a nested object to represent the translation tree. For this
+reason, you cannot use an object like the following by default:
+
+```json
+{
+  "en.messages.hello": "hello",
+  "pt-BR.messages.hello": "olá"
+}
+```
+
+One solution is using something like the following to transform your flat into a
+nested object:
+
+```js
+const { set } = require("lodash");
+
+const from = {
+  "en.messages.hello": "hello",
+  "pt-BR.messages.hello": "olá",
+};
+
+function flatToNestedObject(target) {
+  const nested = {};
+
+  Object.keys(target).forEach((path) => set(nested, path, target[path]));
+
+  return nested;
+}
+
+console.log(flatToNestedObject(from));
+// {
+//   en: { messages: { hello: 'hello' } },
+//   'pt-BR': { messages: { hello: 'olá' } }
+// }
+```
+
+You can also use something like [flat](https://github.com/hughsk/flat) to
+perform the same transformation.
+
 ## License
 
 (The MIT License)
