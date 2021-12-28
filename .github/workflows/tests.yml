@@ -3,16 +3,7 @@ name: tests
 
 on:
   pull_request:
-    branches:
-      - main
-
   push:
-    branches:
-      - main
-
-  schedule:
-    - cron: "0 10 * * *"
-
   workflow_dispatch:
     inputs: {}
 
@@ -29,7 +20,6 @@ jobs:
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-node-
 
       - name: Install npm dependencies
         run: yarn install
