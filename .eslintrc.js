@@ -7,5 +7,6 @@ module.exports = {
     "lines-between-class-members": "off",
     "prefer-destructuring": "off",
     "no-use-before-define": "off",
+    "@fnando/consistent-import/consistent-import": "off",
   },
 };
