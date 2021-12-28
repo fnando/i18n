@@ -9,6 +9,7 @@
   },
   "files": [
     "dist/**/*",
+    "json/**/*",
     "typings/**/*"
   ],
   "typings": "./typings",
