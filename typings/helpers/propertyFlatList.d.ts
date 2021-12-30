@@ -1,2 +1,2 @@
-import { Dict } from "../../index.d";
+import { Dict } from "../typing";
 export declare function propertyFlatList(target: Dict): string[];

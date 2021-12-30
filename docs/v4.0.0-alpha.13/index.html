@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html class="default no-js">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>i18n-js v4.0.0-alpha.13</title>
+	<meta name="description" content="Documentation for i18n-js v4.0.0-alpha.13">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text">
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">i18n-js v4.0.0-alpha.13</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked>
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked>
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<h1>i18n-js v4.0.0-alpha.13</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<p align="center">
+					<strong style="font-size: 36px;">i18n-js</strong>
+				</p>
+				<p align="center">
+					A small library to provide the <a href="https://rubygems.org/gems/i18n">i18n</a> translations on the JavaScript.
+				</p>
+				<p align="center">
+					<a href="https://github.com/fnando/i18n/actions?query=workflow%3Atests"><img src="https://github.com/fnando/i18n/workflows/tests/badge.svg" alt="Tests"></a>
+					<a href="https://www.npmjs.com/package/i18n-js"><img src="https://img.shields.io/npm/v/i18n-js/next.svg" alt="npm version"></a>
+					<a href="https://www.npmjs.com/package/i18n-js"><img src="https://img.shields.io/npm/dt/i18n-js.svg" alt="npm downloads"></a>
+					<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
+				</p>
+				<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+					<h2>Installation</h2>
+				</a>
+				<ul>
+					<li>Yarn: <code>yarn add i18n-js@next</code>
+</li>
+					<li>NPM: <code>npm install i18n-js@next</code>
+</li>
+				</ul>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h2>Usage</h2>
+				</a>
+				<a href="#setting-up" id="setting-up" style="color: inherit; text-decoration: none;">
+					<h3>Setting up</h3>
+				</a>
+				<p>First, you need to instantiate <code>I18n</code> with the translations' object, the main
+				class of this library.</p>
+				<pre><code class="language-js"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">I18n</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">"i18n-js"</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">translations</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">"./translations.json"</span><span style="color: #000000">;</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">i18n</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">I18n</span><span style="color: #000000">(</span><span style="color: #001080">translations</span><span style="color: #000000">);</span>
+</code></pre>
+				<p>The <code>translations</code> object is a direct export of translations defined by
+					<a href="https://guides.rubyonrails.org/i18n.html">Ruby on Rails</a>. To export the
+					translations, you can use <a href="https://github.com/fnando/i18n-js">i18n-js</a>, a Ruby
+					gem that's completely disconnected from Rails and that can be used for the
+					solely purpose of exporting the translations, even if your project is written in
+					a different language. If all you care about is some basic translation mechanism,
+				then you can set the object like this:</p>
+				<pre><code class="language-js"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">i18n</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">I18n</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #001080">en:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">hello:</span><span style="color: #000000"> </span><span style="color: #A31515">"Hi!"</span><span style="color: #000000">,</span>
+<span style="color: #000000">  },</span>
+<span style="color: #000000">  </span><span style="color: #A31515">"pt-BR"</span><span style="color: #001080">:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">hello:</span><span style="color: #000000"> </span><span style="color: #A31515">"Olá!"</span><span style="color: #000000">,</span>
+<span style="color: #000000">  },</span>
+<span style="color: #000000">});</span>
+</code></pre>
+				<p>Each root key is a different locale that may or may not have the script code.
+				This library also supports locales with region code, like <code>zh-Hant-TW</code>.</p>
+				<p>Once everything is set up, you can then define the locale. <code>en</code> is both the
+					current and default locale. To override either values, you have to use
+				<code>I18n#defaultLocale</code> and <code>I18n#locale</code>.</p>
+				<pre><code class="language-js"><span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #001080">defaultLocale</span><span style="color: #000000"> = </span><span style="color: #A31515">"pt-BR"</span><span style="color: #000000">;</span>
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #001080">locale</span><span style="color: #000000"> = </span><span style="color: #A31515">"pt-BR"</span><span style="color: #000000">;</span>
+</code></pre>
+				<a href="#base-translations" id="base-translations" style="color: inherit; text-decoration: none;">
+					<h4>Base translations</h4>
+				</a>
+				<p>This library comes bundled with all base translations made available by
+					<a href="https://github.com/svenfuchs/rails-i18n/tree/master/rails/locale">rails-i18n</a>.
+					Base translations allow formatting date, numbers, and sentence connectors, among
+				other things.</p>
+				<p>To load the base translations, use something like the following:</p>
+				<pre><code class="language-js"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">I18n</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">"i18n-js"</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">ptBR</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">"i18n-js/json/pt-BR.json"</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">en</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">"i18n-js/json/en.json"</span><span style="color: #000000">;</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">i18n</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">I18n</span><span style="color: #000000">({</span>
+<span style="color: #000000">  ...</span><span style="color: #001080">ptBR</span><span style="color: #000000">,</span>
+<span style="color: #000000">  ...</span><span style="color: #001080">en</span><span style="color: #000000">,</span>
+<span style="color: #000000">});</span>
+</code></pre>
+				<a href="#updating-translation-store" id="updating-translation-store" style="color: inherit; text-decoration: none;">
+					<h3>Updating translation store</h3>
+				</a>
+				<p>Updating the translation store is trivial. All you have to do is calling
+					<code>I18n#store</code> with the translations that need to be merged. Let's assume you've
+					exported all your app's translations using
+					<a href="https://github.com/fnando/i18n-js">i18n-js</a> CLI, using a separate file for each
+				language, like this:</p>
+				<ul>
+					<li><code>translations/en.json</code></li>
+					<li><code>translations/pt-BR.json</code></li>
+				</ul>
+				<p>This is how you could update the store:</p>
+				<pre><code class="language-js"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">I18n</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">"i18n-js"</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">ptBR</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">"translations/pt-BR.json"</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">en</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">"translations/en.json"</span><span style="color: #000000">;</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">i18n</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">I18n</span><span style="color: #000000">();</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">store</span><span style="color: #000000">(</span><span style="color: #001080">en</span><span style="color: #000000">);</span>
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">store</span><span style="color: #000000">(</span><span style="color: #001080">ptBR</span><span style="color: #000000">);</span>
+</code></pre>
+				<p>This method will allow you to lazy load translations and them updating the store
+				as needed.</p>
+				<pre><code class="language-js"><span style="color: #AF00DB">import</span><span style="color: #000000"> { </span><span style="color: #001080">I18n</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">"i18n-js"</span><span style="color: #000000">;</span>
+
+<span style="color: #0000FF">async</span><span style="color: #000000"> </span><span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">loadTranslations</span><span style="color: #000000">(</span><span style="color: #001080">i18n</span><span style="color: #000000">, </span><span style="color: #001080">locale</span><span style="color: #000000">) {</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">response</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #795E26">fetch</span><span style="color: #000000">(</span><span style="color: #A31515">`/translations/</span><span style="color: #0000FF">${</span><span style="color: #001080">locale</span><span style="color: #0000FF">}</span><span style="color: #A31515">.json`</span><span style="color: #000000">);</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">translations</span><span style="color: #000000"> = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">response</span><span style="color: #000000">.</span><span style="color: #795E26">json</span><span style="color: #000000">();</span>
+
+<span style="color: #000000">  </span><span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">store</span><span style="color: #000000">(</span><span style="color: #001080">translations</span><span style="color: #000000">);</span>
+<span style="color: #000000">}</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">i18n</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">I18n</span><span style="color: #000000">();</span>
+<span style="color: #795E26">loadTranslations</span><span style="color: #000000">(</span><span style="color: #001080">i18n</span><span style="color: #000000">, </span><span style="color: #A31515">"es"</span><span style="color: #000000">);</span>
+</code></pre>
+				<a href="#translating-messages" id="translating-messages" style="color: inherit; text-decoration: none;">
+					<h3>Translating messages</h3>
+				</a>
+				<p>To translate messages, you have to use the <code>I18n#translate</code>, or its <code>I18n#t</code>
+				alias.</p>
+				<pre><code class="language-js"><span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #001080">locale</span><span style="color: #000000"> = </span><span style="color: #A31515">"en"</span><span style="color: #000000">;</span>
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">t</span><span style="color: #000000">(</span><span style="color: #A31515">"hello"</span><span style="color: #000000">); </span><span style="color: #008000">//=&gt; Hi!</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #001080">locale</span><span style="color: #000000"> = </span><span style="color: #A31515">"pt-BR"</span><span style="color: #000000">;</span>
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">t</span><span style="color: #000000">(</span><span style="color: #A31515">"hello"</span><span style="color: #000000">); </span><span style="color: #008000">//=&gt; Olá!</span>
+</code></pre>
+				<p>You can also provide an array as scope. Both calls below are equivalent.</p>
+				<pre><code class="language-js"><span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">t</span><span style="color: #000000">([</span><span style="color: #A31515">"greetings"</span><span style="color: #000000">, </span><span style="color: #A31515">"hello"</span><span style="color: #000000">]);</span>
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">t</span><span style="color: #000000">(</span><span style="color: #A31515">"greetings.hello"</span><span style="color: #000000">);</span>
+</code></pre>
+				<p>Your translations may have dynamic values that should be interpolated. Here's a
+				greeting message that takes a name:</p>
+				<pre><code class="language-js"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">i18n</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">I18n</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #001080">en:</span><span style="color: #000000"> { </span><span style="color: #001080">greetings:</span><span style="color: #000000"> </span><span style="color: #A31515">"Hi, %{name}!"</span><span style="color: #000000"> },</span>
+<span style="color: #000000">  </span><span style="color: #A31515">"pt-BR"</span><span style="color: #001080">:</span><span style="color: #000000"> { </span><span style="color: #001080">greetings:</span><span style="color: #000000"> </span><span style="color: #A31515">"Olá, %{name}!"</span><span style="color: #000000"> },</span>
+<span style="color: #000000">});</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">t</span><span style="color: #000000">(</span><span style="color: #A31515">"greetings"</span><span style="color: #000000">, { </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">"John"</span><span style="color: #000000"> });</span>
+</code></pre>
+				<a href="#missing-translations" id="missing-translations" style="color: inherit; text-decoration: none;">
+					<h4>Missing translations</h4>
+				</a>
+				<p>A translation may be missing. In that case, you may set the default value that's
+				going to be returned.</p>
+				<pre><code class="language-js"><span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">t</span><span style="color: #000000">(</span><span style="color: #A31515">"missing.scope"</span><span style="color: #000000">, { </span><span style="color: #001080">defaultValue:</span><span style="color: #000000"> </span><span style="color: #A31515">"This is a default message"</span><span style="color: #000000"> });</span>
+</code></pre>
+				<p>Default messages can also have interpolation.</p>
+				<pre><code class="language-js"><span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">t</span><span style="color: #000000">(</span><span style="color: #A31515">"noun"</span><span style="color: #000000">, { </span><span style="color: #001080">defaultValue:</span><span style="color: #000000"> </span><span style="color: #A31515">"I'm a {{noun}}"</span><span style="color: #000000">, </span><span style="color: #001080">noun:</span><span style="color: #000000"> </span><span style="color: #A31515">"Mac"</span><span style="color: #000000"> });</span>
+</code></pre>
+				<p>Alternatively, you can define a list of scopes that will be searched instead.</p>
+				<pre><code class="language-js"><span style="color: #008000">// As a scope</span>
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">t</span><span style="color: #000000">(</span><span style="color: #A31515">"some.missing.scope"</span><span style="color: #000000">, { </span><span style="color: #001080">defaults:</span><span style="color: #000000"> [{ </span><span style="color: #001080">scope:</span><span style="color: #000000"> </span><span style="color: #A31515">"some.existing.scope"</span><span style="color: #000000"> }] });</span>
+
+<span style="color: #008000">// As a simple translation</span>
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">t</span><span style="color: #000000">(</span><span style="color: #A31515">"some.missing.scope"</span><span style="color: #000000">, { </span><span style="color: #001080">defaults:</span><span style="color: #000000"> [{ </span><span style="color: #001080">message:</span><span style="color: #000000"> </span><span style="color: #A31515">"Some message"</span><span style="color: #000000"> }] });</span>
+</code></pre>
+				<p>Default values must be provided as an array of objects where the key is the type
+					of desired translation, a <code>scope</code> or a <code>message</code>. The returned translation will
+				be either the first scope recognized, or the first message defined.</p>
+				<p>The translation will fall back to the <code>defaultValue</code> translation if no scope in
+				<code>defaults</code> matches and if no <code>message</code> default is found.</p>
+				<p>You can enable translation fallback with <code>I18n#enableFallback</code>.</p>
+				<pre><code class="language-js"><span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #001080">enableFallback</span><span style="color: #000000"> = </span><span style="color: #0000FF">true</span><span style="color: #000000">;</span>
+</code></pre>
+				<p>By default missing translations will first be looked for in less specific
+					versions of the requested locale and if that fails by taking them from your
+				<code>I18n#defaultLocale</code>.</p>
+				<pre><code class="language-js"><span style="color: #008000">// if i18n.defaultLocale = "en" and translation doesn't exist</span>
+<span style="color: #008000">// for i18n.locale = "de-DE" this key will be taken from "de" locale scope</span>
+<span style="color: #008000">// or, if that also doesn't exist, from "en" locale scope</span>
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">t</span><span style="color: #000000">(</span><span style="color: #A31515">"some.missing.scope"</span><span style="color: #000000">);</span>
+</code></pre>
+				<p>Custom fallback rules can also be specified for a specific language. There are
+					three different ways of doing it so. In any case, the locale handler must be
+				registered using <code>i18n.locales.register()</code>.</p>
+				<pre><code class="language-js"><span style="color: #008000">// Using an array</span>
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #001080">locales</span><span style="color: #000000">.</span><span style="color: #795E26">register</span><span style="color: #000000">(</span><span style="color: #A31515">"no"</span><span style="color: #000000">, [</span><span style="color: #A31515">"nb"</span><span style="color: #000000">, </span><span style="color: #A31515">"en"</span><span style="color: #000000">]);</span>
+
+<span style="color: #008000">// Using a string</span>
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #001080">locales</span><span style="color: #000000">.</span><span style="color: #001080">no</span><span style="color: #000000">.</span><span style="color: #795E26">register</span><span style="color: #000000">(</span><span style="color: #A31515">"nb"</span><span style="color: #000000">);</span>
+
+<span style="color: #008000">// Using a function.</span>
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #001080">locales</span><span style="color: #000000">.</span><span style="color: #001080">no</span><span style="color: #000000">.</span><span style="color: #795E26">register</span><span style="color: #000000">((</span><span style="color: #001080">locale</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> [</span><span style="color: #A31515">"nb"</span><span style="color: #000000">]);</span>
+</code></pre>
+				<p>By default a missing translation will be displayed as
+					<code>[missing "name of scope" translation]</code>. You can override this behavior by
+				setting <code>i18n.missingBehavior</code> to <code>"guess"</code>.</p>
+				<pre><code class="language-js"><span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #001080">missingBehavior</span><span style="color: #000000"> = </span><span style="color: #A31515">"guess"</span><span style="color: #000000">;</span>
+</code></pre>
+				<p>The "guess" behavior will take the last section of the scope and apply some
+					replace rules; camel case becomes lower case and underscores are replaced with
+					space. In practice, it means that a scope like
+					<code>questionnaire.whatIsYourFavorite_ChristmasPresent</code> becomes
+				<code>what is your favorite Christmas present</code>.</p>
+				<p>There's also a strategy called <code>error</code>, which will throw an exception every time
+					you fetch a missing translation. This is great for development. It'll even end
+				up on your error tracking!</p>
+				<pre><code class="language-js"><span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #001080">missingBehavior</span><span style="color: #000000"> = </span><span style="color: #A31515">"error"</span><span style="color: #000000">;</span>
+</code></pre>
+				<p>To detect missing translations, you can also set
+				<code>i18n.missingTranslationPrefix</code>.</p>
+				<pre><code class="language-js"><span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #001080">missingTranslationPrefix</span><span style="color: #000000"> = </span><span style="color: #A31515">"EE: "</span><span style="color: #000000">;</span>
+</code></pre>
+				<p>The same <code>questionnaire.whatIsYourFavorite_ChristmasPresent</code> scope would
+					converted into <code>EE: what is your favorite Christmas present</code>. This is helpful if
+				you want to add a check to your automated tests.</p>
+				<p>Finally, you can completely override the missing translation strategy by setting
+					it to a function. The following example will return <code>null</code> for every missing
+				translation.</p>
+				<pre><code class="language-js"><span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">missingTranslation</span><span style="color: #000000"> = () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #0000FF">null</span><span style="color: #000000">;</span>
+</code></pre>
+				<a href="#pluralization" id="pluralization" style="color: inherit; text-decoration: none;">
+					<h4>Pluralization</h4>
+				</a>
+				<p>This library has support for pluralization and by default works with English,
+				and similar pluralized languages like Portuguese.</p>
+				<p>First, you have to define your translations with special keywords defined by the
+				pluralization handler. The default keywords are <code>zero</code>, <code>one</code>, and <code>other</code>.</p>
+				<pre><code class="language-js"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">i18n</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">I18n</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #001080">en:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">inbox:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">      </span><span style="color: #001080">zero:</span><span style="color: #000000"> </span><span style="color: #A31515">"You have no messages"</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #001080">one:</span><span style="color: #000000"> </span><span style="color: #A31515">"You have one message"</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #001080">other:</span><span style="color: #000000"> </span><span style="color: #A31515">"You have %{count} messages"</span><span style="color: #000000">,</span>
+<span style="color: #000000">    },</span>
+<span style="color: #000000">  },</span>
+
+<span style="color: #000000">  </span><span style="color: #A31515">"pt-BR"</span><span style="color: #001080">:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">inbox:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">      </span><span style="color: #001080">zero:</span><span style="color: #000000"> </span><span style="color: #A31515">"Você não tem mensagens"</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #001080">one:</span><span style="color: #000000"> </span><span style="color: #A31515">"Você tem uma mensagem"</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #001080">other:</span><span style="color: #000000"> </span><span style="color: #A31515">"Você tem %{count} mensagens"</span><span style="color: #000000">,</span>
+<span style="color: #000000">    },</span>
+<span style="color: #000000">  },</span>
+<span style="color: #000000">});</span>
+</code></pre>
+				<p>To retrieve the pluralized translation you must provide the <code>count</code> option with
+				a numeric value.</p>
+				<pre><code class="language-js"><span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">t</span><span style="color: #000000">(</span><span style="color: #A31515">"inbox"</span><span style="color: #000000">, { </span><span style="color: #001080">count:</span><span style="color: #000000"> </span><span style="color: #098658">0</span><span style="color: #000000"> }); </span><span style="color: #008000">//=&gt; You have no messages</span>
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">t</span><span style="color: #000000">(</span><span style="color: #A31515">"inbox"</span><span style="color: #000000">, { </span><span style="color: #001080">count:</span><span style="color: #000000"> </span><span style="color: #098658">1</span><span style="color: #000000"> }); </span><span style="color: #008000">//=&gt; You have one message</span>
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">t</span><span style="color: #000000">(</span><span style="color: #A31515">"inbox"</span><span style="color: #000000">, { </span><span style="color: #001080">count:</span><span style="color: #000000"> </span><span style="color: #098658">2</span><span style="color: #000000"> }); </span><span style="color: #008000">//=&gt; You have 2 messages</span>
+</code></pre>
+				<p>You may need to define new rules for other languages like Russian. This can be
+					done by registering a handler with <code>i18n.pluralization.register()</code>. The
+				following example defines a Russian pluralizer.</p>
+				<pre><code class="language-js"><span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #001080">pluralization</span><span style="color: #000000">.</span><span style="color: #795E26">register</span><span style="color: #000000">(</span><span style="color: #A31515">"ru"</span><span style="color: #000000">, (</span><span style="color: #001080">_i18n</span><span style="color: #000000">, </span><span style="color: #001080">count</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">mod10</span><span style="color: #000000"> = </span><span style="color: #001080">count</span><span style="color: #000000"> % </span><span style="color: #098658">10</span><span style="color: #000000">;</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">mod100</span><span style="color: #000000"> = </span><span style="color: #001080">count</span><span style="color: #000000"> % </span><span style="color: #098658">100</span><span style="color: #000000">;</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">let</span><span style="color: #000000"> </span><span style="color: #001080">key</span><span style="color: #000000">;</span>
+
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">one</span><span style="color: #000000"> = </span><span style="color: #001080">mod10</span><span style="color: #000000"> === </span><span style="color: #098658">1</span><span style="color: #000000"> &amp;&amp; </span><span style="color: #001080">mod100</span><span style="color: #000000"> !== </span><span style="color: #098658">11</span><span style="color: #000000">;</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">few</span><span style="color: #000000"> = [</span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #098658">3</span><span style="color: #000000">, </span><span style="color: #098658">4</span><span style="color: #000000">].</span><span style="color: #795E26">includes</span><span style="color: #000000">(</span><span style="color: #001080">mod10</span><span style="color: #000000">) &amp;&amp; ![</span><span style="color: #098658">12</span><span style="color: #000000">, </span><span style="color: #098658">13</span><span style="color: #000000">, </span><span style="color: #098658">14</span><span style="color: #000000">].</span><span style="color: #795E26">includes</span><span style="color: #000000">(</span><span style="color: #001080">mod100</span><span style="color: #000000">);</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">many</span><span style="color: #000000"> =</span>
+<span style="color: #000000">    </span><span style="color: #001080">mod10</span><span style="color: #000000"> === </span><span style="color: #098658">0</span><span style="color: #000000"> ||</span>
+<span style="color: #000000">    [</span><span style="color: #098658">5</span><span style="color: #000000">, </span><span style="color: #098658">6</span><span style="color: #000000">, </span><span style="color: #098658">7</span><span style="color: #000000">, </span><span style="color: #098658">8</span><span style="color: #000000">, </span><span style="color: #098658">9</span><span style="color: #000000">].</span><span style="color: #795E26">includes</span><span style="color: #000000">(</span><span style="color: #001080">mod10</span><span style="color: #000000">) ||</span>
+<span style="color: #000000">    [</span><span style="color: #098658">11</span><span style="color: #000000">, </span><span style="color: #098658">12</span><span style="color: #000000">, </span><span style="color: #098658">13</span><span style="color: #000000">, </span><span style="color: #098658">14</span><span style="color: #000000">].</span><span style="color: #795E26">includes</span><span style="color: #000000">(</span><span style="color: #001080">mod100</span><span style="color: #000000">);</span>
+
+<span style="color: #000000">  </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">one</span><span style="color: #000000">) {</span>
+<span style="color: #000000">    </span><span style="color: #001080">key</span><span style="color: #000000"> = </span><span style="color: #A31515">"one"</span><span style="color: #000000">;</span>
+<span style="color: #000000">  } </span><span style="color: #AF00DB">else</span><span style="color: #000000"> </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">few</span><span style="color: #000000">) {</span>
+<span style="color: #000000">    </span><span style="color: #001080">key</span><span style="color: #000000"> = </span><span style="color: #A31515">"few"</span><span style="color: #000000">;</span>
+<span style="color: #000000">  } </span><span style="color: #AF00DB">else</span><span style="color: #000000"> </span><span style="color: #AF00DB">if</span><span style="color: #000000"> (</span><span style="color: #001080">many</span><span style="color: #000000">) {</span>
+<span style="color: #000000">    </span><span style="color: #001080">key</span><span style="color: #000000"> = </span><span style="color: #A31515">"many"</span><span style="color: #000000">;</span>
+<span style="color: #000000">  } </span><span style="color: #AF00DB">else</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">key</span><span style="color: #000000"> = </span><span style="color: #A31515">"other"</span><span style="color: #000000">;</span>
+<span style="color: #000000">  }</span>
+
+<span style="color: #000000">  </span><span style="color: #AF00DB">return</span><span style="color: #000000"> [</span><span style="color: #001080">key</span><span style="color: #000000">];</span>
+<span style="color: #000000">});</span>
+</code></pre>
+				<p>You can find all rules on
+				<a href="http://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html">http://www.unicode.org/</a>.</p>
+				<p>It's encourage to publish your pluralizers using the following name pattern:
+					<code>i18n-&lt;locale&gt;-pluralizer</code>. If you publish a pluralizer, please add a pull
+				request so we can list it here.</p>
+				<a href="#other-options" id="other-options" style="color: inherit; text-decoration: none;">
+					<h4>Other options</h4>
+				</a>
+				<p>If you're providing the same scope again and again, you can reduce the
+				boilerplate by setting the <code>scope</code> option.</p>
+				<pre><code class="language-js"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">options</span><span style="color: #000000"> = { </span><span style="color: #001080">scope:</span><span style="color: #000000"> </span><span style="color: #A31515">"activerecord.attributes.user"</span><span style="color: #000000"> };</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">t</span><span style="color: #000000">(</span><span style="color: #A31515">"name"</span><span style="color: #000000">, </span><span style="color: #001080">options</span><span style="color: #000000">);</span>
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">t</span><span style="color: #000000">(</span><span style="color: #A31515">"email"</span><span style="color: #000000">, </span><span style="color: #001080">options</span><span style="color: #000000">);</span>
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">t</span><span style="color: #000000">(</span><span style="color: #A31515">"username"</span><span style="color: #000000">, </span><span style="color: #001080">options</span><span style="color: #000000">);</span>
+</code></pre>
+				<a href="#number-formatting" id="number-formatting" style="color: inherit; text-decoration: none;">
+					<h3>Number Formatting</h3>
+				</a>
+				<p>Similar to Rails helpers, you can have localized number and currency formatting.</p>
+				<pre><code class="language-js"><span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">l</span><span style="color: #000000">(</span><span style="color: #A31515">"currency"</span><span style="color: #000000">, </span><span style="color: #098658">1990.99</span><span style="color: #000000">);</span>
+<span style="color: #008000">// $1,990.99</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">l</span><span style="color: #000000">(</span><span style="color: #A31515">"number"</span><span style="color: #000000">, </span><span style="color: #098658">1990.99</span><span style="color: #000000">);</span>
+<span style="color: #008000">// 1,990.99</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">l</span><span style="color: #000000">(</span><span style="color: #A31515">"percentage"</span><span style="color: #000000">, </span><span style="color: #098658">123.45</span><span style="color: #000000">);</span>
+<span style="color: #008000">// 123.450%</span>
+</code></pre>
+				<p>To have more control over number formatting, you can use the
+					<code>I18n#numberToHuman</code>, <code>I18n#numberToPercentage</code>, <code>I18n#numberToCurrency</code>,
+					<code>I18n#numberToHumanSize</code>, <code>I18n#numberToDelimited</code> and <code>I18n#numberToRounded</code>
+				functions.</p>
+				<a href="#i18nnumbertocurrency" id="i18nnumbertocurrency" style="color: inherit; text-decoration: none;">
+					<h4><code>I18n#numberToCurrency</code></h4>
+				</a>
+				<p>Formats a <code>number</code> into a currency string (e.g., $13.65). You can customize the
+				format in the using an <code>options</code> object.</p>
+				<p>The currency unit and number formatting of the current locale will be used
+					unless otherwise specified in the provided options. No currency conversion is
+					performed. If the user is given a way to change their locale, they will also be
+				able to change the relative value of the currency displayed with this helper.</p>
+				<a href="#options" id="options" style="color: inherit; text-decoration: none;">
+					<h5>Options</h5>
+				</a>
+				<ul>
+					<li>
+<code>precision</code> - Sets the level of precision (defaults to 2).</li>
+					<li>
+<code>roundMode</code> - Determine how rounding is performed (defaults to <code>default</code>.)</li>
+					<li>
+<code>unit</code> - Sets the denomination of the currency (defaults to "$").</li>
+					<li>
+<code>separator</code> - Sets the separator between the units (defaults to ".").</li>
+					<li>
+<code>delimiter</code> - Sets the thousands delimiter (defaults to ",").</li>
+					<li>
+<code>format</code> - Sets the format for non-negative numbers (defaults to "%u%n").
+					Fields are <code>%u</code> for the currency, and <code>%n</code> for the number.</li>
+					<li>
+<code>negativeFormat</code> - Sets the format for negative numbers (defaults to
+						prepending a hyphen to the formatted number given by <code>format</code>). Accepts the
+						same fields than <code>format</code>, except <code>%n</code> is here the absolute value of the
+					number.</li>
+					<li>
+<code>stripInsignificantZeros</code> - If <code>true</code> removes insignificant zeros after the
+					decimal separator (defaults to <code>false</code>).</li>
+					<li>
+<code>raise</code> - If <code>true</code>, raises exception for non-numeric values like NaN and
+					Infinite values.</li>
+				</ul>
+				<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+					<h5>Examples</h5>
+				</a>
+				<pre><code class="language-js"><span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToCurrency</span><span style="color: #000000">(</span><span style="color: #098658">1234567890.5</span><span style="color: #000000">);</span>
+<span style="color: #008000">// =&gt; "$1,234,567,890.50"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToCurrency</span><span style="color: #000000">(</span><span style="color: #098658">1234567890.506</span><span style="color: #000000">);</span>
+<span style="color: #008000">// =&gt; "$1,234,567,890.51"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToCurrency</span><span style="color: #000000">(</span><span style="color: #098658">1234567890.506</span><span style="color: #000000">, { </span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">3</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "$1,234,567,890.506"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToCurrency</span><span style="color: #000000">(</span><span style="color: #A31515">"123a456"</span><span style="color: #000000">);</span>
+<span style="color: #008000">// =&gt; "$123a456"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToCurrency</span><span style="color: #000000">(</span><span style="color: #A31515">"123a456"</span><span style="color: #000000">, { </span><span style="color: #001080">raise:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; raises exception ("123a456" is not a valid numeric value)</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToCurrency</span><span style="color: #000000">(-</span><span style="color: #098658">0.456789</span><span style="color: #000000">, { </span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">0</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "$0"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToCurrency</span><span style="color: #000000">(-</span><span style="color: #098658">1234567890.5</span><span style="color: #000000">, { </span><span style="color: #001080">negativeFormat:</span><span style="color: #000000"> </span><span style="color: #A31515">"(%u%n)"</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "($1,234,567,890.50)"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToCurrency</span><span style="color: #000000">(</span><span style="color: #098658">1234567890.5</span><span style="color: #000000">, {</span>
+<span style="color: #000000">  </span><span style="color: #001080">unit:</span><span style="color: #000000"> </span><span style="color: #A31515">"&amp;pound;"</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">separator:</span><span style="color: #000000"> </span><span style="color: #A31515">","</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">delimiter:</span><span style="color: #000000"> </span><span style="color: #A31515">""</span><span style="color: #000000">,</span>
+<span style="color: #000000">});</span>
+<span style="color: #008000">// =&gt; "&amp;pound;1234567890,50"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToCurrency</span><span style="color: #000000">(</span><span style="color: #098658">1234567890.5</span><span style="color: #000000">, {</span>
+<span style="color: #000000">  </span><span style="color: #001080">unit:</span><span style="color: #000000"> </span><span style="color: #A31515">"&amp;pound;"</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">separator:</span><span style="color: #000000"> </span><span style="color: #A31515">","</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">delimiter:</span><span style="color: #000000"> </span><span style="color: #A31515">""</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">format:</span><span style="color: #000000"> </span><span style="color: #A31515">"%n %u"</span><span style="color: #000000">,</span>
+<span style="color: #000000">});</span>
+<span style="color: #008000">// =&gt; "1234567890,50 &amp;pound;"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToCurrency</span><span style="color: #000000">(</span><span style="color: #098658">1234567890.5</span><span style="color: #000000">, { </span><span style="color: #001080">stripInsignificantZeros:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "$1,234,567,890.5"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToCurrency</span><span style="color: #000000">(</span><span style="color: #098658">1234567890.5</span><span style="color: #000000">, { </span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #001080">roundMode:</span><span style="color: #000000"> </span><span style="color: #A31515">"up"</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "$1,234,567,891"</span>
+</code></pre>
+				<a href="#i18nnumbertopercentage" id="i18nnumbertopercentage" style="color: inherit; text-decoration: none;">
+					<h4><code>I18n#numberToPercentage</code></h4>
+				</a>
+				<p>Formats a <code>number</code> as a percentage string (e.g., 65%). You can customize the
+				format in the <code>options</code> hash.</p>
+				<a href="#options-1" id="options-1" style="color: inherit; text-decoration: none;">
+					<h5>Options</h5>
+				</a>
+				<ul>
+					<li>
+<code>precision</code> - Sets the level of precision (defaults to 3).</li>
+					<li>
+<code>roundMode</code> - Determine how rounding is performed (defaults to <code>default</code>.)</li>
+					<li>
+<code>separator</code> - Sets the separator between the units (defaults to ".").</li>
+					<li>
+<code>delimiter</code> - Sets the thousands delimiter (defaults to "").</li>
+					<li>
+<code>format</code> - Sets the format for non-negative numbers (defaults to "%n%"). The
+					number field is represented by <code>%n</code>.</li>
+					<li>
+<code>negativeFormat</code> - Sets the format for negative numbers (defaults to
+						prepending a hyphen to the formatted number given by <code>format</code>). Accepts the
+						same fields than <code>format</code>, except <code>%n</code> is here the absolute value of the
+					number.</li>
+					<li>
+<code>stripInsignificantZeros</code> - If <code>true</code> removes insignificant zeros after the
+					decimal separator (defaults to <code>false</code>).</li>
+				</ul>
+				<a href="#examples-1" id="examples-1" style="color: inherit; text-decoration: none;">
+					<h5>Examples</h5>
+				</a>
+				<pre><code class="language-js"><span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToPercentage</span><span style="color: #000000">(</span><span style="color: #098658">100</span><span style="color: #000000">);</span>
+<span style="color: #008000">// =&gt; "100.000%"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToPercentage</span><span style="color: #000000">(</span><span style="color: #A31515">"98"</span><span style="color: #000000">);</span>
+<span style="color: #008000">// =&gt; "98.000%"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToPercentage</span><span style="color: #000000">(</span><span style="color: #098658">100</span><span style="color: #000000">, { </span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">0</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "100%"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToPercentage</span><span style="color: #000000">(</span><span style="color: #098658">1000</span><span style="color: #000000">, { </span><span style="color: #001080">delimiter:</span><span style="color: #000000"> </span><span style="color: #A31515">"."</span><span style="color: #000000">, </span><span style="color: #001080">separator:</span><span style="color: #000000"> </span><span style="color: #A31515">","</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "1.000,000%"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToPercentage</span><span style="color: #000000">(</span><span style="color: #098658">302.24398923423</span><span style="color: #000000">, { </span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">5</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "302.24399%"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToPercentage</span><span style="color: #000000">(</span><span style="color: #098658">1000</span><span style="color: #000000">, { </span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #0000FF">null</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "1000%"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToPercentage</span><span style="color: #000000">(</span><span style="color: #A31515">"98a"</span><span style="color: #000000">);</span>
+<span style="color: #008000">// =&gt; "98a%"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToPercentage</span><span style="color: #000000">(</span><span style="color: #098658">100</span><span style="color: #000000">, { </span><span style="color: #001080">format:</span><span style="color: #000000"> </span><span style="color: #A31515">"%n  %"</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "100.000  %"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToPercentage</span><span style="color: #000000">(</span><span style="color: #098658">302.24398923423</span><span style="color: #000000">, { </span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">5</span><span style="color: #000000">, </span><span style="color: #001080">roundMode:</span><span style="color: #000000"> </span><span style="color: #A31515">"down"</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "302.24398%"</span>
+</code></pre>
+				<a href="#i18nnumbertodelimited" id="i18nnumbertodelimited" style="color: inherit; text-decoration: none;">
+					<h4><code>I18n#numberToDelimited</code></h4>
+				</a>
+				<p>Formats a <code>number</code> with grouped thousands using <code>delimiter</code> (e.g., 12,324). You
+				can customize the format in the <code>options</code> object.</p>
+				<a href="#options-2" id="options-2" style="color: inherit; text-decoration: none;">
+					<h5>Options</h5>
+				</a>
+				<ul>
+					<li>
+<code>delimiter</code> - Sets the thousands delimiter (defaults to ",").</li>
+					<li>
+<code>separator</code> - Sets the separator between the fractional and integer digits
+					(defaults to ".").</li>
+					<li>
+<code>delimiterPattern</code> - Sets a custom regular expression used for deriving the
+						placement of delimiter. Helpful when using currency formats like INR. The
+					regular expression must be global (i.e. it has the <code>g</code> flag).</li>
+				</ul>
+				<a href="#examples-2" id="examples-2" style="color: inherit; text-decoration: none;">
+					<h5>Examples</h5>
+				</a>
+				<pre><code class="language-js"><span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToDelimited</span><span style="color: #000000">(</span><span style="color: #098658">12345678</span><span style="color: #000000">);</span>
+<span style="color: #008000">// =&gt; "12,345,678"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToDelimited</span><span style="color: #000000">(</span><span style="color: #A31515">"123456"</span><span style="color: #000000">);</span>
+<span style="color: #008000">// =&gt; "123,456"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToDelimited</span><span style="color: #000000">(</span><span style="color: #098658">12345678.05</span><span style="color: #000000">);</span>
+<span style="color: #008000">// =&gt; "12,345,678.05"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToDelimited</span><span style="color: #000000">(</span><span style="color: #098658">12345678</span><span style="color: #000000">, { </span><span style="color: #001080">delimiter:</span><span style="color: #000000"> </span><span style="color: #A31515">"."</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "12.345.678"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToDelimited</span><span style="color: #000000">(</span><span style="color: #098658">12345678</span><span style="color: #000000">, { </span><span style="color: #001080">delimiter:</span><span style="color: #000000"> </span><span style="color: #A31515">","</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "12,345,678"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToDelimited</span><span style="color: #000000">(</span><span style="color: #098658">12345678.05</span><span style="color: #000000">, { </span><span style="color: #001080">separator:</span><span style="color: #000000"> </span><span style="color: #A31515">" "</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "12,345,678 05"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToDelimited</span><span style="color: #000000">(</span><span style="color: #A31515">"112a"</span><span style="color: #000000">);</span>
+<span style="color: #008000">// =&gt; "112a"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToDelimited</span><span style="color: #000000">(</span><span style="color: #098658">98765432.98</span><span style="color: #000000">, { </span><span style="color: #001080">delimiter:</span><span style="color: #000000"> </span><span style="color: #A31515">" "</span><span style="color: #000000">, </span><span style="color: #001080">separator:</span><span style="color: #000000"> </span><span style="color: #A31515">","</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "98 765 432,98"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToDelimited</span><span style="color: #000000">(</span><span style="color: #A31515">"123456.78"</span><span style="color: #000000">, {</span>
+<span style="color: #000000">  </span><span style="color: #001080">delimiterPattern:</span><span style="color: #000000"> </span><span style="color: #811F3F">/</span><span style="color: #D16969">(</span><span style="color: #811F3F">\d</span><span style="color: #000000">+?</span><span style="color: #D16969">)(?=(</span><span style="color: #811F3F">\d\d</span><span style="color: #D16969">)</span><span style="color: #000000">+</span><span style="color: #D16969">(</span><span style="color: #811F3F">\d</span><span style="color: #D16969">)(?!</span><span style="color: #811F3F">\d</span><span style="color: #D16969">))</span><span style="color: #811F3F">/</span><span style="color: #0000FF">g</span><span style="color: #000000">,</span>
+<span style="color: #000000">});</span>
+<span style="color: #008000">// =&gt; "1,23,456.78"</span>
+</code></pre>
+				<a href="#i18nnumbertorounded" id="i18nnumbertorounded" style="color: inherit; text-decoration: none;">
+					<h4><code>I18n#numberToRounded</code></h4>
+				</a>
+				<p>Formats a <code>number</code> with the specified level of <code>precision</code> (e.g., 112.32 has a
+					precision of 2 if <code>significant</code> is <code>false</code>, and 5 if <code>significant</code> is <code>true</code>).
+				You can customize the format in the <code>options</code> object.</p>
+				<a href="#options-3" id="options-3" style="color: inherit; text-decoration: none;">
+					<h5>Options</h5>
+				</a>
+				<ul>
+					<li>
+<code>locale</code> - Sets the locale to be used for formatting (defaults to current
+					locale).</li>
+					<li>
+<code>precision</code> - Sets the precision of the number (defaults to 3). Keeps the
+					number's precision if <code>null</code>.</li>
+					<li>
+<code>RoundMode</code> - Determine how rounding is performed (defaults to :default).</li>
+					<li>
+<code>significant</code> - If <code>true</code>, precision will be the number of significant_digits.
+					If <code>false</code>, the number of fractional digits (defaults to <code>false</code>).</li>
+					<li>
+<code>separator</code> - Sets the separator between the fractional and integer digits
+					(defaults to ".").</li>
+					<li>
+<code>delimiter</code> - Sets the thousands delimiter (defaults to "").</li>
+					<li>
+<code>stripInsignificantZeros</code> - If <code>true</code> removes insignificant zeros after the
+					decimal separator (defaults to <code>false</code>).</li>
+				</ul>
+				<a href="#examples-3" id="examples-3" style="color: inherit; text-decoration: none;">
+					<h5>Examples</h5>
+				</a>
+				<pre><code class="language-js"><span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToRounded</span><span style="color: #000000">(</span><span style="color: #098658">111.2345</span><span style="color: #000000">);</span>
+<span style="color: #008000">// =&gt; "111.235"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToRounded</span><span style="color: #000000">(</span><span style="color: #098658">111.2345</span><span style="color: #000000">, { </span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">2</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "111.23"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToRounded</span><span style="color: #000000">(</span><span style="color: #098658">13</span><span style="color: #000000">, { </span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">5</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "13.00000"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToRounded</span><span style="color: #000000">(</span><span style="color: #098658">389.32314</span><span style="color: #000000">, { </span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">0</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "389"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToRounded</span><span style="color: #000000">(</span><span style="color: #098658">111.2345</span><span style="color: #000000">, { </span><span style="color: #001080">significant:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "111"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToRounded</span><span style="color: #000000">(</span><span style="color: #098658">111.2345</span><span style="color: #000000">, { </span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">1</span><span style="color: #000000">, </span><span style="color: #001080">significant:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "100"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToRounded</span><span style="color: #000000">(</span><span style="color: #098658">13</span><span style="color: #000000">, { </span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">5</span><span style="color: #000000">, </span><span style="color: #001080">significant:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "13.000"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToRounded</span><span style="color: #000000">(</span><span style="color: #098658">13</span><span style="color: #000000">, { </span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #0000FF">null</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "13"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToRounded</span><span style="color: #000000">(</span><span style="color: #098658">389.32314</span><span style="color: #000000">, { </span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #001080">roundMode:</span><span style="color: #000000"> </span><span style="color: #A31515">"up"</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "390"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToRounded</span><span style="color: #000000">(</span><span style="color: #098658">13</span><span style="color: #000000">, {</span>
+<span style="color: #000000">  </span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">5</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">significant:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">stripInsignificantZeros:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000">,</span>
+<span style="color: #000000">});</span>
+<span style="color: #008000">// =&gt; "13"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToRounded</span><span style="color: #000000">(</span><span style="color: #098658">389.32314</span><span style="color: #000000">, { </span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">4</span><span style="color: #000000">, </span><span style="color: #001080">significant:</span><span style="color: #000000"> </span><span style="color: #0000FF">true</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "389.3"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToRounded</span><span style="color: #000000">(</span><span style="color: #098658">1111.2345</span><span style="color: #000000">, {</span>
+<span style="color: #000000">  </span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">2</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">separator:</span><span style="color: #000000"> </span><span style="color: #A31515">","</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">delimiter:</span><span style="color: #000000"> </span><span style="color: #A31515">"."</span><span style="color: #000000">,</span>
+<span style="color: #000000">});</span>
+<span style="color: #008000">// =&gt; "1.111,23"</span>
+</code></pre>
+				<a href="#i18nnumbertohumansize" id="i18nnumbertohumansize" style="color: inherit; text-decoration: none;">
+					<h4><code>I18n#numberToHumanSize</code></h4>
+				</a>
+				<p>Formats the bytes in <code>number</code> into a more understandable representation (e.g.,
+					giving it 1500 yields 1.46 KB). This method is useful for reporting file sizes
+				to users. You can customize the format in the <code>options</code> object.</p>
+				<p>See <code>I18n#numberToHuman</code> if you want to pretty-print a generic number.</p>
+				<a href="#options-4" id="options-4" style="color: inherit; text-decoration: none;">
+					<h5>Options</h5>
+				</a>
+				<ul>
+					<li>
+<code>precision</code> - Sets the precision of the number (defaults to 3).</li>
+					<li>
+<code>roundMode</code> - Determine how rounding is performed (defaults to <code>default</code>)</li>
+					<li>
+<code>significant</code> - If <code>true</code>, precision will be the number of significant_digits.
+					If <code>false</code>, the number of fractional digits (defaults to <code>true</code>)</li>
+					<li>
+<code>separator</code> - Sets the separator between the fractional and integer digits
+					(defaults to ".").</li>
+					<li>
+<code>delimiter</code> - Sets the thousands delimiter (defaults to "").</li>
+					<li>
+<code>stripInsignificantZeros</code> - If <code>true</code> removes insignificant zeros after the
+					decimal separator (defaults to <code>true</code>)</li>
+				</ul>
+				<a href="#examples-4" id="examples-4" style="color: inherit; text-decoration: none;">
+					<h5>Examples</h5>
+				</a>
+				<pre><code class="language-js"><span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHumanSize</span><span style="color: #000000">(</span><span style="color: #098658">123</span><span style="color: #000000">)</span>
+<span style="color: #008000">// =&gt; "123 Bytes"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHumanSize</span><span style="color: #000000">(</span><span style="color: #098658">1234</span><span style="color: #000000">)</span>
+<span style="color: #008000">// =&gt; "1.21 KB"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHumanSize</span><span style="color: #000000">(</span><span style="color: #098658">12345</span><span style="color: #000000">)</span>
+<span style="color: #008000">// =&gt; "12.1 KB"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHumanSize</span><span style="color: #000000">(</span><span style="color: #098658">1234567</span><span style="color: #000000">)</span>
+<span style="color: #008000">// =&gt; "1.18 MB"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHumanSize</span><span style="color: #000000">(</span><span style="color: #098658">1234567890</span><span style="color: #000000">)</span>
+<span style="color: #008000">// =&gt; "1.15 GB"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHumanSize</span><span style="color: #000000">(</span><span style="color: #098658">1234567890123</span><span style="color: #000000">)</span>
+<span style="color: #008000">// =&gt; "1.12 TB"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHumanSize</span><span style="color: #000000">(</span><span style="color: #098658">1234567890123456</span><span style="color: #000000">)</span>
+<span style="color: #008000">// =&gt; "1.1 PB"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHumanSize</span><span style="color: #000000">(</span><span style="color: #098658">1234567890123456789</span><span style="color: #000000">)</span>
+<span style="color: #008000">// =&gt; "1.07 EB"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHumanSize</span><span style="color: #000000">(</span><span style="color: #098658">1234567</span><span style="color: #000000">, {</span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">2</span><span style="color: #000000">})</span>
+<span style="color: #008000">// =&gt; "1.2 MB"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHumanSize</span><span style="color: #000000">(</span><span style="color: #098658">483989</span><span style="color: #000000">, </span><span style="color: #001080">precision</span><span style="color: #000000">: </span><span style="color: #098658">2</span><span style="color: #000000">)</span>
+<span style="color: #008000">// =&gt; "470 KB"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHumanSize</span><span style="color: #000000">(</span><span style="color: #098658">483989</span><span style="color: #000000">, {</span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #001080">roundMode:</span><span style="color: #000000"> </span><span style="color: #A31515">"up"</span><span style="color: #000000">})</span>
+<span style="color: #008000">// =&gt; "480 KB"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHumanSize</span><span style="color: #000000">(</span><span style="color: #098658">1234567</span><span style="color: #000000">, {</span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #001080">separator:</span><span style="color: #000000"> </span><span style="color: #A31515">","</span><span style="color: #000000">})</span>
+<span style="color: #008000">// =&gt; "1,2 MB"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHumanSize</span><span style="color: #000000">(</span><span style="color: #098658">1234567890123</span><span style="color: #000000">, {</span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">5</span><span style="color: #000000">})</span>
+<span style="color: #008000">// =&gt; "1.1228 TB"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHumanSize</span><span style="color: #000000">(</span><span style="color: #098658">524288000</span><span style="color: #000000">, {</span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">5</span><span style="color: #000000">})</span>
+<span style="color: #008000">// =&gt; "500 MB"</span>
+</code></pre>
+				<a href="#i18nnumbertohuman" id="i18nnumbertohuman" style="color: inherit; text-decoration: none;">
+					<h4><code>I18n#numberToHuman</code></h4>
+				</a>
+				<p>Pretty prints (formats and approximates) a number in a way it is more readable
+					by humans (e.g.: 1200000000 becomes "1.2 Billion"). This is useful for numbers
+				that can get very large (and too hard to read).</p>
+				<p>See <code>I18n#numberToHumanSize</code> if you want to print a file size.</p>
+				<p>You can also define your own unit-quantifier names if you want to use other
+					decimal units (e.g.: 1500 becomes "1.5 kilometers", 0.150 becomes "150
+					milliliters", etc). You may define a wide range of unit quantifiers, even
+				fractional ones (centi, deci, mili, etc).</p>
+				<a href="#options-5" id="options-5" style="color: inherit; text-decoration: none;">
+					<h5>Options</h5>
+				</a>
+				<ul>
+					<li>
+<code>precision</code> - Sets the precision of the number (defaults to 3).</li>
+					<li>
+<code>roundMode</code> - Determine how rounding is performed (defaults to <code>default</code>).</li>
+					<li>
+<code>significant</code> - If <code>true</code>, precision will be the number of significant_digits.
+					If <code>false</code>, the number of fractional digits (defaults to <code>true</code>)</li>
+					<li>
+<code>separator</code> - Sets the separator between the fractional and integer digits
+					(defaults to ".").</li>
+					<li>
+<code>delimiter</code> - Sets the thousands delimiter (defaults to "").</li>
+					<li>
+<code>stripInsignificantZeros</code> - If <code>true</code> removes insignificant zeros after the
+					decimal separator (defaults to <code>true</code>)</li>
+					<li>
+<code>units</code> - A Hash of unit quantifier names. Or a string containing an i18n
+						scope where to find this hash. It might have the following keys:<ul>
+							<li>
+<em>integers</em>: <code>unit</code>, <code>ten</code>, <code>hundred</code>, <code>thousand</code>, <code>million</code>, <code>billion</code>,
+							<code>trillion</code>, <code>quadrillion</code>
+</li>
+							<li>
+<em>fractionals</em>: <code>deci</code>, <code>centi</code>, <code>mili</code>, <code>micro</code>, <code>nano</code>, <code>pico</code>, <code>femto</code>
+</li>
+						</ul>
+					</li>
+					<li>
+<code>format</code> - Sets the format of the output string (defaults to "%n %u"). The
+						field types are:<ul>
+							<li>%u - The quantifier (ex.: 'thousand')</li>
+							<li>%n - The number</li>
+						</ul>
+					</li>
+				</ul>
+				<a href="#examples-5" id="examples-5" style="color: inherit; text-decoration: none;">
+					<h5>Examples</h5>
+				</a>
+				<pre><code class="language-js"><span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHuman</span><span style="color: #000000">(</span><span style="color: #098658">123</span><span style="color: #000000">);</span>
+<span style="color: #008000">// =&gt; "123"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHuman</span><span style="color: #000000">(</span><span style="color: #098658">1234</span><span style="color: #000000">);</span>
+<span style="color: #008000">// =&gt; "1.23 Thousand"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHuman</span><span style="color: #000000">(</span><span style="color: #098658">12345</span><span style="color: #000000">);</span>
+<span style="color: #008000">// =&gt; "12.3 Thousand"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHuman</span><span style="color: #000000">(</span><span style="color: #098658">1234567</span><span style="color: #000000">);</span>
+<span style="color: #008000">// =&gt; "1.23 Million"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHuman</span><span style="color: #000000">(</span><span style="color: #098658">1234567890</span><span style="color: #000000">);</span>
+<span style="color: #008000">// =&gt; "1.23 Billion"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHuman</span><span style="color: #000000">(</span><span style="color: #098658">1234567890123</span><span style="color: #000000">);</span>
+<span style="color: #008000">// =&gt; "1.23 Trillion"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHuman</span><span style="color: #000000">(</span><span style="color: #098658">1234567890123456</span><span style="color: #000000">);</span>
+<span style="color: #008000">// =&gt; "1.23 Quadrillion"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHuman</span><span style="color: #000000">(</span><span style="color: #098658">1234567890123456789</span><span style="color: #000000">);</span>
+<span style="color: #008000">// =&gt; "1230 Quadrillion"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHuman</span><span style="color: #000000">(</span><span style="color: #098658">489939</span><span style="color: #000000">, { </span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">2</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "490 Thousand"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHuman</span><span style="color: #000000">(</span><span style="color: #098658">489939</span><span style="color: #000000">, { </span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">4</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "489.9 Thousand"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHuman</span><span style="color: #000000">(</span><span style="color: #098658">489939</span><span style="color: #000000">, { </span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">2</span><span style="color: #000000">, </span><span style="color: #001080">roundMode:</span><span style="color: #000000"> </span><span style="color: #A31515">"down"</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "480 Thousand"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHuman</span><span style="color: #000000">(</span><span style="color: #098658">1234567</span><span style="color: #000000">, { </span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">4</span><span style="color: #000000">, </span><span style="color: #001080">significant:</span><span style="color: #000000"> </span><span style="color: #0000FF">false</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "1.2346 Million"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHuman</span><span style="color: #000000">(</span><span style="color: #098658">1234567</span><span style="color: #000000">, {</span>
+<span style="color: #000000">  </span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">1</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">separator:</span><span style="color: #000000"> </span><span style="color: #A31515">","</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">significant:</span><span style="color: #000000"> </span><span style="color: #0000FF">false</span><span style="color: #000000">,</span>
+<span style="color: #000000">});</span>
+<span style="color: #008000">// =&gt; "1,2 Million"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHuman</span><span style="color: #000000">(</span><span style="color: #098658">500000000</span><span style="color: #000000">, { </span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">5</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "500 Million"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHuman</span><span style="color: #000000">(</span><span style="color: #098658">12345012345</span><span style="color: #000000">, { </span><span style="color: #001080">significant:</span><span style="color: #000000"> </span><span style="color: #0000FF">false</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "12.345 Billion"</span>
+</code></pre>
+				<p>Non-significant zeros after the decimal separator are stripped out by default
+				(set <code>stripInsignificantZeros</code> to <code>false</code> to change that):</p>
+				<pre><code class="language-js"><span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHuman</span><span style="color: #000000">(</span><span style="color: #098658">12.00001</span><span style="color: #000000">);</span>
+<span style="color: #008000">// =&gt; "12"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHuman</span><span style="color: #000000">(</span><span style="color: #098658">12.00001</span><span style="color: #000000">, { </span><span style="color: #001080">stripInsignificantZeros:</span><span style="color: #000000"> </span><span style="color: #0000FF">false</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "12.0"</span>
+</code></pre>
+				<p>You can also use your own custom unit quantifiers:</p>
+				<pre><code class="language-js"><span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHuman</span><span style="color: #000000">(</span><span style="color: #098658">500000</span><span style="color: #000000">, </span><span style="color: #001080">units</span><span style="color: #000000">: { </span><span style="color: #001080">unit:</span><span style="color: #000000"> </span><span style="color: #A31515">"ml"</span><span style="color: #000000">, </span><span style="color: #001080">thousand:</span><span style="color: #000000"> </span><span style="color: #A31515">"lt"</span><span style="color: #000000"> })</span>
+<span style="color: #008000">// =&gt; "500 lt"</span>
+</code></pre>
+				<p>If in your I18n locale you have:</p>
+				<pre><code class="language-yaml"><span style="color: #000000">---</span>
+<span style="color: #800000">en</span><span style="color: #000000">:</span>
+<span style="color: #000000">  </span><span style="color: #800000">distance</span><span style="color: #000000">:</span>
+<span style="color: #000000">    </span><span style="color: #800000">centi</span><span style="color: #000000">:</span>
+<span style="color: #000000">      </span><span style="color: #800000">one</span><span style="color: #000000">: </span><span style="color: #A31515">"centimeter"</span>
+<span style="color: #000000">      </span><span style="color: #800000">other</span><span style="color: #000000">: </span><span style="color: #A31515">"centimeters"</span>
+<span style="color: #000000">    </span><span style="color: #800000">unit</span><span style="color: #000000">:</span>
+<span style="color: #000000">      </span><span style="color: #800000">one</span><span style="color: #000000">: </span><span style="color: #A31515">"meter"</span>
+<span style="color: #000000">      </span><span style="color: #800000">other</span><span style="color: #000000">: </span><span style="color: #A31515">"meters"</span>
+<span style="color: #000000">    </span><span style="color: #800000">thousand</span><span style="color: #000000">:</span>
+<span style="color: #000000">      </span><span style="color: #800000">one</span><span style="color: #000000">: </span><span style="color: #A31515">"kilometer"</span>
+<span style="color: #000000">      </span><span style="color: #800000">other</span><span style="color: #000000">: </span><span style="color: #A31515">"kilometers"</span>
+<span style="color: #000000">    </span><span style="color: #800000">billion</span><span style="color: #000000">: </span><span style="color: #A31515">"gazillion-distance"</span>
+</code></pre>
+				<p>Then you could do:</p>
+				<pre><code class="language-js"><span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHuman</span><span style="color: #000000">(</span><span style="color: #098658">543934</span><span style="color: #000000">, { </span><span style="color: #001080">units:</span><span style="color: #000000"> </span><span style="color: #A31515">"distance"</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "544 kilometers"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHuman</span><span style="color: #000000">(</span><span style="color: #098658">54393498</span><span style="color: #000000">, { </span><span style="color: #001080">units:</span><span style="color: #000000"> </span><span style="color: #A31515">"distance"</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "54400 kilometers"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHuman</span><span style="color: #000000">(</span><span style="color: #098658">54393498000</span><span style="color: #000000">, { </span><span style="color: #001080">units:</span><span style="color: #000000"> </span><span style="color: #A31515">"distance"</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "54.4 gazillion-distance"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHuman</span><span style="color: #000000">(</span><span style="color: #098658">343</span><span style="color: #000000">, { </span><span style="color: #001080">units:</span><span style="color: #000000"> </span><span style="color: #A31515">"distance"</span><span style="color: #000000">, </span><span style="color: #001080">precision:</span><span style="color: #000000"> </span><span style="color: #098658">1</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "300 meters"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHuman</span><span style="color: #000000">(</span><span style="color: #098658">1</span><span style="color: #000000">, { </span><span style="color: #001080">units:</span><span style="color: #000000"> </span><span style="color: #A31515">"distance"</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "1 meter"</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">numberToHuman</span><span style="color: #000000">(</span><span style="color: #098658">0.34</span><span style="color: #000000">, { </span><span style="color: #001080">units:</span><span style="color: #000000"> </span><span style="color: #A31515">"distance"</span><span style="color: #000000"> });</span>
+<span style="color: #008000">// =&gt; "34 centimeters"</span>
+</code></pre>
+				<a href="#date-formatting" id="date-formatting" style="color: inherit; text-decoration: none;">
+					<h3>Date Formatting</h3>
+				</a>
+				<p>The <code>I18n#localize</code> (or its alias <code>I18n#l</code>) can accept a string, epoch time
+				integer or a <code>Date</code> object. You can see below the accepted formats:</p>
+				<pre><code class="language-js"><span style="color: #008000">// yyyy-mm-dd</span>
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">l</span><span style="color: #000000">(</span><span style="color: #A31515">"date.formats.short"</span><span style="color: #000000">, </span><span style="color: #A31515">"2009-09-18"</span><span style="color: #000000">);</span>
+
+<span style="color: #008000">// yyyy-mm-dd hh:mm:ss</span>
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">l</span><span style="color: #000000">(</span><span style="color: #A31515">"time.formats.short"</span><span style="color: #000000">, </span><span style="color: #A31515">"2009-09-18 23:12:43"</span><span style="color: #000000">);</span>
+
+<span style="color: #008000">// JSON format with local Timezone (part of ISO-8601)</span>
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">l</span><span style="color: #000000">(</span><span style="color: #A31515">"time.formats.short"</span><span style="color: #000000">, </span><span style="color: #A31515">"2009-11-09T18:10:34"</span><span style="color: #000000">);</span>
+
+<span style="color: #008000">// JSON format in UTC (part of ISO-8601)</span>
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">l</span><span style="color: #000000">(</span><span style="color: #A31515">"time.formats.short"</span><span style="color: #000000">, </span><span style="color: #A31515">"2009-11-09T18:10:34Z"</span><span style="color: #000000">);</span>
+
+<span style="color: #008000">// Epoch time</span>
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">l</span><span style="color: #000000">(</span><span style="color: #A31515">"date.formats.short"</span><span style="color: #000000">, </span><span style="color: #098658">1251862029000</span><span style="color: #000000">);</span>
+
+<span style="color: #008000">// mm/dd/yyyy</span>
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">l</span><span style="color: #000000">(</span><span style="color: #A31515">"date.formats.short"</span><span style="color: #000000">, </span><span style="color: #A31515">"09/18/2009"</span><span style="color: #000000">);</span>
+
+<span style="color: #008000">// Date object</span>
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">l</span><span style="color: #000000">(</span><span style="color: #A31515">"date.formats.short"</span><span style="color: #000000">, </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Date</span><span style="color: #000000">());</span>
+</code></pre>
+				<p>You can also add placeholders to the date format:</p>
+				<pre><code class="language-js"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">i18n</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">I18n</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #001080">date:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">formats:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">      </span><span style="color: #001080">ordinalDay:</span><span style="color: #000000"> </span><span style="color: #A31515">"%B %{day}"</span><span style="color: #000000">,</span>
+<span style="color: #000000">    },</span>
+<span style="color: #000000">  },</span>
+<span style="color: #000000">});</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">l</span><span style="color: #000000">(</span><span style="color: #A31515">"date.formats.ordinalDay"</span><span style="color: #000000">, </span><span style="color: #A31515">"2009-09-18"</span><span style="color: #000000">, { </span><span style="color: #001080">day:</span><span style="color: #000000"> </span><span style="color: #A31515">"18th"</span><span style="color: #000000"> }); </span><span style="color: #008000">// Sep 18th</span>
+</code></pre>
+				<p>If you prefer, you can use the <code>I18n#toTime</code> and <code>I18n#strftime</code> functions
+				directly to format dates.</p>
+				<pre><code class="language-js"><span style="color: #0000FF">var</span><span style="color: #000000"> </span><span style="color: #001080">date</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Date</span><span style="color: #000000">();</span>
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">toTime</span><span style="color: #000000">(</span><span style="color: #A31515">"date.formats.short"</span><span style="color: #000000">, </span><span style="color: #A31515">"2009-09-18"</span><span style="color: #000000">);</span>
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">toTime</span><span style="color: #000000">(</span><span style="color: #A31515">"date.formats.short"</span><span style="color: #000000">, </span><span style="color: #001080">date</span><span style="color: #000000">);</span>
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">strftime</span><span style="color: #000000">(</span><span style="color: #001080">date</span><span style="color: #000000">, </span><span style="color: #A31515">"%d/%m/%Y"</span><span style="color: #000000">);</span>
+</code></pre>
+				<p>The accepted formats for <code>i18n.strftime</code> are:</p>
+				<pre><code><span style="color: #000000">%</span><span style="color: #001080">a</span><span style="color: #000000">  - </span><span style="color: #001080">The</span><span style="color: #000000"> </span><span style="color: #001080">abbreviated</span><span style="color: #000000"> </span><span style="color: #001080">weekday</span><span style="color: #000000"> </span><span style="color: #795E26">name</span><span style="color: #000000"> (</span><span style="color: #001080">Sun</span><span style="color: #000000">)</span>
+<span style="color: #000000">%</span><span style="color: #0070C1">A</span><span style="color: #000000">  - </span><span style="color: #001080">The</span><span style="color: #000000"> </span><span style="color: #001080">full</span><span style="color: #000000"> </span><span style="color: #001080">weekday</span><span style="color: #000000"> </span><span style="color: #795E26">name</span><span style="color: #000000"> (</span><span style="color: #001080">Sunday</span><span style="color: #000000">)</span>
+<span style="color: #000000">%</span><span style="color: #001080">b</span><span style="color: #000000">  - </span><span style="color: #001080">The</span><span style="color: #000000"> </span><span style="color: #001080">abbreviated</span><span style="color: #000000"> </span><span style="color: #001080">month</span><span style="color: #000000"> </span><span style="color: #795E26">name</span><span style="color: #000000"> (</span><span style="color: #001080">Jan</span><span style="color: #000000">)</span>
+<span style="color: #000000">%</span><span style="color: #0070C1">B</span><span style="color: #000000">  - </span><span style="color: #001080">The</span><span style="color: #000000"> </span><span style="color: #001080">full</span><span style="color: #000000"> </span><span style="color: #001080">month</span><span style="color: #000000"> </span><span style="color: #795E26">name</span><span style="color: #000000"> (</span><span style="color: #001080">January</span><span style="color: #000000">)</span>
+<span style="color: #000000">%</span><span style="color: #001080">c</span><span style="color: #000000">  - </span><span style="color: #001080">The</span><span style="color: #000000"> </span><span style="color: #001080">preferred</span><span style="color: #000000"> </span><span style="color: #001080">local</span><span style="color: #000000"> </span><span style="color: #001080">date</span><span style="color: #000000"> </span><span style="color: #001080">and</span><span style="color: #000000"> </span><span style="color: #001080">time</span><span style="color: #000000"> </span><span style="color: #001080">representation</span>
+<span style="color: #000000">%</span><span style="color: #001080">d</span><span style="color: #000000">  - </span><span style="color: #001080">Day</span><span style="color: #000000"> </span><span style="color: #0000FF">of</span><span style="color: #000000"> </span><span style="color: #001080">the</span><span style="color: #000000"> </span><span style="color: #795E26">month</span><span style="color: #000000"> (</span><span style="color: #098658">01</span><span style="color: #000000">.</span><span style="color: #098658">.31</span><span style="color: #000000">)</span>
+<span style="color: #000000">%-</span><span style="color: #001080">d</span><span style="color: #000000"> - </span><span style="color: #001080">Day</span><span style="color: #000000"> </span><span style="color: #0000FF">of</span><span style="color: #000000"> </span><span style="color: #001080">the</span><span style="color: #000000"> </span><span style="color: #795E26">month</span><span style="color: #000000"> (</span><span style="color: #098658">1..31</span><span style="color: #000000">)</span>
+<span style="color: #000000">%</span><span style="color: #0070C1">H</span><span style="color: #000000">  - </span><span style="color: #001080">Hour</span><span style="color: #000000"> </span><span style="color: #0000FF">of</span><span style="color: #000000"> </span><span style="color: #001080">the</span><span style="color: #000000"> </span><span style="color: #001080">day</span><span style="color: #000000">, </span><span style="color: #098658">24</span><span style="color: #000000">-</span><span style="color: #001080">hour</span><span style="color: #000000"> </span><span style="color: #795E26">clock</span><span style="color: #000000"> (</span><span style="color: #098658">00</span><span style="color: #000000">.</span><span style="color: #098658">.23</span><span style="color: #000000">)</span>
+<span style="color: #000000">%-</span><span style="color: #0070C1">H</span><span style="color: #000000"> - </span><span style="color: #001080">Hour</span><span style="color: #000000"> </span><span style="color: #0000FF">of</span><span style="color: #000000"> </span><span style="color: #001080">the</span><span style="color: #000000"> </span><span style="color: #001080">day</span><span style="color: #000000">, </span><span style="color: #098658">24</span><span style="color: #000000">-</span><span style="color: #001080">hour</span><span style="color: #000000"> </span><span style="color: #795E26">clock</span><span style="color: #000000"> (</span><span style="color: #098658">0..23</span><span style="color: #000000">)</span>
+<span style="color: #000000">%</span><span style="color: #001080">k</span><span style="color: #000000">  - </span><span style="color: #001080">Hour</span><span style="color: #000000"> </span><span style="color: #0000FF">of</span><span style="color: #000000"> </span><span style="color: #001080">the</span><span style="color: #000000"> </span><span style="color: #001080">day</span><span style="color: #000000">, </span><span style="color: #098658">24</span><span style="color: #000000">-</span><span style="color: #001080">hour</span><span style="color: #000000"> </span><span style="color: #795E26">clock</span><span style="color: #000000"> (</span><span style="color: #098658">0..23</span><span style="color: #000000">)</span>
+<span style="color: #000000">%</span><span style="color: #0070C1">I</span><span style="color: #000000">  - </span><span style="color: #001080">Hour</span><span style="color: #000000"> </span><span style="color: #0000FF">of</span><span style="color: #000000"> </span><span style="color: #001080">the</span><span style="color: #000000"> </span><span style="color: #001080">day</span><span style="color: #000000">, </span><span style="color: #098658">12</span><span style="color: #000000">-</span><span style="color: #001080">hour</span><span style="color: #000000"> </span><span style="color: #795E26">clock</span><span style="color: #000000"> (</span><span style="color: #098658">01</span><span style="color: #000000">.</span><span style="color: #098658">.12</span><span style="color: #000000">)</span>
+<span style="color: #000000">%-</span><span style="color: #0070C1">I</span><span style="color: #000000"> - </span><span style="color: #001080">Hour</span><span style="color: #000000"> </span><span style="color: #0000FF">of</span><span style="color: #000000"> </span><span style="color: #001080">the</span><span style="color: #000000"> </span><span style="color: #001080">day</span><span style="color: #000000">, </span><span style="color: #098658">12</span><span style="color: #000000">-</span><span style="color: #001080">hour</span><span style="color: #000000"> </span><span style="color: #795E26">clock</span><span style="color: #000000"> (</span><span style="color: #098658">1..12</span><span style="color: #000000">)</span>
+<span style="color: #000000">%</span><span style="color: #001080">l</span><span style="color: #000000">  - </span><span style="color: #001080">Hour</span><span style="color: #000000"> </span><span style="color: #0000FF">of</span><span style="color: #000000"> </span><span style="color: #001080">the</span><span style="color: #000000"> </span><span style="color: #001080">day</span><span style="color: #000000">, </span><span style="color: #098658">12</span><span style="color: #000000">-</span><span style="color: #001080">hour</span><span style="color: #000000"> </span><span style="color: #795E26">clock</span><span style="color: #000000"> (</span><span style="color: #098658">1..12</span><span style="color: #000000">)</span>
+<span style="color: #000000">%</span><span style="color: #001080">m</span><span style="color: #000000">  - </span><span style="color: #001080">Month</span><span style="color: #000000"> </span><span style="color: #0000FF">of</span><span style="color: #000000"> </span><span style="color: #001080">the</span><span style="color: #000000"> </span><span style="color: #795E26">year</span><span style="color: #000000"> (</span><span style="color: #098658">01</span><span style="color: #000000">.</span><span style="color: #098658">.12</span><span style="color: #000000">)</span>
+<span style="color: #000000">%-</span><span style="color: #001080">m</span><span style="color: #000000"> - </span><span style="color: #001080">Month</span><span style="color: #000000"> </span><span style="color: #0000FF">of</span><span style="color: #000000"> </span><span style="color: #001080">the</span><span style="color: #000000"> </span><span style="color: #795E26">year</span><span style="color: #000000"> (</span><span style="color: #098658">1..12</span><span style="color: #000000">)</span>
+<span style="color: #000000">%</span><span style="color: #0070C1">M</span><span style="color: #000000">  - </span><span style="color: #001080">Minute</span><span style="color: #000000"> </span><span style="color: #0000FF">of</span><span style="color: #000000"> </span><span style="color: #001080">the</span><span style="color: #000000"> </span><span style="color: #795E26">hour</span><span style="color: #000000"> (</span><span style="color: #098658">00</span><span style="color: #000000">.</span><span style="color: #098658">.59</span><span style="color: #000000">)</span>
+<span style="color: #000000">%-</span><span style="color: #0070C1">M</span><span style="color: #000000"> - </span><span style="color: #001080">Minute</span><span style="color: #000000"> </span><span style="color: #0000FF">of</span><span style="color: #000000"> </span><span style="color: #001080">the</span><span style="color: #000000"> </span><span style="color: #795E26">hour</span><span style="color: #000000"> (</span><span style="color: #098658">0..59</span><span style="color: #000000">)</span>
+<span style="color: #000000">%</span><span style="color: #001080">p</span><span style="color: #000000">  - </span><span style="color: #001080">Meridian</span><span style="color: #000000"> </span><span style="color: #795E26">indicator</span><span style="color: #000000"> (</span><span style="color: #0070C1">AM</span><span style="color: #000000">  </span><span style="color: #001080">or</span><span style="color: #000000">  </span><span style="color: #0070C1">PM</span><span style="color: #000000">)</span>
+<span style="color: #000000">%</span><span style="color: #0070C1">P</span><span style="color: #000000">  - </span><span style="color: #001080">Meridian</span><span style="color: #000000"> </span><span style="color: #795E26">indicator</span><span style="color: #000000"> (</span><span style="color: #001080">am</span><span style="color: #000000">  </span><span style="color: #001080">or</span><span style="color: #000000">  </span><span style="color: #001080">pm</span><span style="color: #000000">)</span>
+<span style="color: #000000">%</span><span style="color: #0070C1">S</span><span style="color: #000000">  - </span><span style="color: #001080">Second</span><span style="color: #000000"> </span><span style="color: #0000FF">of</span><span style="color: #000000"> </span><span style="color: #001080">the</span><span style="color: #000000"> </span><span style="color: #795E26">minute</span><span style="color: #000000"> (</span><span style="color: #098658">00</span><span style="color: #000000">.</span><span style="color: #098658">.60</span><span style="color: #000000">)</span>
+<span style="color: #000000">%-</span><span style="color: #0070C1">S</span><span style="color: #000000"> - </span><span style="color: #001080">Second</span><span style="color: #000000"> </span><span style="color: #0000FF">of</span><span style="color: #000000"> </span><span style="color: #001080">the</span><span style="color: #000000"> </span><span style="color: #795E26">minute</span><span style="color: #000000"> (</span><span style="color: #098658">0..60</span><span style="color: #000000">)</span>
+<span style="color: #000000">%</span><span style="color: #001080">w</span><span style="color: #000000">  - </span><span style="color: #001080">Day</span><span style="color: #000000"> </span><span style="color: #0000FF">of</span><span style="color: #000000"> </span><span style="color: #001080">the</span><span style="color: #000000"> </span><span style="color: #795E26">week</span><span style="color: #000000"> (</span><span style="color: #001080">Sunday</span><span style="color: #000000"> </span><span style="color: #001080">is</span><span style="color: #000000"> </span><span style="color: #098658">0</span><span style="color: #000000">, </span><span style="color: #098658">0..6</span><span style="color: #000000">)</span>
+<span style="color: #000000">%</span><span style="color: #001080">y</span><span style="color: #000000">  - </span><span style="color: #001080">Year</span><span style="color: #000000"> </span><span style="color: #001080">without</span><span style="color: #000000"> </span><span style="color: #001080">a</span><span style="color: #000000"> </span><span style="color: #795E26">century</span><span style="color: #000000"> (</span><span style="color: #098658">00</span><span style="color: #000000">.</span><span style="color: #098658">.99</span><span style="color: #000000">)</span>
+<span style="color: #000000">%-</span><span style="color: #001080">y</span><span style="color: #000000"> - </span><span style="color: #001080">Year</span><span style="color: #000000"> </span><span style="color: #001080">without</span><span style="color: #000000"> </span><span style="color: #001080">a</span><span style="color: #000000"> </span><span style="color: #795E26">century</span><span style="color: #000000"> (</span><span style="color: #098658">0..99</span><span style="color: #000000">)</span>
+<span style="color: #000000">%</span><span style="color: #0070C1">Y</span><span style="color: #000000">  - </span><span style="color: #001080">Year</span><span style="color: #000000"> </span><span style="color: #AF00DB">with</span><span style="color: #000000"> </span><span style="color: #001080">century</span>
+<span style="color: #000000">%</span><span style="color: #001080">z</span><span style="color: #000000">  - </span><span style="color: #001080">Timezone</span><span style="color: #000000"> </span><span style="color: #795E26">offset</span><span style="color: #000000"> (+</span><span style="color: #098658">0545</span><span style="color: #000000">)</span>
+<span style="color: #000000">%</span><span style="color: #0070C1">Z</span><span style="color: #000000">  - </span><span style="color: #001080">Timezone</span><span style="color: #000000"> </span><span style="color: #795E26">offset</span><span style="color: #000000"> (+</span><span style="color: #098658">0545</span><span style="color: #000000">)</span>
+</code></pre>
+				<p>Check out
+					<a href="https://github.com/fnando/i18n/blob/main/__tests__/strftime.test.ts">__tests__/strftime.test.ts</a>
+				file for more examples!</p>
+				<p>Finally, you can also diplay relative time strings using <code>I18n#timeAgoInWords</code>.</p>
+				<pre><code class="language-js"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">to</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">Date</span><span style="color: #000000">();</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">from</span><span style="color: #000000"> = </span><span style="color: #001080">to</span><span style="color: #000000">.</span><span style="color: #795E26">getTime</span><span style="color: #000000">() - </span><span style="color: #098658">60</span><span style="color: #000000"> * </span><span style="color: #098658">60</span><span style="color: #000000"> * </span><span style="color: #098658">1000</span><span style="color: #000000">; </span><span style="color: #008000">// ~1h ago.</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">timeAgoInWords</span><span style="color: #000000">(</span><span style="color: #001080">from</span><span style="color: #000000">, </span><span style="color: #001080">to</span><span style="color: #000000">);</span>
+<span style="color: #008000">//=&gt; about 1 hour</span>
+</code></pre>
+				<a href="#using-pluralization-and-number-formatting-together" id="using-pluralization-and-number-formatting-together" style="color: inherit; text-decoration: none;">
+					<h4>Using pluralization and number formatting together</h4>
+				</a>
+				<p>Sometimes you might want to display translation with formatted number, like
+				adding thousand delimiters to displayed number You can do this:</p>
+				<pre><code class="language-js"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">i18n</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #795E26">I18n</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #001080">en:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">points:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">      </span><span style="color: #001080">one:</span><span style="color: #000000"> </span><span style="color: #A31515">"1 Point"</span><span style="color: #000000">,</span>
+<span style="color: #000000">      </span><span style="color: #001080">other:</span><span style="color: #000000"> </span><span style="color: #A31515">"{{points}} Points"</span><span style="color: #000000">,</span>
+<span style="color: #000000">    },</span>
+<span style="color: #000000">  },</span>
+<span style="color: #000000">});</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">points</span><span style="color: #000000"> = </span><span style="color: #098658">1234</span><span style="color: #000000">;</span>
+
+<span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">t</span><span style="color: #000000">(</span><span style="color: #A31515">"points"</span><span style="color: #000000">, {</span>
+<span style="color: #000000">  </span><span style="color: #001080">count:</span><span style="color: #000000"> </span><span style="color: #001080">points</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">points:</span><span style="color: #000000"> </span><span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">toNumber</span><span style="color: #000000">(</span><span style="color: #001080">points</span><span style="color: #000000">),</span>
+<span style="color: #000000">});</span>
+</code></pre>
+				<p>Output should be <code>1,234 points</code>.</p>
+				<a href="#other-helpers" id="other-helpers" style="color: inherit; text-decoration: none;">
+					<h3>Other helpers</h3>
+				</a>
+				<a href="#i18ntosentencelist-options" id="i18ntosentencelist-options" style="color: inherit; text-decoration: none;">
+					<h4><code>I18n#toSentence(list, options)</code></h4>
+				</a>
+				<pre><code class="language-js"><span style="color: #001080">i18n</span><span style="color: #000000">.</span><span style="color: #795E26">toSentence</span><span style="color: #000000">([</span><span style="color: #A31515">"apple"</span><span style="color: #000000">, </span><span style="color: #A31515">"banana"</span><span style="color: #000000">, </span><span style="color: #A31515">"pineapple"</span><span style="color: #000000">]);</span>
+<span style="color: #008000">//=&gt; apple, banana, and pineapple.</span>
+</code></pre>
+				<a href="#troubleshooting" id="troubleshooting" style="color: inherit; text-decoration: none;">
+					<h2>Troubleshooting</h2>
+				</a>
+				<a href="#i39m-getting-an-error-like-syntaxerror-unexpected-end-of-json-input-or-uncaught-syntaxerror-unexpected-token-" id="i39m-getting-an-error-like-syntaxerror-unexpected-end-of-json-input-or-uncaught-syntaxerror-unexpected-token-" style="color: inherit; text-decoration: none;">
+					<h3>I'm getting an error like <code>SyntaxError: Unexpected end of JSON input</code> or <code>Uncaught SyntaxError: Unexpected token ;</code>
+</h3>
+				</a>
+				<p>You may get such error if you're trying to load empty JSON files with
+					<code>import data from "file.json"</code>. This has nothing to do with I18n and is related
+				to how your JSON file is loaded. <strong>JSON files must contain valid JSON data.</strong></p>
+				<p>Similarly, make sure you're writing valid JSON, and not JavaScript. For
+					instance, if you write something like <code>{};</code>, you'll get an error like
+				<code>Uncaught SyntaxError: Unexpected token ;</code>.</p>
+				<a href="#my-json-contains-a-flat-structure-how-can-i-load-and-use-it-with-i18njs" id="my-json-contains-a-flat-structure-how-can-i-load-and-use-it-with-i18njs" style="color: inherit; text-decoration: none;">
+					<h3>My JSON contains a flat structure. How can I load and use it with I18n.js?</h3>
+				</a>
+				<p>I18n.js expects a nested object to represent the translation tree. For this
+				reason, you cannot use an object like the following by default:</p>
+				<pre><code class="language-json"><span style="color: #000000">{</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">"en.messages.hello"</span><span style="color: #000000">: </span><span style="color: #A31515">"hello"</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #0451A5">"pt-BR.messages.hello"</span><span style="color: #000000">: </span><span style="color: #A31515">"olá"</span>
+<span style="color: #000000">}</span>
+</code></pre>
+				<p>One solution is using something like the following to transform your flat into a
+				nested object:</p>
+				<pre><code class="language-js"><span style="color: #0000FF">const</span><span style="color: #000000"> { </span><span style="color: #0070C1">set</span><span style="color: #000000"> } = </span><span style="color: #795E26">require</span><span style="color: #000000">(</span><span style="color: #A31515">"lodash"</span><span style="color: #000000">);</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">from</span><span style="color: #000000"> = {</span>
+<span style="color: #000000">  </span><span style="color: #A31515">"en.messages.hello"</span><span style="color: #001080">:</span><span style="color: #000000"> </span><span style="color: #A31515">"hello"</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #A31515">"pt-BR.messages.hello"</span><span style="color: #001080">:</span><span style="color: #000000"> </span><span style="color: #A31515">"olá"</span><span style="color: #000000">,</span>
+<span style="color: #000000">};</span>
+
+<span style="color: #0000FF">function</span><span style="color: #000000"> </span><span style="color: #795E26">flatToNestedObject</span><span style="color: #000000">(</span><span style="color: #001080">target</span><span style="color: #000000">) {</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">nested</span><span style="color: #000000"> = {};</span>
+
+<span style="color: #000000">  </span><span style="color: #267F99">Object</span><span style="color: #000000">.</span><span style="color: #795E26">keys</span><span style="color: #000000">(</span><span style="color: #001080">target</span><span style="color: #000000">).</span><span style="color: #795E26">forEach</span><span style="color: #000000">((</span><span style="color: #001080">path</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #795E26">set</span><span style="color: #000000">(</span><span style="color: #001080">nested</span><span style="color: #000000">, </span><span style="color: #001080">path</span><span style="color: #000000">, </span><span style="color: #001080">target</span><span style="color: #000000">[</span><span style="color: #001080">path</span><span style="color: #000000">]));</span>
+
+<span style="color: #000000">  </span><span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #001080">nested</span><span style="color: #000000">;</span>
+<span style="color: #000000">}</span>
+
+<span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #795E26">flatToNestedObject</span><span style="color: #000000">(</span><span style="color: #001080">from</span><span style="color: #000000">));</span>
+<span style="color: #008000">// {</span>
+<span style="color: #008000">//   en: { messages: { hello: 'hello' } },</span>
+<span style="color: #008000">//   'pt-BR': { messages: { hello: 'olá' } }</span>
+<span style="color: #008000">// }</span>
+</code></pre>
+				<p>You can also use something like <a href="https://github.com/hughsk/flat">flat</a> to
+				perform the same transformation.</p>
+				<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+					<h2>License</h2>
+				</a>
+				<p>(The MIT License)</p>
+				<p>Permission is hereby granted, free of charge, to any person obtaining a copy of
+					this software and associated documentation files (the 'Software'), to deal in
+					the Software without restriction, including without limitation the rights to
+					use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+					the Software, and to permit persons to whom the Software is furnished to do so,
+				subject to the following conditions:</p>
+				<p>The above copyright notice and this permission notice shall be included in all
+				copies or substantial portions of the Software.</p>
+				<p>THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+					IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+					FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+					COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+					IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+				CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="modules.html">Modules</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/i18n.html">I18n</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/locales.html">Locales</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/missingtranslation.html">Missing<wbr>Translation</wbr></a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/pluralization.html">Pluralization</a>
+					</li>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<li class=" tsd-kind-module">
+						<a href="modules/index.html">index</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/pluralize_ru.html">pluralize/ru</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/typing.html">typing</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

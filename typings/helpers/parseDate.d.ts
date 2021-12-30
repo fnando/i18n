@@ -1,2 +1,2 @@
-import { DateTime } from "../../index.d";
+import { DateTime } from "../typing";
 export declare function parseDate(input: DateTime): Date;

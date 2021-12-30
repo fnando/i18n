@@ -1,4 +1,4 @@
-import { DateTime, Dict, I18nOptions, MissingPlaceholderHandler, NullPlaceholderHandler, NumberToCurrencyOptions, NumberToDelimitedOptions, NumberToHumanOptions, NumberToHumanSizeOptions, NumberToPercentageOptions, NumberToRoundedOptions, Numeric, OnChangeHandler, Scope, StrftimeOptions, TimeAgoInWordsOptions, ToSentenceOptions, TranslateOptions } from "../index.d";
+import { DateTime, Dict, I18nOptions, MissingPlaceholderHandler, NullPlaceholderHandler, NumberToCurrencyOptions, NumberToDelimitedOptions, NumberToHumanOptions, NumberToHumanSizeOptions, NumberToPercentageOptions, NumberToRoundedOptions, Numeric, OnChangeHandler, Scope, StrftimeOptions, TimeAgoInWordsOptions, ToSentenceOptions, TranslateOptions } from "./typing";
 import { Locales } from "./Locales";
 import { Pluralization } from "./Pluralization";
 import { MissingTranslation } from "./MissingTranslation";

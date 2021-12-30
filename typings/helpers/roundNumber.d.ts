@@ -1,5 +1,5 @@
 import BigNumber from "bignumber.js";
-import { RoundingMode } from "../../index.d";
+import { RoundingMode } from "../typing";
 declare type RoundingOptions = {
     roundMode: RoundingMode;
     precision: number | null;

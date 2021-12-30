@@ -1,2 +1,2 @@
-import { Numeric, NumberToDelimitedOptions } from "../../index.d";
+import { Numeric, NumberToDelimitedOptions } from "../typing";
 export declare function numberToDelimited(input: Numeric, options: NumberToDelimitedOptions): string;
