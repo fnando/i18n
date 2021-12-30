@@ -1,6 +1,6 @@
 import BigNumber from "bignumber.js";
 
-import { Numeric, NumberToDelimitedOptions } from "../../index.d";
+import { Numeric, NumberToDelimitedOptions } from "../typing";
 
 /**
  * Formats a number with grouped thousands using delimiter (e.g., 12,324).

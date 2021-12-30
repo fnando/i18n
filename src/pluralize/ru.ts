@@ -1,5 +1,5 @@
 import { I18n } from "../I18n";
-import { Pluralizer } from "../../index.d";
+import { Pluralizer } from "../typing";
 
 export const ru: Pluralizer = (_i18n: I18n, count: number) => {
   const mod10 = count % 10;

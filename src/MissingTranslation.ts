@@ -1,4 +1,4 @@
-import { Dict, MissingTranslationStrategy, Scope } from "../index.d";
+import { Dict, MissingTranslationStrategy, Scope } from "./typing";
 import { getFullScope, inferType } from "./helpers";
 import { I18n } from "./I18n";
 

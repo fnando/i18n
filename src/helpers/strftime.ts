@@ -1,4 +1,4 @@
-import { StrftimeOptions } from "../../index.d";
+import { StrftimeOptions } from "../typing";
 
 const DEFAULT_OPTIONS: StrftimeOptions = {
   meridian: { am: "AM", pm: "PM" },

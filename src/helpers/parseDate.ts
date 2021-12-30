@@ -1,4 +1,4 @@
-import { DateTime } from "../../index.d";
+import { DateTime } from "../typing";
 
 /**
  * Parse a given `input` string into a JavaScript Date object.

@@ -1,4 +1,4 @@
-import { Dict, Scope, TranslateOptions } from "../../index.d";
+import { Dict, Scope, TranslateOptions } from "../typing";
 import { I18n } from "../I18n";
 import { isSet } from ".";
 

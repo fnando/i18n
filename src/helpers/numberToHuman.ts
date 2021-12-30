@@ -2,11 +2,7 @@ import BigNumber from "bignumber.js";
 import { sortBy, zipObject } from "lodash";
 
 import { I18n } from "../I18n";
-import {
-  Numeric,
-  NumberToHumanOptions,
-  NumberToHumanUnits,
-} from "../../index.d";
+import { Numeric, NumberToHumanOptions, NumberToHumanUnits } from "../typing";
 import { getFullScope, lookup, roundNumber, inferType } from ".";
 
 /**

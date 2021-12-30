@@ -22,7 +22,7 @@ import {
   TimeAgoInWordsOptions,
   ToSentenceOptions,
   TranslateOptions,
-} from "../index.d";
+} from "./typing";
 import { Locales } from "./Locales";
 import { Pluralization } from "./Pluralization";
 import { MissingTranslation } from "./MissingTranslation";

@@ -1,5 +1,5 @@
 import { isArray, isObject, flattenDeep } from "lodash";
-import { Dict } from "../../index.d";
+import { Dict } from "../typing";
 
 interface Indexable {
   [key: string]: unknown;

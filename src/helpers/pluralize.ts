@@ -1,4 +1,4 @@
-import { Scope, TranslateOptions } from "../../index.d";
+import { Scope, TranslateOptions } from "../typing";
 import { I18n } from "../I18n";
 
 import { interpolate, isSet, lookup } from ".";

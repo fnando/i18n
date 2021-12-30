@@ -1,5 +1,5 @@
 import BigNumber from "bignumber.js";
-import { RoundingMode } from "../../index.d";
+import { RoundingMode } from "../typing";
 
 enum RoundingModeMap {
   "up" = BigNumber.ROUND_UP,

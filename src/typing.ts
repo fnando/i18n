@@ -1,10 +1,6 @@
 import BigNumber from "bignumber.js";
 
-import { I18n } from "./src/I18n";
-
-export namespace BigNumber {
-  export type RoundingMode = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
-}
+import { I18n } from "./I18n";
 
 export interface Dict {
   [key: string]: any;
@@ -108,6 +104,12 @@ export type AnyObject = PrimitiveType | ArrayType | ObjectType;
 export interface ObjectType {
   [key: string]: PrimitiveType | ArrayType | ObjectType;
 }
+
+/**
+ * Possible missing translation behavior.
+ * @type {String}
+ */
+type MissingBehavior = "message" | "guess" | "error";
 
 // The I18n class initializer options.
 export interface I18nOptions {

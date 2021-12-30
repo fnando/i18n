@@ -1,4 +1,4 @@
-import { Dict, Pluralizer } from "../index.d";
+import { Dict, Pluralizer } from "./typing";
 import { I18n } from "./I18n";
 
 /**
