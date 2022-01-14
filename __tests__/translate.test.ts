@@ -1,7 +1,7 @@
 import { snakeCase } from "lodash";
 
 import { I18n } from "../src/I18n";
-import { Dict, Scope } from "../index.d";
+import { Dict, Scope } from "../src/typing";
 import { translations } from "./fixtures/translations";
 
 let i18n: I18n;

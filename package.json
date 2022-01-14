@@ -20,7 +20,7 @@
     "docs": "typedoc src && yarn docs:ext",
     "docs:ext": "cat ext/typedoc.css | tee -a docs/v$(cat package.json | jq -r '.version')/assets/css/main.css &> /dev/null && ruby ext/typedoc.rb",
     "test": "jest --watch --coverage",
-    "test:ci": "jest --coverage --verbose",
+    "test:ci": "jest --ci --coverage --verbose",
     "clean": "rm -rf ./dist",
     "build:browser": "webpack --output-path ./dist/browser/ --output-filename index.js --mode production --entry ./dist/import/index.js --output-library-type var --output-library-name I18n --devtool source-map",
     "build:require": "tsc --outDir ./dist/require --module commonjs",

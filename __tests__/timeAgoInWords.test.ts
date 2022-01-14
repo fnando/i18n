@@ -1,5 +1,5 @@
 import { I18n } from "../src/I18n";
-import { DateTime } from "../index.d";
+import { DateTime } from "../src/typing";
 import en from "../json/en.json";
 import { parseDate } from "../src/helpers";
 
