@@ -137,10 +137,22 @@
           "format": "%n %u",
           "units": {
             "billion": "mil milions",
-            "million": "milió",
-            "quadrillion": "quadrilió",
-            "thousand": "mil",
-            "trillion": "trilió",
+            "million": {
+              "one": "milió",
+              "other": "milions"
+            },
+            "quadrillion": {
+              "one": "quadrilió",
+              "other": "quadrilions"
+            },
+            "thousand": {
+              "one": "miler",
+              "other": "milers"
+            },
+            "trillion": {
+              "one": "bilió",
+              "other": "bilions"
+            },
             "unit": ""
           }
         },
@@ -157,16 +169,19 @@
               "one": "Byte",
               "other": "Bytes"
             },
+            "eb": "EB",
             "gb": "GB",
             "kb": "KB",
             "mb": "MB",
+            "pb": "PB",
             "tb": "TB"
           }
         }
       },
       "percentage": {
         "format": {
-          "delimiter": ""
+          "delimiter": "",
+          "format": "%n %"
         }
       },
       "precision": {

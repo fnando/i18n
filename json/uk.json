@@ -63,8 +63,8 @@
     "datetime": {
       "distance_in_words": {
         "about_x_hours": {
-          "one": "близько %{count} година",
-          "few": "близько %{count} години",
+          "one": "близько %{count} години",
+          "few": "близько %{count} годин",
           "many": "близько %{count} годин",
           "other": "близько %{count} години"
         },
@@ -81,8 +81,8 @@
           "other": "близько %{count} року"
         },
         "almost_x_years": {
-          "one": "майже %{count} роки",
-          "few": "майже %{count} років",
+          "one": "майже %{count} рік",
+          "few": "майже %{count} роки",
           "many": "майже %{count} років",
           "other": "майже %{count} років"
         },

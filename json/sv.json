@@ -166,8 +166,8 @@
       },
       "percentage": {
         "format": {
-          "delimiter": "",
-          "format": "%n%"
+          "delimiter": " ",
+          "format": "%n %"
         }
       },
       "precision": {

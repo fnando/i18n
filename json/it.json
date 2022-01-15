@@ -75,8 +75,8 @@
           "other": "circa %{count} anni"
         },
         "almost_x_years": {
-          "one": "circa 1 anno",
-          "other": "circa %{count} anni"
+          "one": "quasi un anno",
+          "other": "quasi %{count} anni"
         },
         "half_a_minute": "mezzo minuto",
         "less_than_x_seconds": {
@@ -157,9 +157,11 @@
               "one": "Byte",
               "other": "Byte"
             },
+            "eb": "EB",
             "gb": "GB",
             "kb": "KB",
             "mb": "MB",
+            "pb": "PB",
             "tb": "TB"
           }
         }

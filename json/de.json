@@ -109,7 +109,7 @@
         },
         "x_years": {
           "one": "ein Jahr",
-          "other": "%{count} Jahr"
+          "other": "%{count} Jahre"
         }
       }
     },

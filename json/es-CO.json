@@ -116,19 +116,19 @@
     "number": {
       "currency": {
         "format": {
-          "delimiter": ",",
+          "delimiter": ".",
           "format": "%u%n",
           "precision": 0,
-          "separator": ".",
+          "separator": ",",
           "significant": false,
           "strip_insignificant_zeros": false,
           "unit": "$"
         }
       },
       "format": {
-        "delimiter": ",",
+        "delimiter": ".",
         "precision": 2,
-        "separator": ".",
+        "separator": ",",
         "significant": false,
         "strip_insignificant_zeros": false
       },
@@ -151,7 +151,7 @@
           }
         },
         "format": {
-          "delimiter": ",",
+          "delimiter": "",
           "precision": 3,
           "significant": true,
           "strip_insignificant_zeros": true
@@ -174,13 +174,13 @@
       },
       "percentage": {
         "format": {
-          "delimiter": ",",
+          "delimiter": "",
           "format": "%n%"
         }
       },
       "precision": {
         "format": {
-          "delimiter": ","
+          "delimiter": ""
         }
       }
     },

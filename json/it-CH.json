@@ -106,6 +106,10 @@
         "x_months": {
           "one": "1 mese",
           "other": "%{count} mesi"
+        },
+        "x_years": {
+          "one": "1 anno",
+          "other": "%{count} anni"
         }
       }
     },
@@ -153,16 +157,19 @@
               "one": "Byte",
               "other": "Byte"
             },
+            "eb": "EB",
             "gb": "GB",
             "kb": "KB",
             "mb": "MB",
+            "pb": "PB",
             "tb": "TB"
           }
         }
       },
       "percentage": {
         "format": {
-          "delimiter": ""
+          "delimiter": "",
+          "format": "%n%"
         }
       },
       "precision": {

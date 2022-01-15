@@ -36,7 +36,7 @@
       ],
       "formats": {
         "default": "%-d.%-m.%Y",
-        "long": "%A %e. %Bta %Y",
+        "long": "%d. %Bta %Y",
         "short": "%d. %b"
       },
       "month_names": [

@@ -2,37 +2,37 @@
   "ro": {
     "date": {
       "abbr_day_names": [
-        "Dum",
-        "Lun",
-        "Mar",
-        "Mie",
-        "Joi",
-        "Vin",
-        "Sâm"
+        "dum",
+        "lun",
+        "mar",
+        "mie",
+        "joi",
+        "vin",
+        "sâm"
       ],
       "abbr_month_names": [
         null,
-        "Ian",
-        "Feb",
-        "Mar",
-        "Apr",
-        "Mai",
-        "Iun",
-        "Iul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Noi",
-        "Dec"
+        "ian",
+        "feb",
+        "mar",
+        "apr",
+        "mai",
+        "iun",
+        "iul",
+        "aug",
+        "sep",
+        "oct",
+        "noi",
+        "dec"
       ],
       "day_names": [
-        "Duminică",
-        "Luni",
-        "Marți",
-        "Miercuri",
-        "Joi",
-        "Vineri",
-        "Sâmbată"
+        "duminică",
+        "luni",
+        "marți",
+        "miercuri",
+        "joi",
+        "vineri",
+        "sâmbată"
       ],
       "formats": {
         "default": "%d-%m-%Y",
@@ -41,18 +41,18 @@
       },
       "month_names": [
         null,
-        "Ianuarie",
-        "Februarie",
-        "Martie",
-        "Aprilie",
-        "Mai",
-        "Iunie",
-        "Iulie",
-        "August",
-        "Septembrie",
-        "Octombrie",
-        "Noiembrie",
-        "Decembrie"
+        "ianuarie",
+        "februarie",
+        "martie",
+        "aprilie",
+        "mai",
+        "iunie",
+        "iulie",
+        "august",
+        "septembrie",
+        "octombrie",
+        "noiembrie",
+        "decembrie"
       ],
       "order": [
         "day",
@@ -143,11 +143,11 @@
         "decimal_units": {
           "format": "%n %u",
           "units": {
-            "billion": "Miliard",
-            "million": "Milion",
-            "quadrillion": "Quadrilion",
-            "thousand": "Mie",
-            "trillion": "Trilion",
+            "billion": "miliard",
+            "million": "milion",
+            "quadrillion": "quadrilion",
+            "thousand": "mie",
+            "trillion": "trilion",
             "unit": ""
           }
         },
@@ -185,8 +185,8 @@
     },
     "support": {
       "array": {
-        "last_word_connector": " şi ",
-        "two_words_connector": " şi ",
+        "last_word_connector": " și ",
+        "two_words_connector": " și ",
         "words_connector": ", "
       }
     },

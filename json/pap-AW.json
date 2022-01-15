@@ -2,13 +2,13 @@
   "pap-AW": {
     "date": {
       "abbr_day_names": [
-        "Dum",
-        "Lun",
-        "Mar",
-        "Ras",
-        "Wep",
-        "Biè",
-        "Sab"
+        "dum",
+        "lun",
+        "mar",
+        "ras",
+        "wep",
+        "biè",
+        "sab"
       ],
       "abbr_month_names": [
         null,
@@ -68,7 +68,7 @@
         },
         "about_x_months": {
           "one": "mas o ménos 1 luna",
-          "other": "about %{count} luna"
+          "other": "mas o ménos %{count} luna"
         },
         "about_x_years": {
           "one": "mas o ménos 1 aña",
@@ -80,7 +80,7 @@
         },
         "half_a_minute": "mei minüt",
         "less_than_x_minutes": {
-          "one": "ménos ku un minüt",
+          "one": "ménos ku 1 minüt",
           "other": "ménos ku %{count} minüt"
         },
         "less_than_x_seconds": {
@@ -100,11 +100,15 @@
           "other": "%{count} minüt"
         },
         "x_months": {
-          "one": "1 month",
+          "one": "1 luna",
           "other": "%{count} luna"
         },
+        "x_years": {
+          "one": "1 year",
+          "other": "%{count} years"
+        },
         "x_seconds": {
-          "one": "1 second",
+          "one": "1 sekònde",
           "other": "%{count} sekònde"
         }
       }
@@ -150,13 +154,15 @@
           "format": "%n %u",
           "units": {
             "byte": {
-              "one": "Byte",
-              "other": "Bytes"
+              "one": "Bait",
+              "other": "Bait"
             },
             "gb": "GB",
             "kb": "KB",
             "mb": "MB",
-            "tb": "TB"
+            "tb": "TB",
+            "pb": "PB",
+            "eb": "EB"
           }
         }
       },

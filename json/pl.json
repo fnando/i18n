@@ -36,23 +36,23 @@
       ],
       "formats": {
         "default": "%d-%m-%Y",
-        "long": "%B %d, %Y",
-        "short": "%d %b"
+        "long": "%-d %B %Y",
+        "short": "%-d %b"
       },
       "month_names": [
         null,
-        "styczeń",
-        "luty",
-        "marzec",
-        "kwiecień",
-        "maj",
-        "czerwiec",
-        "lipiec",
-        "sierpień",
-        "wrzesień",
-        "październik",
-        "listopad",
-        "grudzień"
+        "stycznia",
+        "lutego",
+        "marca",
+        "kwietnia",
+        "maja",
+        "czerwca",
+        "lipca",
+        "sierpnia",
+        "września",
+        "października",
+        "listopada",
+        "grudnia"
       ],
       "order": [
         "day",
@@ -206,9 +206,9 @@
     "time": {
       "am": "przed południem",
       "formats": {
-        "default": "%a, %d %b %Y %H:%M:%S %z",
-        "long": "%B %d, %Y %H:%M",
-        "short": "%d %b %H:%M"
+        "default": "%a, %-d %b %Y %H:%M:%S %z",
+        "long": "%-d %B %Y %H:%M",
+        "short": "%-d %b %H:%M"
       },
       "pm": "po południu"
     }

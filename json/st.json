@@ -1,58 +1,58 @@
 {
-  "en-CA": {
+  "st": {
     "date": {
       "abbr_day_names": [
-        "Sun",
-        "Mon",
-        "Tue",
-        "Wed",
-        "Thu",
-        "Fri",
-        "Sat"
+        "Son",
+        "ٰMan",
+        "Labob",
+        "Labor",
+        "Labon",
+        "Laboh",
+        "Moq"
       ],
       "abbr_month_names": [
         null,
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec"
+        "Phe",
+        "Hlako",
+        "Tlha",
+        "ٰMes",
+        "Motš",
+        "Phupt",
+        "Phup",
+        "Pha",
+        "Loe",
+        "Mph",
+        "Pul",
+        "Tši"
       ],
       "day_names": [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday"
+        "Sontaha",
+        "ٰMantaha",
+        "Labobeli",
+        "Laboraro",
+        "Labone",
+        "Labohlano",
+        "Moqebelo"
       ],
       "formats": {
         "default": "%Y-%m-%d",
         "long": "%B %d, %Y",
-        "short": "%d %b"
+        "short": "%b %d"
       },
       "month_names": [
         null,
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
+        "Pherekhong",
+        "Hlakola",
+        "Hlakubele",
+        "ٰMesa",
+        "Motšeanong",
+        "Phuptjane",
+        "Phupu",
+        "Phato",
+        "Loetse",
+        "Mphalane",
+        "Pulungoana",
+        "Tšitoe"
       ],
       "order": [
         "year",
@@ -63,53 +63,53 @@
     "datetime": {
       "distance_in_words": {
         "about_x_hours": {
-          "one": "about 1 hour",
-          "other": "about %{count} hours"
+          "one": "ekaba hora e le ٰngoe",
+          "other": "ekaba hora tse %{count}"
         },
         "about_x_months": {
-          "one": "about 1 month",
-          "other": "about %{count} months"
+          "one": "ekaba khoeli e le ٰngoe",
+          "other": "ekaba likhoeli tse %{count}"
         },
         "about_x_years": {
-          "one": "about 1 year",
-          "other": "about %{count} years"
+          "one": "ekaba selemo se le seng",
+          "other": "ekaba lilemo tse %{count}"
         },
         "almost_x_years": {
-          "one": "almost 1 year",
-          "other": "almost %{count} years"
+          "one": "e tlo ba selemo se le seng",
+          "other": "e tlo ba lilemo tse %{count}"
         },
-        "half_a_minute": "half a minute",
+        "half_a_minute": "halofo ea motsotso",
         "less_than_x_seconds": {
-          "one": "less than 1 second",
-          "other": "less than %{count} seconds"
+          "one": "ka tlase ho motsotsoana",
+          "other": "ka tlase ho metsotsoana e %{count}"
         },
         "less_than_x_minutes": {
-          "one": "less than a minute",
-          "other": "less than %{count} minutes"
+          "one": "ka tlase ho motsotso",
+          "other": "ka tlase ho metsotso e %{count}"
         },
         "over_x_years": {
-          "one": "over 1 year",
-          "other": "over %{count} years"
+          "one": "ka holimo ho selemo",
+          "other": "ka holimo ho lilemo tse %{count}"
         },
         "x_seconds": {
-          "one": "1 second",
-          "other": "%{count} seconds"
+          "one": "motsotsoana o le mong",
+          "other": "metsotsoana e %{count}"
         },
         "x_minutes": {
-          "one": "1 minute",
-          "other": "%{count} minutes"
+          "one": "motsotso o le mong",
+          "other": "metsotso e %{count}"
         },
         "x_days": {
-          "one": "1 day",
-          "other": "%{count} days"
+          "one": "letsatsi le le leng",
+          "other": "matsatsi a %{count}"
         },
         "x_months": {
-          "one": "1 month",
-          "other": "%{count} months"
+          "one": "khoeli e le \\'ngoe",
+          "other": "likhoeli tse %{count}"
         },
         "x_years": {
-          "one": "1 year",
-          "other": "%{count} years"
+          "one": "selemo se le seng",
+          "other": "lilemo tse %{count}"
         }
       }
     },
@@ -122,7 +122,7 @@
           "separator": ".",
           "significant": false,
           "strip_insignificant_zeros": false,
-          "unit": "$"
+          "unit": "M"
         }
       },
       "format": {
@@ -136,11 +136,11 @@
         "decimal_units": {
           "format": "%n %u",
           "units": {
-            "billion": "Billion",
-            "million": "Million",
-            "quadrillion": "Quadrillion",
-            "thousand": "Thousand",
-            "trillion": "Trillion",
+            "billion": "Bilione",
+            "million": "Milione",
+            "quadrillion": "Libilione tse likete",
+            "thousand": "Sekete",
+            "trillion": "Trilione",
             "unit": ""
           }
         },
@@ -180,17 +180,17 @@
     },
     "support": {
       "array": {
-        "last_word_connector": ", and ",
-        "two_words_connector": " and ",
+        "last_word_connector": ", le ",
+        "two_words_connector": " le ",
         "words_connector": ", "
       }
     },
     "time": {
       "am": "am",
       "formats": {
-        "default": "%a, %d %b %Y %I:%M:%S %p %Z",
-        "long": "%B %d, %Y %I:%M %p",
-        "short": "%d %b %I:%M %p"
+        "default": "%a, %d %b %Y %H:%M:%S %z",
+        "long": "%B %d, %Y %H:%M",
+        "short": "%d %b %H:%M"
       },
       "pm": "pm"
     }

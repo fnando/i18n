@@ -76,22 +76,22 @@
         },
         "almost_x_years": {
           "one": "presqu'un an",
-          "other": "presque %{count} ans"
+          "other": "presque %{count} ans"
         },
-        "half_a_minute": "une demi-minute",
+        "half_a_minute": "une demi‑minute",
         "less_than_x_seconds": {
           "zero": "moins d'une seconde",
           "one": "moins d'une seconde",
-          "other": "moins de %{count} secondes"
+          "other": "moins de %{count} secondes"
         },
         "less_than_x_minutes": {
           "zero": "moins d'une minute",
           "one": "moins d'une minute",
-          "other": "moins de %{count} minutes"
+          "other": "moins de %{count} minutes"
         },
         "over_x_years": {
-          "one": "plus d'un an",
-          "other": "plus de %{count} ans"
+          "one": "plus d'un an",
+          "other": "plus de %{count} ans"
         },
         "x_seconds": {
           "one": "1 seconde",

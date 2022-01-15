@@ -27,6 +27,18 @@ Dir["./tmp/rails-i18n-master/rails/locale/**/*.yml"].each do |yml_path|
   translations[locale].delete("helpers")
   translations[locale]["datetime"].delete("prompts")
 
+  if %w[pap-AW pap-CW].include?(locale)
+    translations[locale]["number"]["format"] =
+      translations[locale]["number"]["format"]
+      .merge("significant" => false, "strip_insignificant_zeros" => false)
+
+    translations[locale]["number"]["human"]["format"] =
+      translations[locale]["number"]["human"]["format"]
+      .merge("significant" => true, "strip_insignificant_zeros" => true)
+
+    translations[locale]["date"]["order"] = %i[year month day]
+  end
+
   File.open("./json/#{file_name}.json", "w") do |io|
     io << JSON.pretty_generate(translations)
   end

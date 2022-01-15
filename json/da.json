@@ -136,11 +136,23 @@
         "decimal_units": {
           "format": "%n %u",
           "units": {
-            "billion": "Milliard",
-            "million": "Million",
-            "quadrillion": "Billiard",
+            "billion": {
+              "one": "Milliard",
+              "other": "Milliarder"
+            },
+            "million": {
+              "one": "Million",
+              "other": "Millioner"
+            },
+            "quadrillion": {
+              "one": "Billiard",
+              "other": "Billiarder"
+            },
             "thousand": "Tusind",
-            "trillion": "Billion",
+            "trillion": {
+              "one": "Billion",
+              "other": "Billioner"
+            },
             "unit": ""
           }
         },
@@ -167,7 +179,7 @@
       "percentage": {
         "format": {
           "delimiter": "",
-          "format": "%n%"
+          "format": "%n %"
         }
       },
       "precision": {

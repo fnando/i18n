@@ -106,6 +106,10 @@
         "x_months": {
           "one": "1 μήνα",
           "other": "%{count} μήνες"
+        },
+        "x_years": {
+          "one": "1 χρόνος",
+          "other": "%{count} χρόνια"
         }
       }
     },
@@ -153,16 +157,19 @@
               "one": "Byte",
               "other": "Bytes"
             },
+            "eb": "EB",
             "gb": "GB",
             "kb": "KB",
             "mb": "MB",
+            "pb": "PB",
             "tb": "TB"
           }
         }
       },
       "percentage": {
         "format": {
-          "delimiter": ""
+          "delimiter": "",
+          "format": "%n%"
         }
       },
       "precision": {

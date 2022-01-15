@@ -128,6 +128,12 @@
           "few": "%{count} mjeseca",
           "many": "%{count} mjeseci",
           "other": "%{count} mjeseci"
+        },
+        "x_years": {
+          "one": "1 godina",
+          "few": "%{count} godine",
+          "many": "%{count} godina",
+          "other": "%{count} godina"
         }
       }
     },
@@ -177,9 +183,11 @@
               "many": "bajtova",
               "other": "bajtova"
             },
+            "eb": "EB",
             "gb": "GB",
             "kb": "KB",
             "mb": "MB",
+            "pb": "PB",
             "tb": "TB"
           }
         }
