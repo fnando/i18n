@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/fnando/i18n/actions?query=workflow%3Atests"><img src="https://github.com/fnando/i18n/workflows/tests/badge.svg" alt="Tests"></a>
+  <a href="https://github.com/fnando/i18n/actions?query=workflow%3Ajs-tests"><img src="https://github.com/fnando/i18n/workflows/js-tests/badge.svg" alt="Tests"></a>
   <a href="https://www.npmjs.com/package/i18n-js"><img src="https://img.shields.io/npm/v/i18n-js/next.svg" alt="npm version"></a>
   <a href="https://www.npmjs.com/package/i18n-js"><img src="https://img.shields.io/npm/dt/i18n-js.svg" alt="npm downloads"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
@@ -1006,23 +1006,27 @@ console.log(flatToNestedObject(from));
 You can also use something like [flat](https://github.com/hughsk/flat) to
 perform the same transformation.
 
+## Maintainer
+
+- [Nando Vieira](https://github.com/fnando)
+
+## Contributors
+
+- https://github.com/fnando/i18n/contributors
+
+## Contributing
+
+For more details about how to contribute, please read
+https://github.com/fnando/i18n/blob/main/CONTRIBUTING.md.
+
 ## License
 
-(The MIT License)
+The gem is available as open source under the terms of the
+[MIT License](https://opensource.org/licenses/MIT). A copy of the license can be
+found at https://github.com/fnando/i18n/blob/main/LICENSE.md.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the 'Software'), to deal in
-the Software without restriction, including without limitation the rights to
-use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-the Software, and to permit persons to whom the Software is furnished to do so,
-subject to the following conditions:
+## Code of Conduct
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+Everyone interacting in the i18n project's codebases, issue trackers, chat rooms
+and mailing lists is expected to follow the
+[code of conduct](https://github.com/fnando/i18n/blob/main/CODE_OF_CONDUCT.md).
