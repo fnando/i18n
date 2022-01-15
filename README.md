@@ -1,5 +1,5 @@
 <p align="center">
-  <strong style="font-size: 36px;">i18n-js</strong>
+  <img width="250" height="58" src="https://github.com/fnando/i18n-js/raw/main/i18njs.png" alt="i18n.js">
 </p>
 
 <p align="center">
