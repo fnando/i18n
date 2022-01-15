@@ -3,10 +3,6 @@
   "version": "4.0.0-alpha.13",
   "description": "A small library to provide I18n on JavaScript.",
   "main": "./dist/import/index.js",
-  "exports": {
-    "import": "./dist/import/index.js",
-    "require": "./dist/require/index.js"
-  },
   "files": [
     "dist/**/*",
     "json/**/*",

@@ -7,6 +7,7 @@
     "target": "es6",
     "noEmit": false,
     "declaration": true,
-    "declarationDir": "typings"
+    "declarationDir": "typings",
+    "resolveJsonModule": true
   }
 }
