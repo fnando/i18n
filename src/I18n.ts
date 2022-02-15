@@ -684,6 +684,10 @@ export class I18n {
     return formatNumber(input, {
       delimiter: "",
       format: "%n%",
+      precision: 3,
+      stripInsignificantZeros: false,
+      separator: ".",
+      significant: false,
       ...camelCaseKeys<Partial<FormatNumberOptions>>(this.get("number.format")),
       ...camelCaseKeys<Partial<NumberToPercentageOptions>>(
         this.get("number.percentage.format"),

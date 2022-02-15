@@ -54,3 +54,8 @@ test("formats number to percentage", () => {
   ).toEqual("-0.13 %");
   expect(i18n.numberToPercentage("98a")).toEqual("98a%");
 });
+
+test("formats number to percentage using default options", () => {
+  const i18n = new I18n();
+  expect(i18n.numberToPercentage(100)).toEqual("100.000%");
+});
