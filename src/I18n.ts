@@ -1366,14 +1366,12 @@ export class I18n {
   }
 
   /**
-   * @private
-   *
-   * @param {string} path The scope lookup path.
+   * @param {Scope} scope The scope lookup path.
    *
    * @returns {any} The found scope.
    */
-  private get(path: string): any {
-    return lookup(this, path);
+  public get(scope: Scope): any {
+    return lookup(this, scope);
   }
 
   /**
