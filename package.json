@@ -38,6 +38,7 @@
     "eslint-plugin-prettier": "*",
     "jest": "*",
     "jest-filename-transform": "*",
+    "jest-hud-reporter": "*",
     "prettier": "*",
     "ts-jest": "*",
     "typedoc": "beta",

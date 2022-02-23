@@ -6,4 +6,5 @@ module.exports = {
   roots: ["<rootDir>/src", "<rootDir>/__tests__"],
   modulePaths: ["src"],
   testPathIgnorePatterns: ["/vendor/bundle/"],
+  reporters: ["default", ["jest-hud-reporter", {}]],
 };
