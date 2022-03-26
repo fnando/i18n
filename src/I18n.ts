@@ -326,6 +326,9 @@ export class I18n {
    * returns a string; the signature is
    * `(i18n:I18n, options: TranslateOptions): string`.
    *
+   * @param {MissingBehavior|string} options.missingBehavior The missing
+   * behavior that will be used instead of the default one.
+   *
    * @param {Dict[]} options.defaults  An array of hashs where the key is the
    * type of translation desired, a `scope` or a `message`. The translation
    * returned will be either the first scope recognized, or the first message

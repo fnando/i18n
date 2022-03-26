@@ -149,6 +149,10 @@ export class MissingTranslation {
    * @returns {string} The missing translation.
    */
   public get(scope: Scope, options: Dict): string {
-    return this.registry[this.i18n.missingBehavior](this.i18n, scope, options);
+    return this.registry[options.missingBehavior ?? this.i18n.missingBehavior](
+      this.i18n,
+      scope,
+      options,
+    );
   }
 }

@@ -253,12 +253,27 @@ The same `questionnaire.whatIsYourFavorite_ChristmasPresent` scope would
 converted into `EE: what is your favorite Christmas present`. This is helpful if
 you want to add a check to your automated tests.
 
-Finally, you can completely override the missing translation strategy by setting
-it to a function. The following example will return `null` for every missing
+If you need to specify a missing behavior just for one call, you can provide a
+custom `missingBehavior` option.
+
+```js
+i18n.t("missing.key", { missingBehavior: "error" });
+```
+
+You can completely override the missing translation strategy by setting it to a
+function. The following example will return `null` for every missing
 translation.
 
 ```js
 i18n.missingTranslation = () => null;
+```
+
+Finally, you can also create your own missing translation behavior. The example
+below registers a new behavior that returns an empty string in case a
+translation is missing.
+
+```js
+i18n.missingTranslation.register("empty", (i18n, scope, options) => "");
 ```
 
 #### Pluralization

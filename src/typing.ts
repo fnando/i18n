@@ -224,6 +224,7 @@ export interface TranslateOptions {
   count?: number;
   scope?: Scope;
   defaults?: Dict[];
+  missingBehavior?: MissingBehavior | string;
   [key: string]: any;
 }
 

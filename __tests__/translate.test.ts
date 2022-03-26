@@ -284,3 +284,15 @@ test("uses key transformer to fetch translation", () => {
     i18n.t("transformKey.nice_one_with_name", { full_name: "John Doe" }),
   ).toEqual("Nice one, John Doe!");
 });
+
+test("uses missing behavior provided by option", () => {
+  i18n.missingTranslation.register("empty", () => "<empty>");
+
+  expect(i18n.t("unknown.key")).toEqual(
+    '[missing "en.unknown.key" translation]',
+  );
+
+  expect(i18n.t("unknown.key", { missingBehavior: "empty" })).toEqual(
+    "<empty>",
+  );
+});
