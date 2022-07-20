@@ -48,7 +48,7 @@ export declare class I18n {
     distanceOfTimeInWords: (fromTime: DateTime, toTime: DateTime, options?: TimeAgoInWordsOptions) => string;
     onChange(callback: OnChangeHandler): void;
     get version(): number;
-    private get;
+    get(scope: Scope): any;
     private runCallbacks;
     private hasChanged;
 }

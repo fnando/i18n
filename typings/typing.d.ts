@@ -72,6 +72,7 @@ export interface TranslateOptions {
     count?: number;
     scope?: Scope;
     defaults?: Dict[];
+    missingBehavior?: MissingBehavior | string;
     [key: string]: any;
 }
 export declare type MissingPlaceholderHandler = (i18n: I18n, placeholder: string, message: string, options: Dict) => string;
