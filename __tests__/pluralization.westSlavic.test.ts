@@ -15,12 +15,9 @@ test("detects few key", () => {
   expect(westSlavic(i18n, 4)).toEqual(["few"]);
 });
 
-test("detects many key", () => {
-});
-
 test("detects other key", () => {
-  expect(westSlavic(i18n, 0)).toEqual(["many"]);
+  expect(westSlavic(i18n, 0)).toEqual(["other"]);
   expect(westSlavic(i18n, 1.1)).toEqual(["other"]);
-  expect(westSlavic(i18n, 5)).toEqual(["many"]);
-  expect(westSlavic(i18n, 6)).toEqual(["many"]);
+  expect(westSlavic(i18n, 5)).toEqual(["other"]);
+  expect(westSlavic(i18n, 6)).toEqual(["other"]);
 });
