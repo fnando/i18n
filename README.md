@@ -15,8 +15,8 @@
 
 ## Installation
 
-- Yarn: `yarn add i18n-js@next`
-- NPM: `npm install i18n-js@next`
+- Yarn: `yarn add i18n-js`
+- NPM: `npm install i18n-js`
 
 ## Usage
 
