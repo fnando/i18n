@@ -1357,10 +1357,16 @@ export class I18n {
    *
    * @param {OnChangeHandler} callback The callback that will be executed.
    *
-   * @returns {void}
+   * @returns {Function} Return a function that can be used to unsubscribe the
+   *                     event handler.
+   *
    */
-  public onChange(callback: OnChangeHandler): void {
+  public onChange(callback: OnChangeHandler): () => void {
     this.onChangeHandlers.push(callback);
+
+    return () => {
+      this.onChangeHandlers.splice(this.onChangeHandlers.indexOf(callback), 1);
+    };
   }
 
   /**

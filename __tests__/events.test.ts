@@ -110,3 +110,25 @@ test("updates change version", () => {
     "2-6",
   ]);
 });
+
+test("unsubscribes from events", () => {
+  i18n.locale = "en";
+
+  const callback = jest.fn();
+  const anotherCallback = jest.fn();
+
+  const unsubscribe = i18n.onChange(callback);
+  i18n.onChange(anotherCallback);
+
+  i18n.locale = "pt-BR";
+
+  expect(callback).toHaveBeenCalledTimes(1);
+  expect(anotherCallback).toHaveBeenCalledTimes(1);
+
+  unsubscribe();
+
+  i18n.locale = "en";
+
+  expect(callback).toHaveBeenCalledTimes(1);
+  expect(anotherCallback).toHaveBeenCalledTimes(2);
+});
