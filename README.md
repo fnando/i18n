@@ -124,6 +124,38 @@ const i18n = new I18n();
 loadTranslations(i18n, "es");
 ```
 
+### Events
+
+A change event is triggered whenever `I18n#store` or `I18n#update` is called, or
+when `I18n#locale`/`I18n#defaultLocale` is set. To subscribe to these changes,
+use the method `I18n#onChange(i18n: I18n)`.
+
+```js
+const i18n = new I18n();
+i18n.onChange(() => {
+  console.log("I18n has changed!");
+});
+```
+
+Every change will increment the property `I18n#version`, so you can use it as a
+cache key. Also, when you subscribe to change events,
+`I18n#onChange(i18n: I18n)` will return another function that can be used to
+remove the event handler.
+
+```js
+useEffect(() => {
+  const unsubscribe = i18n.onChange(() => {
+    // do something
+  });
+
+  return unsubscribe;
+}, []);
+
+useEffect(() => {
+  console.log("I18n has been updated!");
+}, [i18n.version]);
+```
+
 ### Translating messages
 
 To translate messages, you have to use the `I18n#translate`, or its `I18n#t`
