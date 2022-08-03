@@ -56,5 +56,5 @@ export function pluralize(
 
   options.count = count;
 
-  return interpolate(i18n, message, options);
+  return i18n.interpolate(i18n, message, options);
 }

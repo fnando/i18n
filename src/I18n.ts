@@ -222,6 +222,7 @@ export class I18n {
     this.locales = new Locales(this);
     this.missingTranslation = new MissingTranslation(this);
     this.transformKey = transformKey;
+    this.interpolate = interpolate;
 
     this.store(translations);
   }
@@ -366,7 +367,7 @@ export class I18n {
     }
 
     if (typeof translation === "string") {
-      translation = interpolate(this, translation, options);
+      translation =this.interpolate(this, translation, options);
     } else if (
       typeof translation === "object" &&
       translation &&
