@@ -1,6 +1,6 @@
 import { Dict, Scope, TranslateOptions } from "../typing";
 import { I18n } from "../I18n";
-import { isSet } from ".";
+import { isSet } from "./isSet";
 
 /**
  * Generate a list of translation options for default fallback.

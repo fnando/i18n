@@ -2,7 +2,7 @@ import { range } from "lodash";
 
 import { I18n } from "../I18n";
 import { DateTime, TimeAgoInWordsOptions } from "../typing";
-import { parseDate } from ".";
+import { parseDate } from "./parseDate";
 
 const within = (start: number, end: number, actual: number): boolean =>
   actual >= start && actual <= end;

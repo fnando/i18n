@@ -1,7 +1,9 @@
 import { Scope, TranslateOptions } from "../typing";
 import { I18n } from "../I18n";
 
-import { interpolate, isSet, lookup } from ".";
+import { interpolate } from "./interpolate";
+import { isSet } from "./isSet";
+import { lookup } from "./lookup";
 
 /**
  * Pluralize the given scope using the `count` value.

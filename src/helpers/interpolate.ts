@@ -1,6 +1,6 @@
 import { TranslateOptions } from "../typing";
 import { I18n } from "../I18n";
-import { isSet } from ".";
+import { isSet } from "./isSet";
 
 /**
  * This function interpolates the all variables in the given message.

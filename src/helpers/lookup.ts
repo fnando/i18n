@@ -2,7 +2,9 @@ import { get } from "lodash";
 
 import { Dict, Scope } from "../typing";
 import { I18n } from "../I18n";
-import { isSet, getFullScope, inferType } from ".";
+import { isSet } from "./isSet";
+import { getFullScope } from "./getFullScope";
+import { inferType } from "./inferType";
 
 /**
  * Find and process the translation using the provided scope and options.
