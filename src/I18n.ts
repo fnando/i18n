@@ -191,6 +191,13 @@ export class I18n {
    */
   public transformKey: (key: string) => string;
 
+  /**
+   * Override the interpolation function. For the default implementation, see
+   * [https://github.com/fnando/i18n/tree/main/src/helpers/interpolate.ts]
+   * @type {(i18n: I18n, message: string, options: TranslateOptions) => string}
+   */
+  public interpolate: typeof interpolate;
+
   constructor(translations: Dict = {}, options: Partial<I18nOptions> = {}) {
     const {
       locale,
@@ -367,7 +374,7 @@ export class I18n {
     }
 
     if (typeof translation === "string") {
-      translation =this.interpolate(this, translation, options);
+      translation = this.interpolate(this, translation, options);
     } else if (
       typeof translation === "object" &&
       translation &&
