@@ -1,7 +1,7 @@
 import BigNumber from "bignumber.js";
 
 import { RoundingMode } from "../typing";
-import { expandRoundMode } from ".";
+import { expandRoundMode } from "./expandRoundMode";
 
 type RoundingOptions = {
   roundMode: RoundingMode;

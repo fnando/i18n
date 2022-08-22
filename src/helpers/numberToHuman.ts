@@ -3,7 +3,10 @@ import { sortBy, zipObject } from "lodash";
 
 import { I18n } from "../I18n";
 import { Numeric, NumberToHumanOptions, NumberToHumanUnits } from "../typing";
-import { getFullScope, lookup, roundNumber, inferType } from ".";
+import { getFullScope } from "./getFullScope";
+import { lookup } from "./lookup";
+import { roundNumber } from "./roundNumber";
+import { inferType } from "./inferType";
 
 /**
  * Set decimal units used to calculate number to human formatting.
