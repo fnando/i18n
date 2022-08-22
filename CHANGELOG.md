@@ -18,6 +18,8 @@ project adheres to [Semantic Versioning](http://semver.org/).
 
 - [Added] `I18n#onChange` now returns a function that removes the handler from
   events.
+- [Added] `I18n#interpolate` is now available on the instance of `I18n` and can
+  therefore be overridden.
 
 # Jul 29, 2022
 

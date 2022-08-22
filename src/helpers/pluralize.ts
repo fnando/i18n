@@ -1,7 +1,6 @@
 import { Scope, TranslateOptions } from "../typing";
 import { I18n } from "../I18n";
 
-import { interpolate } from "./interpolate";
 import { isSet } from "./isSet";
 import { lookup } from "./lookup";
 
@@ -56,5 +55,5 @@ export function pluralize(
 
   options.count = count;
 
-  return interpolate(i18n, message, options);
+  return i18n.interpolate(i18n, message, options);
 }
