@@ -2,6 +2,7 @@ import { DateTime, Dict, I18nOptions, MissingPlaceholderHandler, NullPlaceholder
 import { Locales } from "./Locales";
 import { Pluralization } from "./Pluralization";
 import { MissingTranslation } from "./MissingTranslation";
+import { interpolate } from "./helpers";
 export declare class I18n {
     private _locale;
     private _defaultLocale;
@@ -19,6 +20,7 @@ export declare class I18n {
     placeholder: RegExp;
     translations: Dict;
     transformKey: (key: string) => string;
+    interpolate: typeof interpolate;
     constructor(translations?: Dict, options?: Partial<I18nOptions>);
     store(translations: Dict): void;
     get locale(): string;
@@ -26,11 +28,11 @@ export declare class I18n {
     get defaultLocale(): string;
     set defaultLocale(newLocale: string);
     translate(scope: Scope, options?: TranslateOptions): string;
-    t: (scope: Scope, options?: TranslateOptions | undefined) => string;
+    t: (scope: Scope, options?: TranslateOptions) => string;
     pluralize(count: number, scope: Scope, options?: TranslateOptions): string;
-    p: (count: number, scope: Scope, options?: TranslateOptions | undefined) => string;
+    p: (count: number, scope: Scope, options?: TranslateOptions) => string;
     localize(type: string, value: string | number | Date | null | undefined, options?: Dict): string;
-    l: (type: string, value: string | number | Date | null | undefined, options?: Dict | undefined) => string;
+    l: (type: string, value: string | number | Date | null | undefined, options?: Dict) => string;
     toTime(scope: Scope, input: DateTime): string;
     numberToCurrency(input: Numeric, options?: Partial<NumberToCurrencyOptions>): string;
     numberToPercentage(input: Numeric, options?: Partial<NumberToPercentageOptions>): string;
@@ -46,7 +48,7 @@ export declare class I18n {
     toSentence(items: any[], options?: Partial<ToSentenceOptions>): string;
     timeAgoInWords(fromTime: DateTime, toTime: DateTime, options?: TimeAgoInWordsOptions): string;
     distanceOfTimeInWords: (fromTime: DateTime, toTime: DateTime, options?: TimeAgoInWordsOptions) => string;
-    onChange(callback: OnChangeHandler): void;
+    onChange(callback: OnChangeHandler): () => void;
     get version(): number;
     get(scope: Scope): any;
     private runCallbacks;
