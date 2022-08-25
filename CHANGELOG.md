@@ -14,6 +14,12 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+# v4.1.1 - Aug 25, 2022
+
+- [Changed] Removed `@internal` annotation from functions, so TypeScript can
+  export types properly.
+- [Changed] Export additional types from main file.
+
 # v4.1.0 - Aug 22, 2022
 
 - [Added] `I18n#onChange` now returns a function that removes the handler from
