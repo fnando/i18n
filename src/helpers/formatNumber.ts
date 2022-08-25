@@ -32,8 +32,6 @@ function computeSignificand({
 /**
  * Formats a number.
  *
- * @internal
- *
  * @param {Numeric} input The numeric value that will be formatted.
  *
  * @param {FormatNumberOptions} options The formatting options.

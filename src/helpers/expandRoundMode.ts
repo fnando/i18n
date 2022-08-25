@@ -16,8 +16,6 @@ enum RoundingModeMap {
 }
 
 /**
- * @internal
- *
  * @param {RoundingMode} roundMode BigNumber's rounding mode shortcut.
  *
  * @return {BigNumber.RoundingMode} The related BigNumber rounding mode.
