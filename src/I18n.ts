@@ -387,6 +387,14 @@ export class I18n {
       );
     }
 
+    if (options && translation instanceof Array) {
+      translation = translation.map((entry) =>
+        typeof entry === "string"
+          ? interpolate(this, entry, options as TranslateOptions)
+          : entry,
+      );
+    }
+
     return translation as string;
   }
 

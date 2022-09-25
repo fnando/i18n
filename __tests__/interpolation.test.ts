@@ -54,3 +54,16 @@ test("provides missingPlaceholder with the placeholder, message, and options obj
   expect(message).toEqual("Hello {{name}}!");
   expect(options.debugScope).toEqual("landing-page");
 });
+
+test("interpolates array of strings", () => {
+  const i18n = new I18n({
+    en: {
+      someTranslation: ["Some text", "Value of something is {{value}}", 42],
+    },
+  });
+
+  const actual = i18n.t("someTranslation", { value: 123 });
+  const expected = ["Some text", "Value of something is 123", 42];
+
+  expect(actual).toEqual(expected);
+});

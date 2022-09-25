@@ -14,6 +14,10 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+# Unreleased
+
+- [Changed] Interpolate strings when `i18n.t(..args)` returns an array.
+
 # v4.1.1 - Aug 25, 2022
 
 - [Changed] Removed `@internal` annotation from functions, so TypeScript can

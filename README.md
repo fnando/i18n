@@ -188,7 +188,22 @@ const i18n = new I18n({
 i18n.t("greetings", { name: "John" });
 ```
 
-You may want to override the default [`interpolate`](https://github.com/fnando/i18n/blob/main/src/helpers/interpolate.ts) function with your own, if for instance you want these dynamic values to be React elements:
+If the translation is an array and the entry is a string, values will be
+interpolated in a shallow way.
+
+```js
+const i18n = new I18n({
+  en: { messages: ["Hello there!", "Welcome back, %{name}!"] },
+});
+
+i18n.t("messages", { name: "John" });
+//=> ["Hello there!", "Welcome back, John!"]
+```
+
+You may want to override the default
+[`interpolate`](https://github.com/fnando/i18n/blob/main/src/helpers/interpolate.ts)
+function with your own, if for instance you want these dynamic values to be
+React elements:
 
 ```jsx
 const i18n = new I18n({
@@ -198,13 +213,9 @@ const i18n = new I18n({
 
 i18n.interpolate = (i18n, message, options) => {
   // ...
-}
+};
 
-return (
-  <Text>
-    {i18n.t("greetings", { name: <BoldText>John</BoldText> })}
-  </Text>
-  )
+return <Text>{i18n.t("greetings", { name: <BoldText>John</BoldText> })}</Text>;
 ```
 
 #### Missing translations
