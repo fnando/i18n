@@ -2,7 +2,7 @@ import BigNumber from "bignumber.js";
 import { repeat } from "lodash";
 
 import { FormatNumberOptions, Numeric } from "../typing";
-import { roundNumber } from ".";
+import { roundNumber } from "./roundNumber";
 
 function replaceInFormat(
   format: string,
