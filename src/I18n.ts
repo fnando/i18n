@@ -1395,6 +1395,18 @@ export class I18n {
   }
 
   /**
+   * Formats a number.
+   *
+   * @param {Numeric}             input   The numeric value that will be
+   *                                      formatted.
+   * @param {FormatNumberOptions} options The formatting options.
+   * @return {string}                     The formatted number.
+   */
+  public formatNumber(input: Numeric, options: FormatNumberOptions): string {
+    return formatNumber(input, options);
+  }
+
+  /**
    * @param {Scope} scope The scope lookup path.
    *
    * @returns {any} The found scope.

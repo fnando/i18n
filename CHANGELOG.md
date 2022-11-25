@@ -17,6 +17,8 @@ project adheres to [Semantic Versioning](http://semver.org/).
 # Unreleased
 
 - [Changed] Interpolate strings when `i18n.t(..args)` returns an array.
+- [Fixed] Import cycle issue on `src/helpers/formatNumber.ts`.
+- [Added] `I18n#formatNumber` is now available as a `I18n` instance method.
 
 # v4.1.1 - Aug 25, 2022
 

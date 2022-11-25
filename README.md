@@ -1015,7 +1015,7 @@ const points = 1234;
 
 i18n.t("points", {
   count: points,
-  points: i18n.toNumber(points),
+  points: i18n.formatNumber(points),
 });
 ```
 
