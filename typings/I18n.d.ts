@@ -1,4 +1,4 @@
-import { DateTime, Dict, I18nOptions, MissingPlaceholderHandler, NullPlaceholderHandler, NumberToCurrencyOptions, NumberToDelimitedOptions, NumberToHumanOptions, NumberToHumanSizeOptions, NumberToPercentageOptions, NumberToRoundedOptions, Numeric, OnChangeHandler, Scope, StrftimeOptions, TimeAgoInWordsOptions, ToSentenceOptions, TranslateOptions } from "./typing";
+import { DateTime, Dict, FormatNumberOptions, I18nOptions, MissingPlaceholderHandler, NullPlaceholderHandler, NumberToCurrencyOptions, NumberToDelimitedOptions, NumberToHumanOptions, NumberToHumanSizeOptions, NumberToPercentageOptions, NumberToRoundedOptions, Numeric, OnChangeHandler, Scope, StrftimeOptions, TimeAgoInWordsOptions, ToSentenceOptions, TranslateOptions } from "./typing";
 import { Locales } from "./Locales";
 import { Pluralization } from "./Pluralization";
 import { MissingTranslation } from "./MissingTranslation";
@@ -28,11 +28,11 @@ export declare class I18n {
     get defaultLocale(): string;
     set defaultLocale(newLocale: string);
     translate(scope: Scope, options?: TranslateOptions): string;
-    t: (scope: Scope, options?: TranslateOptions) => string;
+    t: (scope: Scope, options?: TranslateOptions | undefined) => string;
     pluralize(count: number, scope: Scope, options?: TranslateOptions): string;
-    p: (count: number, scope: Scope, options?: TranslateOptions) => string;
+    p: (count: number, scope: Scope, options?: TranslateOptions | undefined) => string;
     localize(type: string, value: string | number | Date | null | undefined, options?: Dict): string;
-    l: (type: string, value: string | number | Date | null | undefined, options?: Dict) => string;
+    l: (type: string, value: string | number | Date | null | undefined, options?: Dict | undefined) => string;
     toTime(scope: Scope, input: DateTime): string;
     numberToCurrency(input: Numeric, options?: Partial<NumberToCurrencyOptions>): string;
     numberToPercentage(input: Numeric, options?: Partial<NumberToPercentageOptions>): string;
@@ -50,6 +50,7 @@ export declare class I18n {
     distanceOfTimeInWords: (fromTime: DateTime, toTime: DateTime, options?: TimeAgoInWordsOptions) => string;
     onChange(callback: OnChangeHandler): () => void;
     get version(): number;
+    formatNumber(input: Numeric, options: FormatNumberOptions): string;
     get(scope: Scope): any;
     private runCallbacks;
     private hasChanged;
