@@ -14,6 +14,11 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+# Unreleased
+
+- [Changed] The `I18n#translate`'s return type is now a string and generics
+  union.
+
 # v4.2.0 - Nov 24, 2022
 
 - [Changed] Interpolate strings when `i18n.t(..args)` returns an array.

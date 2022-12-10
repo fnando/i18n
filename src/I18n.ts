@@ -342,9 +342,12 @@ export class I18n {
    * returned will be either the first scope recognized, or the first message
    * defined.
    *
-   * @returns {string} The translated string.
+   * @returns {T | string} The translated string.
    */
-  public translate(scope: Scope, options?: TranslateOptions): string {
+  public translate<T = string>(
+    scope: Scope,
+    options?: TranslateOptions,
+  ): string | T {
     options = { ...options };
 
     const translationOptions: TranslateOptions[] = createTranslationOptions(
@@ -395,7 +398,7 @@ export class I18n {
       );
     }
 
-    return translation as string;
+    return translation as string | T;
   }
 
   /**
