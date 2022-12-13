@@ -21,12 +21,19 @@ import { lookup } from "./lookup";
  *
  * @returns {string} The translated string.
  */
-export function pluralize(
-  i18n: I18n,
-  count: number,
-  scope: Scope,
-  options: TranslateOptions,
-): string {
+export function pluralize({
+  i18n,
+  count,
+  scope,
+  options,
+  baseScope,
+}: {
+  i18n: I18n;
+  count: number;
+  scope: Scope;
+  options: TranslateOptions;
+  baseScope: string;
+}): string {
   options = { ...options };
   let translations;
   let message;
@@ -43,6 +50,7 @@ export function pluralize(
 
   const pluralizer = i18n.pluralization.get(options.locale);
   const keys = pluralizer(i18n, count);
+  const missingKeys: typeof keys = [];
 
   while (keys.length) {
     const key = keys.shift() as string;
@@ -51,6 +59,15 @@ export function pluralize(
       message = translations[key];
       break;
     }
+
+    missingKeys.push(key);
+  }
+
+  if (!isSet(message)) {
+    return i18n.missingTranslation.get(
+      baseScope.split(i18n.defaultSeparator).concat([missingKeys[0]]),
+      options,
+    );
   }
 
   options.count = count;

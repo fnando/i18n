@@ -18,6 +18,8 @@ project adheres to [Semantic Versioning](http://semver.org/).
 
 - [Changed] The `I18n#translate`'s return type is now a string and generics
   union.
+- [Fixed] Fix issue when pluralization missed a key required by the pluralizer
+  raised an error rather thanr returning the missing translation message (#39)
 
 # v4.2.0 - Nov 24, 2022
 

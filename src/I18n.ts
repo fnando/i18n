@@ -30,6 +30,7 @@ import {
   camelCaseKeys,
   createTranslationOptions,
   formatNumber,
+  getFullScope,
   inferType,
   interpolate,
   isSet,
@@ -383,11 +384,13 @@ export class I18n {
       translation &&
       isSet(options.count)
     ) {
-      translation = this.pluralize(
-        options.count || 0,
-        translation as unknown as string,
+      translation = pluralize({
+        i18n: this,
+        count: options.count || 0,
+        scope: translation as unknown as string,
         options,
-      );
+        baseScope: getFullScope(this, scope, options),
+      });
     }
 
     if (options && translation instanceof Array) {
@@ -424,7 +427,13 @@ export class I18n {
     scope: Scope,
     options?: TranslateOptions,
   ): string {
-    return pluralize(this, count, scope, { ...options });
+    return pluralize({
+      i18n: this,
+      count,
+      scope,
+      options: { ...options },
+      baseScope: getFullScope(this, scope, options ?? {}),
+    });
   }
 
   /**
