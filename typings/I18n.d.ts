@@ -27,8 +27,8 @@ export declare class I18n {
     set locale(newLocale: string);
     get defaultLocale(): string;
     set defaultLocale(newLocale: string);
-    translate(scope: Scope, options?: TranslateOptions): string;
-    t: (scope: Scope, options?: TranslateOptions | undefined) => string;
+    translate<T = string>(scope: Scope, options?: TranslateOptions): string | T;
+    t: <T = string>(scope: Scope, options?: TranslateOptions | undefined) => string | T;
     pluralize(count: number, scope: Scope, options?: TranslateOptions): string;
     p: (count: number, scope: Scope, options?: TranslateOptions | undefined) => string;
     localize(type: string, value: string | number | Date | null | undefined, options?: Dict): string;

@@ -14,7 +14,7 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
-# Unreleased
+# v4.2.1 - Dec 13, 2022
 
 - [Changed] The `I18n#translate`'s return type is now a string and generics
   union.
