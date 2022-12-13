@@ -15,6 +15,22 @@ test("pluralizes scope", () => {
   expect(i18n.p(5, "inbox")).toEqual("You have 5 messages");
 });
 
+test("returns missing translation when calling i18n.pluralize", () => {
+  const i18n = new I18n({ en: { entries: { none: "none" } } });
+
+  expect(i18n.p(0, "entries")).toEqual(
+    `[missing "en.entries.zero" translation]`,
+  );
+
+  expect(i18n.p(1, "entries")).toEqual(
+    `[missing "en.entries.one" translation]`,
+  );
+
+  expect(i18n.p(2, "entries")).toEqual(
+    `[missing "en.entries.other" translation]`,
+  );
+});
+
 test("pluralizes using the 'other' scope", () => {
   const i18n = new I18n(translations());
   delete i18n.translations.en.inbox.zero;
@@ -39,6 +55,28 @@ test("pluralizes using negative values", () => {
 test("returns missing translation", () => {
   const i18n = new I18n(translations());
   expect(i18n.p(-1, "missing")).toEqual('[missing "en.missing" translation]');
+});
+
+test("returns missing translation for entries", () => {
+  const i18n = new I18n({
+    en: {
+      entries: {
+        none: "none",
+      },
+    },
+  });
+
+  expect(i18n.t("entries", { count: 0 })).toEqual(
+    `[missing "en.entries.zero" translation]`,
+  );
+
+  expect(i18n.t("entries", { count: 1 })).toEqual(
+    `[missing "en.entries.one" translation]`,
+  );
+
+  expect(i18n.t("entries", { count: 2 })).toEqual(
+    `[missing "en.entries.other" translation]`,
+  );
 });
 
 test("pluralizes using multiple placeholders", () => {
