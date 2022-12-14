@@ -17,9 +17,11 @@ def docs_dir
 end
 
 def fix_search
-  file = docs_dir.join("assets/js/search.js")
-  data = JSON.parse(file.read.gsub("window.searchData =", ""),
-                    symbolize_names: true)
+  file = docs_dir.join("assets/search.js")
+  contents = file.read
+                 .gsub(/window.searchData = JSON.parse\("(.*?)"\);/, "\\1")
+                 .gsub(/\\"/m, '"')
+  data = JSON.parse(contents, symbolize_names: true)
 
   data[:rows] = data[:rows].each_with_object([]) do |entry, buffer|
     skip = entry[:name].start_with?("helpers") ||
@@ -47,6 +49,24 @@ def fix_html
 
     html.css(selector).each do |link|
       link.parent.remove
+    end
+
+    File.open(file, "w") do |io|
+      io << html.to_s
+    end
+  end
+end
+
+def remove_nodes
+  selectors = [
+    ".tsd-navigation.settings"
+  ].join(", ")
+
+  Dir[docs_dir.join("**/*.html")].each do |file|
+    html = Nokogiri(File.read(file))
+
+    html.css(selectors).each do |node|
+      node.remove
     end
 
     File.open(file, "w") do |io|
@@ -86,3 +106,4 @@ fix_search
 remove_unwanted_files
 fix_html
 build_index
+remove_nodes

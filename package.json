@@ -14,7 +14,7 @@
   "license": "MIT",
   "scripts": {
     "docs": "typedoc src && yarn docs:ext",
-    "docs:ext": "cat ext/typedoc.css | tee -a docs/v$(cat package.json | jq -r '.version')/assets/css/main.css &> /dev/null && ruby ext/typedoc.rb",
+    "docs:ext": "cat ext/typedoc.css | tee -a docs/v$(cat package.json | jq -r '.version')/assets/style.css &> /dev/null && ruby ext/typedoc.rb",
     "test": "jest --watch --coverage",
     "test:ci": "jest --ci --coverage --verbose",
     "clean": "rm -rf ./dist",
@@ -41,7 +41,7 @@
     "jest-hud-reporter": "*",
     "prettier": "*",
     "ts-jest": "*",
-    "typedoc": "beta",
+    "typedoc": "*",
     "typescript": "*",
     "webpack": "*",
     "webpack-cli": "*"

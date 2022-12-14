@@ -194,7 +194,7 @@ export class I18n {
 
   /**
    * Override the interpolation function. For the default implementation, see
-   * [https://github.com/fnando/i18n/tree/main/src/helpers/interpolate.ts]
+   * <https://github.com/fnando/i18n/tree/main/src/helpers/interpolate.ts>
    * @type {(i18n: I18n, message: string, options: TranslateOptions) => string}
    */
   public interpolate: typeof interpolate;
