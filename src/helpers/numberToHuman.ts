@@ -1,5 +1,6 @@
 import BigNumber from "bignumber.js";
-import { sortBy, zipObject } from "lodash";
+import sortBy from "lodash/sortBy";
+import zipObject from "lodash/zipObject";
 
 import { I18n } from "../I18n";
 import { Numeric, NumberToHumanOptions, NumberToHumanUnits } from "../typing";
