@@ -409,9 +409,17 @@ i18n.pluralization.register("ru", (_i18n, count) => {
 You can find all rules on
 [http://www.unicode.org/](http://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html).
 
-It's encourage to publish your pluralizers using the following name pattern:
-`i18n-<locale>-pluralizer`. If you publish a pluralizer, please add a pull
-request so we can list it here.
+You can also leverage [make-plural](https://github.com/eemeli/make-plural/),
+rather than writing all your pluralization functions. For this, you must wrap
+make-plural's function by using
+`useMakePlural({ pluralizer, includeZero, ordinal })`:
+
+```js
+import { ru } from "make-plural";
+import { useMakePlural } from "i18n-js";
+
+i18n.pluralization.register("ru", useMakePlural({ pluralizer: ru }));
+```
 
 #### Other options
 

@@ -1,5 +1,35 @@
-import { Dict, Pluralizer } from "./typing";
+import { en } from "make-plural";
+
+import { Dict, Pluralizer, MakePlural } from "./typing";
 import { I18n } from "./I18n";
+
+/**
+ * Creates a new pluralizer function based on [make-plural](https://github.com/eemeli/make-plural/tree/master/packages/plurals).
+ *
+ * @param  {boolean} options.includeZero When `true`, will return `zero` as the
+ *                                       first key for `0` pluralization.
+ * @param  {boolean} options.ordinal When `true`, will return the scope based on
+ *                                   make-plural's ordinal category.
+ * @param {MakePlural} options.pluralizer The make-plural function that will be
+ *                                        wrapped.
+ * @return {Pluralizer}    [description]
+ */
+export function useMakePlural({
+  pluralizer,
+  includeZero = true,
+  ordinal = false,
+}: {
+  pluralizer: MakePlural;
+  includeZero?: boolean;
+  ordinal?: boolean;
+}): Pluralizer {
+  return function (_i18n: I18n, count: number) {
+    return [
+      includeZero && count === 0 ? "zero" : "",
+      pluralizer(count, ordinal),
+    ].filter(Boolean);
+  };
+}
 
 /**
  * The default pluralizer.
@@ -20,19 +50,10 @@ import { I18n } from "./I18n";
  *
  * @returns {string[]} The list of possible translation scopes.
  */
-export const defaultPluralizer: Pluralizer = (
-  _i18n: I18n,
-  count: number,
-): string[] => {
-  switch (count) {
-    case 0:
-      return ["zero", "other"];
-    case 1:
-      return ["one"];
-    default:
-      return ["other"];
-  }
-};
+export const defaultPluralizer: Pluralizer = useMakePlural({
+  pluralizer: en,
+  includeZero: true,
+});
 
 /**
  * This class enables registering different strategies for pluralization, as
