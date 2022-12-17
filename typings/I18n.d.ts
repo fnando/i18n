@@ -28,11 +28,11 @@ export declare class I18n {
     get defaultLocale(): string;
     set defaultLocale(newLocale: string);
     translate<T = string>(scope: Scope, options?: TranslateOptions): string | T;
-    t: <T = string>(scope: Scope, options?: TranslateOptions | undefined) => string | T;
+    t: <T = string>(scope: Scope, options?: TranslateOptions) => string | T;
     pluralize(count: number, scope: Scope, options?: TranslateOptions): string;
-    p: (count: number, scope: Scope, options?: TranslateOptions | undefined) => string;
+    p: (count: number, scope: Scope, options?: TranslateOptions) => string;
     localize(type: string, value: string | number | Date | null | undefined, options?: Dict): string;
-    l: (type: string, value: string | number | Date | null | undefined, options?: Dict | undefined) => string;
+    l: (type: string, value: string | number | Date | null | undefined, options?: Dict) => string;
     toTime(scope: Scope, input: DateTime): string;
     numberToCurrency(input: Numeric, options?: Partial<NumberToCurrencyOptions>): string;
     numberToPercentage(input: Numeric, options?: Partial<NumberToPercentageOptions>): string;
