@@ -14,6 +14,12 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+# Unreleased
+
+- [Added] Introduce `useMakePlural(options)` function as way of creating
+  pluralizers on top of [make-plural](https://github.com/eemeli/make-plural/).
+- [Changed] Use `make-plural`'s `en` function as the default pluralizer.
+
 # V4.2.2 - Dec 16, 2022
 
 - [Changed] Import lodash modules directly, which reduces final exported size by

@@ -2,6 +2,8 @@ import BigNumber from "bignumber.js";
 
 import { I18n } from "./I18n";
 
+export type MakePlural = (count: number, ordinal?: boolean) => string;
+
 export interface Dict {
   [key: string]: any;
 }
@@ -120,6 +122,13 @@ export interface I18nOptions {
    * @type {string}
    */
   defaultLocale: string;
+
+  /**
+   * Set available locales. This will be used to load pluralizers automatically.
+   *
+   * @type {string[]}
+   */
+  availableLocales: string[];
 
   /**
    * Set the default string separator. Defaults to `.`, as in

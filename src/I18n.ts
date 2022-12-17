@@ -49,6 +49,7 @@ import {
 
 const DEFAULT_I18N_OPTIONS: I18nOptions = {
   defaultLocale: "en",
+  availableLocales: ["en"],
   locale: "en",
   defaultSeparator: ".",
   placeholder: /(?:\{\{|%\{)(.*?)(?:\}\}?)/gm,
@@ -200,6 +201,13 @@ export class I18n {
    * @type {(i18n: I18n, message: string, options: TranslateOptions) => string}
    */
   public interpolate: typeof interpolate;
+
+  /**
+   * Set the available locales.
+   *
+   * @type {string[]}
+   */
+  public availableLocales: string[] = [];
 
   constructor(translations: Dict = {}, options: Partial<I18nOptions> = {}) {
     const {

@@ -48,6 +48,7 @@
   },
   "dependencies": {
     "bignumber.js": "*",
-    "lodash": "*"
+    "lodash": "*",
+    "make-plural": "*"
   }
 }
