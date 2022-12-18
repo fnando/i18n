@@ -1,31 +1,11 @@
 {
-  "name": "i18n-js",
-  "version": "4.2.2",
-  "description": "A small library to provide I18n on JavaScript.",
-  "main": "./dist/import/index.js",
-  "files": [
-    "dist/**/*",
-    "json/**/*",
-    "typings/**/*"
-  ],
-  "typings": "./typings",
-  "repository": "https://github.com/fnando/i18n",
   "author": "Nando Vieira <me@fnando.com>",
-  "license": "MIT",
-  "scripts": {
-    "docs": "typedoc src && yarn docs:ext",
-    "docs:ext": "cat ext/typedoc.css | tee -a docs/v$(cat package.json | jq -r '.version')/assets/style.css &> /dev/null && ruby ext/typedoc.rb",
-    "test": "jest --watch --coverage",
-    "test:ci": "jest --ci --coverage --verbose",
-    "clean": "rm -rf ./dist",
-    "build:browser": "webpack --output-path ./dist/browser/ --output-filename index.js --mode production --entry ./dist/import/index.js --output-library-type var --output-library-name I18n --devtool source-map",
-    "build:require": "tsc --outDir ./dist/require --module commonjs",
-    "build:import": "tsc --outDir ./dist/import --module ESNext",
-    "build": "yarn clean && yarn build:import && yarn build:browser && yarn build:require && yarn docs",
-    "lint:typescript": "tsc --noEmit",
-    "lint:eslint": "eslint --config .eslintrc.js --max-warnings 0 'src/**/*'",
-    "lint": "yarn lint:typescript && yarn lint:eslint"
+  "dependencies": {
+    "bignumber.js": "*",
+    "lodash": "*",
+    "make-plural": "*"
   },
+  "description": "A small library to provide I18n on JavaScript.",
   "devDependencies": {
     "@fnando/codestyle": "*",
     "@fnando/eslint-config-codestyle": "*",
@@ -46,9 +26,30 @@
     "webpack": "*",
     "webpack-cli": "*"
   },
-  "dependencies": {
-    "bignumber.js": "*",
-    "lodash": "*",
-    "make-plural": "*"
-  }
+  "files": [
+    "dist/**/*",
+    "json/**/*",
+    "typings/**/*"
+  ],
+  "license": "MIT",
+  "main": "./dist/import/index.js",
+  "name": "i18n-js",
+  "repository": "https://github.com/fnando/i18n",
+  "scripts": {
+    "build": "yarn clean && yarn build:js && yarn docs",
+    "build:browser": "webpack --output-path ./dist/browser/ --output-filename index.js --mode production --entry ./dist/import/index.js --output-library-type var --output-library-name I18n --devtool source-map",
+    "build:import": "tsc --outDir ./dist/import --module ESNext",
+    "build:js": "yarn build:browser && yarn build:require && yarn build:import",
+    "build:require": "tsc --outDir ./dist/require --module commonjs",
+    "clean": "rm -rf ./dist",
+    "docs": "typedoc src && yarn docs:ext",
+    "docs:ext": "cat ext/typedoc.css | tee -a docs/v$(cat package.json | jq -r '.version')/assets/style.css &> /dev/null && ruby ext/typedoc.rb",
+    "lint": "yarn lint:typescript && yarn lint:eslint",
+    "lint:eslint": "eslint --config .eslintrc.js --max-warnings 0 'src/**/*'",
+    "lint:typescript": "tsc --noEmit",
+    "test": "jest --watch --coverage",
+    "test:ci": "jest --ci --coverage --verbose"
+  },
+  "typings": "./typings",
+  "version": "4.2.2"
 }
