@@ -13,7 +13,8 @@ def package_json
 end
 
 def docs_dir
-  @docs_dir ||= Pathname.new("#{__dir__}/../docs/v#{package_json.fetch(:version)}")
+  @docs_dir ||=
+    Pathname.new("#{__dir__}/../docs/v#{package_json.fetch(:version)}")
 end
 
 def fix_search
@@ -65,9 +66,7 @@ def remove_nodes
   Dir[docs_dir.join("**/*.html")].each do |file|
     html = Nokogiri(File.read(file))
 
-    html.css(selectors).each do |node|
-      node.remove
-    end
+    html.css(selectors).each(&:remove)
 
     File.open(file, "w") do |io|
       io << html.to_s
