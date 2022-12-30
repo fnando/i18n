@@ -19,6 +19,7 @@ project adheres to [Semantic Versioning](http://semver.org/).
 - [Added] Introduce `useMakePlural(options)` function as way of creating
   pluralizers on top of [make-plural](https://github.com/eemeli/make-plural/).
 - [Changed] Use `make-plural`'s `en` function as the default pluralizer.
+- [Changed] Mark `Scope` type as read-only.
 
 ## V4.2.2 - Dec 16, 2022
 
