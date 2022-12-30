@@ -111,7 +111,7 @@ export interface ObjectType {
  * Possible missing translation behavior.
  * @type {String}
  */
-type MissingBehavior = "message" | "guess" | "error";
+export type MissingBehavior = "message" | "guess" | "error";
 
 // The I18n class initializer options.
 export interface I18nOptions {

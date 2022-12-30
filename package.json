@@ -39,7 +39,7 @@
     "build": "yarn clean && yarn build:js && yarn docs",
     "build:browser": "webpack --output-path ./dist/browser/ --output-filename index.js --mode production --entry ./dist/import/index.js --output-library-type var --output-library-name I18n --devtool source-map",
     "build:import": "tsc --outDir ./dist/import --module ESNext",
-    "build:js": "yarn build:browser && yarn build:require && yarn build:import",
+    "build:js": "yarn build:import && yarn build:require && yarn build:browser",
     "build:require": "tsc --outDir ./dist/require --module commonjs",
     "clean": "rm -rf ./dist",
     "docs": "typedoc src && yarn docs:ext",
