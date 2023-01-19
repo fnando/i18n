@@ -1,7 +1,7 @@
 import BigNumber from "bignumber.js";
 import { I18n } from "./I18n";
-export interface Dict {
-    [key: string]: any;
+export interface Dict<T> {
+    [key: string]: T;
 }
 export type DateTime = string | number | Date;
 export interface TimeAgoInWordsOptions {
@@ -51,32 +51,32 @@ export interface ObjectType {
     [key: string]: PrimitiveType | ArrayType | ObjectType;
 }
 type MissingBehavior = "message" | "guess" | "error";
-export interface I18nOptions {
+export interface I18nOptions<T extends object> {
     defaultLocale: string;
     defaultSeparator: string;
     enableFallback: boolean;
     locale: string;
     missingBehavior: MissingBehavior;
-    missingPlaceholder: MissingPlaceholderHandler;
-    nullPlaceholder: NullPlaceholderHandler;
+    missingPlaceholder: MissingPlaceholderHandler<T>;
+    nullPlaceholder: NullPlaceholderHandler<T>;
     missingTranslationPrefix: string;
     placeholder: RegExp;
     transformKey: (key: string) => string;
 }
 export type Scope = string | string[];
-export type LocaleResolver = (i18n: I18n, locale: string) => string[];
-export type Pluralizer = (i18n: I18n, count: number) => string[];
-export type MissingTranslationStrategy = (i18n: I18n, scope: Scope, options: Dict) => string;
-export interface TranslateOptions {
+export type LocaleResolver<T extends object> = (i18n: I18n<T>, locale: string) => string[];
+export type Pluralizer<T extends object> = (i18n: I18n<T>, count: number) => string[];
+export type MissingTranslationStrategy<T extends object> = (i18n: I18n<T>, scope: Scope, options: Dict<T>) => string;
+export interface TranslateOptions<T  extends object> {
     defaultValue?: any;
     count?: number;
     scope?: Scope;
-    defaults?: Dict[];
+    defaults?: Dict<T>[];
     missingBehavior?: MissingBehavior | string;
     [key: string]: any;
 }
-export type MissingPlaceholderHandler = (i18n: I18n, placeholder: string, message: string, options: Dict) => string;
-export type NullPlaceholderHandler = (i18n: I18n, placeholder: string, message: string, options: Dict) => string;
+export type MissingPlaceholderHandler<T extends object> = (i18n: I18n<T>, placeholder: string, message: string, options: Dict<T>) => string;
+export type NullPlaceholderHandler<T extends object> = (i18n: I18n<T>, placeholder: string, message: string, options: Dict<T>) => string;
 export type DayNames = [string, string, string, string, string, string, string];
 export type MonthNames = [
     null,
@@ -103,5 +103,12 @@ export interface StrftimeOptions {
     monthNames: MonthNames;
     abbrMonthNames: MonthNames;
 }
-export type OnChangeHandler = (i18n: I18n) => void;
+export type OnChangeHandler<T extends object> = (i18n: I18n<T>) => void;
+
+export type NestedKeyOf<ObjectType extends object> = 
+    {[Key in keyof ObjectType & (string | number)]: ObjectType[Key] extends object 
+        ? `${Key}` | `${Key}.${NestedKeyOf<ObjectType[Key]>}`
+        : `${Key}`
+    }[keyof ObjectType & (string | number)];
+
 export {};
