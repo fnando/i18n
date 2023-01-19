@@ -51,7 +51,7 @@ export interface ObjectType {
     [key: string]: PrimitiveType | ArrayType | ObjectType;
 }
 type MissingBehavior = "message" | "guess" | "error";
-export interface I18nOptions<T> {
+export interface I18nOptions<T extends object> {
     defaultLocale: string;
     defaultSeparator: string;
     enableFallback: boolean;
@@ -64,10 +64,10 @@ export interface I18nOptions<T> {
     transformKey: (key: string) => string;
 }
 export type Scope = string | string[];
-export type LocaleResolver<T> = (i18n: I18n<T>, locale: string) => string[];
-export type Pluralizer<T> = (i18n: I18n<T>, count: number) => string[];
-export type MissingTranslationStrategy<T> = (i18n: I18n<T>, scope: Scope, options: Dict<T>) => string;
-export interface TranslateOptions<T> {
+export type LocaleResolver<T extends object> = (i18n: I18n<T>, locale: string) => string[];
+export type Pluralizer<T extends object> = (i18n: I18n<T>, count: number) => string[];
+export type MissingTranslationStrategy<T extends object> = (i18n: I18n<T>, scope: Scope, options: Dict<T>) => string;
+export interface TranslateOptions<T  extends object> {
     defaultValue?: any;
     count?: number;
     scope?: Scope;
@@ -75,8 +75,8 @@ export interface TranslateOptions<T> {
     missingBehavior?: MissingBehavior | string;
     [key: string]: any;
 }
-export type MissingPlaceholderHandler<T> = (i18n: I18n<T>, placeholder: string, message: string, options: Dict<T>) => string;
-export type NullPlaceholderHandler<T> = (i18n: I18n<T>, placeholder: string, message: string, options: Dict<T>) => string;
+export type MissingPlaceholderHandler<T extends object> = (i18n: I18n<T>, placeholder: string, message: string, options: Dict<T>) => string;
+export type NullPlaceholderHandler<T extends object> = (i18n: I18n<T>, placeholder: string, message: string, options: Dict<T>) => string;
 export type DayNames = [string, string, string, string, string, string, string];
 export type MonthNames = [
     null,
@@ -103,7 +103,7 @@ export interface StrftimeOptions {
     monthNames: MonthNames;
     abbrMonthNames: MonthNames;
 }
-export type OnChangeHandler<T> = (i18n: I18n<T>) => void;
+export type OnChangeHandler<T extends object> = (i18n: I18n<T>) => void;
 
 export type NestedKeyOf<ObjectType extends object> = 
     {[Key in keyof ObjectType & (string | number)]: ObjectType[Key] extends object 
