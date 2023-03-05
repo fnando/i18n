@@ -1,5 +1,6 @@
 import BigNumber from "bignumber.js";
 import { I18n } from "./I18n";
+export type MakePlural = (count: number, ordinal?: boolean) => string;
 export interface Dict {
     [key: string]: any;
 }
@@ -50,9 +51,10 @@ export type AnyObject = PrimitiveType | ArrayType | ObjectType;
 export interface ObjectType {
     [key: string]: PrimitiveType | ArrayType | ObjectType;
 }
-type MissingBehavior = "message" | "guess" | "error";
+export type MissingBehavior = "message" | "guess" | "error";
 export interface I18nOptions {
     defaultLocale: string;
+    availableLocales: string[];
     defaultSeparator: string;
     enableFallback: boolean;
     locale: string;
@@ -63,7 +65,7 @@ export interface I18nOptions {
     placeholder: RegExp;
     transformKey: (key: string) => string;
 }
-export type Scope = string | string[];
+export type Scope = Readonly<string | string[]>;
 export type LocaleResolver = (i18n: I18n, locale: string) => string[];
 export type Pluralizer = (i18n: I18n, count: number) => string[];
 export type MissingTranslationStrategy = (i18n: I18n, scope: Scope, options: Dict) => string;
@@ -104,4 +106,3 @@ export interface StrftimeOptions {
     abbrMonthNames: MonthNames;
 }
 export type OnChangeHandler = (i18n: I18n) => void;
-export {};

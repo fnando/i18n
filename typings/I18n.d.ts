@@ -21,6 +21,7 @@ export declare class I18n {
     translations: Dict;
     transformKey: (key: string) => string;
     interpolate: typeof interpolate;
+    availableLocales: string[];
     constructor(translations?: Dict, options?: Partial<I18nOptions>);
     store(translations: Dict): void;
     get locale(): string;
