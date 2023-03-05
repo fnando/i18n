@@ -29,7 +29,8 @@
   "files": [
     "dist/**/*",
     "json/**/*",
-    "typings/**/*"
+    "typings/**/*",
+    "src/**/*"
   ],
   "license": "MIT",
   "main": "./dist/import/index.js",
