@@ -1040,6 +1040,31 @@ i18n.toSentence(["apple", "banana", "pineapple"]);
 
 ## Troubleshooting
 
+### I'm getting an error like `Unable to resolve "make-plural" from "node modules/i18n-js/dist/import/Pluralization.js"`
+
+[make-plural](https://www.npmjs.com/package/make-plural) uses `.mjs` files. You
+need to change your build pipeline to also consider these files.
+
+If you're using [react-native](https://reactnative.dev), you need to change your
+metro config to consider `.mjs`. Try doing something like this (you may need to
+adapt your code based on existing changes).
+
+```js
+const { getDefaultConfig } = require("metro-config");
+
+module.exports = (async () => {
+  const {
+    resolver: { assetExts, sourceExts },
+  } = await getDefaultConfig();
+
+  return {
+    resolver: {
+      sourceExts: [...sourceExts, "mjs"],
+    },
+  };
+})();
+```
+
 ### I'm getting an error like `SyntaxError: Unexpected end of JSON input` or `Uncaught SyntaxError: Unexpected token ;`
 
 You may get such error if you're trying to load empty JSON files with
