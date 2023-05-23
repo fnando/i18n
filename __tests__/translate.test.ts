@@ -168,6 +168,13 @@ test("returns translation for custom scope separator", () => {
   expect(actual).toEqual("Hello stranger!");
 });
 
+test("returns translation for custom scope separator and dots", () => {
+  i18n.defaultSeparator = "•";
+  const actual = i18n.t("greetings•stranger.dot");
+
+  expect(actual).toEqual("Hello stranger.dot!");
+});
+
 test("returns boolean values", () => {
   expect(i18n.t("booleans.yes")).toBeTruthy();
   expect(i18n.t("booleans.no")).toBeFalsy();

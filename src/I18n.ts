@@ -2,8 +2,7 @@
 
 import get from "lodash/get";
 import has from "lodash/has";
-import set from "lodash/set";
-import setWith from "lodash/setWith";
+import merge from "lodash/merge";
 
 import {
   DateTime,
@@ -43,7 +42,6 @@ import {
   numberToHumanSize,
   parseDate,
   pluralize,
-  propertyFlatList,
   strftime,
   timeAgoInWords,
 } from "./helpers";
@@ -256,12 +254,7 @@ export class I18n {
    * @returns {void}
    */
   public store(translations: Dict): void {
-    const map = propertyFlatList(translations);
-
-    map.forEach((path) =>
-      setWith(this.translations, path, get(translations, path), Object),
-    );
-
+    merge(this.translations, translations);
     this.hasChanged();
   }
 
@@ -1288,7 +1281,7 @@ export class I18n {
       );
     }
 
-    let newNode: any;
+    let newNode: unknown;
 
     if (overrideType === "object") {
       newNode = { ...currentNode, ...override };
@@ -1296,7 +1289,20 @@ export class I18n {
       newNode = override;
     }
 
-    set(this.translations, path, newNode);
+    const components = path.split(this.defaultSeparator);
+    const prop = components.pop();
+    let buffer = this.translations;
+
+    for (const component of components) {
+      if (!buffer[component]) {
+        buffer[component] = {};
+      }
+
+      buffer = buffer[component];
+    }
+
+    buffer[prop as keyof typeof buffer] = newNode;
+
     this.hasChanged();
   }
 

@@ -2,7 +2,7 @@ import { get } from "lodash";
 import { I18n } from "../src/I18n";
 
 describe("I18n#store", () => {
-  it("updates store", () => {
+  test("updates store", () => {
     const i18n = new I18n({});
     i18n.store({ en: { hello: "Hello" }, pt: { hello: "Olá" } });
     i18n.store({ pt: { hello: "Oi", bye: "Até logo" } });
@@ -14,7 +14,7 @@ describe("I18n#store", () => {
     expect(get(i18n.translations, "en.colors.blue")).toEqual(["light", "dark"]);
   });
 
-  it("works with numeric keys", () => {
+  test("works with numeric keys", () => {
     const i18n = new I18n();
     i18n.store({ en: { units: { l: "liter", "1": "number" } } });
 

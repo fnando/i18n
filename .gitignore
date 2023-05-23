@@ -5,3 +5,4 @@
 *.tgz
 /coverage
 /.yarn
+/node_modules
