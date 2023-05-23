@@ -3,6 +3,7 @@
 import get from "lodash/get";
 import has from "lodash/has";
 import set from "lodash/set";
+import merge from "lodash/merge";
 
 import {
   DateTime,
@@ -42,7 +43,6 @@ import {
   numberToHumanSize,
   parseDate,
   pluralize,
-  propertyFlatList,
   strftime,
   timeAgoInWords,
 } from "./helpers";
@@ -255,12 +255,7 @@ export class I18n {
    * @returns {void}
    */
   public store(translations: Dict): void {
-    const map = propertyFlatList(translations);
-
-    map.forEach((path) =>
-      set(this.translations, path, get(translations, path)),
-    );
-
+    merge(this.translations, translations);
     this.hasChanged();
   }
 
