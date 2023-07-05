@@ -8,6 +8,8 @@
     "noEmit": false,
     "declaration": true,
     "declarationDir": "typings",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   }
 }

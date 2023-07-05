@@ -14,6 +14,10 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+- [Changed] Vendor lodash, so it's easier to use i18n-js with importmaps.
+
 ## v4.2.3 - Mar 5, 2023
 
 - [Added] Introduce `useMakePlural(options)` function as way of creating

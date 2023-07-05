@@ -1,5 +1,4 @@
-import uniq from "lodash/uniq";
-
+import uniq from "./vendor/lodash/uniq";
 import { Dict, LocaleResolver } from "./typing";
 import { I18n } from "./I18n";
 

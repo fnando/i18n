@@ -1,6 +1,6 @@
-import { repeat } from "lodash";
 import BigNumber from "bignumber.js";
 
+import repeat from "../src/vendor/lodash/repeat";
 import { I18n } from "../src/I18n";
 import en from "../json/en.json";
 
