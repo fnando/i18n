@@ -1,0 +1,27 @@
+declare const _exports: {
+    <TObject extends object, TKey extends keyof TObject>(path: TKey | [TKey]): import("../fp").LodashGet1x1<TObject, TKey>;
+    <TObject_1 extends object>(path: _.LoDashStatic, object: TObject_1): import("../fp").LodashGet1x2<TObject_1>;
+    <TObject_2 extends object, TKey_1 extends keyof TObject_2>(path: TKey_1 | [TKey_1], object: TObject_2): TObject_2[TKey_1];
+    <TObject_3 extends object>(path: _.LoDashStatic, object: TObject_3 | null | undefined): import("../fp").LodashGet2x2<TObject_3>;
+    <TObject_4 extends object, TKey_2 extends keyof TObject_4>(path: TKey_2 | [TKey_2], object: TObject_4 | null | undefined): TObject_4[TKey_2] | undefined;
+    <TObject_5 extends object, TKey1 extends keyof TObject_5, TKey2 extends keyof TObject_5[TKey1]>(path: [TKey1, TKey2]): import("../fp").LodashGet3x1<TObject_5, TKey1, TKey2>;
+    <TObject_6 extends object, TKey1_1 extends keyof TObject_6, TKey2_1 extends keyof TObject_6[TKey1_1]>(path: [TKey1_1, TKey2_1], object: TObject_6): TObject_6[TKey1_1][TKey2_1];
+    <TObject_7 extends object, TKey1_2 extends keyof TObject_7, TKey2_2 extends keyof TObject_7[TKey1_2]>(path: [TKey1_2, TKey2_2], object: TObject_7 | null | undefined): TObject_7[TKey1_2][TKey2_2] | undefined;
+    <TObject_8 extends object, TKey1_3 extends keyof TObject_8, TKey2_3 extends keyof TObject_8[TKey1_3], TKey3 extends keyof TObject_8[TKey1_3][TKey2_3]>(path: [TKey1_3, TKey2_3, TKey3]): import("../fp").LodashGet5x1<TObject_8, TKey1_3, TKey2_3, TKey3>;
+    <TObject_9 extends object, TKey1_4 extends keyof TObject_9, TKey2_4 extends keyof TObject_9[TKey1_4], TKey3_1 extends keyof TObject_9[TKey1_4][TKey2_4]>(path: [TKey1_4, TKey2_4, TKey3_1], object: TObject_9): TObject_9[TKey1_4][TKey2_4][TKey3_1];
+    <TObject_10 extends object, TKey1_5 extends keyof TObject_10, TKey2_5 extends keyof TObject_10[TKey1_5], TKey3_2 extends keyof TObject_10[TKey1_5][TKey2_5]>(path: [TKey1_5, TKey2_5, TKey3_2], object: TObject_10 | null | undefined): TObject_10[TKey1_5][TKey2_5][TKey3_2] | undefined;
+    <TObject_11 extends object, TKey1_6 extends keyof TObject_11, TKey2_6 extends keyof TObject_11[TKey1_6], TKey3_3 extends keyof TObject_11[TKey1_6][TKey2_6], TKey4 extends keyof TObject_11[TKey1_6][TKey2_6][TKey3_3]>(path: [TKey1_6, TKey2_6, TKey3_3, TKey4]): import("../fp").LodashGet7x1<TObject_11, TKey1_6, TKey2_6, TKey3_3, TKey4>;
+    <TObject_12 extends object, TKey1_7 extends keyof TObject_12, TKey2_7 extends keyof TObject_12[TKey1_7], TKey3_4 extends keyof TObject_12[TKey1_7][TKey2_7], TKey4_1 extends keyof TObject_12[TKey1_7][TKey2_7][TKey3_4]>(path: [TKey1_7, TKey2_7, TKey3_4, TKey4_1], object: TObject_12): TObject_12[TKey1_7][TKey2_7][TKey3_4][TKey4_1];
+    <TObject_13 extends object, TKey1_8 extends keyof TObject_13, TKey2_8 extends keyof TObject_13[TKey1_8], TKey3_5 extends keyof TObject_13[TKey1_8][TKey2_8], TKey4_2 extends keyof TObject_13[TKey1_8][TKey2_8][TKey3_5]>(path: [TKey1_8, TKey2_8, TKey3_5, TKey4_2], object: TObject_13 | null | undefined): TObject_13[TKey1_8][TKey2_8][TKey3_5][TKey4_2] | undefined;
+    (path: number): import("../fp").LodashGet9x1;
+    <T>(path: _.LoDashStatic, object: _.NumericDictionary<T>): import("../fp").LodashGet9x2<T>;
+    <T_1>(path: number, object: _.NumericDictionary<T_1>): T_1;
+    <T_2>(path: _.LoDashStatic, object: _.NumericDictionary<T_2> | null | undefined): import("../fp").LodashGet10x2<T_2>;
+    <T_3>(path: number, object: _.NumericDictionary<T_3> | null | undefined): T_3 | undefined;
+    (path: _.PropertyPath): import("../fp").LodashGet11x1;
+    (path: _.LoDashStatic, object: null | undefined): import("../fp").LodashGet11x2;
+    (path: _.PropertyPath, object: null | undefined): undefined;
+    (path: _.LoDashStatic, object: any): import("../fp").LodashGet12x2;
+    (path: _.PropertyPath, object: any): any;
+};
+export = _exports;
