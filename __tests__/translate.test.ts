@@ -1,4 +1,5 @@
-import snakeCase from "../src/vendor/lodash/snakeCase";
+import { snakeCase } from "lodash";
+
 import { I18n } from "../src/I18n";
 import { Dict, Scope } from "../src/typing";
 import { translations } from "./fixtures/translations";
@@ -27,7 +28,7 @@ test("returns missing message translation for invalid scope", () => {
 test("throws an error if missingBehavior is set to error", () => {
   i18n.missingBehavior = "error";
 
-  expect(() => i18n.t("missing.translation")).toThrow(
+  expect(() => i18n.t("missing.translation")).toThrowError(
     "Missing translation: en.missing.translation",
   );
 });

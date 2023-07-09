@@ -1,4 +1,5 @@
-import get from "../vendor/lodash/get";
+import get from "lodash/get";
+
 import { Dict, Scope } from "../typing";
 import { I18n } from "../I18n";
 import { isSet } from "./isSet";

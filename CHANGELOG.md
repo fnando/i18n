@@ -14,6 +14,10 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+- [Changed] Revert lodash vendoring.
+
 ## v4.3.0 - Jul 7, 2023
 
 - [Changed] Vendor lodash, so it's easier to use i18n-js with importmaps.

@@ -1,4 +1,5 @@
-import range from "../vendor/lodash/range";
+import range from "lodash/range";
+
 import { I18n } from "../I18n";
 import { DateTime, TimeAgoInWordsOptions } from "../typing";
 import { parseDate } from "./parseDate";
@@ -128,7 +129,7 @@ export function timeAgoInWords(
     fromYear > toYear
       ? 0
       : range(fromYear, toYear).filter(
-          (year: number) => new Date(year, 1, 29).getMonth() == 1,
+          (year) => new Date(year, 1, 29).getMonth() == 1,
         ).length;
 
   const minutesInYear = 525_600;

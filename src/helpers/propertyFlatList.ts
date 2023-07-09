@@ -1,6 +1,7 @@
-import isArray from "../vendor/lodash/isArray";
-import isObject from "../vendor/lodash/isObject";
-import flattenDeep from "../vendor/lodash/flattenDeep";
+import isArray from "lodash/isArray";
+import isObject from "lodash/isObject";
+import flattenDeep from "lodash/flattenDeep";
+
 import { Dict } from "../typing";
 
 interface Indexable {

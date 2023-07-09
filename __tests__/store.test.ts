@@ -1,4 +1,4 @@
-import get from "../src/vendor/lodash/get";
+import { get } from "lodash";
 import { I18n } from "../src/I18n";
 
 describe("I18n#store", () => {

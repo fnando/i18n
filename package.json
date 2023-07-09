@@ -2,6 +2,7 @@
   "author": "Nando Vieira <me@fnando.com>",
   "dependencies": {
     "bignumber.js": "*",
+    "lodash": "*",
     "make-plural": "*"
   },
   "description": "A small library to provide I18n on JavaScript.",
@@ -9,6 +10,7 @@
     "@fnando/codestyle": "*",
     "@fnando/eslint-config-codestyle": "*",
     "@types/jest": "*",
+    "@types/lodash": "*",
     "@typescript-eslint/eslint-plugin": "*",
     "@typescript-eslint/parser": "*",
     "eslint": "*",
