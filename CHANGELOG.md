@@ -14,7 +14,7 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## v4.3.1-beta.0 - Jul 9, 2023
 
 - [Changed] Revert lodash vendoring.
 
