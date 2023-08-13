@@ -3,7 +3,6 @@ export { default as camelCase } from "lodash/camelCase";
 export { default as repeat } from "lodash/repeat";
 export { default as sortBy } from "lodash/sortBy";
 export { default as zipObject } from "lodash/zipObject";
-export { default as isArray } from "lodash/isArray";
 export { default as isObject } from "lodash/isObject";
 export { default as flattenDeep } from "lodash/flattenDeep";
 export { default as get } from "lodash/get";
