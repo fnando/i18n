@@ -14,6 +14,12 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+## v.3.1-beta.1 - Aug 26, 2023
+
+- [Fix] Lodash's `snakeCase` import.
+- [Fix] Bring back `webpack` so we can build browser distribution.
+- [Removed] Vendored lodash typings.
+
 ## v4.3.1-beta.0 - Jul 9, 2023
 
 - [Changed] Revert lodash vendoring.
