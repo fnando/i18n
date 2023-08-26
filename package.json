@@ -23,7 +23,9 @@
     "prettier": "*",
     "ts-jest": "*",
     "typedoc": "*",
-    "typescript": "*"
+    "typescript": "*",
+    "webpack": "*",
+    "webpack-cli": "*"
   },
   "files": [
     "dist/**/*",
