@@ -2,7 +2,7 @@
   "author": "Nando Vieira <me@fnando.com>",
   "dependencies": {
     "bignumber.js": "*",
-    "esbuild": "^0.18.11",
+    "esbuild": "*",
     "lodash": "*",
     "make-plural": "*"
   },
