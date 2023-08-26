@@ -1,5 +1,6 @@
 export { default as uniq } from "lodash/uniq";
 export { default as camelCase } from "lodash/camelCase";
+export { default as snakeCase } from "lodash/snakeCase";
 export { default as repeat } from "lodash/repeat";
 export { default as sortBy } from "lodash/sortBy";
 export { default as zipObject } from "lodash/zipObject";
