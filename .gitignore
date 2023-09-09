@@ -4,3 +4,4 @@
 *.log
 *.tgz
 /coverage
+/.yarn

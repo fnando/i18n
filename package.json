@@ -40,9 +40,10 @@
   "scripts": {
     "build": "yarn clean && yarn build:js && yarn docs",
     "build:browser": "webpack --output-path ./dist/browser/ --output-filename index.js --mode production --entry ./dist/import/index.js --output-library-type var --output-library-name I18n --devtool source-map",
-    "build:import": "tsc --outDir ./dist/import --module ESNext && yarn build:lodash && yarn build:make-plural",
+    "build:import": "tsc --outDir ./dist/import --module ESNext && yarn build:lodash && yarn build:make-plural && yarn build:bignumber",
     "build:lodash": "esbuild --bundle src/lodash.ts --outfile=dist/import/lodash.js",
     "build:make-plural": "cp node_modules/make-plural/plurals.mjs dist/import/make-plural.js",
+    "build:bignumber": "cp node_modules/bignumber.js/bignumber.mjs dist/import/bignumber.js",
     "build:js": "yarn build:import && yarn build:require && yarn build:browser",
     "build:require": "tsc --outDir ./dist/require --module commonjs",
     "clean": "rm -rf ./dist",
