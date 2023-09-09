@@ -13,4 +13,16 @@ describe("I18n#store", () => {
     expect(get(i18n.translations, "pt.bye")).toEqual("Até logo");
     expect(get(i18n.translations, "en.colors.blue")).toEqual(["light", "dark"]);
   });
+
+  it("works with numeric keys", () => {
+    const i18n = new I18n();
+    i18n.store({ en: { units: { l: "liter", "1": "number" } } });
+
+    expect(get(i18n.translations, "en.units.l")).toEqual("liter");
+    expect(get(i18n.translations, "en.units.1")).toEqual("number");
+    expect(get(i18n.translations, "en.units")).toEqual({
+      l: "liter",
+      "1": "number",
+    });
+  });
 });

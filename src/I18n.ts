@@ -3,6 +3,7 @@
 import get from "lodash/get";
 import has from "lodash/has";
 import set from "lodash/set";
+import setWith from "lodash/setWith";
 
 import {
   DateTime,
@@ -258,7 +259,7 @@ export class I18n {
     const map = propertyFlatList(translations);
 
     map.forEach((path) =>
-      set(this.translations, path, get(translations, path)),
+      setWith(this.translations, path, get(translations, path), Object),
     );
 
     this.hasChanged();
