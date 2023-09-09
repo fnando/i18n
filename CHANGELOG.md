@@ -14,6 +14,11 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+- [Fix] Storing translations that contain numeric keys now work properly;
+  previously it was creating arrays instead of objects.
+
 ## v.3.1-beta.1 - Aug 26, 2023
 
 - [Fix] Lodash's `snakeCase` import.
