@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html class="default" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="IE=edge">
+<title>i18n-js v4.3.1-beta.2</title>
+<meta name="description" content="Documentation for i18n-js v4.3.1-beta.2">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/highlight.css">
+<script async src="assets/search.js" id="search-script"></script>
+</head>
+<body>
+<script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os"</script><header class="tsd-page-toolbar">
+<div class="tsd-toolbar-contents container">
+<div class="table-cell" id="tsd-search" data-base=".">
+<div class="field">
+<label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewbox="0 0 16 16" fill="none"><path d="M15.7824 13.833L12.6666 10.7177C12.5259 10.5771 12.3353 10.499 12.1353 10.499H11.6259C12.4884 9.39596 13.001 8.00859 13.001 6.49937C13.001 2.90909 10.0914 0 6.50048 0C2.90959 0 0 2.90909 0 6.49937C0 10.0896 2.90959 12.9987 6.50048 12.9987C8.00996 12.9987 9.39756 12.4863 10.5008 11.6239V12.1332C10.5008 12.3332 10.5789 12.5238 10.7195 12.6644L13.8354 15.7797C14.1292 16.0734 14.6042 16.0734 14.8948 15.7797L15.7793 14.8954C16.0731 14.6017 16.0731 14.1267 15.7824 13.833ZM6.50048 10.499C4.29094 10.499 2.50018 8.71165 2.50018 6.49937C2.50018 4.29021 4.28781 2.49976 6.50048 2.49976C8.71001 2.49976 10.5008 4.28708 10.5008 6.49937C10.5008 8.70852 8.71314 10.499 6.50048 10.499Z" fill="var(--color-text)"></path></svg></label><input type="text" id="tsd-search-field" aria-label="Search">
+</div>
+<div class="field">
+<div id="tsd-toolbar-links"></div>
+</div>
+<ul class="results">
+<li class="state loading">Preparing search index...</li>
+<li class="state failure">The search index is not available</li>
+</ul>
+<a href="index.html" class="title">i18n-js v4.3.1-beta.2</a>
+</div>
+<div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewbox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="7" width="14" height="2" fill="var(--color-text)"></rect><rect x="1" y="11" width="14" height="2" fill="var(--color-text)"></rect></svg></a></div>
+</div></header>
+<div class="container container-main">
+<div class="col-8 col-content">
+<div class="tsd-page-title">
+<h2>i18n-js v4.3.1-beta.2</h2>
+</div>
+<div class="tsd-panel tsd-typography">
+<p align="center">
+  <img width="250" height="58" src="https://github.com/fnando/i18n-js/raw/main/images/i18njs.png" alt="i18n.js">
+</p>
+
+<p align="center">
+  A small library to provide the <a href="https://rubygems.org/gems/i18n">i18n</a> translations on the JavaScript.
+</p>
+
+<p align="center">
+  <a href="https://github.com/fnando/i18n/actions?query=workflow%3Ajs-tests"><img src="https://github.com/fnando/i18n/workflows/js-tests/badge.svg" alt="Tests"></a>
+  <a href="https://www.npmjs.com/package/i18n-js"><img src="https://img.shields.io/npm/v/i18n-js/latest.svg" alt="npm version"></a>
+  <a href="https://www.npmjs.com/package/i18n-js"><img src="https://img.shields.io/npm/dt/i18n-js.svg" alt="npm downloads"></a>
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
+</p>
+
+
+<a href="#installation" id="installation" style="color: inherit; text-decoration: none;">
+  <h2>Installation</h2>
+</a>
+<ul>
+<li>Yarn: <code>yarn add i18n-js@latest</code>
+</li>
+<li>NPM: <code>npm install i18n-js@latest</code>
+</li>
+</ul>
+
+<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+  <h2>Usage</h2>
+</a>
+
+<a href="#setting-up" id="setting-up" style="color: inherit; text-decoration: none;">
+  <h3>Setting up</h3>
+</a>
+<p>First, you need to instantiate <code>I18n</code> with the translations' object, the main
+class of this library.</p>
+<pre><code class="language-js"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">I18n</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">"i18n-js"</span><span class="hl-1">;</span><br><span class="hl-0">import</span><span class="hl-1"> </span><span class="hl-2">translations</span><span class="hl-1"> </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">"./translations.json"</span><span class="hl-1">;</span><br><br><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">i18n</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">I18n</span><span class="hl-1">(</span><span class="hl-2">translations</span><span class="hl-1">);</span>
+</code></pre>
+<p>The <code>translations</code> object is a direct export of translations defined by
+<a href="https://guides.rubyonrails.org/i18n.html">Ruby on Rails</a>. To export the
+translations, you can use <a href="https://github.com/fnando/i18n-js">i18n-js</a>, a Ruby
+gem that's completely disconnected from Rails and that can be used for the
+solely purpose of exporting the translations, even if your project is written in
+a different language. If all you care about is some basic translation mechanism,
+then you can set the object like this:</p>
+<pre><code class="language-js"><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">i18n</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">I18n</span><span class="hl-1">({</span><br><span class="hl-1">  </span><span class="hl-2">en:</span><span class="hl-1"> {</span><br><span class="hl-1">    </span><span class="hl-2">hello:</span><span class="hl-1"> </span><span class="hl-3">"Hi!"</span><span class="hl-1">,</span><br><span class="hl-1">  },</span><br><span class="hl-1">  </span><span class="hl-3">"pt-BR"</span><span class="hl-2">:</span><span class="hl-1"> {</span><br><span class="hl-1">    </span><span class="hl-2">hello:</span><span class="hl-1"> </span><span class="hl-3">"Olá!"</span><span class="hl-1">,</span><br><span class="hl-1">  },</span><br><span class="hl-1">});</span>
+</code></pre>
+<p>Each root key is a different locale that may or may not have the script code.
+This library also supports locales with region code, like <code>zh-Hant-TW</code>.</p>
+<p>Once everything is set up, you can then define the locale. <code>en</code> is both the
+current and default locale. To override either values, you have to use
+<code>I18n#defaultLocale</code> and <code>I18n#locale</code>.</p>
+<pre><code class="language-js"><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-2">defaultLocale</span><span class="hl-1"> = </span><span class="hl-3">"pt-BR"</span><span class="hl-1">;</span><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-2">locale</span><span class="hl-1"> = </span><span class="hl-3">"pt-BR"</span><span class="hl-1">;</span>
+</code></pre>
+
+<a href="#base-translations" id="base-translations" style="color: inherit; text-decoration: none;">
+  <h4>Base translations</h4>
+</a>
+<p>This library comes bundled with all base translations made available by
+<a href="https://github.com/svenfuchs/rails-i18n/tree/master/rails/locale">rails-i18n</a>.
+Base translations allow formatting date, numbers, and sentence connectors, among
+other things.</p>
+<p>To load the base translations, use something like the following:</p>
+<pre><code class="language-js"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">I18n</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">"i18n-js"</span><span class="hl-1">;</span><br><span class="hl-0">import</span><span class="hl-1"> </span><span class="hl-2">ptBR</span><span class="hl-1"> </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">"i18n-js/json/pt-BR.json"</span><span class="hl-1">;</span><br><span class="hl-0">import</span><span class="hl-1"> </span><span class="hl-2">en</span><span class="hl-1"> </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">"i18n-js/json/en.json"</span><span class="hl-1">;</span><br><br><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">i18n</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">I18n</span><span class="hl-1">({</span><br><span class="hl-1">  ...</span><span class="hl-2">ptBR</span><span class="hl-1">,</span><br><span class="hl-1">  ...</span><span class="hl-2">en</span><span class="hl-1">,</span><br><span class="hl-1">});</span>
+</code></pre>
+
+<a href="#updating-translation-store" id="updating-translation-store" style="color: inherit; text-decoration: none;">
+  <h3>Updating translation store</h3>
+</a>
+<p>Updating the translation store is trivial. All you have to do is calling
+<code>I18n#store</code> with the translations that need to be merged. Let's assume you've
+exported all your app's translations using
+<a href="https://github.com/fnando/i18n-js">i18n-js</a> CLI, using a separate file for each
+language, like this:</p>
+<ul>
+<li><code>translations/en.json</code></li>
+<li><code>translations/pt-BR.json</code></li>
+</ul>
+<p>This is how you could update the store:</p>
+<pre><code class="language-js"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">I18n</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">"i18n-js"</span><span class="hl-1">;</span><br><span class="hl-0">import</span><span class="hl-1"> </span><span class="hl-2">ptBR</span><span class="hl-1"> </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">"translations/pt-BR.json"</span><span class="hl-1">;</span><br><span class="hl-0">import</span><span class="hl-1"> </span><span class="hl-2">en</span><span class="hl-1"> </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">"translations/en.json"</span><span class="hl-1">;</span><br><br><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">i18n</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">I18n</span><span class="hl-1">();</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">store</span><span class="hl-1">(</span><span class="hl-2">en</span><span class="hl-1">);</span><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">store</span><span class="hl-1">(</span><span class="hl-2">ptBR</span><span class="hl-1">);</span>
+</code></pre>
+<p>This method will allow you to lazy load translations and them updating the store
+as needed.</p>
+<pre><code class="language-js"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">I18n</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">"i18n-js"</span><span class="hl-1">;</span><br><br><span class="hl-4">async</span><span class="hl-1"> </span><span class="hl-4">function</span><span class="hl-1"> </span><span class="hl-6">loadTranslations</span><span class="hl-1">(</span><span class="hl-2">i18n</span><span class="hl-1">, </span><span class="hl-2">locale</span><span class="hl-1">) {</span><br><span class="hl-1">  </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">response</span><span class="hl-1"> = </span><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-6">fetch</span><span class="hl-1">(</span><span class="hl-3">`/translations/</span><span class="hl-4">${</span><span class="hl-2">locale</span><span class="hl-4">}</span><span class="hl-3">.json`</span><span class="hl-1">);</span><br><span class="hl-1">  </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">translations</span><span class="hl-1"> = </span><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">response</span><span class="hl-1">.</span><span class="hl-6">json</span><span class="hl-1">();</span><br><br><span class="hl-1">  </span><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">store</span><span class="hl-1">(</span><span class="hl-2">translations</span><span class="hl-1">);</span><br><span class="hl-1">}</span><br><br><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">i18n</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">I18n</span><span class="hl-1">();</span><br><span class="hl-6">loadTranslations</span><span class="hl-1">(</span><span class="hl-2">i18n</span><span class="hl-1">, </span><span class="hl-3">"es"</span><span class="hl-1">);</span>
+</code></pre>
+
+<a href="#events" id="events" style="color: inherit; text-decoration: none;">
+  <h3>Events</h3>
+</a>
+<p>A change event is triggered whenever <code>I18n#store</code> or <code>I18n#update</code> is called, or
+when <code>I18n#locale</code>/<code>I18n#defaultLocale</code> is set. To subscribe to these changes,
+use the method <code>I18n#onChange(i18n: I18n)</code>.</p>
+<pre><code class="language-js"><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">i18n</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">I18n</span><span class="hl-1">();</span><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">onChange</span><span class="hl-1">(() </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br><span class="hl-1">  </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-6">log</span><span class="hl-1">(</span><span class="hl-3">"I18n has changed!"</span><span class="hl-1">);</span><br><span class="hl-1">});</span>
+</code></pre>
+<p>Every change will increment the property <code>I18n#version</code>, so you can use it as a
+cache key. Also, when you subscribe to change events,
+<code>I18n#onChange(i18n: I18n)</code> will return another function that can be used to
+remove the event handler.</p>
+<pre><code class="language-js"><span class="hl-6">useEffect</span><span class="hl-1">(() </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br><span class="hl-1">  </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">unsubscribe</span><span class="hl-1"> = </span><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">onChange</span><span class="hl-1">(() </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br><span class="hl-1">    </span><span class="hl-7">// do something</span><br><span class="hl-1">  });</span><br><br><span class="hl-1">  </span><span class="hl-0">return</span><span class="hl-1"> </span><span class="hl-2">unsubscribe</span><span class="hl-1">;</span><br><span class="hl-1">}, []);</span><br><br><span class="hl-6">useEffect</span><span class="hl-1">(() </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br><span class="hl-1">  </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-6">log</span><span class="hl-1">(</span><span class="hl-3">"I18n has been updated!"</span><span class="hl-1">);</span><br><span class="hl-1">}, [</span><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-2">version</span><span class="hl-1">]);</span>
+</code></pre>
+
+<a href="#translating-messages" id="translating-messages" style="color: inherit; text-decoration: none;">
+  <h3>Translating messages</h3>
+</a>
+<p>To translate messages, you have to use the <code>I18n#translate</code>, or its <code>I18n#t</code>
+alias.</p>
+<pre><code class="language-js"><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-2">locale</span><span class="hl-1"> = </span><span class="hl-3">"en"</span><span class="hl-1">;</span><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">t</span><span class="hl-1">(</span><span class="hl-3">"hello"</span><span class="hl-1">); </span><span class="hl-7">//=&gt; Hi!</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-2">locale</span><span class="hl-1"> = </span><span class="hl-3">"pt-BR"</span><span class="hl-1">;</span><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">t</span><span class="hl-1">(</span><span class="hl-3">"hello"</span><span class="hl-1">); </span><span class="hl-7">//=&gt; Olá!</span>
+</code></pre>
+<p>You can also provide an array as scope. Both calls below are equivalent.</p>
+<pre><code class="language-js"><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">t</span><span class="hl-1">([</span><span class="hl-3">"greetings"</span><span class="hl-1">, </span><span class="hl-3">"hello"</span><span class="hl-1">]);</span><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">t</span><span class="hl-1">(</span><span class="hl-3">"greetings.hello"</span><span class="hl-1">);</span>
+</code></pre>
+<p>Your translations may have dynamic values that should be interpolated. Here's a
+greeting message that takes a name:</p>
+<pre><code class="language-js"><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">i18n</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">I18n</span><span class="hl-1">({</span><br><span class="hl-1">  </span><span class="hl-2">en:</span><span class="hl-1"> { </span><span class="hl-2">greetings:</span><span class="hl-1"> </span><span class="hl-3">"Hi, %{name}!"</span><span class="hl-1"> },</span><br><span class="hl-1">  </span><span class="hl-3">"pt-BR"</span><span class="hl-2">:</span><span class="hl-1"> { </span><span class="hl-2">greetings:</span><span class="hl-1"> </span><span class="hl-3">"Olá, %{name}!"</span><span class="hl-1"> },</span><br><span class="hl-1">});</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">t</span><span class="hl-1">(</span><span class="hl-3">"greetings"</span><span class="hl-1">, { </span><span class="hl-2">name:</span><span class="hl-1"> </span><span class="hl-3">"John"</span><span class="hl-1"> });</span>
+</code></pre>
+<p>If the translation is an array and the entry is a string, values will be
+interpolated in a shallow way.</p>
+<pre><code class="language-js"><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">i18n</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">I18n</span><span class="hl-1">({</span><br><span class="hl-1">  </span><span class="hl-2">en:</span><span class="hl-1"> { </span><span class="hl-2">messages:</span><span class="hl-1"> [</span><span class="hl-3">"Hello there!"</span><span class="hl-1">, </span><span class="hl-3">"Welcome back, %{name}!"</span><span class="hl-1">] },</span><br><span class="hl-1">});</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">t</span><span class="hl-1">(</span><span class="hl-3">"messages"</span><span class="hl-1">, { </span><span class="hl-2">name:</span><span class="hl-1"> </span><span class="hl-3">"John"</span><span class="hl-1"> });</span><br><span class="hl-7">//=&gt; ["Hello there!", "Welcome back, John!"]</span>
+</code></pre>
+<p>You may want to override the default
+<a href="https://github.com/fnando/i18n/blob/main/src/helpers/interpolate.ts"><code>interpolate</code></a>
+function with your own, if for instance you want these dynamic values to be
+React elements:</p>
+<pre><code class="language-jsx"><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">i18n</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">I18n</span><span class="hl-1">({</span><br><span class="hl-1">  </span><span class="hl-2">en:</span><span class="hl-1"> { </span><span class="hl-2">greetings:</span><span class="hl-1"> </span><span class="hl-3">"Hi, %{name}!"</span><span class="hl-1"> },</span><br><span class="hl-1">  </span><span class="hl-3">"pt-BR"</span><span class="hl-2">:</span><span class="hl-1"> { </span><span class="hl-2">greetings:</span><span class="hl-1"> </span><span class="hl-3">"Olá, %{name}!"</span><span class="hl-1"> },</span><br><span class="hl-1">});</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">interpolate</span><span class="hl-1"> = (</span><span class="hl-2">i18n</span><span class="hl-1">, </span><span class="hl-2">message</span><span class="hl-1">, </span><span class="hl-2">options</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br><span class="hl-1">  </span><span class="hl-7">// ...</span><br><span class="hl-1">};</span><br><br><span class="hl-0">return</span><span class="hl-1"> </span><span class="hl-8">&lt;</span><span class="hl-9">Text</span><span class="hl-8">&gt;</span><span class="hl-4">{</span><span class="hl-2">i18n</span><span class="hl-10">.</span><span class="hl-6">t</span><span class="hl-10">(</span><span class="hl-3">"greetings"</span><span class="hl-10">, { </span><span class="hl-2">name:</span><span class="hl-10"> </span><span class="hl-8">&lt;</span><span class="hl-9">BoldText</span><span class="hl-8">&gt;</span><span class="hl-10">John</span><span class="hl-8">&lt;/</span><span class="hl-9">BoldText</span><span class="hl-8">&gt;</span><span class="hl-10"> })</span><span class="hl-4">}</span><span class="hl-8">&lt;/</span><span class="hl-9">Text</span><span class="hl-8">&gt;</span><span class="hl-1">;</span>
+</code></pre>
+
+<a href="#missing-translations" id="missing-translations" style="color: inherit; text-decoration: none;">
+  <h4>Missing translations</h4>
+</a>
+<p>A translation may be missing. In that case, you may set the default value that's
+going to be returned.</p>
+<pre><code class="language-js"><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">t</span><span class="hl-1">(</span><span class="hl-3">"missing.scope"</span><span class="hl-1">, { </span><span class="hl-2">defaultValue:</span><span class="hl-1"> </span><span class="hl-3">"This is a default message"</span><span class="hl-1"> });</span>
+</code></pre>
+<p>Default messages can also have interpolation.</p>
+<pre><code class="language-js"><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">t</span><span class="hl-1">(</span><span class="hl-3">"noun"</span><span class="hl-1">, { </span><span class="hl-2">defaultValue:</span><span class="hl-1"> </span><span class="hl-3">"I'm a {{noun}}"</span><span class="hl-1">, </span><span class="hl-2">noun:</span><span class="hl-1"> </span><span class="hl-3">"Mac"</span><span class="hl-1"> });</span>
+</code></pre>
+<p>Alternatively, you can define a list of scopes that will be searched instead.</p>
+<pre><code class="language-js"><span class="hl-7">// As a scope</span><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">t</span><span class="hl-1">(</span><span class="hl-3">"some.missing.scope"</span><span class="hl-1">, { </span><span class="hl-2">defaults:</span><span class="hl-1"> [{ </span><span class="hl-2">scope:</span><span class="hl-1"> </span><span class="hl-3">"some.existing.scope"</span><span class="hl-1"> }] });</span><br><br><span class="hl-7">// As a simple translation</span><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">t</span><span class="hl-1">(</span><span class="hl-3">"some.missing.scope"</span><span class="hl-1">, { </span><span class="hl-2">defaults:</span><span class="hl-1"> [{ </span><span class="hl-2">message:</span><span class="hl-1"> </span><span class="hl-3">"Some message"</span><span class="hl-1"> }] });</span>
+</code></pre>
+<p>Default values must be provided as an array of objects where the key is the type
+of desired translation, a <code>scope</code> or a <code>message</code>. The returned translation will
+be either the first scope recognized, or the first message defined.</p>
+<p>The translation will fall back to the <code>defaultValue</code> translation if no scope in
+<code>defaults</code> matches and if no <code>message</code> default is found.</p>
+<p>You can enable translation fallback with <code>I18n#enableFallback</code>.</p>
+<pre><code class="language-js"><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-2">enableFallback</span><span class="hl-1"> = </span><span class="hl-4">true</span><span class="hl-1">;</span>
+</code></pre>
+<p>By default missing translations will first be looked for in less specific
+versions of the requested locale and if that fails by taking them from your
+<code>I18n#defaultLocale</code>.</p>
+<pre><code class="language-js"><span class="hl-7">// if i18n.defaultLocale = "en" and translation doesn't exist</span><br><span class="hl-7">// for i18n.locale = "de-DE" this key will be taken from "de" locale scope</span><br><span class="hl-7">// or, if that also doesn't exist, from "en" locale scope</span><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">t</span><span class="hl-1">(</span><span class="hl-3">"some.missing.scope"</span><span class="hl-1">);</span>
+</code></pre>
+<p>Custom fallback rules can also be specified for a specific language. There are
+three different ways of doing it so. In any case, the locale handler must be
+registered using <code>i18n.locales.register()</code>.</p>
+<pre><code class="language-js"><span class="hl-7">// Using an array</span><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-2">locales</span><span class="hl-1">.</span><span class="hl-6">register</span><span class="hl-1">(</span><span class="hl-3">"no"</span><span class="hl-1">, [</span><span class="hl-3">"nb"</span><span class="hl-1">, </span><span class="hl-3">"en"</span><span class="hl-1">]);</span><br><br><span class="hl-7">// Using a string</span><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-2">locales</span><span class="hl-1">.</span><span class="hl-2">no</span><span class="hl-1">.</span><span class="hl-6">register</span><span class="hl-1">(</span><span class="hl-3">"nb"</span><span class="hl-1">);</span><br><br><span class="hl-7">// Using a function.</span><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-2">locales</span><span class="hl-1">.</span><span class="hl-2">no</span><span class="hl-1">.</span><span class="hl-6">register</span><span class="hl-1">((</span><span class="hl-2">locale</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><span class="hl-1"> [</span><span class="hl-3">"nb"</span><span class="hl-1">]);</span>
+</code></pre>
+<p>By default a missing translation will be displayed as
+<code>[missing "name of scope" translation]</code>. You can override this behavior by
+setting <code>i18n.missingBehavior</code> to <code>"guess"</code>.</p>
+<pre><code class="language-js"><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-2">missingBehavior</span><span class="hl-1"> = </span><span class="hl-3">"guess"</span><span class="hl-1">;</span>
+</code></pre>
+<p>The "guess" behavior will take the last section of the scope and apply some
+replace rules; camel case becomes lower case and underscores are replaced with
+space. In practice, it means that a scope like
+<code>questionnaire.whatIsYourFavorite_ChristmasPresent</code> becomes
+<code>what is your favorite Christmas present</code>.</p>
+<p>There's also a strategy called <code>error</code>, which will throw an exception every time
+you fetch a missing translation. This is great for development. It'll even end
+up on your error tracking!</p>
+<pre><code class="language-js"><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-2">missingBehavior</span><span class="hl-1"> = </span><span class="hl-3">"error"</span><span class="hl-1">;</span>
+</code></pre>
+<p>To detect missing translations, you can also set
+<code>i18n.missingTranslationPrefix</code>.</p>
+<pre><code class="language-js"><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-2">missingTranslationPrefix</span><span class="hl-1"> = </span><span class="hl-3">"EE: "</span><span class="hl-1">;</span>
+</code></pre>
+<p>The same <code>questionnaire.whatIsYourFavorite_ChristmasPresent</code> scope would
+converted into <code>EE: what is your favorite Christmas present</code>. This is helpful if
+you want to add a check to your automated tests.</p>
+<p>If you need to specify a missing behavior just for one call, you can provide a
+custom <code>missingBehavior</code> option.</p>
+<pre><code class="language-js"><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">t</span><span class="hl-1">(</span><span class="hl-3">"missing.key"</span><span class="hl-1">, { </span><span class="hl-2">missingBehavior:</span><span class="hl-1"> </span><span class="hl-3">"error"</span><span class="hl-1"> });</span>
+</code></pre>
+<p>You can completely override the missing translation strategy by setting it to a
+function. The following example will return <code>null</code> for every missing
+translation.</p>
+<pre><code class="language-js"><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">missingTranslation</span><span class="hl-1"> = () </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-4">null</span><span class="hl-1">;</span>
+</code></pre>
+<p>Finally, you can also create your own missing translation behavior. The example
+below registers a new behavior that returns an empty string in case a
+translation is missing.</p>
+<pre><code class="language-js"><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-2">missingTranslation</span><span class="hl-1">.</span><span class="hl-6">register</span><span class="hl-1">(</span><span class="hl-3">"empty"</span><span class="hl-1">, (</span><span class="hl-2">i18n</span><span class="hl-1">, </span><span class="hl-2">scope</span><span class="hl-1">, </span><span class="hl-2">options</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-3">""</span><span class="hl-1">);</span>
+</code></pre>
+
+<a href="#pluralization" id="pluralization" style="color: inherit; text-decoration: none;">
+  <h4>Pluralization</h4>
+</a>
+<p>This library has support for pluralization and by default works with English,
+and similar pluralized languages like Portuguese.</p>
+<p>First, you have to define your translations with special keywords defined by the
+pluralization handler. The default keywords are <code>zero</code>, <code>one</code>, and <code>other</code>.</p>
+<pre><code class="language-js"><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">i18n</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">I18n</span><span class="hl-1">({</span><br><span class="hl-1">  </span><span class="hl-2">en:</span><span class="hl-1"> {</span><br><span class="hl-1">    </span><span class="hl-2">inbox:</span><span class="hl-1"> {</span><br><span class="hl-1">      </span><span class="hl-2">zero:</span><span class="hl-1"> </span><span class="hl-3">"You have no messages"</span><span class="hl-1">,</span><br><span class="hl-1">      </span><span class="hl-2">one:</span><span class="hl-1"> </span><span class="hl-3">"You have one message"</span><span class="hl-1">,</span><br><span class="hl-1">      </span><span class="hl-2">other:</span><span class="hl-1"> </span><span class="hl-3">"You have %{count} messages"</span><span class="hl-1">,</span><br><span class="hl-1">    },</span><br><span class="hl-1">  },</span><br><br><span class="hl-1">  </span><span class="hl-3">"pt-BR"</span><span class="hl-2">:</span><span class="hl-1"> {</span><br><span class="hl-1">    </span><span class="hl-2">inbox:</span><span class="hl-1"> {</span><br><span class="hl-1">      </span><span class="hl-2">zero:</span><span class="hl-1"> </span><span class="hl-3">"Você não tem mensagens"</span><span class="hl-1">,</span><br><span class="hl-1">      </span><span class="hl-2">one:</span><span class="hl-1"> </span><span class="hl-3">"Você tem uma mensagem"</span><span class="hl-1">,</span><br><span class="hl-1">      </span><span class="hl-2">other:</span><span class="hl-1"> </span><span class="hl-3">"Você tem %{count} mensagens"</span><span class="hl-1">,</span><br><span class="hl-1">    },</span><br><span class="hl-1">  },</span><br><span class="hl-1">});</span>
+</code></pre>
+<p>To retrieve the pluralized translation you must provide the <code>count</code> option with
+a numeric value.</p>
+<pre><code class="language-js"><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">t</span><span class="hl-1">(</span><span class="hl-3">"inbox"</span><span class="hl-1">, { </span><span class="hl-2">count:</span><span class="hl-1"> </span><span class="hl-11">0</span><span class="hl-1"> }); </span><span class="hl-7">//=&gt; You have no messages</span><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">t</span><span class="hl-1">(</span><span class="hl-3">"inbox"</span><span class="hl-1">, { </span><span class="hl-2">count:</span><span class="hl-1"> </span><span class="hl-11">1</span><span class="hl-1"> }); </span><span class="hl-7">//=&gt; You have one message</span><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">t</span><span class="hl-1">(</span><span class="hl-3">"inbox"</span><span class="hl-1">, { </span><span class="hl-2">count:</span><span class="hl-1"> </span><span class="hl-11">2</span><span class="hl-1"> }); </span><span class="hl-7">//=&gt; You have 2 messages</span>
+</code></pre>
+<p>You may need to define new rules for other languages like Russian. This can be
+done by registering a handler with <code>i18n.pluralization.register()</code>. The
+following example defines a Russian pluralizer.</p>
+<pre><code class="language-js"><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-2">pluralization</span><span class="hl-1">.</span><span class="hl-6">register</span><span class="hl-1">(</span><span class="hl-3">"ru"</span><span class="hl-1">, (</span><span class="hl-2">_i18n</span><span class="hl-1">, </span><span class="hl-2">count</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br><span class="hl-1">  </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">mod10</span><span class="hl-1"> = </span><span class="hl-2">count</span><span class="hl-1"> % </span><span class="hl-11">10</span><span class="hl-1">;</span><br><span class="hl-1">  </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">mod100</span><span class="hl-1"> = </span><span class="hl-2">count</span><span class="hl-1"> % </span><span class="hl-11">100</span><span class="hl-1">;</span><br><span class="hl-1">  </span><span class="hl-4">let</span><span class="hl-1"> </span><span class="hl-2">key</span><span class="hl-1">;</span><br><br><span class="hl-1">  </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">one</span><span class="hl-1"> = </span><span class="hl-2">mod10</span><span class="hl-1"> === </span><span class="hl-11">1</span><span class="hl-1"> &amp;&amp; </span><span class="hl-2">mod100</span><span class="hl-1"> !== </span><span class="hl-11">11</span><span class="hl-1">;</span><br><span class="hl-1">  </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">few</span><span class="hl-1"> = [</span><span class="hl-11">2</span><span class="hl-1">, </span><span class="hl-11">3</span><span class="hl-1">, </span><span class="hl-11">4</span><span class="hl-1">].</span><span class="hl-6">includes</span><span class="hl-1">(</span><span class="hl-2">mod10</span><span class="hl-1">) &amp;&amp; ![</span><span class="hl-11">12</span><span class="hl-1">, </span><span class="hl-11">13</span><span class="hl-1">, </span><span class="hl-11">14</span><span class="hl-1">].</span><span class="hl-6">includes</span><span class="hl-1">(</span><span class="hl-2">mod100</span><span class="hl-1">);</span><br><span class="hl-1">  </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">many</span><span class="hl-1"> =</span><br><span class="hl-1">    </span><span class="hl-2">mod10</span><span class="hl-1"> === </span><span class="hl-11">0</span><span class="hl-1"> ||</span><br><span class="hl-1">    [</span><span class="hl-11">5</span><span class="hl-1">, </span><span class="hl-11">6</span><span class="hl-1">, </span><span class="hl-11">7</span><span class="hl-1">, </span><span class="hl-11">8</span><span class="hl-1">, </span><span class="hl-11">9</span><span class="hl-1">].</span><span class="hl-6">includes</span><span class="hl-1">(</span><span class="hl-2">mod10</span><span class="hl-1">) ||</span><br><span class="hl-1">    [</span><span class="hl-11">11</span><span class="hl-1">, </span><span class="hl-11">12</span><span class="hl-1">, </span><span class="hl-11">13</span><span class="hl-1">, </span><span class="hl-11">14</span><span class="hl-1">].</span><span class="hl-6">includes</span><span class="hl-1">(</span><span class="hl-2">mod100</span><span class="hl-1">);</span><br><br><span class="hl-1">  </span><span class="hl-0">if</span><span class="hl-1"> (</span><span class="hl-2">one</span><span class="hl-1">) {</span><br><span class="hl-1">    </span><span class="hl-2">key</span><span class="hl-1"> = </span><span class="hl-3">"one"</span><span class="hl-1">;</span><br><span class="hl-1">  } </span><span class="hl-0">else</span><span class="hl-1"> </span><span class="hl-0">if</span><span class="hl-1"> (</span><span class="hl-2">few</span><span class="hl-1">) {</span><br><span class="hl-1">    </span><span class="hl-2">key</span><span class="hl-1"> = </span><span class="hl-3">"few"</span><span class="hl-1">;</span><br><span class="hl-1">  } </span><span class="hl-0">else</span><span class="hl-1"> </span><span class="hl-0">if</span><span class="hl-1"> (</span><span class="hl-2">many</span><span class="hl-1">) {</span><br><span class="hl-1">    </span><span class="hl-2">key</span><span class="hl-1"> = </span><span class="hl-3">"many"</span><span class="hl-1">;</span><br><span class="hl-1">  } </span><span class="hl-0">else</span><span class="hl-1"> {</span><br><span class="hl-1">    </span><span class="hl-2">key</span><span class="hl-1"> = </span><span class="hl-3">"other"</span><span class="hl-1">;</span><br><span class="hl-1">  }</span><br><br><span class="hl-1">  </span><span class="hl-0">return</span><span class="hl-1"> [</span><span class="hl-2">key</span><span class="hl-1">];</span><br><span class="hl-1">});</span>
+</code></pre>
+<p>You can find all rules on
+<a href="http://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html">http://www.unicode.org/</a>.</p>
+<p>You can also leverage <a href="https://github.com/eemeli/make-plural/">make-plural</a>,
+rather than writing all your pluralization functions. For this, you must wrap
+make-plural's function by using
+<code>useMakePlural({ pluralizer, includeZero, ordinal })</code>:</p>
+<pre><code class="language-js"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">ru</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">"make-plural"</span><span class="hl-1">;</span><br><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">useMakePlural</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">"i18n-js"</span><span class="hl-1">;</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-2">pluralization</span><span class="hl-1">.</span><span class="hl-6">register</span><span class="hl-1">(</span><span class="hl-3">"ru"</span><span class="hl-1">, </span><span class="hl-6">useMakePlural</span><span class="hl-1">({ </span><span class="hl-2">pluralizer:</span><span class="hl-1"> </span><span class="hl-2">ru</span><span class="hl-1"> }));</span>
+</code></pre>
+
+<a href="#other-options" id="other-options" style="color: inherit; text-decoration: none;">
+  <h4>Other options</h4>
+</a>
+<p>If you're providing the same scope again and again, you can reduce the
+boilerplate by setting the <code>scope</code> option.</p>
+<pre><code class="language-js"><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">options</span><span class="hl-1"> = { </span><span class="hl-2">scope:</span><span class="hl-1"> </span><span class="hl-3">"activerecord.attributes.user"</span><span class="hl-1"> };</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">t</span><span class="hl-1">(</span><span class="hl-3">"name"</span><span class="hl-1">, </span><span class="hl-2">options</span><span class="hl-1">);</span><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">t</span><span class="hl-1">(</span><span class="hl-3">"email"</span><span class="hl-1">, </span><span class="hl-2">options</span><span class="hl-1">);</span><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">t</span><span class="hl-1">(</span><span class="hl-3">"username"</span><span class="hl-1">, </span><span class="hl-2">options</span><span class="hl-1">);</span>
+</code></pre>
+
+<a href="#number-formatting" id="number-formatting" style="color: inherit; text-decoration: none;">
+  <h3>Number Formatting</h3>
+</a>
+<p>Similar to Rails helpers, you can have localized number and currency formatting.</p>
+<pre><code class="language-js"><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">l</span><span class="hl-1">(</span><span class="hl-3">"currency"</span><span class="hl-1">, </span><span class="hl-11">1990.99</span><span class="hl-1">);</span><br><span class="hl-7">// $1,990.99</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">l</span><span class="hl-1">(</span><span class="hl-3">"number"</span><span class="hl-1">, </span><span class="hl-11">1990.99</span><span class="hl-1">);</span><br><span class="hl-7">// 1,990.99</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">l</span><span class="hl-1">(</span><span class="hl-3">"percentage"</span><span class="hl-1">, </span><span class="hl-11">123.45</span><span class="hl-1">);</span><br><span class="hl-7">// 123.450%</span>
+</code></pre>
+<p>To have more control over number formatting, you can use the
+<code>I18n#numberToHuman</code>, <code>I18n#numberToPercentage</code>, <code>I18n#numberToCurrency</code>,
+<code>I18n#numberToHumanSize</code>, <code>I18n#numberToDelimited</code> and <code>I18n#numberToRounded</code>
+functions.</p>
+
+<a href="#i18nnumbertocurrency" id="i18nnumbertocurrency" style="color: inherit; text-decoration: none;">
+  <h4><code>I18n#numberToCurrency</code></h4>
+</a>
+<p>Formats a <code>number</code> into a currency string (e.g., $13.65). You can customize the
+format in the using an <code>options</code> object.</p>
+<p>The currency unit and number formatting of the current locale will be used
+unless otherwise specified in the provided options. No currency conversion is
+performed. If the user is given a way to change their locale, they will also be
+able to change the relative value of the currency displayed with this helper.</p>
+
+<a href="#options" id="options" style="color: inherit; text-decoration: none;">
+  <h5>Options</h5>
+</a>
+<ul>
+<li>
+<code>precision</code> - Sets the level of precision (defaults to 2).</li>
+<li>
+<code>roundMode</code> - Determine how rounding is performed (defaults to <code>default</code>.)</li>
+<li>
+<code>unit</code> - Sets the denomination of the currency (defaults to "$").</li>
+<li>
+<code>separator</code> - Sets the separator between the units (defaults to ".").</li>
+<li>
+<code>delimiter</code> - Sets the thousands delimiter (defaults to ",").</li>
+<li>
+<code>format</code> - Sets the format for non-negative numbers (defaults to "%u%n").
+Fields are <code>%u</code> for the currency, and <code>%n</code> for the number.</li>
+<li>
+<code>negativeFormat</code> - Sets the format for negative numbers (defaults to
+prepending a hyphen to the formatted number given by <code>format</code>). Accepts the
+same fields than <code>format</code>, except <code>%n</code> is here the absolute value of the
+number.</li>
+<li>
+<code>stripInsignificantZeros</code> - If <code>true</code> removes insignificant zeros after the
+decimal separator (defaults to <code>false</code>).</li>
+<li>
+<code>raise</code> - If <code>true</code>, raises exception for non-numeric values like NaN and
+Infinite values.</li>
+</ul>
+
+<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
+  <h5>Examples</h5>
+</a>
+<pre><code class="language-js"><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToCurrency</span><span class="hl-1">(</span><span class="hl-11">1234567890.5</span><span class="hl-1">);</span><br><span class="hl-7">// =&gt; "$1,234,567,890.50"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToCurrency</span><span class="hl-1">(</span><span class="hl-11">1234567890.506</span><span class="hl-1">);</span><br><span class="hl-7">// =&gt; "$1,234,567,890.51"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToCurrency</span><span class="hl-1">(</span><span class="hl-11">1234567890.506</span><span class="hl-1">, { </span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">3</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "$1,234,567,890.506"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToCurrency</span><span class="hl-1">(</span><span class="hl-3">"123a456"</span><span class="hl-1">);</span><br><span class="hl-7">// =&gt; "$123a456"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToCurrency</span><span class="hl-1">(</span><span class="hl-3">"123a456"</span><span class="hl-1">, { </span><span class="hl-2">raise:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; raises exception ("123a456" is not a valid numeric value)</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToCurrency</span><span class="hl-1">(-</span><span class="hl-11">0.456789</span><span class="hl-1">, { </span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">0</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "$0"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToCurrency</span><span class="hl-1">(-</span><span class="hl-11">1234567890.5</span><span class="hl-1">, { </span><span class="hl-2">negativeFormat:</span><span class="hl-1"> </span><span class="hl-3">"(%u%n)"</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "($1,234,567,890.50)"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToCurrency</span><span class="hl-1">(</span><span class="hl-11">1234567890.5</span><span class="hl-1">, {</span><br><span class="hl-1">  </span><span class="hl-2">unit:</span><span class="hl-1"> </span><span class="hl-3">"&amp;pound;"</span><span class="hl-1">,</span><br><span class="hl-1">  </span><span class="hl-2">separator:</span><span class="hl-1"> </span><span class="hl-3">","</span><span class="hl-1">,</span><br><span class="hl-1">  </span><span class="hl-2">delimiter:</span><span class="hl-1"> </span><span class="hl-3">""</span><span class="hl-1">,</span><br><span class="hl-1">});</span><br><span class="hl-7">// =&gt; "&amp;pound;1234567890,50"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToCurrency</span><span class="hl-1">(</span><span class="hl-11">1234567890.5</span><span class="hl-1">, {</span><br><span class="hl-1">  </span><span class="hl-2">unit:</span><span class="hl-1"> </span><span class="hl-3">"&amp;pound;"</span><span class="hl-1">,</span><br><span class="hl-1">  </span><span class="hl-2">separator:</span><span class="hl-1"> </span><span class="hl-3">","</span><span class="hl-1">,</span><br><span class="hl-1">  </span><span class="hl-2">delimiter:</span><span class="hl-1"> </span><span class="hl-3">""</span><span class="hl-1">,</span><br><span class="hl-1">  </span><span class="hl-2">format:</span><span class="hl-1"> </span><span class="hl-3">"%n %u"</span><span class="hl-1">,</span><br><span class="hl-1">});</span><br><span class="hl-7">// =&gt; "1234567890,50 &amp;pound;"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToCurrency</span><span class="hl-1">(</span><span class="hl-11">1234567890.5</span><span class="hl-1">, { </span><span class="hl-2">stripInsignificantZeros:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "$1,234,567,890.5"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToCurrency</span><span class="hl-1">(</span><span class="hl-11">1234567890.5</span><span class="hl-1">, { </span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">0</span><span class="hl-1">, </span><span class="hl-2">roundMode:</span><span class="hl-1"> </span><span class="hl-3">"up"</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "$1,234,567,891"</span>
+</code></pre>
+
+<a href="#i18nnumbertopercentage" id="i18nnumbertopercentage" style="color: inherit; text-decoration: none;">
+  <h4><code>I18n#numberToPercentage</code></h4>
+</a>
+<p>Formats a <code>number</code> as a percentage string (e.g., 65%). You can customize the
+format in the <code>options</code> hash.</p>
+
+<a href="#options-1" id="options-1" style="color: inherit; text-decoration: none;">
+  <h5>Options</h5>
+</a>
+<ul>
+<li>
+<code>precision</code> - Sets the level of precision (defaults to 3).</li>
+<li>
+<code>roundMode</code> - Determine how rounding is performed (defaults to <code>default</code>.)</li>
+<li>
+<code>separator</code> - Sets the separator between the units (defaults to ".").</li>
+<li>
+<code>delimiter</code> - Sets the thousands delimiter (defaults to "").</li>
+<li>
+<code>format</code> - Sets the format for non-negative numbers (defaults to "%n%"). The
+number field is represented by <code>%n</code>.</li>
+<li>
+<code>negativeFormat</code> - Sets the format for negative numbers (defaults to
+prepending a hyphen to the formatted number given by <code>format</code>). Accepts the
+same fields than <code>format</code>, except <code>%n</code> is here the absolute value of the
+number.</li>
+<li>
+<code>stripInsignificantZeros</code> - If <code>true</code> removes insignificant zeros after the
+decimal separator (defaults to <code>false</code>).</li>
+</ul>
+
+<a href="#examples-1" id="examples-1" style="color: inherit; text-decoration: none;">
+  <h5>Examples</h5>
+</a>
+<pre><code class="language-js"><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToPercentage</span><span class="hl-1">(</span><span class="hl-11">100</span><span class="hl-1">);</span><br><span class="hl-7">// =&gt; "100.000%"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToPercentage</span><span class="hl-1">(</span><span class="hl-3">"98"</span><span class="hl-1">);</span><br><span class="hl-7">// =&gt; "98.000%"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToPercentage</span><span class="hl-1">(</span><span class="hl-11">100</span><span class="hl-1">, { </span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">0</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "100%"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToPercentage</span><span class="hl-1">(</span><span class="hl-11">1000</span><span class="hl-1">, { </span><span class="hl-2">delimiter:</span><span class="hl-1"> </span><span class="hl-3">"."</span><span class="hl-1">, </span><span class="hl-2">separator:</span><span class="hl-1"> </span><span class="hl-3">","</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "1.000,000%"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToPercentage</span><span class="hl-1">(</span><span class="hl-11">302.24398923423</span><span class="hl-1">, { </span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">5</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "302.24399%"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToPercentage</span><span class="hl-1">(</span><span class="hl-11">1000</span><span class="hl-1">, { </span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-4">null</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "1000%"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToPercentage</span><span class="hl-1">(</span><span class="hl-3">"98a"</span><span class="hl-1">);</span><br><span class="hl-7">// =&gt; "98a%"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToPercentage</span><span class="hl-1">(</span><span class="hl-11">100</span><span class="hl-1">, { </span><span class="hl-2">format:</span><span class="hl-1"> </span><span class="hl-3">"%n  %"</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "100.000  %"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToPercentage</span><span class="hl-1">(</span><span class="hl-11">302.24398923423</span><span class="hl-1">, { </span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">5</span><span class="hl-1">, </span><span class="hl-2">roundMode:</span><span class="hl-1"> </span><span class="hl-3">"down"</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "302.24398%"</span>
+</code></pre>
+
+<a href="#i18nnumbertodelimited" id="i18nnumbertodelimited" style="color: inherit; text-decoration: none;">
+  <h4><code>I18n#numberToDelimited</code></h4>
+</a>
+<p>Formats a <code>number</code> with grouped thousands using <code>delimiter</code> (e.g., 12,324). You
+can customize the format in the <code>options</code> object.</p>
+
+<a href="#options-2" id="options-2" style="color: inherit; text-decoration: none;">
+  <h5>Options</h5>
+</a>
+<ul>
+<li>
+<code>delimiter</code> - Sets the thousands delimiter (defaults to ",").</li>
+<li>
+<code>separator</code> - Sets the separator between the fractional and integer digits
+(defaults to ".").</li>
+<li>
+<code>delimiterPattern</code> - Sets a custom regular expression used for deriving the
+placement of delimiter. Helpful when using currency formats like INR. The
+regular expression must be global (i.e. it has the <code>g</code> flag).</li>
+</ul>
+
+<a href="#examples-2" id="examples-2" style="color: inherit; text-decoration: none;">
+  <h5>Examples</h5>
+</a>
+<pre><code class="language-js"><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToDelimited</span><span class="hl-1">(</span><span class="hl-11">12345678</span><span class="hl-1">);</span><br><span class="hl-7">// =&gt; "12,345,678"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToDelimited</span><span class="hl-1">(</span><span class="hl-3">"123456"</span><span class="hl-1">);</span><br><span class="hl-7">// =&gt; "123,456"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToDelimited</span><span class="hl-1">(</span><span class="hl-11">12345678.05</span><span class="hl-1">);</span><br><span class="hl-7">// =&gt; "12,345,678.05"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToDelimited</span><span class="hl-1">(</span><span class="hl-11">12345678</span><span class="hl-1">, { </span><span class="hl-2">delimiter:</span><span class="hl-1"> </span><span class="hl-3">"."</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "12.345.678"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToDelimited</span><span class="hl-1">(</span><span class="hl-11">12345678</span><span class="hl-1">, { </span><span class="hl-2">delimiter:</span><span class="hl-1"> </span><span class="hl-3">","</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "12,345,678"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToDelimited</span><span class="hl-1">(</span><span class="hl-11">12345678.05</span><span class="hl-1">, { </span><span class="hl-2">separator:</span><span class="hl-1"> </span><span class="hl-3">" "</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "12,345,678 05"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToDelimited</span><span class="hl-1">(</span><span class="hl-3">"112a"</span><span class="hl-1">);</span><br><span class="hl-7">// =&gt; "112a"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToDelimited</span><span class="hl-1">(</span><span class="hl-11">98765432.98</span><span class="hl-1">, { </span><span class="hl-2">delimiter:</span><span class="hl-1"> </span><span class="hl-3">" "</span><span class="hl-1">, </span><span class="hl-2">separator:</span><span class="hl-1"> </span><span class="hl-3">","</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "98 765 432,98"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToDelimited</span><span class="hl-1">(</span><span class="hl-3">"123456.78"</span><span class="hl-1">, {</span><br><span class="hl-1">  </span><span class="hl-2">delimiterPattern:</span><span class="hl-1"> </span><span class="hl-12">/</span><span class="hl-13">(</span><span class="hl-12">\d</span><span class="hl-14">+?</span><span class="hl-13">)(?=(</span><span class="hl-12">\d\d</span><span class="hl-13">)</span><span class="hl-14">+</span><span class="hl-13">(</span><span class="hl-12">\d</span><span class="hl-13">)(?!</span><span class="hl-12">\d</span><span class="hl-13">))</span><span class="hl-12">/</span><span class="hl-4">g</span><span class="hl-1">,</span><br><span class="hl-1">});</span><br><span class="hl-7">// =&gt; "1,23,456.78"</span>
+</code></pre>
+
+<a href="#i18nnumbertorounded" id="i18nnumbertorounded" style="color: inherit; text-decoration: none;">
+  <h4><code>I18n#numberToRounded</code></h4>
+</a>
+<p>Formats a <code>number</code> with the specified level of <code>precision</code> (e.g., 112.32 has a
+precision of 2 if <code>significant</code> is <code>false</code>, and 5 if <code>significant</code> is <code>true</code>).
+You can customize the format in the <code>options</code> object.</p>
+
+<a href="#options-3" id="options-3" style="color: inherit; text-decoration: none;">
+  <h5>Options</h5>
+</a>
+<ul>
+<li>
+<code>locale</code> - Sets the locale to be used for formatting (defaults to current
+locale).</li>
+<li>
+<code>precision</code> - Sets the precision of the number (defaults to 3). Keeps the
+number's precision if <code>null</code>.</li>
+<li>
+<code>RoundMode</code> - Determine how rounding is performed (defaults to :default).</li>
+<li>
+<code>significant</code> - If <code>true</code>, precision will be the number of significant_digits.
+If <code>false</code>, the number of fractional digits (defaults to <code>false</code>).</li>
+<li>
+<code>separator</code> - Sets the separator between the fractional and integer digits
+(defaults to ".").</li>
+<li>
+<code>delimiter</code> - Sets the thousands delimiter (defaults to "").</li>
+<li>
+<code>stripInsignificantZeros</code> - If <code>true</code> removes insignificant zeros after the
+decimal separator (defaults to <code>false</code>).</li>
+</ul>
+
+<a href="#examples-3" id="examples-3" style="color: inherit; text-decoration: none;">
+  <h5>Examples</h5>
+</a>
+<pre><code class="language-js"><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToRounded</span><span class="hl-1">(</span><span class="hl-11">111.2345</span><span class="hl-1">);</span><br><span class="hl-7">// =&gt; "111.235"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToRounded</span><span class="hl-1">(</span><span class="hl-11">111.2345</span><span class="hl-1">, { </span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">2</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "111.23"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToRounded</span><span class="hl-1">(</span><span class="hl-11">13</span><span class="hl-1">, { </span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">5</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "13.00000"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToRounded</span><span class="hl-1">(</span><span class="hl-11">389.32314</span><span class="hl-1">, { </span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">0</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "389"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToRounded</span><span class="hl-1">(</span><span class="hl-11">111.2345</span><span class="hl-1">, { </span><span class="hl-2">significant:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "111"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToRounded</span><span class="hl-1">(</span><span class="hl-11">111.2345</span><span class="hl-1">, { </span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">1</span><span class="hl-1">, </span><span class="hl-2">significant:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "100"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToRounded</span><span class="hl-1">(</span><span class="hl-11">13</span><span class="hl-1">, { </span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">5</span><span class="hl-1">, </span><span class="hl-2">significant:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "13.000"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToRounded</span><span class="hl-1">(</span><span class="hl-11">13</span><span class="hl-1">, { </span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-4">null</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "13"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToRounded</span><span class="hl-1">(</span><span class="hl-11">389.32314</span><span class="hl-1">, { </span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">0</span><span class="hl-1">, </span><span class="hl-2">roundMode:</span><span class="hl-1"> </span><span class="hl-3">"up"</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "390"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToRounded</span><span class="hl-1">(</span><span class="hl-11">13</span><span class="hl-1">, {</span><br><span class="hl-1">  </span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">5</span><span class="hl-1">,</span><br><span class="hl-1">  </span><span class="hl-2">significant:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br><span class="hl-1">  </span><span class="hl-2">stripInsignificantZeros:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1">,</span><br><span class="hl-1">});</span><br><span class="hl-7">// =&gt; "13"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToRounded</span><span class="hl-1">(</span><span class="hl-11">389.32314</span><span class="hl-1">, { </span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">4</span><span class="hl-1">, </span><span class="hl-2">significant:</span><span class="hl-1"> </span><span class="hl-4">true</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "389.3"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToRounded</span><span class="hl-1">(</span><span class="hl-11">1111.2345</span><span class="hl-1">, {</span><br><span class="hl-1">  </span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">2</span><span class="hl-1">,</span><br><span class="hl-1">  </span><span class="hl-2">separator:</span><span class="hl-1"> </span><span class="hl-3">","</span><span class="hl-1">,</span><br><span class="hl-1">  </span><span class="hl-2">delimiter:</span><span class="hl-1"> </span><span class="hl-3">"."</span><span class="hl-1">,</span><br><span class="hl-1">});</span><br><span class="hl-7">// =&gt; "1.111,23"</span>
+</code></pre>
+
+<a href="#i18nnumbertohumansize" id="i18nnumbertohumansize" style="color: inherit; text-decoration: none;">
+  <h4><code>I18n#numberToHumanSize</code></h4>
+</a>
+<p>Formats the bytes in <code>number</code> into a more understandable representation (e.g.,
+giving it 1500 yields 1.46 KB). This method is useful for reporting file sizes
+to users. You can customize the format in the <code>options</code> object.</p>
+<p>See <code>I18n#numberToHuman</code> if you want to pretty-print a generic number.</p>
+
+<a href="#options-4" id="options-4" style="color: inherit; text-decoration: none;">
+  <h5>Options</h5>
+</a>
+<ul>
+<li>
+<code>precision</code> - Sets the precision of the number (defaults to 3).</li>
+<li>
+<code>roundMode</code> - Determine how rounding is performed (defaults to <code>default</code>)</li>
+<li>
+<code>significant</code> - If <code>true</code>, precision will be the number of significant_digits.
+If <code>false</code>, the number of fractional digits (defaults to <code>true</code>)</li>
+<li>
+<code>separator</code> - Sets the separator between the fractional and integer digits
+(defaults to ".").</li>
+<li>
+<code>delimiter</code> - Sets the thousands delimiter (defaults to "").</li>
+<li>
+<code>stripInsignificantZeros</code> - If <code>true</code> removes insignificant zeros after the
+decimal separator (defaults to <code>true</code>)</li>
+</ul>
+
+<a href="#examples-4" id="examples-4" style="color: inherit; text-decoration: none;">
+  <h5>Examples</h5>
+</a>
+<pre><code class="language-js"><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHumanSize</span><span class="hl-1">(</span><span class="hl-11">123</span><span class="hl-1">)</span><br><span class="hl-7">// =&gt; "123 Bytes"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHumanSize</span><span class="hl-1">(</span><span class="hl-11">1234</span><span class="hl-1">)</span><br><span class="hl-7">// =&gt; "1.21 KB"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHumanSize</span><span class="hl-1">(</span><span class="hl-11">12345</span><span class="hl-1">)</span><br><span class="hl-7">// =&gt; "12.1 KB"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHumanSize</span><span class="hl-1">(</span><span class="hl-11">1234567</span><span class="hl-1">)</span><br><span class="hl-7">// =&gt; "1.18 MB"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHumanSize</span><span class="hl-1">(</span><span class="hl-11">1234567890</span><span class="hl-1">)</span><br><span class="hl-7">// =&gt; "1.15 GB"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHumanSize</span><span class="hl-1">(</span><span class="hl-11">1234567890123</span><span class="hl-1">)</span><br><span class="hl-7">// =&gt; "1.12 TB"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHumanSize</span><span class="hl-1">(</span><span class="hl-11">1234567890123456</span><span class="hl-1">)</span><br><span class="hl-7">// =&gt; "1.1 PB"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHumanSize</span><span class="hl-1">(</span><span class="hl-11">1234567890123456789</span><span class="hl-1">)</span><br><span class="hl-7">// =&gt; "1.07 EB"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHumanSize</span><span class="hl-1">(</span><span class="hl-11">1234567</span><span class="hl-1">, {</span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">2</span><span class="hl-1">})</span><br><span class="hl-7">// =&gt; "1.2 MB"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHumanSize</span><span class="hl-1">(</span><span class="hl-11">483989</span><span class="hl-1">, </span><span class="hl-2">precision</span><span class="hl-1">: </span><span class="hl-11">2</span><span class="hl-1">)</span><br><span class="hl-7">// =&gt; "470 KB"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHumanSize</span><span class="hl-1">(</span><span class="hl-11">483989</span><span class="hl-1">, {</span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">2</span><span class="hl-1">, </span><span class="hl-2">roundMode:</span><span class="hl-1"> </span><span class="hl-3">"up"</span><span class="hl-1">})</span><br><span class="hl-7">// =&gt; "480 KB"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHumanSize</span><span class="hl-1">(</span><span class="hl-11">1234567</span><span class="hl-1">, {</span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">2</span><span class="hl-1">, </span><span class="hl-2">separator:</span><span class="hl-1"> </span><span class="hl-3">","</span><span class="hl-1">})</span><br><span class="hl-7">// =&gt; "1,2 MB"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHumanSize</span><span class="hl-1">(</span><span class="hl-11">1234567890123</span><span class="hl-1">, {</span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">5</span><span class="hl-1">})</span><br><span class="hl-7">// =&gt; "1.1228 TB"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHumanSize</span><span class="hl-1">(</span><span class="hl-11">524288000</span><span class="hl-1">, {</span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">5</span><span class="hl-1">})</span><br><span class="hl-7">// =&gt; "500 MB"</span>
+</code></pre>
+
+<a href="#i18nnumbertohuman" id="i18nnumbertohuman" style="color: inherit; text-decoration: none;">
+  <h4><code>I18n#numberToHuman</code></h4>
+</a>
+<p>Pretty prints (formats and approximates) a number in a way it is more readable
+by humans (e.g.: 1200000000 becomes "1.2 Billion"). This is useful for numbers
+that can get very large (and too hard to read).</p>
+<p>See <code>I18n#numberToHumanSize</code> if you want to print a file size.</p>
+<p>You can also define your own unit-quantifier names if you want to use other
+decimal units (e.g.: 1500 becomes "1.5 kilometers", 0.150 becomes "150
+milliliters", etc). You may define a wide range of unit quantifiers, even
+fractional ones (centi, deci, mili, etc).</p>
+
+<a href="#options-5" id="options-5" style="color: inherit; text-decoration: none;">
+  <h5>Options</h5>
+</a>
+<ul>
+<li>
+<code>precision</code> - Sets the precision of the number (defaults to 3).</li>
+<li>
+<code>roundMode</code> - Determine how rounding is performed (defaults to <code>default</code>).</li>
+<li>
+<code>significant</code> - If <code>true</code>, precision will be the number of significant_digits.
+If <code>false</code>, the number of fractional digits (defaults to <code>true</code>)</li>
+<li>
+<code>separator</code> - Sets the separator between the fractional and integer digits
+(defaults to ".").</li>
+<li>
+<code>delimiter</code> - Sets the thousands delimiter (defaults to "").</li>
+<li>
+<code>stripInsignificantZeros</code> - If <code>true</code> removes insignificant zeros after the
+decimal separator (defaults to <code>true</code>)</li>
+<li>
+<code>units</code> - A Hash of unit quantifier names. Or a string containing an i18n
+scope where to find this hash. It might have the following keys:<ul>
+<li>
+<em>integers</em>: <code>unit</code>, <code>ten</code>, <code>hundred</code>, <code>thousand</code>, <code>million</code>, <code>billion</code>,
+<code>trillion</code>, <code>quadrillion</code>
+</li>
+<li>
+<em>fractionals</em>: <code>deci</code>, <code>centi</code>, <code>mili</code>, <code>micro</code>, <code>nano</code>, <code>pico</code>, <code>femto</code>
+</li>
+</ul>
+</li>
+<li>
+<code>format</code> - Sets the format of the output string (defaults to "%n %u"). The
+field types are:<ul>
+<li>%u - The quantifier (ex.: 'thousand')</li>
+<li>%n - The number</li>
+</ul>
+</li>
+</ul>
+
+<a href="#examples-5" id="examples-5" style="color: inherit; text-decoration: none;">
+  <h5>Examples</h5>
+</a>
+<pre><code class="language-js"><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHuman</span><span class="hl-1">(</span><span class="hl-11">123</span><span class="hl-1">);</span><br><span class="hl-7">// =&gt; "123"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHuman</span><span class="hl-1">(</span><span class="hl-11">1234</span><span class="hl-1">);</span><br><span class="hl-7">// =&gt; "1.23 Thousand"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHuman</span><span class="hl-1">(</span><span class="hl-11">12345</span><span class="hl-1">);</span><br><span class="hl-7">// =&gt; "12.3 Thousand"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHuman</span><span class="hl-1">(</span><span class="hl-11">1234567</span><span class="hl-1">);</span><br><span class="hl-7">// =&gt; "1.23 Million"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHuman</span><span class="hl-1">(</span><span class="hl-11">1234567890</span><span class="hl-1">);</span><br><span class="hl-7">// =&gt; "1.23 Billion"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHuman</span><span class="hl-1">(</span><span class="hl-11">1234567890123</span><span class="hl-1">);</span><br><span class="hl-7">// =&gt; "1.23 Trillion"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHuman</span><span class="hl-1">(</span><span class="hl-11">1234567890123456</span><span class="hl-1">);</span><br><span class="hl-7">// =&gt; "1.23 Quadrillion"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHuman</span><span class="hl-1">(</span><span class="hl-11">1234567890123456789</span><span class="hl-1">);</span><br><span class="hl-7">// =&gt; "1230 Quadrillion"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHuman</span><span class="hl-1">(</span><span class="hl-11">489939</span><span class="hl-1">, { </span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">2</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "490 Thousand"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHuman</span><span class="hl-1">(</span><span class="hl-11">489939</span><span class="hl-1">, { </span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">4</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "489.9 Thousand"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHuman</span><span class="hl-1">(</span><span class="hl-11">489939</span><span class="hl-1">, { </span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">2</span><span class="hl-1">, </span><span class="hl-2">roundMode:</span><span class="hl-1"> </span><span class="hl-3">"down"</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "480 Thousand"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHuman</span><span class="hl-1">(</span><span class="hl-11">1234567</span><span class="hl-1">, { </span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">4</span><span class="hl-1">, </span><span class="hl-2">significant:</span><span class="hl-1"> </span><span class="hl-4">false</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "1.2346 Million"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHuman</span><span class="hl-1">(</span><span class="hl-11">1234567</span><span class="hl-1">, {</span><br><span class="hl-1">  </span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">1</span><span class="hl-1">,</span><br><span class="hl-1">  </span><span class="hl-2">separator:</span><span class="hl-1"> </span><span class="hl-3">","</span><span class="hl-1">,</span><br><span class="hl-1">  </span><span class="hl-2">significant:</span><span class="hl-1"> </span><span class="hl-4">false</span><span class="hl-1">,</span><br><span class="hl-1">});</span><br><span class="hl-7">// =&gt; "1,2 Million"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHuman</span><span class="hl-1">(</span><span class="hl-11">500000000</span><span class="hl-1">, { </span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">5</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "500 Million"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHuman</span><span class="hl-1">(</span><span class="hl-11">12345012345</span><span class="hl-1">, { </span><span class="hl-2">significant:</span><span class="hl-1"> </span><span class="hl-4">false</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "12.345 Billion"</span>
+</code></pre>
+<p>Non-significant zeros after the decimal separator are stripped out by default
+(set <code>stripInsignificantZeros</code> to <code>false</code> to change that):</p>
+<pre><code class="language-js"><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHuman</span><span class="hl-1">(</span><span class="hl-11">12.00001</span><span class="hl-1">);</span><br><span class="hl-7">// =&gt; "12"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHuman</span><span class="hl-1">(</span><span class="hl-11">12.00001</span><span class="hl-1">, { </span><span class="hl-2">stripInsignificantZeros:</span><span class="hl-1"> </span><span class="hl-4">false</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "12.0"</span>
+</code></pre>
+<p>You can also use your own custom unit quantifiers:</p>
+<pre><code class="language-js"><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHuman</span><span class="hl-1">(</span><span class="hl-11">500000</span><span class="hl-1">, </span><span class="hl-2">units</span><span class="hl-1">: { </span><span class="hl-2">unit:</span><span class="hl-1"> </span><span class="hl-3">"ml"</span><span class="hl-1">, </span><span class="hl-2">thousand:</span><span class="hl-1"> </span><span class="hl-3">"lt"</span><span class="hl-1"> })</span><br><span class="hl-7">// =&gt; "500 lt"</span>
+</code></pre>
+<p>If in your I18n locale you have:</p>
+<pre><code class="language-yaml"><span class="hl-1">---</span><br><span class="hl-15">en</span><span class="hl-1">:</span><br><span class="hl-1">  </span><span class="hl-15">distance</span><span class="hl-1">:</span><br><span class="hl-1">    </span><span class="hl-15">centi</span><span class="hl-1">:</span><br><span class="hl-1">      </span><span class="hl-15">one</span><span class="hl-1">: </span><span class="hl-3">"centimeter"</span><br><span class="hl-1">      </span><span class="hl-15">other</span><span class="hl-1">: </span><span class="hl-3">"centimeters"</span><br><span class="hl-1">    </span><span class="hl-15">unit</span><span class="hl-1">:</span><br><span class="hl-1">      </span><span class="hl-15">one</span><span class="hl-1">: </span><span class="hl-3">"meter"</span><br><span class="hl-1">      </span><span class="hl-15">other</span><span class="hl-1">: </span><span class="hl-3">"meters"</span><br><span class="hl-1">    </span><span class="hl-15">thousand</span><span class="hl-1">:</span><br><span class="hl-1">      </span><span class="hl-15">one</span><span class="hl-1">: </span><span class="hl-3">"kilometer"</span><br><span class="hl-1">      </span><span class="hl-15">other</span><span class="hl-1">: </span><span class="hl-3">"kilometers"</span><br><span class="hl-1">    </span><span class="hl-15">billion</span><span class="hl-1">: </span><span class="hl-3">"gazillion-distance"</span>
+</code></pre>
+<p>Then you could do:</p>
+<pre><code class="language-js"><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHuman</span><span class="hl-1">(</span><span class="hl-11">543934</span><span class="hl-1">, { </span><span class="hl-2">units:</span><span class="hl-1"> </span><span class="hl-3">"distance"</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "544 kilometers"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHuman</span><span class="hl-1">(</span><span class="hl-11">54393498</span><span class="hl-1">, { </span><span class="hl-2">units:</span><span class="hl-1"> </span><span class="hl-3">"distance"</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "54400 kilometers"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHuman</span><span class="hl-1">(</span><span class="hl-11">54393498000</span><span class="hl-1">, { </span><span class="hl-2">units:</span><span class="hl-1"> </span><span class="hl-3">"distance"</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "54.4 gazillion-distance"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHuman</span><span class="hl-1">(</span><span class="hl-11">343</span><span class="hl-1">, { </span><span class="hl-2">units:</span><span class="hl-1"> </span><span class="hl-3">"distance"</span><span class="hl-1">, </span><span class="hl-2">precision:</span><span class="hl-1"> </span><span class="hl-11">1</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "300 meters"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHuman</span><span class="hl-1">(</span><span class="hl-11">1</span><span class="hl-1">, { </span><span class="hl-2">units:</span><span class="hl-1"> </span><span class="hl-3">"distance"</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "1 meter"</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">numberToHuman</span><span class="hl-1">(</span><span class="hl-11">0.34</span><span class="hl-1">, { </span><span class="hl-2">units:</span><span class="hl-1"> </span><span class="hl-3">"distance"</span><span class="hl-1"> });</span><br><span class="hl-7">// =&gt; "34 centimeters"</span>
+</code></pre>
+
+<a href="#date-formatting" id="date-formatting" style="color: inherit; text-decoration: none;">
+  <h3>Date Formatting</h3>
+</a>
+<p>The <code>I18n#localize</code> (or its alias <code>I18n#l</code>) can accept a string, epoch time
+integer or a <code>Date</code> object. You can see below the accepted formats:</p>
+<pre><code class="language-js"><span class="hl-7">// yyyy-mm-dd</span><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">l</span><span class="hl-1">(</span><span class="hl-3">"date.formats.short"</span><span class="hl-1">, </span><span class="hl-3">"2009-09-18"</span><span class="hl-1">);</span><br><br><span class="hl-7">// yyyy-mm-dd hh:mm:ss</span><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">l</span><span class="hl-1">(</span><span class="hl-3">"time.formats.short"</span><span class="hl-1">, </span><span class="hl-3">"2009-09-18 23:12:43"</span><span class="hl-1">);</span><br><br><span class="hl-7">// JSON format with local Timezone (part of ISO-8601)</span><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">l</span><span class="hl-1">(</span><span class="hl-3">"time.formats.short"</span><span class="hl-1">, </span><span class="hl-3">"2009-11-09T18:10:34"</span><span class="hl-1">);</span><br><br><span class="hl-7">// JSON format in UTC (part of ISO-8601)</span><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">l</span><span class="hl-1">(</span><span class="hl-3">"time.formats.short"</span><span class="hl-1">, </span><span class="hl-3">"2009-11-09T18:10:34Z"</span><span class="hl-1">);</span><br><br><span class="hl-7">// Epoch time</span><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">l</span><span class="hl-1">(</span><span class="hl-3">"date.formats.short"</span><span class="hl-1">, </span><span class="hl-11">1251862029000</span><span class="hl-1">);</span><br><br><span class="hl-7">// mm/dd/yyyy</span><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">l</span><span class="hl-1">(</span><span class="hl-3">"date.formats.short"</span><span class="hl-1">, </span><span class="hl-3">"09/18/2009"</span><span class="hl-1">);</span><br><br><span class="hl-7">// Date object</span><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">l</span><span class="hl-1">(</span><span class="hl-3">"date.formats.short"</span><span class="hl-1">, </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">Date</span><span class="hl-1">());</span>
+</code></pre>
+<p>You can also add placeholders to the date format:</p>
+<pre><code class="language-js"><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">i18n</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">I18n</span><span class="hl-1">({</span><br><span class="hl-1">  </span><span class="hl-2">date:</span><span class="hl-1"> {</span><br><span class="hl-1">    </span><span class="hl-2">formats:</span><span class="hl-1"> {</span><br><span class="hl-1">      </span><span class="hl-2">ordinalDay:</span><span class="hl-1"> </span><span class="hl-3">"%B %{day}"</span><span class="hl-1">,</span><br><span class="hl-1">    },</span><br><span class="hl-1">  },</span><br><span class="hl-1">});</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">l</span><span class="hl-1">(</span><span class="hl-3">"date.formats.ordinalDay"</span><span class="hl-1">, </span><span class="hl-3">"2009-09-18"</span><span class="hl-1">, { </span><span class="hl-2">day:</span><span class="hl-1"> </span><span class="hl-3">"18th"</span><span class="hl-1"> }); </span><span class="hl-7">// Sep 18th</span>
+</code></pre>
+<p>If you prefer, you can use the <code>I18n#toTime</code> and <code>I18n#strftime</code> functions
+directly to format dates.</p>
+<pre><code class="language-js"><span class="hl-4">var</span><span class="hl-1"> </span><span class="hl-2">date</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">Date</span><span class="hl-1">();</span><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">toTime</span><span class="hl-1">(</span><span class="hl-3">"date.formats.short"</span><span class="hl-1">, </span><span class="hl-3">"2009-09-18"</span><span class="hl-1">);</span><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">toTime</span><span class="hl-1">(</span><span class="hl-3">"date.formats.short"</span><span class="hl-1">, </span><span class="hl-2">date</span><span class="hl-1">);</span><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">strftime</span><span class="hl-1">(</span><span class="hl-2">date</span><span class="hl-1">, </span><span class="hl-3">"%d/%m/%Y"</span><span class="hl-1">);</span>
+</code></pre>
+<p>The accepted formats for <code>i18n.strftime</code> are:</p>
+<pre><code><span class="hl-1">%</span><span class="hl-2">a</span><span class="hl-1">  - </span><span class="hl-2">The</span><span class="hl-1"> </span><span class="hl-2">abbreviated</span><span class="hl-1"> </span><span class="hl-2">weekday</span><span class="hl-1"> </span><span class="hl-6">name</span><span class="hl-1"> (</span><span class="hl-2">Sun</span><span class="hl-1">)</span><br><span class="hl-1">%</span><span class="hl-5">A</span><span class="hl-1">  - </span><span class="hl-2">The</span><span class="hl-1"> </span><span class="hl-2">full</span><span class="hl-1"> </span><span class="hl-2">weekday</span><span class="hl-1"> </span><span class="hl-6">name</span><span class="hl-1"> (</span><span class="hl-2">Sunday</span><span class="hl-1">)</span><br><span class="hl-1">%</span><span class="hl-2">b</span><span class="hl-1">  - </span><span class="hl-2">The</span><span class="hl-1"> </span><span class="hl-2">abbreviated</span><span class="hl-1"> </span><span class="hl-2">month</span><span class="hl-1"> </span><span class="hl-6">name</span><span class="hl-1"> (</span><span class="hl-2">Jan</span><span class="hl-1">)</span><br><span class="hl-1">%</span><span class="hl-5">B</span><span class="hl-1">  - </span><span class="hl-2">The</span><span class="hl-1"> </span><span class="hl-2">full</span><span class="hl-1"> </span><span class="hl-2">month</span><span class="hl-1"> </span><span class="hl-6">name</span><span class="hl-1"> (</span><span class="hl-2">January</span><span class="hl-1">)</span><br><span class="hl-1">%</span><span class="hl-2">c</span><span class="hl-1">  - </span><span class="hl-2">The</span><span class="hl-1"> </span><span class="hl-2">preferred</span><span class="hl-1"> </span><span class="hl-2">local</span><span class="hl-1"> </span><span class="hl-2">date</span><span class="hl-1"> </span><span class="hl-2">and</span><span class="hl-1"> </span><span class="hl-2">time</span><span class="hl-1"> </span><span class="hl-2">representation</span><br><span class="hl-1">%</span><span class="hl-2">d</span><span class="hl-1">  - </span><span class="hl-2">Day</span><span class="hl-1"> </span><span class="hl-4">of</span><span class="hl-1"> </span><span class="hl-2">the</span><span class="hl-1"> </span><span class="hl-6">month</span><span class="hl-1"> (</span><span class="hl-11">01</span><span class="hl-1">.</span><span class="hl-11">.31</span><span class="hl-1">)</span><br><span class="hl-1">%-</span><span class="hl-2">d</span><span class="hl-1"> - </span><span class="hl-2">Day</span><span class="hl-1"> </span><span class="hl-4">of</span><span class="hl-1"> </span><span class="hl-2">the</span><span class="hl-1"> </span><span class="hl-6">month</span><span class="hl-1"> (</span><span class="hl-11">1..31</span><span class="hl-1">)</span><br><span class="hl-1">%</span><span class="hl-5">H</span><span class="hl-1">  - </span><span class="hl-2">Hour</span><span class="hl-1"> </span><span class="hl-4">of</span><span class="hl-1"> </span><span class="hl-2">the</span><span class="hl-1"> </span><span class="hl-2">day</span><span class="hl-1">, </span><span class="hl-11">24</span><span class="hl-1">-</span><span class="hl-2">hour</span><span class="hl-1"> </span><span class="hl-6">clock</span><span class="hl-1"> (</span><span class="hl-11">00</span><span class="hl-1">.</span><span class="hl-11">.23</span><span class="hl-1">)</span><br><span class="hl-1">%-</span><span class="hl-5">H</span><span class="hl-1"> - </span><span class="hl-2">Hour</span><span class="hl-1"> </span><span class="hl-4">of</span><span class="hl-1"> </span><span class="hl-2">the</span><span class="hl-1"> </span><span class="hl-2">day</span><span class="hl-1">, </span><span class="hl-11">24</span><span class="hl-1">-</span><span class="hl-2">hour</span><span class="hl-1"> </span><span class="hl-6">clock</span><span class="hl-1"> (</span><span class="hl-11">0..23</span><span class="hl-1">)</span><br><span class="hl-1">%</span><span class="hl-2">k</span><span class="hl-1">  - </span><span class="hl-2">Hour</span><span class="hl-1"> </span><span class="hl-4">of</span><span class="hl-1"> </span><span class="hl-2">the</span><span class="hl-1"> </span><span class="hl-2">day</span><span class="hl-1">, </span><span class="hl-11">24</span><span class="hl-1">-</span><span class="hl-2">hour</span><span class="hl-1"> </span><span class="hl-6">clock</span><span class="hl-1"> (</span><span class="hl-11">0..23</span><span class="hl-1">)</span><br><span class="hl-1">%</span><span class="hl-5">I</span><span class="hl-1">  - </span><span class="hl-2">Hour</span><span class="hl-1"> </span><span class="hl-4">of</span><span class="hl-1"> </span><span class="hl-2">the</span><span class="hl-1"> </span><span class="hl-2">day</span><span class="hl-1">, </span><span class="hl-11">12</span><span class="hl-1">-</span><span class="hl-2">hour</span><span class="hl-1"> </span><span class="hl-6">clock</span><span class="hl-1"> (</span><span class="hl-11">01</span><span class="hl-1">.</span><span class="hl-11">.12</span><span class="hl-1">)</span><br><span class="hl-1">%-</span><span class="hl-5">I</span><span class="hl-1"> - </span><span class="hl-2">Hour</span><span class="hl-1"> </span><span class="hl-4">of</span><span class="hl-1"> </span><span class="hl-2">the</span><span class="hl-1"> </span><span class="hl-2">day</span><span class="hl-1">, </span><span class="hl-11">12</span><span class="hl-1">-</span><span class="hl-2">hour</span><span class="hl-1"> </span><span class="hl-6">clock</span><span class="hl-1"> (</span><span class="hl-11">1..12</span><span class="hl-1">)</span><br><span class="hl-1">%</span><span class="hl-2">l</span><span class="hl-1">  - </span><span class="hl-2">Hour</span><span class="hl-1"> </span><span class="hl-4">of</span><span class="hl-1"> </span><span class="hl-2">the</span><span class="hl-1"> </span><span class="hl-2">day</span><span class="hl-1">, </span><span class="hl-11">12</span><span class="hl-1">-</span><span class="hl-2">hour</span><span class="hl-1"> </span><span class="hl-6">clock</span><span class="hl-1"> (</span><span class="hl-11">1..12</span><span class="hl-1">)</span><br><span class="hl-1">%</span><span class="hl-2">m</span><span class="hl-1">  - </span><span class="hl-2">Month</span><span class="hl-1"> </span><span class="hl-4">of</span><span class="hl-1"> </span><span class="hl-2">the</span><span class="hl-1"> </span><span class="hl-6">year</span><span class="hl-1"> (</span><span class="hl-11">01</span><span class="hl-1">.</span><span class="hl-11">.12</span><span class="hl-1">)</span><br><span class="hl-1">%-</span><span class="hl-2">m</span><span class="hl-1"> - </span><span class="hl-2">Month</span><span class="hl-1"> </span><span class="hl-4">of</span><span class="hl-1"> </span><span class="hl-2">the</span><span class="hl-1"> </span><span class="hl-6">year</span><span class="hl-1"> (</span><span class="hl-11">1..12</span><span class="hl-1">)</span><br><span class="hl-1">%</span><span class="hl-5">M</span><span class="hl-1">  - </span><span class="hl-2">Minute</span><span class="hl-1"> </span><span class="hl-4">of</span><span class="hl-1"> </span><span class="hl-2">the</span><span class="hl-1"> </span><span class="hl-6">hour</span><span class="hl-1"> (</span><span class="hl-11">00</span><span class="hl-1">.</span><span class="hl-11">.59</span><span class="hl-1">)</span><br><span class="hl-1">%-</span><span class="hl-5">M</span><span class="hl-1"> - </span><span class="hl-2">Minute</span><span class="hl-1"> </span><span class="hl-4">of</span><span class="hl-1"> </span><span class="hl-2">the</span><span class="hl-1"> </span><span class="hl-6">hour</span><span class="hl-1"> (</span><span class="hl-11">0..59</span><span class="hl-1">)</span><br><span class="hl-1">%</span><span class="hl-2">p</span><span class="hl-1">  - </span><span class="hl-2">Meridian</span><span class="hl-1"> </span><span class="hl-6">indicator</span><span class="hl-1"> (</span><span class="hl-5">AM</span><span class="hl-1">  </span><span class="hl-2">or</span><span class="hl-1">  </span><span class="hl-5">PM</span><span class="hl-1">)</span><br><span class="hl-1">%</span><span class="hl-5">P</span><span class="hl-1">  - </span><span class="hl-2">Meridian</span><span class="hl-1"> </span><span class="hl-6">indicator</span><span class="hl-1"> (</span><span class="hl-2">am</span><span class="hl-1">  </span><span class="hl-2">or</span><span class="hl-1">  </span><span class="hl-2">pm</span><span class="hl-1">)</span><br><span class="hl-1">%</span><span class="hl-5">S</span><span class="hl-1">  - </span><span class="hl-2">Second</span><span class="hl-1"> </span><span class="hl-4">of</span><span class="hl-1"> </span><span class="hl-2">the</span><span class="hl-1"> </span><span class="hl-6">minute</span><span class="hl-1"> (</span><span class="hl-11">00</span><span class="hl-1">.</span><span class="hl-11">.60</span><span class="hl-1">)</span><br><span class="hl-1">%-</span><span class="hl-5">S</span><span class="hl-1"> - </span><span class="hl-2">Second</span><span class="hl-1"> </span><span class="hl-4">of</span><span class="hl-1"> </span><span class="hl-2">the</span><span class="hl-1"> </span><span class="hl-6">minute</span><span class="hl-1"> (</span><span class="hl-11">0..60</span><span class="hl-1">)</span><br><span class="hl-1">%</span><span class="hl-2">w</span><span class="hl-1">  - </span><span class="hl-2">Day</span><span class="hl-1"> </span><span class="hl-4">of</span><span class="hl-1"> </span><span class="hl-2">the</span><span class="hl-1"> </span><span class="hl-6">week</span><span class="hl-1"> (</span><span class="hl-2">Sunday</span><span class="hl-1"> </span><span class="hl-2">is</span><span class="hl-1"> </span><span class="hl-11">0</span><span class="hl-1">, </span><span class="hl-11">0..6</span><span class="hl-1">)</span><br><span class="hl-1">%</span><span class="hl-2">y</span><span class="hl-1">  - </span><span class="hl-2">Year</span><span class="hl-1"> </span><span class="hl-2">without</span><span class="hl-1"> </span><span class="hl-2">a</span><span class="hl-1"> </span><span class="hl-6">century</span><span class="hl-1"> (</span><span class="hl-11">00</span><span class="hl-1">.</span><span class="hl-11">.99</span><span class="hl-1">)</span><br><span class="hl-1">%-</span><span class="hl-2">y</span><span class="hl-1"> - </span><span class="hl-2">Year</span><span class="hl-1"> </span><span class="hl-2">without</span><span class="hl-1"> </span><span class="hl-2">a</span><span class="hl-1"> </span><span class="hl-6">century</span><span class="hl-1"> (</span><span class="hl-11">0..99</span><span class="hl-1">)</span><br><span class="hl-1">%</span><span class="hl-5">Y</span><span class="hl-1">  - </span><span class="hl-2">Year</span><span class="hl-1"> </span><span class="hl-0">with</span><span class="hl-1"> </span><span class="hl-2">century</span><br><span class="hl-1">%</span><span class="hl-2">z</span><span class="hl-1">  - </span><span class="hl-2">Timezone</span><span class="hl-1"> </span><span class="hl-6">offset</span><span class="hl-1"> (+</span><span class="hl-11">0545</span><span class="hl-1">)</span><br><span class="hl-1">%</span><span class="hl-5">Z</span><span class="hl-1">  - </span><span class="hl-2">Timezone</span><span class="hl-1"> </span><span class="hl-6">offset</span><span class="hl-1"> (+</span><span class="hl-11">0545</span><span class="hl-1">)</span>
+</code></pre>
+<p>Check out
+<a href="https://github.com/fnando/i18n/blob/main/__tests__/strftime.test.ts">__tests__/strftime.test.ts</a>
+file for more examples!</p>
+<p>Finally, you can also diplay relative time strings using <code>I18n#timeAgoInWords</code>.</p>
+<pre><code class="language-js"><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">to</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">Date</span><span class="hl-1">();</span><br><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">from</span><span class="hl-1"> = </span><span class="hl-2">to</span><span class="hl-1">.</span><span class="hl-6">getTime</span><span class="hl-1">() - </span><span class="hl-11">60</span><span class="hl-1"> * </span><span class="hl-11">60</span><span class="hl-1"> * </span><span class="hl-11">1000</span><span class="hl-1">; </span><span class="hl-7">// ~1h ago.</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">timeAgoInWords</span><span class="hl-1">(</span><span class="hl-2">from</span><span class="hl-1">, </span><span class="hl-2">to</span><span class="hl-1">);</span><br><span class="hl-7">//=&gt; about 1 hour</span>
+</code></pre>
+
+<a href="#using-pluralization-and-number-formatting-together" id="using-pluralization-and-number-formatting-together" style="color: inherit; text-decoration: none;">
+  <h4>Using pluralization and number formatting together</h4>
+</a>
+<p>Sometimes you might want to display translation with formatted number, like
+adding thousand delimiters to displayed number You can do this:</p>
+<pre><code class="language-js"><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">i18n</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">I18n</span><span class="hl-1">({</span><br><span class="hl-1">  </span><span class="hl-2">en:</span><span class="hl-1"> {</span><br><span class="hl-1">    </span><span class="hl-2">points:</span><span class="hl-1"> {</span><br><span class="hl-1">      </span><span class="hl-2">one:</span><span class="hl-1"> </span><span class="hl-3">"1 Point"</span><span class="hl-1">,</span><br><span class="hl-1">      </span><span class="hl-2">other:</span><span class="hl-1"> </span><span class="hl-3">"{{points}} Points"</span><span class="hl-1">,</span><br><span class="hl-1">    },</span><br><span class="hl-1">  },</span><br><span class="hl-1">});</span><br><br><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">points</span><span class="hl-1"> = </span><span class="hl-11">1234</span><span class="hl-1">;</span><br><br><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">t</span><span class="hl-1">(</span><span class="hl-3">"points"</span><span class="hl-1">, {</span><br><span class="hl-1">  </span><span class="hl-2">count:</span><span class="hl-1"> </span><span class="hl-2">points</span><span class="hl-1">,</span><br><span class="hl-1">  </span><span class="hl-2">points:</span><span class="hl-1"> </span><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">formatNumber</span><span class="hl-1">(</span><span class="hl-2">points</span><span class="hl-1">),</span><br><span class="hl-1">});</span>
+</code></pre>
+<p>Output should be <code>1,234 points</code>.</p>
+
+<a href="#other-helpers" id="other-helpers" style="color: inherit; text-decoration: none;">
+  <h3>Other helpers</h3>
+</a>
+
+<a href="#i18ntosentencelist-options" id="i18ntosentencelist-options" style="color: inherit; text-decoration: none;">
+  <h4><code>I18n#toSentence(list, options)</code></h4>
+</a>
+<pre><code class="language-js"><span class="hl-2">i18n</span><span class="hl-1">.</span><span class="hl-6">toSentence</span><span class="hl-1">([</span><span class="hl-3">"apple"</span><span class="hl-1">, </span><span class="hl-3">"banana"</span><span class="hl-1">, </span><span class="hl-3">"pineapple"</span><span class="hl-1">]);</span><br><span class="hl-7">//=&gt; apple, banana, and pineapple.</span>
+</code></pre>
+
+<a href="#troubleshooting" id="troubleshooting" style="color: inherit; text-decoration: none;">
+  <h2>Troubleshooting</h2>
+</a>
+
+<a href="#i39m-getting-an-error-like-unable-to-resolve-quotmake-pluralquot-from-quotnode-modulesi18n-jsdistimportpluralizationjsquot" id="i39m-getting-an-error-like-unable-to-resolve-quotmake-pluralquot-from-quotnode-modulesi18n-jsdistimportpluralizationjsquot" style="color: inherit; text-decoration: none;">
+  <h3>I'm getting an error like <code>Unable to resolve "make-plural" from "node modules/i18n-js/dist/import/Pluralization.js"</code>
+</h3>
+</a>
+<p><a href="https://www.npmjs.com/package/make-plural">make-plural</a> uses <code>.mjs</code> files. You
+need to change your build pipeline to also consider these files.</p>
+<p>If you're using <a href="https://reactnative.dev">react-native</a>, you need to change your
+metro config to consider <code>.mjs</code>. Try doing something like this (you may need to
+adapt your code based on existing changes).</p>
+<pre><code class="language-js"><span class="hl-4">const</span><span class="hl-1"> { </span><span class="hl-5">getDefaultConfig</span><span class="hl-1"> } = </span><span class="hl-6">require</span><span class="hl-1">(</span><span class="hl-3">"metro-config"</span><span class="hl-1">);</span><br><br><span class="hl-9">module</span><span class="hl-1">.</span><span class="hl-9">exports</span><span class="hl-1"> = (</span><span class="hl-4">async</span><span class="hl-1"> () </span><span class="hl-4">=&gt;</span><span class="hl-1"> {</span><br><span class="hl-1">  </span><span class="hl-4">const</span><span class="hl-1"> {</span><br><span class="hl-1">    </span><span class="hl-2">resolver</span><span class="hl-1">: { </span><span class="hl-5">assetExts</span><span class="hl-1">, </span><span class="hl-5">sourceExts</span><span class="hl-1"> },</span><br><span class="hl-1">  } = </span><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-6">getDefaultConfig</span><span class="hl-1">();</span><br><br><span class="hl-1">  </span><span class="hl-0">return</span><span class="hl-1"> {</span><br><span class="hl-1">    </span><span class="hl-2">resolver:</span><span class="hl-1"> {</span><br><span class="hl-1">      </span><span class="hl-2">sourceExts:</span><span class="hl-1"> [...</span><span class="hl-2">sourceExts</span><span class="hl-1">, </span><span class="hl-3">"mjs"</span><span class="hl-1">],</span><br><span class="hl-1">    },</span><br><span class="hl-1">  };</span><br><span class="hl-1">})();</span>
+</code></pre>
+
+<a href="#i39m-getting-an-error-like-syntaxerror-unexpected-end-of-json-input-or-uncaught-syntaxerror-unexpected-token-" id="i39m-getting-an-error-like-syntaxerror-unexpected-end-of-json-input-or-uncaught-syntaxerror-unexpected-token-" style="color: inherit; text-decoration: none;">
+  <h3>I'm getting an error like <code>SyntaxError: Unexpected end of JSON input</code> or <code>Uncaught SyntaxError: Unexpected token ;</code>
+</h3>
+</a>
+<p>You may get such error if you're trying to load empty JSON files with
+<code>import data from "file.json"</code>. This has nothing to do with I18n and is related
+to how your JSON file is loaded. <strong>JSON files must contain valid JSON data.</strong></p>
+<p>Similarly, make sure you're writing valid JSON, and not JavaScript. For
+instance, if you write something like <code>{};</code>, you'll get an error like
+<code>Uncaught SyntaxError: Unexpected token ;</code>.</p>
+
+<a href="#my-json-contains-a-flat-structure-how-can-i-load-and-use-it-with-i18njs" id="my-json-contains-a-flat-structure-how-can-i-load-and-use-it-with-i18njs" style="color: inherit; text-decoration: none;">
+  <h3>My JSON contains a flat structure. How can I load and use it with I18n.js?</h3>
+</a>
+<p>I18n.js expects a nested object to represent the translation tree. For this
+reason, you cannot use an object like the following by default:</p>
+<pre><code class="language-json"><span class="hl-1">{</span><br><span class="hl-1">  </span><span class="hl-16">"en.messages.hello"</span><span class="hl-1">: </span><span class="hl-3">"hello"</span><span class="hl-1">,</span><br><span class="hl-1">  </span><span class="hl-16">"pt-BR.messages.hello"</span><span class="hl-1">: </span><span class="hl-3">"olá"</span><br><span class="hl-1">}</span>
+</code></pre>
+<p>One solution is using something like the following to transform your flat into a
+nested object:</p>
+<pre><code class="language-js"><span class="hl-4">const</span><span class="hl-1"> { </span><span class="hl-5">set</span><span class="hl-1"> } = </span><span class="hl-6">require</span><span class="hl-1">(</span><span class="hl-3">"lodash"</span><span class="hl-1">);</span><br><br><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">from</span><span class="hl-1"> = {</span><br><span class="hl-1">  </span><span class="hl-3">"en.messages.hello"</span><span class="hl-2">:</span><span class="hl-1"> </span><span class="hl-3">"hello"</span><span class="hl-1">,</span><br><span class="hl-1">  </span><span class="hl-3">"pt-BR.messages.hello"</span><span class="hl-2">:</span><span class="hl-1"> </span><span class="hl-3">"olá"</span><span class="hl-1">,</span><br><span class="hl-1">};</span><br><br><span class="hl-4">function</span><span class="hl-1"> </span><span class="hl-6">flatToNestedObject</span><span class="hl-1">(</span><span class="hl-2">target</span><span class="hl-1">) {</span><br><span class="hl-1">  </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">nested</span><span class="hl-1"> = {};</span><br><br><span class="hl-1">  </span><span class="hl-2">Object</span><span class="hl-1">.</span><span class="hl-6">keys</span><span class="hl-1">(</span><span class="hl-2">target</span><span class="hl-1">).</span><span class="hl-6">forEach</span><span class="hl-1">((</span><span class="hl-2">path</span><span class="hl-1">) </span><span class="hl-4">=&gt;</span><span class="hl-1"> </span><span class="hl-6">set</span><span class="hl-1">(</span><span class="hl-2">nested</span><span class="hl-1">, </span><span class="hl-2">path</span><span class="hl-1">, </span><span class="hl-2">target</span><span class="hl-1">[</span><span class="hl-2">path</span><span class="hl-1">]));</span><br><br><span class="hl-1">  </span><span class="hl-0">return</span><span class="hl-1"> </span><span class="hl-2">nested</span><span class="hl-1">;</span><br><span class="hl-1">}</span><br><br><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-6">log</span><span class="hl-1">(</span><span class="hl-6">flatToNestedObject</span><span class="hl-1">(</span><span class="hl-2">from</span><span class="hl-1">));</span><br><span class="hl-7">// {</span><br><span class="hl-7">//   en: { messages: { hello: 'hello' } },</span><br><span class="hl-7">//   'pt-BR': { messages: { hello: 'olá' } }</span><br><span class="hl-7">// }</span>
+</code></pre>
+<p>You can also use something like <a href="https://github.com/hughsk/flat">flat</a> to
+perform the same transformation.</p>
+
+<a href="#maintainer" id="maintainer" style="color: inherit; text-decoration: none;">
+  <h2>Maintainer</h2>
+</a>
+<ul>
+<li><a href="https://github.com/fnando">Nando Vieira</a></li>
+</ul>
+
+<a href="#contributors" id="contributors" style="color: inherit; text-decoration: none;">
+  <h2>Contributors</h2>
+</a>
+<ul>
+<li><a href="https://github.com/fnando/i18n/contributors">https://github.com/fnando/i18n/contributors</a></li>
+</ul>
+
+<a href="#contributing" id="contributing" style="color: inherit; text-decoration: none;">
+  <h2>Contributing</h2>
+</a>
+<p>For more details about how to contribute, please read
+<a href="https://github.com/fnando/i18n/blob/main/CONTRIBUTING.md">https://github.com/fnando/i18n/blob/main/CONTRIBUTING.md</a>.</p>
+
+<a href="#license" id="license" style="color: inherit; text-decoration: none;">
+  <h2>License</h2>
+</a>
+<p>The gem is available as open source under the terms of the
+<a href="https://opensource.org/licenses/MIT">MIT License</a>. A copy of the license can be
+found at <a href="https://github.com/fnando/i18n/blob/main/LICENSE.md">https://github.com/fnando/i18n/blob/main/LICENSE.md</a>.</p>
+
+<a href="#code-of-conduct" id="code-of-conduct" style="color: inherit; text-decoration: none;">
+  <h2>Code of Conduct</h2>
+</a>
+<p>Everyone interacting in the i18n project's codebases, issue trackers, chat rooms
+and mailing lists is expected to follow the
+<a href="https://github.com/fnando/i18n/blob/main/CODE_OF_CONDUCT.md">code of conduct</a>.</p>
+</div>
+</div>
+<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+
+<nav class="tsd-navigation primary">
+<details class="tsd-index-accordion" open><summary class="tsd-accordion-summary">
+<h3>
+<svg width="20" height="20" viewbox="0 0 24 24" fill="none"><path d="M4.93896 8.531L12 15.591L19.061 8.531L16.939 6.409L12 11.349L7.06098 6.409L4.93896 8.531Z" fill="var(--color-text)"></path></svg> Modules</h3></summary>
+<div class="tsd-accordion-details">
+<ul>
+<li class="current selected">
+<a href="modules.html">i18n-<wbr></wbr>js v4.3.1-<wbr></wbr>beta.2</a>
+<ul></ul>
+</li>
+</ul>
+</div></details></nav>
+<nav class="tsd-navigation secondary menu-sticky">
+<ul>
+<li class="tsd-kind-class"><a href="classes/I18n.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-class)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-128-path"></rect><path d="M11.898 16.1201C11.098 16.1201 10.466 15.8961 10.002 15.4481C9.53803 15.0001 9.30603 14.3841 9.30603 13.6001V9.64012C9.30603 8.85612 9.53803 8.24012 10.002 7.79212C10.466 7.34412 11.098 7.12012 11.898 7.12012C12.682 7.12012 13.306 7.34812 13.77 7.80412C14.234 8.25212 14.466 8.86412 14.466 9.64012H13.386C13.386 9.14412 13.254 8.76412 12.99 8.50012C12.734 8.22812 12.37 8.09212 11.898 8.09212C11.426 8.09212 11.054 8.22412 10.782 8.48812C10.518 8.75212 10.386 9.13212 10.386 9.62812V13.6001C10.386 14.0961 10.518 14.4801 10.782 14.7521C11.054 15.0161 11.426 15.1481 11.898 15.1481C12.37 15.1481 12.734 15.0161 12.99 14.7521C13.254 14.4801 13.386 14.0961 13.386 13.6001H14.466C14.466 14.3761 14.234 14.9921 13.77 15.4481C13.306 15.8961 12.682 16.1201 11.898 16.1201Z" fill="var(--color-text)" id="icon-128-text"></path></svg>I18n</a></li>
+<li class="tsd-kind-class"><a href="classes/Locales.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-128-path"></use><use href="#icon-128-text"></use></svg>Locales</a></li>
+<li class="tsd-kind-class"><a href="classes/MissingTranslation.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-128-path"></use><use href="#icon-128-text"></use></svg>Missing<wbr></wbr>Translation</a></li>
+<li class="tsd-kind-class"><a href="classes/Pluralization.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-128-path"></use><use href="#icon-128-text"></use></svg>Pluralization</a></li>
+<li class="tsd-kind-interface"><a href="interfaces/Dict.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-interface)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-256-path"></rect><path d="M9.51 16V15.016H11.298V8.224H9.51V7.24H14.19V8.224H12.402V15.016H14.19V16H9.51Z" fill="var(--color-text)" id="icon-256-text"></path></svg>Dict</a></li>
+<li class="tsd-kind-interface"><a href="interfaces/FormatNumberOptions.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-256-path"></use><use href="#icon-256-text"></use></svg>Format<wbr></wbr>Number<wbr></wbr>Options</a></li>
+<li class="tsd-kind-interface"><a href="interfaces/I18nOptions.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-256-path"></use><use href="#icon-256-text"></use></svg>I18n<wbr></wbr>Options</a></li>
+<li class="tsd-kind-interface"><a href="interfaces/ObjectType.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-256-path"></use><use href="#icon-256-text"></use></svg>Object<wbr></wbr>Type</a></li>
+<li class="tsd-kind-interface"><a href="interfaces/StrftimeOptions.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-256-path"></use><use href="#icon-256-text"></use></svg>Strftime<wbr></wbr>Options</a></li>
+<li class="tsd-kind-interface"><a href="interfaces/TimeAgoInWordsOptions.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-256-path"></use><use href="#icon-256-text"></use></svg>Time<wbr></wbr>Ago<wbr></wbr>In<wbr></wbr>Words<wbr></wbr>Options</a></li>
+<li class="tsd-kind-interface"><a href="interfaces/ToSentenceOptions.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-256-path"></use><use href="#icon-256-text"></use></svg>To<wbr></wbr>Sentence<wbr></wbr>Options</a></li>
+<li class="tsd-kind-interface"><a href="interfaces/TranslateOptions.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-256-path"></use><use href="#icon-256-text"></use></svg>Translate<wbr></wbr>Options</a></li>
+<li class="tsd-kind-type-alias"><a href="types/AnyObject.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-4194304-path"></rect><path d="M11.31 16V8.224H8.91V7.24H14.79V8.224H12.39V16H11.31Z" fill="var(--color-text)" id="icon-4194304-text"></path></svg>Any<wbr></wbr>Object</a></li>
+<li class="tsd-kind-type-alias"><a href="types/ArrayType.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Array<wbr></wbr>Type</a></li>
+<li class="tsd-kind-type-alias"><a href="types/DateTime.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Date<wbr></wbr>Time</a></li>
+<li class="tsd-kind-type-alias"><a href="types/DayNames.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Day<wbr></wbr>Names</a></li>
+<li class="tsd-kind-type-alias"><a href="types/LocaleResolver.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Locale<wbr></wbr>Resolver</a></li>
+<li class="tsd-kind-type-alias"><a href="types/MakePlural.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Make<wbr></wbr>Plural</a></li>
+<li class="tsd-kind-type-alias"><a href="types/MissingBehavior.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Missing<wbr></wbr>Behavior</a></li>
+<li class="tsd-kind-type-alias"><a href="types/MissingPlaceholderHandler.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Missing<wbr></wbr>Placeholder<wbr></wbr>Handler</a></li>
+<li class="tsd-kind-type-alias"><a href="types/MissingTranslationStrategy.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Missing<wbr></wbr>Translation<wbr></wbr>Strategy</a></li>
+<li class="tsd-kind-type-alias"><a href="types/MonthNames.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Month<wbr></wbr>Names</a></li>
+<li class="tsd-kind-type-alias"><a href="types/NullPlaceholderHandler.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Null<wbr></wbr>Placeholder<wbr></wbr>Handler</a></li>
+<li class="tsd-kind-type-alias"><a href="types/NumberToCurrencyOptions.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Number<wbr></wbr>To<wbr></wbr>Currency<wbr></wbr>Options</a></li>
+<li class="tsd-kind-type-alias"><a href="types/NumberToDelimitedOptions.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Number<wbr></wbr>To<wbr></wbr>Delimited<wbr></wbr>Options</a></li>
+<li class="tsd-kind-type-alias"><a href="types/NumberToHumanOptions.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Number<wbr></wbr>To<wbr></wbr>Human<wbr></wbr>Options</a></li>
+<li class="tsd-kind-type-alias"><a href="types/NumberToHumanSizeOptions.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Number<wbr></wbr>To<wbr></wbr>Human<wbr></wbr>Size<wbr></wbr>Options</a></li>
+<li class="tsd-kind-type-alias"><a href="types/NumberToHumanUnits.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Number<wbr></wbr>To<wbr></wbr>Human<wbr></wbr>Units</a></li>
+<li class="tsd-kind-type-alias"><a href="types/NumberToPercentageOptions.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Number<wbr></wbr>To<wbr></wbr>Percentage<wbr></wbr>Options</a></li>
+<li class="tsd-kind-type-alias"><a href="types/NumberToRoundedOptions.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Number<wbr></wbr>To<wbr></wbr>Rounded<wbr></wbr>Options</a></li>
+<li class="tsd-kind-type-alias"><a href="types/Numeric.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Numeric</a></li>
+<li class="tsd-kind-type-alias"><a href="types/OnChangeHandler.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>On<wbr></wbr>Change<wbr></wbr>Handler</a></li>
+<li class="tsd-kind-type-alias"><a href="types/Pluralizer.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Pluralizer</a></li>
+<li class="tsd-kind-type-alias"><a href="types/PrimitiveType.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Primitive<wbr></wbr>Type</a></li>
+<li class="tsd-kind-type-alias"><a href="types/RoundingMode.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Rounding<wbr></wbr>Mode</a></li>
+<li class="tsd-kind-type-alias"><a href="types/Scope.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><use href="#icon-4194304-path"></use><use href="#icon-4194304-text"></use></svg>Scope</a></li>
+<li class="tsd-kind-function"><a href="functions/useMakePlural.html" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewbox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-function)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6" id="icon-64-path"></rect><path d="M9.39 16V7.24H14.55V8.224H10.446V11.128H14.238V12.112H10.47V16H9.39Z" fill="var(--color-text)" id="icon-64-text"></path></svg>use<wbr></wbr>Make<wbr></wbr>Plural</a></li>
+</ul></nav>
+</div>
+</div>
+<div class="container tsd-generator">
+<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/main.js"></script>
+</body>
+</html>

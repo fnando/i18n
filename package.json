@@ -47,8 +47,7 @@
     "build:js": "yarn build:import && yarn build:require && yarn build:browser",
     "build:require": "tsc --outDir ./dist/require --module commonjs",
     "clean": "rm -rf ./dist",
-    "docs": "typedoc src && yarn docs:ext",
-    "docs:ext": "cat ext/typedoc.css | tee -a docs/v$(cat package.json | jq -r '.version')/assets/style.css &> /dev/null && ruby ext/typedoc.rb",
+    "docs": "./bin/docs",
     "lint": "yarn lint:typescript && yarn lint:eslint",
     "lint:eslint": "eslint --config .eslintrc.js --max-warnings 0 'src/**/*'",
     "lint:typescript": "tsc --noEmit",
@@ -56,5 +55,5 @@
     "test:ci": "jest --ci --coverage --verbose"
   },
   "typings": "./typings",
-  "version": "4.3.1-beta.1"
+  "version": "4.3.1-beta.2"
 }
