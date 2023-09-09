@@ -1,4 +1,3 @@
-import isArray from "lodash/isArray";
 import isObject from "lodash/isObject";
 import flattenDeep from "lodash/flattenDeep";
 
@@ -28,7 +27,7 @@ class PropertyFlatList {
   }
 
   compute(value: unknown, path: string): unknown {
-    if (!isArray(value) && isObject(value)) {
+    if (!Array.isArray(value) && isObject(value)) {
       return Object.keys(value).map((key) =>
         this.compute((value as Indexable)[key] as unknown, `${path}.${key}`),
       );

@@ -18,6 +18,7 @@ project adheres to [Semantic Versioning](http://semver.org/).
 
 - [Fix] Storing translations that contain numeric keys now work properly;
   previously it was creating arrays instead of objects.
+- [Changed] Stop using lodash's `isArray` in favor of `Array.isArray`.
 
 ## v.3.1-beta.1 - Aug 26, 2023
 
