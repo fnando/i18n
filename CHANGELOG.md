@@ -14,6 +14,10 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+- [Changed] Move esbuild dependency to development instead.
+
 ## v4.3.1 - Sep 10, 2023
 
 - [Fix] Storing translations that contain numeric keys now work properly;

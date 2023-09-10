@@ -2,7 +2,6 @@
   "author": "Nando Vieira <me@fnando.com>",
   "dependencies": {
     "bignumber.js": "*",
-    "esbuild": "*",
     "lodash": "*",
     "make-plural": "*"
   },
@@ -14,6 +13,7 @@
     "@types/lodash": "*",
     "@typescript-eslint/eslint-plugin": "*",
     "@typescript-eslint/parser": "*",
+    "esbuild": "*",
     "eslint": "*",
     "eslint-config-prettier": "*",
     "eslint-plugin-prettier": "*",
