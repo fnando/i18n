@@ -461,7 +461,7 @@ export class I18n {
    * `I18n.toTime` function. It will default to the value's `toString` function.
    *
    * If value is either `null` or `undefined` then an empty string will be
-   * returned, regardless of that localization type has been used.
+   * returned, regardless of what localization type has been used.
    *
    * @param {string} type The localization type.
    *

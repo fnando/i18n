@@ -12,7 +12,7 @@ import { I18n } from "./I18n";
  *                                   make-plural's ordinal category.
  * @param {MakePlural} options.pluralizer The make-plural function that will be
  *                                        wrapped.
- * @return {Pluralizer}    [description]
+ * @return {Pluralizer}    Returns a pluralizer that can be used by I18n.
  */
 export function useMakePlural({
   pluralizer,
@@ -119,6 +119,19 @@ export class Pluralization {
    *
    * You can view a complete list of pluralization rules at
    * [unicode.org](http://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html).
+   *
+   * You can also leverage
+   * [make-plural](https://github.com/eemeli/make-plural/), rather than writing
+   * all your pluralization functions. For this, you must wrap make-plural's
+   * function by using `useMakePlural({ pluralizer, includeZero, ordinal })`:
+   *
+   * @example
+   * ```js
+   * import { ru } from "make-plural";
+   * import { useMakePlural } from "i18n-js";
+   *
+   * i18n.pluralization.register("ru", useMakePlural({ pluralizer: ru }));
+   * ```
    *
    * @param {string} locale The locale.
    *
