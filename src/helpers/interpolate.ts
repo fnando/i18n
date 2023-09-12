@@ -44,9 +44,8 @@ export function interpolate(
       value = i18n.missingPlaceholder(i18n, placeholder, message, options);
     }
 
-    const regex = new RegExp(
-      placeholder.replace(/\{/gm, "\\{").replace(/\}/gm, "\\}"),
-    );
+    const escapedPlaceholder = placeholder.replace(/\{/gm, "\\{").replace(/\}/gm, "\\}");
+    const regex = new RegExp(escapedPlaceholder);
 
     message = message.replace(regex, value);
   }
