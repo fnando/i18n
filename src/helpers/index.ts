@@ -12,7 +12,6 @@ export { numberToHuman } from "./numberToHuman";
 export { numberToHumanSize } from "./numberToHumanSize";
 export { parseDate } from "./parseDate";
 export { pluralize } from "./pluralize";
-export { propertyFlatList } from "./propertyFlatList";
 export { roundNumber } from "./roundNumber";
 export { strftime } from "./strftime";
 export { timeAgoInWords } from "./timeAgoInWords";

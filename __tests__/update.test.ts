@@ -26,6 +26,16 @@ test("sets translation path (partial object override)", () => {
   });
 });
 
+test("sets translation path (update with custom separator)", () => {
+  const i18n = new I18n(
+    { en: { "message.with.dots": "Hi" } },
+    { defaultSeparator: "•" },
+  );
+  i18n.update("en•message.with.dots", "Hello");
+
+  expect(i18n.translations).toEqual({ en: { "message.with.dots": "Hello" } });
+});
+
 test("raises error when path doesn't exist in strict mode", () => {
   const i18n = new I18n();
 

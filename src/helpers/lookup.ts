@@ -1,5 +1,3 @@
-import get from "lodash/get";
-
 import { Dict, Scope } from "../typing";
 import { I18n } from "../I18n";
 import { isSet } from "./isSet";
@@ -31,13 +29,12 @@ export function lookup(i18n: I18n, scope: Scope, options: Dict = {}): any {
     .get(localeType === "string" ? locale : typeof locale)
     .slice();
 
-  scope = getFullScope(i18n, scope, options)
+  const keys = getFullScope(i18n, scope, options)
     .split(i18n.defaultSeparator)
-    .map((component) => i18n.transformKey(component))
-    .join(".");
+    .map((component) => i18n.transformKey(component));
 
   const entries = locales.map((locale) =>
-    get(i18n.translations, [locale, scope].join(".")),
+    keys.reduce((path, key) => path && path[key], i18n.translations[locale]),
   );
 
   entries.push(options.defaultValue);

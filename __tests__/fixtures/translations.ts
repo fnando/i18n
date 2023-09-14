@@ -11,6 +11,7 @@ export function translations(): { [key: string]: any } {
     },
     greetings: {
       stranger: "Hello stranger!",
+      "stranger.dot": "Hello stranger.dot!",
       name: "Hello {{name}}!",
     },
     profile: {

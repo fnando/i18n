@@ -14,6 +14,13 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+- [Fixed] Changed translations lookup to support keys containing dots (`.`) when
+  using custom separators.
+- [Changed] Updated `I18n#update` and `I18n#store` to support translations that
+  use custom separators and dots (`.`).
+
 ## v4.3.2 - Sep 10, 2023
 
 - [Changed] Move esbuild dependency to development instead.
