@@ -14,7 +14,7 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## v4.4.0-beta.0 - Sep 14, 2023
 
 - [Fixed] Changed translations lookup to support keys containing dots (`.`) when
   using custom separators.

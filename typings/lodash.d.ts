@@ -8,5 +8,4 @@ export { default as isObject } from "lodash/isObject";
 export { default as flattenDeep } from "lodash/flattenDeep";
 export { default as get } from "lodash/get";
 export { default as has } from "lodash/has";
-export { default as set } from "lodash/set";
-export { default as setWith } from "lodash/setWith";
+export { default as merge } from "lodash/merge";
