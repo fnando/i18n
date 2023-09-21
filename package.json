@@ -34,7 +34,9 @@
     "src/**/*"
   ],
   "license": "MIT",
-  "main": "./dist/import/index.js",
+  "main": "./dist/require/index.js",
+  "module": "./dist/import/index.js",
+  "browser": "./dist/browser/index.js",
   "name": "i18n-js",
   "repository": "https://github.com/fnando/i18n",
   "scripts": {
