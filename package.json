@@ -39,7 +39,7 @@
   "browser": "./dist/browser/index.js",
   "exports": {
     ".": {
-      "require": "./dist/index.js",
+      "require": "./dist/require/index.js",
       "import": "./dist/import/index.js",
       "types": "./typings",
       "browser": "./dist/browser/index.js"
