@@ -14,14 +14,11 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
-## unreleased
+## v4.4.0 - Feb 10, 2024
 
 - [Fixed] `I18n#formatNumber` now formats numbers with default options,
   conforming to the API described on the readme file.
 - [Fixed] Fix entrypoints, making them point the correct files.
-
-## v4.4.0-beta.0 - Sep 14, 2023
-
 - [Fixed] Changed translations lookup to support keys containing dots (`.`) when
   using custom separators.
 - [Changed] Updated `I18n#update` and `I18n#store` to support translations that

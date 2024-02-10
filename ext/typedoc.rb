@@ -17,22 +17,6 @@ def docs_dir
     Pathname.new("#{__dir__}/../docs/v#{package_json.fetch(:version)}")
 end
 
-def fix_search
-  file = docs_dir.join("assets/search.js")
-  contents = file.read
-                 .gsub(/window.searchData = JSON.parse\("(.*?)"\);/, "\\1")
-                 .gsub(/\\"/m, '"')
-  data = JSON.parse(contents, symbolize_names: true)
-
-  data[:rows] = data[:rows].each_with_object([]) do |entry, buffer|
-    skip = entry[:name].start_with?("helpers") ||
-           entry[:parent]&.start_with?("helpers")
-    buffer << entry unless skip
-  end
-
-  file.write("window.searchData = #{JSON.pretty_generate(data)}")
-end
-
 def remove_unwanted_files
   Dir[docs_dir.join("modules/helpers*.html")].each do |file|
     File.unlink(file)
@@ -101,7 +85,6 @@ def build_index
   end
 end
 
-fix_search
 remove_unwanted_files
 fix_html
 build_index

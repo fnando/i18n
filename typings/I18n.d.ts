@@ -51,7 +51,7 @@ export declare class I18n {
     distanceOfTimeInWords: (fromTime: DateTime, toTime: DateTime, options?: TimeAgoInWordsOptions) => string;
     onChange(callback: OnChangeHandler): () => void;
     get version(): number;
-    formatNumber(input: Numeric, options: FormatNumberOptions): string;
+    formatNumber(input: Numeric, options?: Partial<FormatNumberOptions>): string;
     get(scope: Scope): any;
     private runCallbacks;
     private hasChanged;
