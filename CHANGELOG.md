@@ -18,6 +18,7 @@ project adheres to [Semantic Versioning](http://semver.org/).
 
 - [Fixed] `I18n#formatNumber` now formats numbers with default options,
   conforming to the API described on the readme file.
+- [Fixed] Fix entrypoints, making them point the correct files.
 
 ## v4.4.0-beta.0 - Sep 14, 2023
 
