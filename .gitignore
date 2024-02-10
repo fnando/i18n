@@ -6,3 +6,5 @@
 /coverage
 /.yarn
 /node_modules
+/.tool-versions
+/.yarnrc.yml

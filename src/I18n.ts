@@ -1428,11 +1428,35 @@ export class I18n {
    *
    * @param {Numeric}             input   The numeric value that will be
    *                                      formatted.
-   * @param {FormatNumberOptions} options The formatting options.
+   * @param {FormatNumberOptions} options The formatting options. Defaults to:
+   *                                      `{
+   *                                        delimiter: ",",
+   *                                        precision: 3,
+   *                                        separator: ".",
+   *                                        unit: "",
+   *                                        format: "%u%n",
+   *                                        significant: false,
+   *                                        stripInsignificantZeros: false,
+   *                                      }`
    * @return {string}                     The formatted number.
    */
-  public formatNumber(input: Numeric, options: FormatNumberOptions): string {
-    return formatNumber(input, options);
+  public formatNumber(
+    input: Numeric,
+    options: Partial<FormatNumberOptions> = {},
+  ): string {
+    options = {
+      delimiter: ",",
+      precision: 3,
+      separator: ".",
+      unit: "",
+      format: "%u%n",
+      significant: false,
+      stripInsignificantZeros: false,
+      ...camelCaseKeys<Partial<FormatNumberOptions>>(this.get("number.format")),
+      ...options,
+    };
+
+    return formatNumber(input, options as FormatNumberOptions);
   }
 
   /**
