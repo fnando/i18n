@@ -37,13 +37,15 @@
   "main": "./dist/require/index.js",
   "module": "./dist/import/index.js",
   "browser": "./dist/browser/index.js",
+  "types": "./typings/index.d.ts",
   "exports": {
     ".": {
       "require": "./dist/require/index.js",
       "import": "./dist/import/index.js",
-      "types": "./typings",
+      "types": "./typings/index.d.ts",
       "browser": "./dist/browser/index.js"
-    }
+    },
+    "./json/*.json": "./json/*.json"
   },
   "name": "i18n-js",
   "repository": "https://github.com/fnando/i18n",
