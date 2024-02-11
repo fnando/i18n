@@ -14,6 +14,10 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+- [Fixed] Reference full file path as the types import.
+
 ## v4.4.0 - Feb 10, 2024
 
 - [Fixed] `I18n#formatNumber` now formats numbers with default options,
