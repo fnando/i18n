@@ -1116,6 +1116,28 @@ console.log(flatToNestedObject(from));
 You can also use something like [flat](https://github.com/hughsk/flat) to
 perform the same transformation.
 
+### I'm using [esbuild](https://github.com/evanw/esbuild) and bundling doesn't work
+
+When using esbuild, you may get the error
+`Import "I18n" will always be undefined because the file "node_modules/i18n-js/dist/browser/index.js" has no exports [import-is-undefined]`.
+That happens because esbuild is resolving i18n to the `exports.browser` entry.
+To fix that, you can run esbuild with `--platform=neutral` and
+`--mainFields=main,module,browser`, overriding the default definition.
+
+Here's a command example:
+
+```bash
+esbuild app/assets/scripts/*.* \
+  --bundle \
+  --sourcemap \
+  --main-fields=main,module,browser \
+  --platform=neutral \
+  --metafile=app/assets/builds/meta.json \
+  --format=esm \
+  --outdir=app/assets/builds \
+  --public-path=/assets
+```
+
 ## Maintainer
 
 - [Nando Vieira](https://github.com/fnando)
