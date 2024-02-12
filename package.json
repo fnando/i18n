@@ -68,5 +68,5 @@
     "test:ci": "jest --ci --coverage --verbose"
   },
   "types": "./typings/index.d.ts",
-  "version": "4.4.1"
+  "version": "4.4.2-alpha.0"
 }
