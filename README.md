@@ -1122,7 +1122,8 @@ When using esbuild, you may get the error
 `Import "I18n" will always be undefined because the file "node_modules/i18n-js/dist/browser/index.js" has no exports [import-is-undefined]`.
 That happens because esbuild is resolving i18n to the `exports.browser` entry.
 To fix that, you can run esbuild with `--platform=neutral` and
-`--mainFields=main,module,browser`, overriding the default definition.
+`--main-fields=import,require,module,main,browser`, overriding the default
+definition.
 
 Here's a command example:
 
@@ -1130,7 +1131,7 @@ Here's a command example:
 esbuild app/assets/scripts/*.* \
   --bundle \
   --sourcemap \
-  --main-fields=main,module,browser \
+  --main-fields=import,require,module,main,browser \
   --platform=neutral \
   --metafile=app/assets/builds/meta.json \
   --format=esm \
