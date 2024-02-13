@@ -1139,6 +1139,29 @@ esbuild app/assets/scripts/*.* \
   --public-path=/assets
 ```
 
+### I'm using [webpack](https://webpack.js.org) and bundling doesn't work
+
+When using webpack, you may need to set `resolve.conditionNames`. This is an
+example:
+
+```js
+/**
+ * @type {import('webpack').Configuration}
+ */
+module.exports = {
+  entry: "./index.js",
+  mode: "production",
+  target: "web",
+  resolve: {
+    conditionNames: ["import", "require", "module", "main"],
+  },
+  output: {
+    filename: "output.js",
+    path: __dirname,
+  },
+};
+```
+
 ## Maintainer
 
 - [Nando Vieira](https://github.com/fnando)
