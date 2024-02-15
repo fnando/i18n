@@ -14,6 +14,10 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+- [Changed] Revert exports change back, as it has caused way too much friction.
+
 ## v4.4.2 - Feb 12, 2024
 
 - [Fixed] Add imports for react-native.
