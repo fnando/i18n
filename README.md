@@ -1108,52 +1108,6 @@ console.log(flatToNestedObject(from));
 You can also use something like [flat](https://github.com/hughsk/flat) to
 perform the same transformation.
 
-### I'm using [esbuild](https://github.com/evanw/esbuild) and bundling doesn't work
-
-When using esbuild, you may get the error
-`Import "I18n" will always be undefined because the file "node_modules/i18n-js/dist/browser/index.js" has no exports [import-is-undefined]`.
-That happens because esbuild is resolving i18n to the `exports.browser` entry.
-To fix that, you can run esbuild with `--platform=neutral` and
-`--main-fields=import,require,module,main,browser`, overriding the default
-definition.
-
-Here's a command example:
-
-```bash
-esbuild app/assets/scripts/*.* \
-  --bundle \
-  --sourcemap \
-  --main-fields=import,require,module,main,browser \
-  --platform=neutral \
-  --metafile=app/assets/builds/meta.json \
-  --format=esm \
-  --outdir=app/assets/builds \
-  --public-path=/assets
-```
-
-### I'm using [webpack](https://webpack.js.org) and bundling doesn't work
-
-When using webpack, you may need to set `resolve.conditionNames`. This is an
-example:
-
-```js
-/**
- * @type {import('webpack').Configuration}
- */
-module.exports = {
-  entry: "./index.js",
-  mode: "production",
-  target: "web",
-  resolve: {
-    conditionNames: ["import", "require", "module", "main"],
-  },
-  output: {
-    filename: "output.js",
-    path: __dirname,
-  },
-};
-```
-
 ## Maintainer
 
 - [Nando Vieira](https://github.com/fnando)
