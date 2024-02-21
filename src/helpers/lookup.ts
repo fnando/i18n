@@ -17,7 +17,7 @@ import { inferType } from "./inferType";
  *
  * @param {Dict|undefined} options The lookup options.
  *
- * @returns {string} The resolved translation.
+ * @returns {any} The resolved translation.
  */
 export function lookup(i18n: I18n, scope: Scope, options: Dict = {}): any {
   options = { ...options };
