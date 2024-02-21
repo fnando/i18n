@@ -14,6 +14,10 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+- [Removed] Remove `I18n#availableLocales`, as it's no used anywhere.
+
 ## v4.4.3 - Feb 15, 2024
 
 - [Changed] Revert exports change back, as it has caused way too much friction.

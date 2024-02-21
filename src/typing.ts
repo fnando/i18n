@@ -124,13 +124,6 @@ export interface I18nOptions {
   defaultLocale: string;
 
   /**
-   * Set available locales. This will be used to load pluralizers automatically.
-   *
-   * @type {string[]}
-   */
-  availableLocales: string[];
-
-  /**
    * Set the default string separator. Defaults to `.`, as in
    * `scope.translation`.
    *
