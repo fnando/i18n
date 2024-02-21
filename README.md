@@ -267,19 +267,11 @@ versions of the requested locale and if that fails by taking them from your
 i18n.t("some.missing.scope");
 ```
 
-Custom fallback rules can also be specified for a specific language. There are
-three different ways of doing it so. In any case, the locale handler must be
-registered using `i18n.locales.register()`.
+Custom fallback rules can also be specified for a specific language. The locale
+handler must be registered using `i18n.locales.register()`.
 
 ```js
-// Using an array
 i18n.locales.register("no", ["nb", "en"]);
-
-// Using a string
-i18n.locales.no.register("nb");
-
-// Using a function.
-i18n.locales.no.register((locale) => ["nb"]);
 ```
 
 By default a missing translation will be displayed as
