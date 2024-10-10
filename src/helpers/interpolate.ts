@@ -46,6 +46,7 @@ export function interpolate(
 
     const regex = new RegExp(
       placeholder.replace(/\{/gm, "\\{").replace(/\}/gm, "\\}"),
+      "g",
     );
 
     message = message.replace(regex, value);
