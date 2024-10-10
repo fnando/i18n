@@ -49,6 +49,8 @@ export function translations(): { [key: string]: any } {
         },
       },
     },
+
+    multiple_variables: "Hello, {{name}}! Your name is {{name}}.",
   };
 
   Translations["en-US"] = {

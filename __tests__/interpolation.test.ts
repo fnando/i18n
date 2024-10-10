@@ -15,6 +15,13 @@ test("performs multiple interpolations", () => {
   expect(actual).toEqual("John Doe is 27-years old");
 });
 
+test("interpolates multiple instances of each variable", () => {
+  const i18n = new I18n(translations());
+  const actual = i18n.t("multiple_variables", { name: "John Doe" });
+
+  expect(actual).toEqual("Hello, John Doe! Your name is John Doe.");
+});
+
 test("outputs missing placeholder message if interpolation value is missing", () => {
   const i18n = new I18n(translations());
   const actual = i18n.t("greetings.name");
