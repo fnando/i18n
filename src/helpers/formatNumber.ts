@@ -1,4 +1,4 @@
-import BigNumber from "bignumber.js";
+import { BigNumber } from "bignumber.js";
 import repeat from "lodash/repeat";
 
 import { FormatNumberOptions, Numeric } from "../typing";

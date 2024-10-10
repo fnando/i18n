@@ -1,4 +1,4 @@
-import BigNumber from "bignumber.js";
+import { BigNumber } from "bignumber.js";
 
 import { I18n } from "../I18n";
 import { Numeric, NumberToHumanSizeOptions } from "../typing";

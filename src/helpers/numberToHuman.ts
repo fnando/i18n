@@ -1,4 +1,4 @@
-import BigNumber from "bignumber.js";
+import { BigNumber } from "bignumber.js";
 import sortBy from "lodash/sortBy";
 import zipObject from "lodash/zipObject";
 
