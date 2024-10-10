@@ -49,7 +49,7 @@ export function interpolate(
       "g",
     );
 
-    message = message.replaceAll(regex, value);
+    message = message.replace(regex, value);
   }
 
   return message.replace(/_#\$#_/g, "$");
