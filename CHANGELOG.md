@@ -17,6 +17,8 @@ project adheres to [Semantic Versioning](http://semver.org/).
 ## Unreleased
 
 - [Removed] Remove `I18n#availableLocales`, as it's no used anywhere.
+- [Changed] `I18n.t` now replaces all instances of a placeholder in a
+  translation.
 
 ## v4.4.3 - Feb 15, 2024
 
