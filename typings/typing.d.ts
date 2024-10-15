@@ -54,7 +54,6 @@ export interface ObjectType {
 export type MissingBehavior = "message" | "guess" | "error";
 export interface I18nOptions {
     defaultLocale: string;
-    availableLocales: string[];
     defaultSeparator: string;
     enableFallback: boolean;
     locale: string;

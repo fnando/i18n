@@ -14,7 +14,7 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## v4.5.0 - Oct 15, 2024
 
 - [Removed] Remove `I18n#availableLocales`, as it's no used anywhere.
 - [Changed] `I18n.t` now replaces all instances of a placeholder in a
