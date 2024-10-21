@@ -14,7 +14,7 @@
     "@typescript-eslint/eslint-plugin": "*",
     "@typescript-eslint/parser": "*",
     "esbuild": "*",
-    "eslint": "^8.0",
+    "eslint": "^9.13",
     "eslint-plugin-import": "*",
     "eslint-plugin-jest": "*",
     "eslint-config-prettier": "*",
