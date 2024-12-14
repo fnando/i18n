@@ -103,6 +103,7 @@ export function strftime(
     abbrMonthNames,
     monthNames,
     meridian: AM_PM,
+    utc,
   } = { ...DEFAULT_OPTIONS, ...options };
 
   if (isNaN(date.getTime())) {
@@ -111,16 +112,16 @@ export function strftime(
     );
   }
 
-  const weekDay = date.getDay();
-  const day = date.getDate();
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const hour = date.getHours();
+  const weekDay = utc ? date.getUTCDay() : date.getDay();
+  const day = utc ? date.getUTCDate() : date.getDate();
+  const year = utc ? date.getUTCFullYear() : date.getFullYear();
+  const month = (utc ? date.getUTCMonth() : date.getMonth()) + 1;
+  const hour = utc ? date.getUTCHours() : date.getHours();
   let hour12 = hour;
   const meridian = hour > 11 ? "pm" : "am";
-  const secs = date.getSeconds();
-  const mins = date.getMinutes();
-  const offset = date.getTimezoneOffset();
+  const secs = utc ? date.getUTCSeconds() : date.getSeconds();
+  const mins = utc ? date.getUTCMinutes() : date.getMinutes();
+  const offset = utc ? 0 : date.getTimezoneOffset();
   const absOffsetHours = Math.floor(Math.abs(offset / 60));
   const absOffsetMinutes = Math.abs(offset) - absOffsetHours * 60;
   const timezoneoffset =

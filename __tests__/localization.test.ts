@@ -27,6 +27,19 @@ test("localizes date strings", () => {
   );
 });
 
+test("localizes date in utc", () => {
+  const i18n = new I18n(translations());
+  i18n.locale = "pt-BR";
+
+  expect(
+    i18n.l("date.formats.default", "2009-11-29T23:59:59", { utc: true }),
+  ).toEqual("29/11/2009");
+
+  expect(
+    i18n.l("date.formats.default", "2009-11-29T00:00:00", { utc: true }),
+  ).toEqual("29/11/2009");
+});
+
 test("localizes time strings", () => {
   const i18n = new I18n(translations());
   i18n.locale = "pt-BR";

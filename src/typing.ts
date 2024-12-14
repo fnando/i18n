@@ -271,6 +271,9 @@ export interface StrftimeOptions {
   abbrDayNames: DayNames;
   monthNames: MonthNames;
   abbrMonthNames: MonthNames;
+
+  // Set how month and year will be retrieved.
+  utc?: boolean;
 }
 
 export type OnChangeHandler = (i18n: I18n) => void;

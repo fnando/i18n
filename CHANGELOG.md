@@ -14,6 +14,11 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+- [Added] Add `utc?: boolean` as an optional parameter to `I18n#localize`. This
+  makes dates be rendered using `getUTC*` functions instead.
+
 ## v4.5.0 - Oct 15, 2024
 
 - [Removed] Remove `I18n#availableLocales`, as it's no used anywhere.
