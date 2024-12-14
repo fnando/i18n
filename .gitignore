@@ -8,3 +8,4 @@
 /node_modules
 /.tool-versions
 /.yarnrc.yml
+/package-lock.json

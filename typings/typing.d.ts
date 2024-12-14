@@ -103,5 +103,6 @@ export interface StrftimeOptions {
     abbrDayNames: DayNames;
     monthNames: MonthNames;
     abbrMonthNames: MonthNames;
+    utc?: boolean;
 }
 export type OnChangeHandler = (i18n: I18n) => void;
