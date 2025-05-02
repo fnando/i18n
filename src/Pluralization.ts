@@ -89,7 +89,7 @@ export const defaultPluralizer: Pluralizer = useMakePlural({
  *
  * ```js
  * i18n.t("inbox", {count: 0}); // returns "You have no messages"
- * i18n.t("inbox", {count: 1}); // returns "You have on message"
+ * i18n.t("inbox", {count: 1}); // returns "You have one message"
  * i18n.t("inbox", {count: 2}); // returns "You have 2 messages"
  * ```
  */
