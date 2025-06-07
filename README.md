@@ -107,7 +107,7 @@ i18n.store(en);
 i18n.store(ptBR);
 ```
 
-This method will allow you to lazy load translations and them updating the store
+This method will allow you to lazy load translations and then updating the store
 as needed.
 
 ```js
