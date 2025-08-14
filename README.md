@@ -319,7 +319,7 @@ function. The following example will return `null` for every missing
 translation.
 
 ```js
-i18n.missingTranslation = () => null;
+i18n.missingTranslation = { get: () => null };
 ```
 
 Finally, you can also create your own missing translation behavior. The example
