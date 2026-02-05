@@ -162,3 +162,85 @@ test("using default units", () => {
   expect(i18n.numberToHuman(1_234_567_890_123)).toEqual("1.23 Trillion");
   expect(i18n.numberToHuman(1_234_567_890_123_456)).toEqual("1.23 Quadrillion");
 });
+
+// https://github.com/fnando/i18n/issues/119
+test("applies separator when stripInsignificantZeros is false", () => {
+  expect(
+    i18n.numberToHuman(10_987_000_000, {
+      precision: 4,
+      separator: ",",
+      stripInsignificantZeros: false,
+    }),
+  ).toEqual("10,99 Billion");
+
+  expect(
+    i18n.numberToHuman(10_987_000_000, {
+      precision: 4,
+      separator: ",",
+      stripInsignificantZeros: true,
+    }),
+  ).toEqual("10,99 Billion");
+
+  expect(
+    i18n.numberToHuman(1_098_700, {
+      separator: ",",
+      stripInsignificantZeros: false,
+    }),
+  ).toEqual("1,10 Million");
+
+  expect(
+    i18n.numberToHuman(1_098_700, {
+      separator: ",",
+      stripInsignificantZeros: true,
+    }),
+  ).toEqual("1,1 Million");
+});
+
+test("preserves decimal zeros for whole numbers when stripInsignificantZeros is false", () => {
+  expect(
+    i18n.numberToHuman(1_000_000, {
+      separator: ",",
+      stripInsignificantZeros: false,
+    }),
+  ).toEqual("1,00 Million");
+
+  expect(
+    i18n.numberToHuman(1_000_000, {
+      separator: ",",
+      stripInsignificantZeros: true,
+    }),
+  ).toEqual("1 Million");
+});
+
+test("applies separator with significant: false", () => {
+  expect(
+    i18n.numberToHuman(1_234_567, {
+      precision: 2,
+      significant: false,
+      separator: ",",
+      stripInsignificantZeros: false,
+    }),
+  ).toEqual("1,23 Million");
+});
+
+test("preserves trailing zeros with custom separator when stripInsignificantZeros is false", () => {
+  expect(
+    i18n.numberToHuman(1_200_000, {
+      precision: 2,
+      significant: false,
+      separator: ",",
+      stripInsignificantZeros: false,
+    }),
+  ).toEqual("1,20 Million");
+});
+
+test("strips trailing zeros with custom separator when stripInsignificantZeros is true", () => {
+  expect(
+    i18n.numberToHuman(1_200_000, {
+      precision: 2,
+      significant: false,
+      separator: ",",
+      stripInsignificantZeros: true,
+    }),
+  ).toEqual("1,2 Million");
+});
