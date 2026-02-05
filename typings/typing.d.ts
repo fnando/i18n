@@ -1,4 +1,3 @@
-import { BigNumber } from "bignumber.js";
 import { I18n } from "./I18n";
 export type MakePlural = (count: number, ordinal?: boolean) => string;
 export interface Dict {

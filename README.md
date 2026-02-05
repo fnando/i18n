@@ -205,7 +205,7 @@ You may want to override the default
 function with your own, if for instance you want these dynamic values to be
 React elements:
 
-```jsx
+```js
 const i18n = new I18n({
   en: { greetings: "Hi, %{name}!" },
   "pt-BR": { greetings: "Olá, %{name}!" },

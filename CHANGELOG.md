@@ -14,7 +14,7 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## v4.5.2 - Feb 5, 2026
 
 - [Fixed] Fix `numberToHuman` separator not applied when
   `stripInsignificantZeros` is `false`.

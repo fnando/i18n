@@ -6,13 +6,13 @@ import { I18n } from "./I18n";
 /**
  * Creates a new pluralizer function based on [make-plural](https://github.com/eemeli/make-plural/tree/master/packages/plurals).
  *
- * @param  {boolean} options.includeZero When `true`, will return `zero` as the
- *                                       first key for `0` pluralization.
- * @param  {boolean} options.ordinal When `true`, will return the scope based on
- *                                   make-plural's ordinal category.
- * @param {MakePlural} options.pluralizer The make-plural function that will be
- *                                        wrapped.
- * @return {Pluralizer}    Returns a pluralizer that can be used by I18n.
+ * @param options The options object.
+ * @param options.pluralizer The make-plural function that will be wrapped.
+ * @param options.includeZero When `true`, will return `zero` as the first key
+ *                            for `0` pluralization.
+ * @param options.ordinal When `true`, will return the scope based on
+ *                        make-plural's ordinal category.
+ * @returns Returns a pluralizer that can be used by I18n.
  */
 export function useMakePlural({
   pluralizer,

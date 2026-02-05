@@ -58,5 +58,5 @@
     "test:ci": "jest --ci --coverage --verbose"
   },
   "typings": "./typings",
-  "version": "4.5.1"
+  "version": "4.5.2"
 }

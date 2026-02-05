@@ -401,7 +401,7 @@ export class I18n {
   }
 
   /**
-   * @alias {@link translate}
+   * Alias for {@link translate}.
    */
   public t = this.translate;
 
@@ -433,7 +433,7 @@ export class I18n {
   }
 
   /**
-   * @alias {@link pluralize}
+   * Alias for {@link pluralize}.
    */
   public p = this.pluralize;
 
@@ -499,7 +499,7 @@ export class I18n {
   }
 
   /**
-   * @alias {@link localize}
+   * Alias for {@link localize}.
    */
   public l = this.localize;
 
@@ -1387,7 +1387,7 @@ export class I18n {
   }
 
   /**
-   * @alias {@link timeAgoInWords}
+   * Alias for {@link timeAgoInWords}.
    */
   public distanceOfTimeInWords = this.timeAgoInWords;
 
