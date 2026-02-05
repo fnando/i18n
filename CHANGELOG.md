@@ -14,6 +14,12 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+- [Fixed] Fix `numberToHuman` separator not applied when
+  `stripInsignificantZeros` is `false`.
+- [Fixed] Add support for pluralized units on `numberToHuman`.
+
 ## v4.5.1 - Dec 13, 2024
 
 - [Added] Add `utc?: boolean` as an optional parameter to `I18n#localize`. This

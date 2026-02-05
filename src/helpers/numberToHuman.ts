@@ -104,7 +104,7 @@ export function numberToHuman(
   };
 
   const exponent = calculateExponent(new BigNumber(formattedNumber), units);
-  const unit = determineUnit(units, exponent);
+  let unit = determineUnit(units, exponent);
 
   formattedNumber = roundNumber(
     new BigNumber(formattedNumber).div(10 ** exponent),
@@ -121,6 +121,20 @@ export function numberToHuman(
 
   if (significand) {
     formattedNumber += `${options.separator}${significand}`;
+  }
+
+  // Handle pluralized units (e.g., {one: "milhão", other: "milhões"})
+  if (unit && typeof unit === "object") {
+    const count = parseFloat(formattedNumber.replace(options.separator, "."));
+    const pluralizer = i18n.pluralization.get(i18n.locale);
+    const keys = pluralizer(i18n, count);
+
+    for (const key of keys) {
+      if (unit[key] !== undefined) {
+        unit = unit[key];
+        break;
+      }
+    }
   }
 
   return options.format
