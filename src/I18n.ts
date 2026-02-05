@@ -1000,6 +1000,9 @@ export class I18n {
         unit: "",
       },
       ...camelCaseKeys<Partial<NumberToHumanOptions>>(
+        this.get("number.format"),
+      ),
+      ...camelCaseKeys<Partial<NumberToHumanOptions>>(
         this.get("number.human.format"),
       ),
       ...camelCaseKeys<Partial<NumberToHumanOptions>>(

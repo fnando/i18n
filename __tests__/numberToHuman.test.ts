@@ -1,5 +1,6 @@
 import { I18n } from "../src/I18n";
 import en from "../json/en.json";
+import ptBR from "../json/pt-BR.json";
 
 const i18n = new I18n({ ...en });
 
@@ -243,4 +244,33 @@ test("strips trailing zeros with custom separator when stripInsignificantZeros i
       stripInsignificantZeros: true,
     }),
   ).toEqual("1,2 Million");
+});
+
+// https://github.com/fnando/i18n/issues/118
+test("supports pluralized units", () => {
+  const i18n = new I18n({ ...ptBR });
+  i18n.locale = "pt-BR";
+
+  // "thousand" is a string in pt-BR: "mil"
+  expect(i18n.numberToHuman(1_000)).toEqual("1 mil");
+  expect(i18n.numberToHuman(2_000)).toEqual("2 mil");
+
+  // "million" has pluralization in pt-BR: {one: "milhão", other: "milhões"}
+  expect(i18n.numberToHuman(1_000_000)).toEqual("1 milhão");
+  expect(i18n.numberToHuman(2_000_000)).toEqual("2 milhões");
+
+  // "billion" has pluralization in pt-BR: {one: "bilhão", other: "bilhões"}
+  expect(i18n.numberToHuman(1_000_000_000)).toEqual("1 bilhão");
+  expect(i18n.numberToHuman(2_000_000_000)).toEqual("2 bilhões");
+});
+
+test("supports pluralized units with fractional numbers", () => {
+  const i18n = new I18n({ ...ptBR });
+  i18n.locale = "pt-BR";
+
+  // 1.5 million should use "other" form (pt-BR uses "," as separator)
+  expect(i18n.numberToHuman(1_500_000)).toEqual("1,5 milhões");
+
+  // 1.23 billion should use "other" form
+  expect(i18n.numberToHuman(1_230_000_000)).toEqual("1,23 bilhões");
 });
