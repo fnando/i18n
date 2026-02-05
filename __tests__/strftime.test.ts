@@ -212,7 +212,7 @@ test("fails to format invalid date", () => {
   const expected =
     "strftime() requires a valid date object, but received an invalid date.";
 
-  expect(() => i18n.strftime(date, "%a")).toThrowError(expected);
+  expect(() => i18n.strftime(date, "%a")).toThrow(expected);
 });
 
 test("formats date with partial custom options", () => {

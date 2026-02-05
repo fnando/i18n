@@ -3,7 +3,7 @@
   "dependencies": {
     "bignumber.js": "*",
     "lodash": "*",
-    "make-plural": "*"
+    "make-plural": "7.5.0"
   },
   "description": "A small library to provide I18n on JavaScript.",
   "devDependencies": {

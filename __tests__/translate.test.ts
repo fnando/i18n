@@ -28,7 +28,7 @@ test("returns missing message translation for invalid scope", () => {
 test("throws an error if missingBehavior is set to error", () => {
   i18n.missingBehavior = "error";
 
-  expect(() => i18n.t("missing.translation")).toThrowError(
+  expect(() => i18n.t("missing.translation")).toThrow(
     "Missing translation: en.missing.translation",
   );
 });
