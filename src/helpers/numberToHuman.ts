@@ -111,16 +111,16 @@ export function numberToHuman(
     roundOptions,
   );
 
+  let [whole, significand] = formattedNumber.split(".");
+
   if (options.stripInsignificantZeros) {
-    // eslint-disable-next-line prefer-const
-    let [whole, significand] = formattedNumber.split(".");
     significand = (significand || "").replace(/0+$/, "");
+  }
 
-    formattedNumber = whole;
+  formattedNumber = whole;
 
-    if (significand) {
-      formattedNumber += `${options.separator}${significand}`;
-    }
+  if (significand) {
+    formattedNumber += `${options.separator}${significand}`;
   }
 
   return options.format
