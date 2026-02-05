@@ -314,20 +314,17 @@ custom `missingBehavior` option.
 i18n.t("missing.key", { missingBehavior: "error" });
 ```
 
-You can completely override the missing translation strategy by setting it to a
-function. The following example will return `null` for every missing
-translation.
-
-```js
-i18n.missingTranslation = () => null;
-```
-
 Finally, you can also create your own missing translation behavior. The example
 below registers a new behavior that returns an empty string in case a
 translation is missing.
 
 ```js
 i18n.missingTranslation.register("empty", (i18n, scope, options) => "");
+
+// to use this, you can set `i18n.missingBehavior = "empty"` globally, or
+// by specifying the `missingBehavior` property when calling `i18n.t`.
+i18n.missingBehavior = "empty";
+i18n.t("missing.key", { missingBehavior: "empty" });
 ```
 
 #### Pluralization
