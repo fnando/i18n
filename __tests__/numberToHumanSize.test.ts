@@ -49,3 +49,9 @@ test("returns number as human size", () => {
   expect(i18n.numberToHumanSize(1.1)).toEqual("1 Byte");
   expect(i18n.numberToHumanSize(10)).toEqual("10 Bytes");
 });
+
+test("raises exception for invalid numbers", () => {
+  expect(() => {
+    i18n.numberToHumanSize("123a456", { raise: true } as any);
+  }).toThrow(/"123a456" is not a valid numeric value/);
+});

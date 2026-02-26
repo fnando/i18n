@@ -8,5 +8,6 @@ module.exports = {
     "prefer-destructuring": "off",
     "no-use-before-define": "off",
     "@fnando/consistent-import/consistent-import": "off",
+    "import/no-named-as-default": "off",
   },
 };

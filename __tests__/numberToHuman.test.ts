@@ -274,3 +274,9 @@ test("supports pluralized units with fractional numbers", () => {
   // 1.23 billion should use "other" form
   expect(i18n.numberToHuman(1_230_000_000)).toEqual("1,23 bilhões");
 });
+
+test("raises exception for invalid numbers", () => {
+  expect(() => {
+    i18n.numberToHuman("123a456", { raise: true } as any);
+  }).toThrow(/"123a456" is not a valid numeric value/);
+});

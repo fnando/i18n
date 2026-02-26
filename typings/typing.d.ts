@@ -22,19 +22,20 @@ export interface FormatNumberOptions {
     raise: boolean;
     unit: string;
 }
-export type NumberToHumanSizeOptions = Omit<FormatNumberOptions, "format" | "negativeFormat" | "raise">;
+export type NumberToHumanSizeOptions = Omit<FormatNumberOptions, "format" | "negativeFormat">;
 export type NumberToHumanUnits = {
     [key: string]: string;
 };
-export type NumberToHumanOptions = Omit<FormatNumberOptions, "negativeFormat" | "unit" | "raise"> & {
+export type NumberToHumanOptions = Omit<FormatNumberOptions, "negativeFormat" | "unit"> & {
     units: NumberToHumanUnits | string;
 };
 export type NumberToDelimitedOptions = {
+    raise: boolean;
     delimiterPattern: RegExp;
     delimiter: string;
     separator: string;
 };
-export type NumberToPercentageOptions = Omit<FormatNumberOptions, "raise">;
+export type NumberToPercentageOptions = FormatNumberOptions;
 export type NumberToRoundedOptions = Omit<FormatNumberOptions, "format" | "negativeFormat" | "raise"> & {
     precision: number;
 };

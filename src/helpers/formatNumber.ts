@@ -1,8 +1,9 @@
-import { BigNumber } from "bignumber.js";
+import BigNumber from "bignumber.js";
 import repeat from "lodash/repeat";
 
 import { FormatNumberOptions, Numeric } from "../typing";
 import { roundNumber } from "./roundNumber";
+import { parseBigNumber } from "./parseBigNumber";
 
 function replaceInFormat(
   format: string,
@@ -36,18 +37,13 @@ function computeSignificand({
  *
  * @param {FormatNumberOptions} options The formatting options.
  *
- * @return {string}                      [description]
+ * @return {string}                      The formatted number.
  */
 export function formatNumber(
   input: Numeric,
   options: FormatNumberOptions,
 ): string {
-  const originalNumber = new BigNumber(input);
-
-  if (options.raise && !originalNumber.isFinite()) {
-    throw new Error(`"${input}" is not a valid numeric value`);
-  }
-
+  const originalNumber = parseBigNumber(input, options.raise);
   const roundedNumber = roundNumber(originalNumber, options);
   const numeric = new BigNumber(roundedNumber);
   const isNegative = numeric.lt(0);

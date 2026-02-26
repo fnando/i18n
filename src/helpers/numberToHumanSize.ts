@@ -1,9 +1,10 @@
-import { BigNumber } from "bignumber.js";
+import BigNumber from "bignumber.js";
 
 import { I18n } from "../I18n";
 import { Numeric, NumberToHumanSizeOptions } from "../typing";
 import { roundNumber } from "./roundNumber";
 import { expandRoundMode } from "./expandRoundMode";
+import { parseBigNumber } from "./parseBigNumber";
 
 /**
  * Set default size units.
@@ -28,7 +29,7 @@ export function numberToHumanSize(
 ): string {
   const roundMode = expandRoundMode(options.roundMode);
   const base = 1024;
-  const num = new BigNumber(input).abs();
+  const num = parseBigNumber(input, options.raise).abs();
   const smallerThanBase = num.lt(base);
   let numberToBeFormatted;
 

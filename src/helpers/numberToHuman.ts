@@ -1,4 +1,4 @@
-import { BigNumber } from "bignumber.js";
+import BigNumber from "bignumber.js";
 import sortBy from "lodash/sortBy";
 import zipObject from "lodash/zipObject";
 
@@ -8,6 +8,7 @@ import { getFullScope } from "./getFullScope";
 import { lookup } from "./lookup";
 import { roundNumber } from "./roundNumber";
 import { inferType } from "./inferType";
+import { parseBigNumber } from "./parseBigNumber";
 
 /**
  * Set decimal units used to calculate number to human formatting.
@@ -79,7 +80,10 @@ export function numberToHuman(
     units = options.units as NumberToHumanUnits;
   }
 
-  let formattedNumber = roundNumber(new BigNumber(input), roundOptions);
+  let formattedNumber = roundNumber(
+    parseBigNumber(input, options.raise),
+    roundOptions,
+  );
 
   const unitExponents = (units: NumberToHumanUnits) =>
     sortBy(

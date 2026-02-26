@@ -1,6 +1,5 @@
-import { BigNumber } from "bignumber.js";
-
 import { Numeric, NumberToDelimitedOptions } from "../typing";
+import { parseBigNumber } from "./parseBigNumber";
 
 /**
  * Formats a number with grouped thousands using delimiter (e.g., 12,324).
@@ -17,7 +16,7 @@ export function numberToDelimited(
   input: Numeric,
   options: NumberToDelimitedOptions,
 ): string {
-  const numeric = new BigNumber(input);
+  const numeric = parseBigNumber(input, options.raise);
 
   if (!numeric.isFinite()) {
     return input.toString();

@@ -1,3 +1,4 @@
+import BigNumber from "bignumber.js";
 import { I18n } from "./I18n";
 
 export type MakePlural = (count: number, ordinal?: boolean) => string;
@@ -61,7 +62,7 @@ export interface FormatNumberOptions {
 // I18n#numberToHumanSize options.
 export type NumberToHumanSizeOptions = Omit<
   FormatNumberOptions,
-  "format" | "negativeFormat" | "raise"
+  "format" | "negativeFormat"
 >;
 
 export type NumberToHumanUnits = {
@@ -70,18 +71,19 @@ export type NumberToHumanUnits = {
 
 export type NumberToHumanOptions = Omit<
   FormatNumberOptions,
-  "negativeFormat" | "unit" | "raise"
+  "negativeFormat" | "unit"
 > & {
   units: NumberToHumanUnits | string;
 };
 
 export type NumberToDelimitedOptions = {
+  raise: boolean;
   delimiterPattern: RegExp;
   delimiter: string;
   separator: string;
 };
 
-export type NumberToPercentageOptions = Omit<FormatNumberOptions, "raise">;
+export type NumberToPercentageOptions = FormatNumberOptions;
 
 export type NumberToRoundedOptions = Omit<
   FormatNumberOptions,
