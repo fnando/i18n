@@ -7,4 +7,5 @@ module.exports = {
   modulePaths: ["src"],
   testPathIgnorePatterns: ["/vendor/bundle/"],
   reporters: ["default", ["jest-hud-reporter", {}]],
+  transformIgnorePatterns: ["node_modules/(?!(lodash-es)/)"],
 };

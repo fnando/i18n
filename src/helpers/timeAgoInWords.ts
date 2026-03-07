@@ -1,4 +1,4 @@
-import range from "lodash/range";
+import range from "lodash-es/range";
 
 import { I18n } from "../I18n";
 import { DateTime, TimeAgoInWordsOptions } from "../typing";

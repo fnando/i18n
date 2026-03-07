@@ -1027,6 +1027,57 @@ i18n.toSentence(["apple", "banana", "pineapple"]);
 //=> apple, banana, and pineapple.
 ```
 
+### Browser Usage
+
+#### Using a script tag
+
+You can use i18n-js directly in the browser without a bundler by loading the
+browser build via a `<script>` tag. The file can be found at
+`node_modules/i18n-js/dist/browser/index.js`. The library will be available as
+the global `I18n` object.
+
+```html
+<script src="/i18n.js"></script>
+<script>
+  const i18n = new I18n.I18n({
+    en: { greeting: "Hello, World!" },
+    es: { greeting: "¡Hola, Mundo!" },
+  });
+
+  i18n.locale = "es";
+  console.log(i18n.t("greeting")); //=> ¡Hola, Mundo!
+</script>
+```
+
+#### Using Import Maps
+
+Modern browsers support [import maps](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script/type/importmap),
+which let you use ES module `import` syntax without a bundler. You can load
+i18n-js (and its `lodash-es` dependency) from a CDN like [esm.sh](https://esm.sh).
+
+```html
+<script type="importmap">
+  {
+    "imports": {
+      "i18n-js": "https://esm.sh/i18n-js@4.5.4",
+      "lodash-es/": "https://esm.sh/lodash-es@4.17.23/"
+    }
+  }
+</script>
+
+<script type="module">
+  import { I18n } from "i18n-js";
+
+  const i18n = new I18n({
+    en: { greeting: "Hello, World!" },
+    es: { greeting: "¡Hola, Mundo!" },
+  });
+
+  i18n.locale = "es";
+  console.log(i18n.t("greeting")); //=> ¡Hola, Mundo!
+</script>
+```
+
 ## Troubleshooting
 
 ### I'm getting an error like `Unable to resolve "make-plural" from "node modules/i18n-js/dist/import/Pluralization.js"`

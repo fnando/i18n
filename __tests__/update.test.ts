@@ -1,4 +1,4 @@
-import { get } from "lodash";
+import get from "lodash-es/get";
 
 import { I18n } from "../src/I18n";
 

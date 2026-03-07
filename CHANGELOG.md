@@ -14,6 +14,11 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+- [Changed] Update lodash to lodash-es for better tree-shaking.
+- [Changed] Update `jest` configuration to leverage `@babel/preset-env` for ESM module support.
+
 ## v4.5.3 - Mar 4, 2026
 
 - [Fixed] Handle BigNumber raising when receiving invalid numbers by default on
