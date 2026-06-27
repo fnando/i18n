@@ -1,10 +1,11 @@
-import BigNumber from "bignumber.js";
+import type BigNumberType from "bignumber.js";
 
 import { I18n } from "../I18n";
 import { Numeric, NumberToHumanSizeOptions } from "../typing";
 import { roundNumber } from "./roundNumber";
 import { expandRoundMode } from "./expandRoundMode";
 import { parseBigNumber } from "./parseBigNumber";
+import BigNumber from "./bigNumberResolver";
 
 /**
  * Set default size units.
@@ -33,7 +34,7 @@ export function numberToHumanSize(
   const smallerThanBase = num.lt(base);
   let numberToBeFormatted;
 
-  const computeExponent = (numeric: BigNumber, units: string[]) => {
+  const computeExponent = (numeric: BigNumberType, units: string[]) => {
     const max = units.length - 1;
     const exp = new BigNumber(Math.log(numeric.toNumber()))
       .div(Math.log(base))

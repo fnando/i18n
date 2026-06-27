@@ -1,4 +1,4 @@
-import BigNumber from "bignumber.js";
+import type BigNumberType from "bignumber.js";
 import sortBy from "lodash/sortBy";
 import zipObject from "lodash/zipObject";
 
@@ -9,6 +9,7 @@ import { lookup } from "./lookup";
 import { roundNumber } from "./roundNumber";
 import { inferType } from "./inferType";
 import { parseBigNumber } from "./parseBigNumber";
+import BigNumber from "./bigNumberResolver";
 
 /**
  * Set decimal units used to calculate number to human formatting.
@@ -91,7 +92,7 @@ export function numberToHuman(
       (numeric) => numeric * -1,
     );
 
-  const calculateExponent = (num: BigNumber, units: NumberToHumanUnits) => {
+  const calculateExponent = (num: BigNumberType, units: NumberToHumanUnits) => {
     const exponent = num.isZero()
       ? 0
       : Math.floor(Math.log10(num.abs().toNumber()));
