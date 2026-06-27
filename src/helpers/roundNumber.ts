@@ -1,7 +1,8 @@
-import BigNumber from "bignumber.js";
+import type BigNumberType from "bignumber.js";
 
 import { RoundingMode } from "../typing";
 import { expandRoundMode } from "./expandRoundMode";
+import BigNumber from "./bigNumberResolver";
 
 type RoundingOptions = {
   roundMode: RoundingMode;
@@ -9,7 +10,7 @@ type RoundingOptions = {
   significant: boolean;
 };
 
-function digitCount(numeric: BigNumber): number {
+function digitCount(numeric: BigNumberType): number {
   if (numeric.isZero()) {
     return 1;
   }
@@ -18,7 +19,7 @@ function digitCount(numeric: BigNumber): number {
 }
 
 function getAbsolutePrecision(
-  numeric: BigNumber,
+  numeric: BigNumberType,
   { precision, significant }: RoundingOptions,
 ): number | null {
   if (significant && precision !== null && precision > 0) {
@@ -40,7 +41,7 @@ function getAbsolutePrecision(
  * @return {string} The rounded number.
  */
 export function roundNumber(
-  numeric: BigNumber,
+  numeric: BigNumberType,
   options: RoundingOptions,
 ): string {
   const precision = getAbsolutePrecision(numeric, options);

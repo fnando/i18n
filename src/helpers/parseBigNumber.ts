@@ -1,5 +1,5 @@
-import BigNumber from "bignumber.js";
 import { Numeric } from "typing";
+import BigNumber from "./bigNumberResolver";
 
 export function parseBigNumber(input: Numeric, raise: boolean = false) {
   let output = BigNumber(NaN);

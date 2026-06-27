@@ -1,3 +1,3 @@
-import BigNumber from "bignumber.js";
+import type BigNumberType from "bignumber.js";
 import { RoundingMode } from "../typing";
-export declare function expandRoundMode(roundMode: RoundingMode): BigNumber.RoundingMode;
+export declare function expandRoundMode(roundMode: RoundingMode): BigNumberType.RoundingMode;

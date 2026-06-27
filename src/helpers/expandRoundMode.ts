@@ -1,5 +1,7 @@
-import BigNumber from "bignumber.js";
+import type BigNumberType from "bignumber.js";
+
 import { RoundingMode } from "../typing";
+import BigNumber from "./bigNumberResolver";
 
 enum RoundingModeMap {
   "up" = BigNumber.ROUND_UP,
@@ -22,7 +24,7 @@ enum RoundingModeMap {
  */
 export function expandRoundMode(
   roundMode: RoundingMode,
-): BigNumber.RoundingMode {
+): BigNumberType.RoundingMode {
   return (RoundingModeMap[roundMode] ??
-    RoundingModeMap.default) as BigNumber.RoundingMode;
+    RoundingModeMap.default) as BigNumberType.RoundingMode;
 }
