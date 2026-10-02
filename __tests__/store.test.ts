@@ -25,4 +25,21 @@ describe("I18n#store", () => {
       "1": "number",
     });
   });
+
+  test("does not pollute Object.prototype", () => {
+    const key = "polluted";
+    // eslint-disable-next-line no-prototype-builtins, @typescript-eslint/no-explicit-any
+    delete (Object.prototype as any)[key];
+
+    const i18n = new I18n();
+    i18n.store(JSON.parse(`{"__proto__": {"${key}": "yes"}}`));
+    i18n.store(
+      JSON.parse(`{"en": {"constructor": {"prototype": {"${key}": "yes"}}}}`),
+    );
+
+    expect(Object.prototype.hasOwnProperty.call(Object.prototype, key)).toBe(
+      false,
+    );
+    expect(({} as Record<string, unknown>)[key]).toBeUndefined();
+  });
 });

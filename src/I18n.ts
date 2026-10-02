@@ -46,6 +46,26 @@ import {
   timeAgoInWords,
 } from "./helpers";
 
+// Walk/assign into a translation tree without ever reaching
+// `Object.prototype`. Using own-property checks means segments like
+// `constructor` or `prototype` create (and shadow with) genuine own keys
+// instead of resolving the inherited ones, and `Object.defineProperty` keeps
+// `__proto__` a plain data key rather than triggering its setter. This lets
+// those words remain valid translation keys while closing the prototype
+// pollution vector in `update()`.
+function hasOwnProperty(object: object, key: string): boolean {
+  return Object.prototype.hasOwnProperty.call(object, key);
+}
+
+function defineOwnProperty(object: object, key: string, value: unknown): void {
+  Object.defineProperty(object, key, {
+    value,
+    writable: true,
+    enumerable: true,
+    configurable: true,
+  });
+}
+
 const DEFAULT_I18N_OPTIONS: I18nOptions = {
   defaultLocale: "en",
   locale: "en",
@@ -1285,18 +1305,22 @@ export class I18n {
     }
 
     const components = path.split(this.defaultSeparator);
-    const prop = components.pop();
+    const prop = components.pop() as string;
     let buffer = this.translations;
 
     for (const component of components) {
-      if (!buffer[component]) {
-        buffer[component] = {};
+      if (
+        !hasOwnProperty(buffer, component) ||
+        typeof buffer[component] !== "object" ||
+        buffer[component] === null
+      ) {
+        defineOwnProperty(buffer, component, {});
       }
 
       buffer = buffer[component];
     }
 
-    buffer[prop as keyof typeof buffer] = newNode;
+    defineOwnProperty(buffer, prop, newNode);
 
     this.hasChanged();
   }
