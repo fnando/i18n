@@ -14,13 +14,14 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## v4.5.4 - Oct 6, 2026
 
-- [Security] Fix prototype pollution in `I18n#update`. Paths containing
-  `__proto__`, `constructor`, or `prototype` segments no longer walk into
-  `Object.prototype`; those words remain usable as regular translation keys.
-  Reported by Bertalan Borsos ([@mordamin](https://github.com/mordamin)) and
-  Norbert Tihanyi ([@tihanyin](https://github.com/tihanyin)).
+- [Security] Fix prototype pollution in `I18n#update`
+  ([GHSA-cqcr-rp7r-625r](https://github.com/fnando/i18n/security/advisories/GHSA-cqcr-rp7r-625r)).
+  Paths containing `__proto__`, `constructor`, or `prototype` segments no longer
+  walk into `Object.prototype`; those words remain usable as regular translation
+  keys. Reported by Bertalan Borsos ([@mordamin](https://github.com/mordamin))
+  and Norbert Tihanyi ([@tihanyin](https://github.com/tihanyin)).
 
 ## v4.5.3 - Mar 4, 2026
 

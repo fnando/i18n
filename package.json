@@ -61,5 +61,5 @@
     "test:ci": "jest --ci --coverage --verbose && npm run lint"
   },
   "typings": "./typings",
-  "version": "4.5.3"
+  "version": "4.5.4"
 }
