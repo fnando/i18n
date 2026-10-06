@@ -19,6 +19,8 @@ project adheres to [Semantic Versioning](http://semver.org/).
 - [Security] Fix prototype pollution in `I18n#update`. Paths containing
   `__proto__`, `constructor`, or `prototype` segments no longer walk into
   `Object.prototype`; those words remain usable as regular translation keys.
+  Reported by Bertalan Borsos ([@mordamin](https://github.com/mordamin)) and
+  Norbert Tihanyi ([@tihanyin](https://github.com/tihanyin)).
 
 ## v4.5.3 - Mar 4, 2026
 
