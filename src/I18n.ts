@@ -1,6 +1,4 @@
-import get from "lodash/get.js";
-import has from "lodash/has.js";
-import merge from "lodash/merge.js";
+import { get, has, merge } from "es-toolkit/compat";
 import {
   camelCaseKeys,
   createTranslationOptions,

@@ -1,4 +1,4 @@
-import uniq from "lodash/uniq.js";
+import { uniq } from "es-toolkit/compat";
 import type { I18n } from "./I18n.js";
 import type { Dict, LocaleResolver } from "./typing.js";
 

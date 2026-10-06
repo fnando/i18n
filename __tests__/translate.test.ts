@@ -1,4 +1,4 @@
-import { snakeCase } from "lodash";
+import { snakeCase } from "es-toolkit/compat";
 
 import { I18n } from "../src/I18n";
 import { Dict, Scope } from "../src/typing";

@@ -1,6 +1,5 @@
 import BigNumber from "bignumber.js";
-import sortBy from "lodash/sortBy.js";
-import zipObject from "lodash/zipObject.js";
+import { sortBy, zipObject } from "es-toolkit/compat";
 
 import type { I18n } from "../I18n.js";
 import type {

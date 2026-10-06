@@ -1080,7 +1080,7 @@ One solution is using something like the following to transform your flat into a
 nested object:
 
 ```js
-const { set } = require("lodash");
+const { set } = require("es-toolkit/compat");
 
 const from = {
   "en.messages.hello": "hello",

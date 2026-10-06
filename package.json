@@ -2,7 +2,7 @@
   "author": "Nando Vieira <me@fnando.com>",
   "dependencies": {
     "bignumber.js": "^11.1.5",
-    "lodash": "^4.18.1",
+    "es-toolkit": "^1.52.0",
     "make-plural": "^7.5.0"
   },
   "description": "A small library to provide I18n on JavaScript.",
@@ -10,7 +10,6 @@
     "@arethetypeswrong/cli": "*",
     "@biomejs/biome": "*",
     "@fnando/codestyle": "*",
-    "@types/lodash": "*",
     "@vitest/coverage-v8": "*",
     "esbuild": "*",
     "typescript": "^7.0.2",

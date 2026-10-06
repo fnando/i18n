@@ -1,4 +1,4 @@
-import { repeat } from "lodash";
+import { repeat } from "es-toolkit/compat";
 import { BigNumber } from "bignumber.js";
 
 import { I18n } from "../src/I18n";

@@ -1,4 +1,4 @@
-import range from "lodash/range.js";
+import { range } from "es-toolkit/compat";
 
 import type { I18n } from "../I18n.js";
 import type { DateTime, TimeAgoInWordsOptions } from "../typing.js";

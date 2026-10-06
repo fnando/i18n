@@ -1,4 +1,4 @@
-import camelCase from "lodash/camelCase.js";
+import { camelCase } from "es-toolkit/compat";
 
 import type { Dict } from "../typing.js";
 
