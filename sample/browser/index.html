@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>i18n-js — browser build sample</title>
+  </head>
+  <body>
+    <h1>i18n-js — browser build</h1>
+    <p>
+      Open the console, or read the list below. Each line validates the global
+      <code>var I18n</code> exposed by <code>dist/browser/index.js</code>.
+    </p>
+    <ul id="results"></ul>
+
+    <!-- The browser build exposes a global `I18n` namespace. The class is `I18n.I18n`. -->
+    <script src="../../dist/browser/index.js"></script>
+    <script>
+      const { I18n } = window.I18n;
+
+      const i18n = new I18n({
+        en: {
+          greeting: "Hello, %{name}!",
+          inbox: {
+            one: "You have 1 message",
+            other: "You have %{count} messages",
+          },
+        },
+      });
+
+      const checks = [
+        ["translate + interpolation", i18n.t("greeting", { name: "Nando" }), "Hello, Nando!"],
+        ["pluralize (one)", i18n.t("inbox", { count: 1 }), "You have 1 message"],
+        ["pluralize (other)", i18n.t("inbox", { count: 5 }), "You have 5 messages"],
+        ["numberToCurrency", i18n.numberToCurrency(1234.56), "$1,234.56"],
+      ];
+
+      const list = document.getElementById("results");
+
+      for (const [name, actual, expected] of checks) {
+        const ok = actual === expected;
+        const li = document.createElement("li");
+        li.textContent = `${ok ? "✓" : "✗"} ${name}: ${JSON.stringify(actual)}`;
+        li.style.color = ok ? "green" : "red";
+        list.appendChild(li);
+        console.log(li.textContent, ok ? "" : `(expected ${JSON.stringify(expected)})`);
+      }
+    </script>
+  </body>
+</html>

@@ -1,7 +1,6 @@
 import { en } from "make-plural";
-
-import { Dict, Pluralizer, MakePlural } from "./typing";
-import { I18n } from "./I18n";
+import type { I18n } from "./I18n.js";
+import type { Dict, MakePlural, Pluralizer } from "./typing.js";
 
 /**
  * Creates a new pluralizer function based on [make-plural](https://github.com/eemeli/make-plural/tree/master/packages/plurals).
@@ -23,12 +22,11 @@ export function useMakePlural({
   includeZero?: boolean;
   ordinal?: boolean;
 }): Pluralizer {
-  return function (_i18n: I18n, count: number) {
-    return [
+  return (_i18n: I18n, count: number) =>
+    [
       includeZero && count === 0 ? "zero" : "",
       pluralizer(count, ordinal),
     ].filter(Boolean);
-  };
 }
 
 /**
@@ -157,7 +155,7 @@ export class Pluralization {
     return (
       this.registry[locale] ||
       this.registry[this.i18n.locale] ||
-      this.registry["default"]
+      this.registry.default
     );
   }
 }

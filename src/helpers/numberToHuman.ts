@@ -1,14 +1,18 @@
 import BigNumber from "bignumber.js";
-import sortBy from "lodash/sortBy";
-import zipObject from "lodash/zipObject";
+import sortBy from "lodash/sortBy.js";
+import zipObject from "lodash/zipObject.js";
 
-import { I18n } from "../I18n";
-import { Numeric, NumberToHumanOptions, NumberToHumanUnits } from "../typing";
-import { getFullScope } from "./getFullScope";
-import { lookup } from "./lookup";
-import { roundNumber } from "./roundNumber";
-import { inferType } from "./inferType";
-import { parseBigNumber } from "./parseBigNumber";
+import type { I18n } from "../I18n.js";
+import type {
+  NumberToHumanOptions,
+  NumberToHumanUnits,
+  Numeric,
+} from "../typing.js";
+import { getFullScope } from "./getFullScope.js";
+import { inferType } from "./inferType.js";
+import { lookup } from "./lookup.js";
+import { parseBigNumber } from "./parseBigNumber.js";
+import { roundNumber } from "./roundNumber.js";
 
 /**
  * Set decimal units used to calculate number to human formatting.
@@ -100,8 +104,7 @@ export function numberToHuman(
   };
 
   const determineUnit = (units: NumberToHumanUnits, exponent: number) => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    // @ts-expect-error
     const expName = DECIMAL_UNITS[exponent.toString()];
 
     return units[expName] || "";

@@ -1,5 +1,5 @@
-import BigNumber from "bignumber.js";
-import { I18n } from "./I18n";
+import type BigNumber from "bignumber.js";
+import type { I18n } from "./I18n.js";
 
 export type MakePlural = (count: number, ordinal?: boolean) => string;
 

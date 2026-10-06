@@ -1,4 +1,4 @@
-import { DateTime } from "../typing";
+import type { DateTime } from "../typing.js";
 
 /**
  * Parse a given `input` string into a JavaScript Date object.

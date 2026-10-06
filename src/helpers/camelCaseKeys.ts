@@ -1,6 +1,6 @@
-import camelCase from "lodash/camelCase";
+import camelCase from "lodash/camelCase.js";
 
-import { Dict } from "../typing";
+import type { Dict } from "../typing.js";
 
 /**
  * Shallow transform an object's keys from snake case (that's assumption) to

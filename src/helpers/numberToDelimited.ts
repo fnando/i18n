@@ -1,5 +1,5 @@
-import { Numeric, NumberToDelimitedOptions } from "../typing";
-import { parseBigNumber } from "./parseBigNumber";
+import type { NumberToDelimitedOptions, Numeric } from "../typing.js";
+import { parseBigNumber } from "./parseBigNumber.js";
 
 /**
  * Formats a number with grouped thousands using delimiter (e.g., 12,324).
@@ -28,7 +28,6 @@ export function numberToDelimited(
     );
   }
 
-  // eslint-disable-next-line prefer-const
   let [left, right] = numeric.toString().split(".");
 
   left = left.replace(

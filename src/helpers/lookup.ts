@@ -1,8 +1,8 @@
-import { Dict, Scope } from "../typing";
-import { I18n } from "../I18n";
-import { isSet } from "./isSet";
-import { getFullScope } from "./getFullScope";
-import { inferType } from "./inferType";
+import type { I18n } from "../I18n.js";
+import type { Dict, Scope } from "../typing.js";
+import { getFullScope } from "./getFullScope.js";
+import { inferType } from "./inferType.js";
+import { isSet } from "./isSet.js";
 
 /**
  * Find and process the translation using the provided scope and options.
@@ -34,7 +34,7 @@ export function lookup(i18n: I18n, scope: Scope, options: Dict = {}): any {
     .map((component) => i18n.transformKey(component));
 
   const entries = locales.map((locale) =>
-    keys.reduce((path, key) => path && path[key], i18n.translations[locale]),
+    keys.reduce((path, key) => path?.[key], i18n.translations[locale]),
   );
 
   entries.push(options.defaultValue);

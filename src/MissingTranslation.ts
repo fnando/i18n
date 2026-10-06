@@ -1,6 +1,6 @@
-import { Dict, MissingTranslationStrategy, Scope } from "./typing";
-import { getFullScope, inferType } from "./helpers";
-import { I18n } from "./I18n";
+import { getFullScope, inferType } from "./helpers/index.js";
+import type { I18n } from "./I18n.js";
+import type { Dict, MissingTranslationStrategy, Scope } from "./typing.js";
 
 /**
  * Generate a human readable version of the scope as the missing translation.
@@ -14,16 +14,12 @@ import { I18n } from "./I18n";
  *
  * @returns {string} The missing translation string.
  */
-export const guessStrategy: MissingTranslationStrategy = function (
-  i18n,
-  scope,
-) {
-  if (scope instanceof Array) {
-    scope = scope.join(i18n.defaultSeparator);
-  }
+export const guessStrategy: MissingTranslationStrategy = (i18n, scope) => {
+  const path =
+    typeof scope === "string" ? scope : scope.join(i18n.defaultSeparator);
 
   // Get only the last portion of the scope.
-  const message = scope.split(i18n.defaultSeparator).slice(-1)[0];
+  const message = path.split(i18n.defaultSeparator).slice(-1)[0];
 
   // Replace underscore with space and camelcase with space and
   // lowercase letter.
@@ -63,7 +59,7 @@ export const messageStrategy: MissingTranslationStrategy = (
   const localeType = inferType(locale);
 
   const fullScopeWithLocale = [
-    localeType == "string" ? locale : localeType,
+    localeType === "string" ? locale : localeType,
     fullScope,
   ].join(i18n.defaultSeparator);
 

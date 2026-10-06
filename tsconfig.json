@@ -2,12 +2,12 @@
   "extends": "@fnando/codestyle",
   "include": ["src"],
   "compilerOptions": {
-    "baseUrl": "src",
+    "moduleResolution": "bundler",
+    "rootDir": "src",
     "lib": ["esnext", "dom"],
     "target": "es6",
     "noEmit": false,
     "declaration": true,
-    "declarationDir": "typings",
     "resolveJsonModule": true
   }
 }

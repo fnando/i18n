@@ -1,9 +1,9 @@
 import BigNumber from "bignumber.js";
-import repeat from "lodash/repeat";
+import repeat from "lodash/repeat.js";
 
-import { FormatNumberOptions, Numeric } from "../typing";
-import { roundNumber } from "./roundNumber";
-import { parseBigNumber } from "./parseBigNumber";
+import type { FormatNumberOptions, Numeric } from "../typing.js";
+import { parseBigNumber } from "./parseBigNumber.js";
+import { roundNumber } from "./roundNumber.js";
 
 function replaceInFormat(
   format: string,

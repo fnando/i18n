@@ -1,6 +1,6 @@
-import { TranslateOptions } from "../typing";
-import { I18n } from "../I18n";
-import { isSet } from "./isSet";
+import type { I18n } from "../I18n.js";
+import type { TranslateOptions } from "../typing.js";
+import { isSet } from "./isSet.js";
 
 /**
  * This function interpolates the all variables in the given message.

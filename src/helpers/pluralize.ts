@@ -1,8 +1,8 @@
-import { Scope, TranslateOptions } from "../typing";
-import { I18n } from "../I18n";
+import type { I18n } from "../I18n.js";
+import type { Scope, TranslateOptions } from "../typing.js";
 
-import { isSet } from "./isSet";
-import { lookup } from "./lookup";
+import { isSet } from "./isSet.js";
+import { lookup } from "./lookup.js";
 
 /**
  * Pluralize the given scope using the `count` value.
@@ -35,14 +35,10 @@ export function pluralize({
   baseScope: string;
 }): string {
   options = { ...options };
-  let translations;
-  let message;
+  let message: any;
 
-  if (typeof scope === "object" && scope) {
-    translations = scope;
-  } else {
-    translations = lookup(i18n, scope, options);
-  }
+  const translations =
+    typeof scope === "object" && scope ? scope : lookup(i18n, scope, options);
 
   if (!translations) {
     return i18n.missingTranslation.get(scope, options);

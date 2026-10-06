@@ -1,7 +1,6 @@
-import uniq from "lodash/uniq";
-
-import { Dict, LocaleResolver } from "./typing";
-import { I18n } from "./I18n";
+import uniq from "lodash/uniq.js";
+import type { I18n } from "./I18n.js";
+import type { Dict, LocaleResolver } from "./typing.js";
 
 /**
  * The default locale resolver.
@@ -54,7 +53,7 @@ export const defaultLocaleResolver: LocaleResolver = (
   locales
     .filter(Boolean)
     .map((entry) => entry.toString())
-    .forEach(function (currentLocale: string) {
+    .forEach((currentLocale: string) => {
       if (!list.includes(currentLocale)) {
         list.push(currentLocale);
       }
@@ -140,7 +139,7 @@ export class Locales {
       locales = locales(this.i18n, locale);
     }
 
-    if (!(locales instanceof Array)) {
+    if (!Array.isArray(locales)) {
       locales = [locales];
     }
     return locales;

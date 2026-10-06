@@ -1,10 +1,10 @@
 import BigNumber from "bignumber.js";
 
-import { I18n } from "../I18n";
-import { Numeric, NumberToHumanSizeOptions } from "../typing";
-import { roundNumber } from "./roundNumber";
-import { expandRoundMode } from "./expandRoundMode";
-import { parseBigNumber } from "./parseBigNumber";
+import type { I18n } from "../I18n.js";
+import type { NumberToHumanSizeOptions, Numeric } from "../typing.js";
+import { expandRoundMode } from "./expandRoundMode.js";
+import { parseBigNumber } from "./parseBigNumber.js";
+import { roundNumber } from "./roundNumber.js";
 
 /**
  * Set default size units.
@@ -31,7 +31,7 @@ export function numberToHumanSize(
   const base = 1024;
   const num = parseBigNumber(input, options.raise).abs();
   const smallerThanBase = num.lt(base);
-  let numberToBeFormatted;
+  let numberToBeFormatted: BigNumber;
 
   const computeExponent = (numeric: BigNumber, units: string[]) => {
     const max = units.length - 1;

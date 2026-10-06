@@ -1,10 +1,27 @@
-/* eslint-disable class-methods-use-this, no-underscore-dangle */
-
-import get from "lodash/get";
-import has from "lodash/has";
-import merge from "lodash/merge";
-
+import get from "lodash/get.js";
+import has from "lodash/has.js";
+import merge from "lodash/merge.js";
 import {
+  camelCaseKeys,
+  createTranslationOptions,
+  formatNumber,
+  getFullScope,
+  inferType,
+  interpolate,
+  isSet,
+  lookup,
+  numberToDelimited,
+  numberToHuman,
+  numberToHumanSize,
+  parseDate,
+  pluralize,
+  strftime,
+  timeAgoInWords,
+} from "./helpers/index.js";
+import { Locales } from "./Locales.js";
+import { MissingTranslation } from "./MissingTranslation.js";
+import { Pluralization } from "./Pluralization.js";
+import type {
   DateTime,
   Dict,
   FormatNumberOptions,
@@ -24,27 +41,7 @@ import {
   TimeAgoInWordsOptions,
   ToSentenceOptions,
   TranslateOptions,
-} from "./typing";
-import { Locales } from "./Locales";
-import { Pluralization } from "./Pluralization";
-import { MissingTranslation } from "./MissingTranslation";
-import {
-  camelCaseKeys,
-  createTranslationOptions,
-  formatNumber,
-  getFullScope,
-  inferType,
-  interpolate,
-  isSet,
-  lookup,
-  numberToDelimited,
-  numberToHuman,
-  numberToHumanSize,
-  parseDate,
-  pluralize,
-  strftime,
-  timeAgoInWords,
-} from "./helpers";
+} from "./typing.js";
 
 // Walk/assign into a translation tree without ever reaching
 // `Object.prototype`. Using own-property checks means segments like
@@ -53,8 +50,8 @@ import {
 // `__proto__` a plain data key rather than triggering its setter. This lets
 // those words remain valid translation keys while closing the prototype
 // pollution vector in `update()`.
-function hasOwnProperty(object: object, key: string): boolean {
-  return Object.prototype.hasOwnProperty.call(object, key);
+function hasOwnKey(object: object, key: string): boolean {
+  return Object.hasOwn(object, key);
 }
 
 function defineOwnProperty(object: object, key: string, value: unknown): void {
@@ -409,7 +406,7 @@ export class I18n {
       });
     }
 
-    if (options && translation instanceof Array) {
+    if (options && Array.isArray(translation)) {
       translation = translation.map((entry) =>
         typeof entry === "string"
           ? interpolate(this, entry, options as TranslateOptions)
@@ -1278,7 +1275,6 @@ export class I18n {
    */
   public update(
     path: string,
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     override: any,
     options: { strict: boolean } = { strict: false },
   ): void {
@@ -1310,7 +1306,7 @@ export class I18n {
 
     for (const component of components) {
       if (
-        !hasOwnProperty(buffer, component) ||
+        !hasOwnKey(buffer, component) ||
         typeof buffer[component] !== "object" ||
         buffer[component] === null
       ) {
@@ -1493,7 +1489,9 @@ export class I18n {
    * @returns {void}
    */
   private runCallbacks(): void {
-    this.onChangeHandlers.forEach((callback) => callback(this));
+    this.onChangeHandlers.forEach((callback) => {
+      callback(this);
+    });
   }
 
   /**

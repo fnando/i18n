@@ -3,7 +3,7 @@ import { I18n } from "../src/I18n";
 const i18n = new I18n({});
 
 test("notifies when locale changes", () => {
-  const callback = jest.fn();
+  const callback = vi.fn();
   i18n.onChange(callback);
 
   i18n.locale = "en";
@@ -14,7 +14,7 @@ test("notifies when locale changes", () => {
 });
 
 test("notifies when default locale changes", () => {
-  const callback = jest.fn();
+  const callback = vi.fn();
   i18n.onChange(callback);
 
   i18n.defaultLocale = "en";
@@ -25,7 +25,7 @@ test("notifies when default locale changes", () => {
 });
 
 test("notifies when I18n#store is called", () => {
-  const callback = jest.fn();
+  const callback = vi.fn();
   i18n.onChange(callback);
 
   i18n.store({});
@@ -36,7 +36,7 @@ test("notifies when I18n#store is called", () => {
 });
 
 test("notifies when I18n#update is called", () => {
-  const callback = jest.fn();
+  const callback = vi.fn();
   i18n.onChange(callback);
 
   i18n.update("en.hello", "hello");
@@ -47,8 +47,8 @@ test("notifies when I18n#update is called", () => {
 });
 
 test("notifies multiple callbacks", () => {
-  const callback = jest.fn();
-  const anotherCallback = jest.fn();
+  const callback = vi.fn();
+  const anotherCallback = vi.fn();
 
   i18n.onChange(callback);
   i18n.onChange(anotherCallback);
@@ -114,8 +114,8 @@ test("updates change version", () => {
 test("unsubscribes from events", () => {
   i18n.locale = "en";
 
-  const callback = jest.fn();
-  const anotherCallback = jest.fn();
+  const callback = vi.fn();
+  const anotherCallback = vi.fn();
 
   const unsubscribe = i18n.onChange(callback);
   i18n.onChange(anotherCallback);

@@ -1,6 +1,6 @@
-import { Dict, Scope, TranslateOptions } from "../typing";
-import { I18n } from "../I18n";
-import { isSet } from "./isSet";
+import type { I18n } from "../I18n.js";
+import type { Dict, Scope, TranslateOptions } from "../typing.js";
+import { isSet } from "./isSet.js";
 
 /**
  * Generate a list of translation options for default fallback.

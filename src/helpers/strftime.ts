@@ -1,4 +1,4 @@
-import { StrftimeOptions } from "../typing";
+import type { StrftimeOptions } from "../typing.js";
 
 const DEFAULT_OPTIONS: StrftimeOptions = {
   meridian: { am: "AM", pm: "PM" },
@@ -106,7 +106,7 @@ export function strftime(
     utc,
   } = { ...DEFAULT_OPTIONS, ...options };
 
-  if (isNaN(date.getTime())) {
+  if (Number.isNaN(date.getTime())) {
     throw new Error(
       "strftime() requires a valid date object, but received an invalid date.",
     );
@@ -127,10 +127,10 @@ export function strftime(
   const timezoneoffset =
     (offset > 0 ? "-" : "+") +
     (absOffsetHours.toString().length < 2
-      ? "0" + absOffsetHours
+      ? `0${absOffsetHours}`
       : absOffsetHours) +
     (absOffsetMinutes.toString().length < 2
-      ? "0" + absOffsetMinutes
+      ? `0${absOffsetMinutes}`
       : absOffsetMinutes);
 
   if (hour12 > 12) {

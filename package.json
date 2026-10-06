@@ -7,59 +7,63 @@
   },
   "description": "A small library to provide I18n on JavaScript.",
   "devDependencies": {
+    "@arethetypeswrong/cli": "*",
+    "@biomejs/biome": "*",
     "@fnando/codestyle": "*",
-    "@fnando/eslint-config-codestyle": "*",
-    "@types/jest": "*",
     "@types/lodash": "*",
-    "@typescript-eslint/eslint-plugin": "*",
-    "@typescript-eslint/parser": "*",
+    "@vitest/coverage-v8": "*",
     "esbuild": "*",
-    "eslint": "^8.0",
-    "eslint-config-prettier": "*",
-    "eslint-plugin-import": "*",
-    "eslint-plugin-jest": "*",
-    "eslint-plugin-prettier": "*",
-    "jest": "*",
-    "jest-filename-transform": "*",
-    "jest-hud-reporter": "*",
-    "prettier": "*",
-    "ts-jest": "*",
-    "typedoc": "*",
-    "typescript": "^5.9",
-    "webpack": "*",
-    "webpack-cli": "*"
+    "typescript": "^7.0.2",
+    "vitest": "*"
   },
   "files": [
     "dist/**/*",
     "json/**/*",
-    "typings/**/*",
     "src/**/*"
   ],
   "license": "MIT",
+  "type": "commonjs",
+  "sideEffects": false,
   "main": "./dist/require/index.js",
   "module": "./dist/import/index.js",
+  "types": "./dist/require/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/import/index.d.ts",
+        "default": "./dist/import/index.js"
+      },
+      "require": {
+        "types": "./dist/require/index.d.ts",
+        "default": "./dist/require/index.js"
+      }
+    },
+    "./json/*.json": "./json/*.json",
+    "./package.json": "./package.json"
+  },
   "name": "i18n-js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fnando/i18n.git"
   },
   "scripts": {
-    "build": "npm run clean && npm run build:js && npm run docs",
-    "build:browser": "webpack --output-path ./dist/browser/ --output-filename index.js --mode production --entry ./dist/import/index.js --output-library-type var --output-library-name I18n --devtool source-map",
-    "build:import": "tsc --outDir ./dist/import --module ESNext && npm run build:lodash && npm run build:make-plural && npm run build:bignumber",
-    "build:lodash": "esbuild --bundle src/lodash.ts --outfile=dist/import/lodash.js",
-    "build:make-plural": "cp node_modules/make-plural/plurals.mjs dist/import/make-plural.js",
-    "build:bignumber": "cp node_modules/bignumber.js/dist/bignumber.mjs dist/import/bignumber.js",
+    "build": "npm run clean && npm run build:js",
+    "build:browser": "esbuild src/index.ts --bundle --format=iife --global-name=I18n --minify --sourcemap --outfile=dist/browser/index.js",
+    "build:import": "tsc --outDir ./dist/import --module ESNext && npm run build:import:pkg",
+    "build:import:pkg": "node -e \"require('fs').writeFileSync('dist/import/package.json', JSON.stringify({ type: 'module' }, null, 2) + '\\n')\"",
     "build:js": "npm run build:import && npm run build:require && npm run build:browser",
     "build:require": "tsc --outDir ./dist/require --module commonjs",
+    "check:exports": "attw --pack .",
     "clean": "rm -rf ./dist",
-    "docs": "./bin/docs",
-    "lint": "npm run lint:typescript && npm run lint:eslint",
-    "lint:eslint": "eslint --config .eslintrc.js --max-warnings 0 'src/**/*'",
+    "lint": "npm run lint:typescript && npm run lint:biome",
+    "lint:biome": "biome check src",
     "lint:typescript": "tsc --noEmit",
-    "test": "jest --watch --coverage",
-    "test:ci": "jest --ci --coverage --verbose && npm run lint"
+    "sample": "npm run build:js && npm run sample:esm && npm run sample:cjs && npm run sample:browser",
+    "sample:browser": "node sample/browser/validate.mjs",
+    "sample:cjs": "node sample/cjs/index.cjs",
+    "sample:esm": "node sample/esm/index.mjs",
+    "test": "vitest --coverage",
+    "test:ci": "vitest run --coverage && npm run lint && npm run build && npm run check:exports"
   },
-  "typings": "./typings",
   "version": "4.5.4"
 }

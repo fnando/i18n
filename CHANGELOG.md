@@ -14,6 +14,20 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+- [Changed] The ESM build (`dist/import`) now uses fully-specified `.js` import
+  specifiers and ships with `"type": "module"`, so it can be loaded directly by
+  Node's native ESM loader instead of requiring a bundler.
+- [Added] Add a proper `exports` map with `import`/`require` conditions and
+  per-condition type declarations. ESM and CommonJS declarations are now shipped
+  separately, so the types match the implementation in both module systems
+  (verified with `@arethetypeswrong/cli`).
+- [Changed] Upgrade `bignumber.js` to v11.
+- [Removed] Remove the internal `lodash` and `make-plural` re-export modules;
+  the published package no longer ships vendored `lodash.js`, `make-plural.js`,
+  and `bignumber.js` copies. These were never part of the documented API.
+
 ## v4.5.4 - Oct 6, 2026
 
 - [Security] Fix prototype pollution in `I18n#update`

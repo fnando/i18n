@@ -1,10 +1,10 @@
-import { I18n } from "../I18n";
-import { Pluralizer } from "../typing";
+import type { I18n } from "../I18n.js";
+import type { Pluralizer } from "../typing.js";
 
 export const ru: Pluralizer = (_i18n: I18n, count: number) => {
   const mod10 = count % 10;
   const mod100 = count % 100;
-  let key;
+  let key: string;
 
   const one = mod10 === 1 && mod100 !== 11;
   const few = [2, 3, 4].includes(mod10) && ![12, 13, 14].includes(mod100);
