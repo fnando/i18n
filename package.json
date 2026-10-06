@@ -46,7 +46,7 @@
     "url": "git+https://github.com/fnando/i18n.git"
   },
   "scripts": {
-    "build": "npm run clean && npm run build:js",
+    "build": "npm run clean && npm run build:js && npm run docs",
     "build:browser": "esbuild src/index.ts --bundle --format=iife --global-name=I18n --minify --sourcemap --outfile=dist/browser/index.js",
     "build:import": "tsc --outDir ./dist/import --module ESNext && npm run build:import:pkg",
     "build:import:pkg": "node -e \"require('fs').writeFileSync('dist/import/package.json', JSON.stringify({ type: 'module' }, null, 2) + '\\n')\"",
@@ -59,12 +59,12 @@
     "lint:biome": "biome check src",
     "lint:typescript": "tsc --noEmit",
     "test": "vitest --coverage",
-    "test:ci": "vitest run --coverage && npm run lint && npm run build && npm run check:exports && npm run test:integration && npm run test:integration:react-native",
+    "test:ci": "vitest run --coverage && npm run lint && npm run build:js && npm run check:exports && npm run test:integration && npm run test:integration:react-native",
     "test:integration": "npm run test:integration:esm && npm run test:integration:cjs && npm run test:integration:browser",
     "test:integration:browser": "node integration/browser/validate.mjs",
     "test:integration:cjs": "node integration/cjs/index.cjs",
     "test:integration:esm": "node integration/esm/index.mjs",
     "test:integration:react-native": "npm --prefix integration/react-native-0.79 run validate && npm --prefix integration/react-native-0.87 run validate"
   },
-  "version": "4.5.4"
+  "version": "5.0.0-alpha.0"
 }

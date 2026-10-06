@@ -14,7 +14,7 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## v5.0.0-alpha.0 - Oct 6, 2026
 
 - [Changed] The ESM build (`dist/import`) now uses fully-specified `.js` import
   specifiers and ships with `"type": "module"`, so it can be loaded directly by
