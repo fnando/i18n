@@ -1,7 +1,7 @@
 // Validates the browser build (dist/browser) without a real browser by running
 // the bundle inside a VM context, the same way a <script> tag would expose its
-// `var I18n` global. For an in-browser check, open sample/browser/index.html.
-// Run with: node sample/browser/validate.mjs
+// `var I18n` global. For an in-browser check, open integration/browser/index.html.
+// Run with: node integration/browser/validate.mjs
 import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";

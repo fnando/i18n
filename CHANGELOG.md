@@ -23,6 +23,12 @@ project adheres to [Semantic Versioning](http://semver.org/).
   per-condition type declarations. ESM and CommonJS declarations are now shipped
   separately, so the types match the implementation in both module systems
   (verified with `@arethetypeswrong/cli`).
+- [Changed] Resolving i18n-js now relies on the package `exports` map, so your
+  bundler must support it. On React Native this means **React Native 0.79 or
+  newer**, where Metro enables package `exports` by default; older setups can
+  opt in with `resolver.unstable_enablePackageExports`. This fixes the
+  `numberToCurrency` `TypeError` caused by `bignumber.js`'s browser build
+  ([#126](https://github.com/fnando/i18n/issues/126)).
 - [Changed] Replace `lodash` with [`es-toolkit`](https://es-toolkit.dev)
   (via `es-toolkit/compat`) for a smaller footprint and better tree-shaking. It
   ships both ESM and CommonJS, so it works in both module systems.

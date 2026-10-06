@@ -57,12 +57,13 @@
     "lint": "npm run lint:typescript && npm run lint:biome",
     "lint:biome": "biome check src",
     "lint:typescript": "tsc --noEmit",
-    "sample": "npm run build:js && npm run sample:esm && npm run sample:cjs && npm run sample:browser",
-    "sample:browser": "node sample/browser/validate.mjs",
-    "sample:cjs": "node sample/cjs/index.cjs",
-    "sample:esm": "node sample/esm/index.mjs",
     "test": "vitest --coverage",
-    "test:ci": "vitest run --coverage && npm run lint && npm run build && npm run check:exports"
+    "test:ci": "vitest run --coverage && npm run lint && npm run build && npm run check:exports && npm run test:integration && npm run test:integration:react-native",
+    "test:integration": "npm run test:integration:esm && npm run test:integration:cjs && npm run test:integration:browser",
+    "test:integration:browser": "node integration/browser/validate.mjs",
+    "test:integration:cjs": "node integration/cjs/index.cjs",
+    "test:integration:esm": "node integration/esm/index.mjs",
+    "test:integration:react-native": "npm --prefix integration/react-native-0.79 run validate && npm --prefix integration/react-native-0.87 run validate"
   },
   "version": "4.5.4"
 }

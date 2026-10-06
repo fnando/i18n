@@ -1054,6 +1054,30 @@ module.exports = (async () => {
 })();
 ```
 
+### `numberToCurrency` (or any number helper) throws `TypeError: ... is not a function` on React Native
+
+i18n-js v5 relies on the package
+[`exports`](https://nodejs.org/api/packages.html#package-entry-points) map to
+resolve its dependencies. Its `bignumber.js` dependency also ships a legacy
+`"browser"` build (an IIFE) that installs itself on `globalThis` instead of
+exporting the constructor. Bundlers that ignore the `exports` map and fall back
+to the `"browser"` field — notably **Metro with package `exports` disabled**,
+which was the default before **React Native 0.79** — load that build, so the
+import is empty and calling it throws.
+
+Use React Native **0.79 or newer**, where Metro resolves package `exports` by
+default. On an older setup you can opt in explicitly:
+
+```js
+// metro.config.js
+const { getDefaultConfig } = require("@react-native/metro-config");
+
+const config = getDefaultConfig(__dirname);
+config.resolver.unstable_enablePackageExports = true;
+
+module.exports = config;
+```
+
 ### I'm getting an error like `SyntaxError: Unexpected end of JSON input` or `Uncaught SyntaxError: Unexpected token ;`
 
 You may get such error if you're trying to load empty JSON files with

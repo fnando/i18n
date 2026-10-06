@@ -1,0 +1,19 @@
+{
+  "name": "i18n-js-rn-0.79-sample",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Metro/React Native 0.79 (minimum supported) harness that bundles i18n-js the way a real RN app would. React Native 0.79 is the first release where Metro enables package exports by default, which is what i18n-js v5 relies on. See issue #126.",
+  "scripts": {
+    "validate": "node validate.mjs"
+  },
+  "dependencies": {
+    "i18n-js": "file:../..",
+    "react": "19.3.0",
+    "react-native": "0.79.7"
+  },
+  "devDependencies": {
+    "@react-native/babel-preset": "0.79.7",
+    "@react-native/metro-config": "0.79.7",
+    "metro": "^0.82.0"
+  }
+}
