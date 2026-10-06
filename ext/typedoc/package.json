@@ -1,0 +1,10 @@
+{
+  "name": "i18n-js-docs-tool",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Isolated typedoc + TypeScript 6 for generating the API docs. The main project builds with TypeScript 7, which typedoc does not support yet (https://github.com/TypeStrong/typedoc/issues/3098), so docs are generated with its own dependencies here.",
+  "dependencies": {
+    "typedoc": "^0.28.20",
+    "typescript": "~6.0.0"
+  }
+}

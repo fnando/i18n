@@ -2,5 +2,19 @@
 
 set -e
 
-typedoc src
-cat ext/typedoc.css | tee -a docs/v$(cat package.json | jq -r '.version')/assets/style.css &> /dev/null && ruby ext/typedoc.rb
+root="$(cd "$(dirname "$0")/.." && pwd)"
+version="$(node -p "require('${root}/package.json').version")"
+out="${root}/docs/v${version}"
+
+# typedoc does not support the project's TypeScript 7 yet
+# (https://github.com/TypeStrong/typedoc/issues/3098), so run the isolated
+# typedoc + TypeScript 6 install in ext/typedoc against the project's sources.
+"${root}/ext/typedoc/node_modules/.bin/typedoc" \
+  --tsconfig "${root}/tsconfig.json" \
+  --entryPointStrategy expand \
+  --treatWarningsAsErrors \
+  --out "${out}" \
+  "${root}/src"
+
+cat "${root}/ext/typedoc.css" >> "${out}/assets/style.css"
+ruby "${root}/ext/typedoc.rb"

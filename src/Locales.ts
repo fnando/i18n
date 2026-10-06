@@ -74,10 +74,18 @@ export const defaultLocaleResolver: LocaleResolver = (
   return uniq(list);
 };
 
+/**
+ * The registry of locale resolvers. Each {@link I18n} instance exposes one as
+ * `i18n.locales`; it maps a locale to the ordered list of locales translations
+ * are looked up in (the fallback chain).
+ */
 export class Locales {
   private i18n: I18n;
   private registry: Dict;
 
+  /**
+   * @param i18n The `I18n` instance this registry belongs to.
+   */
   constructor(i18n: I18n) {
     this.i18n = i18n;
     this.registry = {};

@@ -215,6 +215,23 @@ export class I18n {
    */
   public interpolate: typeof interpolate;
 
+  /**
+   * Create a new `I18n` instance.
+   *
+   * @param translations The initial translation store, keyed by locale.
+   *
+   * @param options Instance options. See {@link I18nOptions}.
+   *
+   * @example
+   * ```js
+   * import { I18n } from "i18n-js";
+   *
+   * const i18n = new I18n(
+   *   { en: { hello: "Hi!" } },
+   *   { locale: "en", enableFallback: true },
+   * );
+   * ```
+   */
   constructor(translations: Dict = {}, options: Partial<I18nOptions> = {}) {
     const {
       locale,
@@ -355,6 +372,12 @@ export class I18n {
    * defined.
    *
    * @returns {T | string} The translated string.
+   *
+   * @example
+   * ```js
+   * i18n.t("hello", { name: "Nando" });
+   * //=> "Hello, Nando!"
+   * ```
    */
   public translate<T = string>(
     scope: Scope,
@@ -432,6 +455,13 @@ export class I18n {
    * @param {TranslateOptions} options The translation options.
    *
    * @returns {string} The translated string.
+   *
+   * @example
+   * ```js
+   * // en: { inbox: { one: "1 message", other: "%{count} messages" } }
+   * i18n.pluralize(5, "inbox");
+   * //=> "5 messages"
+   * ```
    */
   public pluralize(
     count: number,
@@ -470,6 +500,15 @@ export class I18n {
    * @param {Dict} options The localization options.
    *
    * @returns {string} The localized string.
+   *
+   * @example
+   * ```js
+   * i18n.localize("currency", 1234.56);
+   * //=> "$1,234.56"
+   *
+   * i18n.localize("date.short", new Date(2024, 0, 2));
+   * //=> "Jan 2"
+   * ```
    */
   public localize(
     type: string,
@@ -634,6 +673,15 @@ export class I18n {
    * values like `NaN` and infinite values.
    *
    * @returns {string} The formatted number.
+   *
+   * @example
+   * ```js
+   * i18n.numberToCurrency(1234.56);
+   * //=> "$1,234.56"
+   *
+   * i18n.numberToCurrency(1234.56, { unit: "€", format: "%n%u" });
+   * //=> "1,234.56€"
+   * ```
    */
   public numberToCurrency(
     input: Numeric,
@@ -684,7 +732,10 @@ export class I18n {
    * i18n.numberToPercentage(100, { format: "%n  %" });
    * // => "100.000  %"
    *
-   * i18n.numberToPercentage(302.24398923423, { precision: 5, roundMode: "down" });
+   * i18n.numberToPercentage(302.24398923423, {
+   *   precision: 5,
+   *   roundMode: "down",
+   * });
    * // => "302.24398%"
    * ```
    *
@@ -895,8 +946,8 @@ export class I18n {
    * // => "12.345 Billion"
    * ```
    *
-   * Non-significant zeros after the decimal separator are stripped out by default
-   * (set `stripInsignificantZeros` to `false` to change that):
+   * Non-significant zeros after the decimal separator are stripped out by
+   * default (set `stripInsignificantZeros` to `false` to change that):
    *
    * ```js
    * i18n.numberToHuman(12.00001);

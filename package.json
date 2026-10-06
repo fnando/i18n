@@ -54,6 +54,7 @@
     "build:require": "tsc --outDir ./dist/require --module commonjs",
     "check:exports": "attw --pack .",
     "clean": "rm -rf ./dist",
+    "docs": "npm --prefix ext/typedoc install --no-audit --no-fund && ./bin/docs",
     "lint": "npm run lint:typescript && npm run lint:biome",
     "lint:biome": "biome check src",
     "lint:typescript": "tsc --noEmit",

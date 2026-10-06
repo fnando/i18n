@@ -3,7 +3,8 @@ import type { I18n } from "./I18n.js";
 import type { Dict, MakePlural, Pluralizer } from "./typing.js";
 
 /**
- * Creates a new pluralizer function based on [make-plural](https://github.com/eemeli/make-plural/tree/master/packages/plurals).
+ * Creates a new pluralizer function based on
+ * [make-plural](https://github.com/eemeli/make-plural).
  *
  * @param options The options object.
  * @param options.pluralizer The make-plural function that will be wrapped.
@@ -95,6 +96,9 @@ export class Pluralization {
   private i18n: I18n;
   private registry: Dict;
 
+  /**
+   * @param i18n The `I18n` instance this registry belongs to.
+   */
   constructor(i18n: I18n) {
     this.i18n = i18n;
     this.registry = {};

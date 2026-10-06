@@ -94,10 +94,19 @@ export const errorStrategy: MissingTranslationStrategy = (
   throw new Error(`Missing translation: ${fullScopeWithLocale}`);
 };
 
+/**
+ * The registry of missing-translation strategies. Each {@link I18n} instance
+ * exposes one as `i18n.missingTranslation`; it decides what is rendered (or
+ * thrown) when a translation cannot be found, based on the instance's
+ * `missingBehavior`.
+ */
 export class MissingTranslation {
   private i18n: I18n;
   private registry: Dict;
 
+  /**
+   * @param i18n The `I18n` instance this registry belongs to.
+   */
   constructor(i18n: I18n) {
     this.i18n = i18n;
     this.registry = {};
