@@ -14,6 +14,14 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+- [Added] Add `I18n#resolvedLocale` getter that reports the locale actually in
+  use. When fallback is enabled, `I18n#locale` still reflects the requested
+  locale even if translations are served from a fallback; `resolvedLocale` walks
+  the same fallback chain as translation lookups and returns the first locale
+  that has translations loaded ([#129](https://github.com/fnando/i18n/pull/129)).
+
 ## v5.0.0-alpha.0 - Oct 6, 2026
 
 - [Changed] The ESM build (`dist/import`) now uses fully-specified `.js` import
