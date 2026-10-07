@@ -37,7 +37,7 @@ jobs:
       - name: Install npm dependencies
         run: |
           npm ci
-          npm run build
+          npm run build:js
           (cd integration/react-native-0.79 && npm install --no-audit --no-fund)
           (cd integration/react-native-0.87 && npm install --no-audit --no-fund)
 
