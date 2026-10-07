@@ -66,5 +66,5 @@
     "test:integration:esm": "node integration/esm/index.mjs",
     "test:integration:react-native": "npm --prefix integration/react-native-0.79 run validate && npm --prefix integration/react-native-0.87 run validate"
   },
-  "version": "5.0.0-alpha.0"
+  "version": "5.0.0-alpha.1"
 }

@@ -14,7 +14,7 @@ Prefix your message with one of the following:
 All notable changes to this project will be documented in this file. This
 project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## v5.0.0-alpha.1 - Oct 7, 2026
 
 - [Added] Add `I18n#resolvedLocale` getter that reports the locale actually in
   use. When fallback is enabled, `I18n#locale` still reflects the requested
