@@ -167,3 +167,44 @@ test("pluralizes using the correct scope if translation is found within default 
   expect(i18n.translations.en.mailbox).toBeUndefined();
   expect(actual).toEqual("You have 1 message");
 });
+
+test("falls back to the default locale when the plural key is unset", () => {
+  const i18n = new I18n(
+    {
+      en: {
+        labels: {
+          name: "Name",
+          total: { one: "%{count} name", other: "%{count} names" },
+        },
+      },
+      ru: {
+        labels: {
+          name: "Имя",
+          total: { one: undefined, other: undefined },
+        },
+      },
+    },
+    { enableFallback: true },
+  );
+
+  expect(i18n.t("labels.total", { count: 1, locale: "ru" })).toEqual("1 name");
+  expect(i18n.t("labels.total", { count: 5, locale: "ru" })).toEqual("5 names");
+});
+
+test("does not fall back to the default locale when fallback is disabled", () => {
+  const i18n = new I18n(
+    {
+      en: {
+        labels: { total: { one: "%{count} name", other: "%{count} names" } },
+      },
+      ru: {
+        labels: { total: { one: undefined, other: undefined } },
+      },
+    },
+    { enableFallback: false },
+  );
+
+  expect(i18n.t("labels.total", { count: 5, locale: "ru" })).toEqual(
+    '[missing "ru.labels.total.other" translation]',
+  );
+});
