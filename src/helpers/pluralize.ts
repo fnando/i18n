@@ -51,8 +51,19 @@ export function pluralize({
   while (keys.length) {
     const key = keys.shift() as string;
 
-    if (isSet(translations[key])) {
-      message = translations[key];
+    // Prefer the resolved object; otherwise fall back through the locale chain
+    // for this specific plural key, so `enableFallback` still applies when the
+    // requested locale defines the plural object but leaves the key unset.
+    const value = isSet(translations[key])
+      ? translations[key]
+      : lookup(
+          i18n,
+          baseScope.split(i18n.defaultSeparator).concat([key]),
+          options,
+        );
+
+    if (isSet(value)) {
+      message = value;
       break;
     }
 

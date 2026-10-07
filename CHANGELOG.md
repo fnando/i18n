@@ -21,6 +21,10 @@ project adheres to [Semantic Versioning](http://semver.org/).
   locale even if translations are served from a fallback; `resolvedLocale` walks
   the same fallback chain as translation lookups and returns the first locale
   that has translations loaded ([#129](https://github.com/fnando/i18n/pull/129)).
+- [Fixed] Pluralization now respects `enableFallback`. When the requested locale
+  defines a plural object but leaves the needed key unset (e.g.
+  `{other: undefined}`), the plural key is resolved through the locale fallback
+  chain instead of reporting a missing translation.
 
 ## v5.0.0-alpha.0 - Oct 6, 2026
 
