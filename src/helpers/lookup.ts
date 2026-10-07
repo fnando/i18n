@@ -1,8 +1,8 @@
 import type { I18n } from "../I18n.js";
 import type { Dict, Scope } from "../typing.js";
 import { getFullScope } from "./getFullScope.js";
-import { inferType } from "./inferType.js";
 import { isSet } from "./isSet.js";
+import { localeChain } from "./localeChain.js";
 
 /**
  * Find and process the translation using the provided scope and options.
@@ -23,11 +23,7 @@ export function lookup(i18n: I18n, scope: Scope, options: Dict = {}): any {
   options = { ...options };
 
   const locale = "locale" in options ? options.locale : i18n.locale;
-  const localeType = inferType(locale);
-
-  const locales = i18n.locales
-    .get(localeType === "string" ? locale : typeof locale)
-    .slice();
+  const locales = localeChain(i18n, locale);
 
   const keys = getFullScope(i18n, scope, options)
     .split(i18n.defaultSeparator)

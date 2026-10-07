@@ -6,6 +6,7 @@ export { getFullScope } from "./getFullScope.js";
 export { inferType } from "./inferType.js";
 export { interpolate } from "./interpolate.js";
 export { isSet } from "./isSet.js";
+export { localeChain } from "./localeChain.js";
 export { lookup } from "./lookup.js";
 export { numberToDelimited } from "./numberToDelimited.js";
 export { numberToHuman } from "./numberToHuman.js";

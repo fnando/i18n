@@ -274,6 +274,29 @@ handler must be registered using `i18n.locales.register()`.
 i18n.locales.register("no", ["nb", "en"]);
 ```
 
+When fallback is enabled, `I18n#locale` still reflects the locale you requested,
+even if the translations are actually served from a fallback. Use
+`I18n#resolvedLocale` to find out which locale is actually being used. It walks
+the same fallback chain as translation lookups and returns the first locale that
+has translations loaded.
+
+```js
+const i18n = new I18n(
+  { en: translations.en, de: translations.de },
+  { locale: "cs", defaultLocale: "en", enableFallback: true },
+);
+
+i18n.locale; //=> "cs"
+i18n.resolvedLocale; //=> "en"
+
+// Region/script codes resolve to their base locale too.
+i18n.locale = "de-DE";
+i18n.resolvedLocale; //=> "de"
+```
+
+If no locale in the chain has translations loaded, the current locale is
+returned.
+
 By default a missing translation will be displayed as
 `[missing "name of scope" translation]`. You can override this behavior by
 setting `i18n.missingBehavior` to `"guess"`.

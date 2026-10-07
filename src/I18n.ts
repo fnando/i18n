@@ -7,6 +7,7 @@ import {
   inferType,
   interpolate,
   isSet,
+  localeChain,
   lookup,
   numberToDelimited,
   numberToHuman,
@@ -312,6 +313,31 @@ export class I18n {
     if (changed) {
       this.hasChanged();
     }
+  }
+
+  /**
+   * Return the locale that is actually used to resolve translations, given the
+   * current locale and its fallback chain.
+   *
+   * This walks the same locale chain as translation lookups (honoring
+   * `enableFallback`, region/script codes, and custom resolvers) and returns
+   * the first locale that has translations loaded. For example, if the current
+   * locale is `cs`, `enableFallback` is `true` and the default locale is `en`,
+   * but only `en` translations are loaded, this returns `"en"`. Region/script
+   * codes resolve to their base locale too (e.g. `de-DE` resolves to `de` when
+   * only `de` is loaded).
+   *
+   * If no locale in the chain has translations loaded, the current locale is
+   * returned.
+   *
+   * @returns {string} The resolved locale.
+   */
+  public get resolvedLocale(): string {
+    return (
+      localeChain(this, this.locale).find((locale) =>
+        isSet(this.translations[locale]),
+      ) ?? this.locale
+    );
   }
 
   /**
