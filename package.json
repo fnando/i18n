@@ -3,7 +3,7 @@
   "dependencies": {
     "bignumber.js": "^11.1.5",
     "es-toolkit": "^1.52.0",
-    "make-plural": "^7.5.0"
+    "make-plural": "^8.1.0"
   },
   "description": "A small library to provide I18n on JavaScript.",
   "devDependencies": {
