@@ -30,7 +30,7 @@ jobs:
           key: >
             ${{ runner.os }}-${{ matrix.node }}-npm-${{ hashFiles('package-lock.json') }}
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node }}
 
